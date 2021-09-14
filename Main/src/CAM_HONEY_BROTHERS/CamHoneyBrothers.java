@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package CAM_HONEY_BROTHERS;
 
 /**
  *
  * @author Caco
  */
-public class Main {
+public class CamHoneyBrothers {
 
     /**
      * @param args the command line arguments
