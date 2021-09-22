@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2021 a las 18:35:56
+-- Tiempo de generación: 23-09-2021 a las 00:16:30
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pintureriamoreno`
+-- Base de datos: `camhoneybrothers`
 --
-CREATE DATABASE IF NOT EXISTS `pintureriamoreno` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `pintureriamoreno`;
+CREATE DATABASE IF NOT EXISTS `camhoneybrothers` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `camhoneybrothers`;
 
 -- --------------------------------------------------------
 
