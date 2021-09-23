@@ -228,37 +228,13 @@ public class FrmLogin extends javax.swing.JFrame {
                             form.lbNombre.setText(login.nombre);
                             form.lbTipo.setText(login.tipo);
                             form.txtCod_usuario.setText(String.valueOf(login.cod_usuario));
-                            if(!new Apertura().isCajaAbierta()){
-                                FrmPrincipal.menuVentas.setEnabled(false);
-                                FrmPrincipal.menuPlanilla.setEnabled(false);
-                                FrmPrincipal.menuReparaciones.setEnabled(false);
-                                FrmPrincipal.menuCtaCte.setEnabled(false);
-                                FrmPrincipal.menuItemCierre.setEnabled(false);
-                                FrmPrincipal.menuItemApertura.setEnabled(true);
-                            }
-                            else{
-                                FrmPrincipal.menuVentas.setEnabled(true);
-                                FrmPrincipal.menuPlanilla.setEnabled(true);
-                                FrmPrincipal.menuReparaciones.setEnabled(true);
-                                FrmPrincipal.menuCtaCte.setEnabled(true);
-                                FrmPrincipal.menuItemCierre.setEnabled(true);
-                                FrmPrincipal.menuItemApertura.setEnabled(false);
-                            }
                             FrmLogin.this.dispose();
                             break;
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Su usuario y/o contraseña son incorrectos");
+                            JOptionPane.showMessageDialog(null, "El usuario y/o contraseña son incorrectos");
                             break;
 
                     }
-//                    if (login.verificarUsuario(txtUsuario.getText(), txtPassword.getText()) == 0) {
-//                        JOptionPane.showMessageDialog(null, "Error en la base de datos");
-//                    } else if (login.verificarUsuario(txtUsuario.getText(), txtPassword.getText()) == 1) {
-//                        JOptionPane.showMessageDialog(null, "Su usuario y contraseña son correctos");
-//                    } else if (login.verificarUsuario(txtUsuario.getText(), txtPassword.getText()) == 2) {
-//
-//                        JOptionPane.showMessageDialog(null, "Su usuario y/o contraseña son incorrectos");
-//                    }
                 } catch (Exception e) {
                 }
             }

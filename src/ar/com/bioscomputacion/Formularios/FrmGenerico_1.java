@@ -9,12 +9,12 @@ package ar.com.bioscomputacion.Formularios;
  *
  * @author Caco
  */
-public class FrmGenerico extends javax.swing.JInternalFrame {
+public class FrmGenerico_1 extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmGenerico
      */
-    public FrmGenerico() {
+    public FrmGenerico_1() {
         initComponents();
     }
 
