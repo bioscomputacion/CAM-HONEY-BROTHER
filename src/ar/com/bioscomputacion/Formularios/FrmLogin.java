@@ -99,14 +99,14 @@ public class FrmLogin extends javax.swing.JFrame {
         rSPanelShadow1.add(p_cargando, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/logo_login.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/Logo_login.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
         });
-        rSPanelShadow1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 35, 418, 220));
+        rSPanelShadow1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 35, 410, 220));
 
         jLabel2.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,7 +187,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         try {
-            Desktop.getDesktop().browse(new URI("https://www.facebook.com/Moreno-Pinturer%C3%ADa-2628415463851178/"));
+            Desktop.getDesktop().browse(new URI("https://camhoneybrothers.com/"));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jLabel1MouseClicked
