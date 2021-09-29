@@ -195,12 +195,12 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
 
         if (txtUsuario.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null, "Ingrese el usuario");
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre de usuario.");
             txtUsuario.requestFocus();
             return;
         }
         if (txtPassword.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null, "Ingrese la contraseña");
+            JOptionPane.showMessageDialog(null, "Ingrese la contraseña.");
             txtPassword.requestFocus();
             return;
         }
@@ -220,7 +220,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     btnIniciar.setEnabled(true);
                     switch (login.verificarUsuario(txtUsuario.getText(), txtPassword.getText())) {
                         case 0:
-                            JOptionPane.showMessageDialog(null, "Error en la base de datos");
+                            JOptionPane.showMessageDialog(null, "Error en la base de datos.");
                             break;
                         case 1:
                             FrmPrincipal form = new FrmPrincipal();
@@ -231,7 +231,7 @@ public class FrmLogin extends javax.swing.JFrame {
                             FrmLogin.this.dispose();
                             break;
                         case 2:
-                            JOptionPane.showMessageDialog(null, "El usuario y/o contraseña son incorrectos");
+                            JOptionPane.showMessageDialog(null, "El usuario y/o contraseña ingresados son incorrectos.");
                             break;
 
                     }

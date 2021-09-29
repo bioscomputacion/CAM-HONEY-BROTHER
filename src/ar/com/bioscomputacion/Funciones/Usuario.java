@@ -24,8 +24,8 @@ public class Usuario extends Persona {
     public Usuario() {
     }
 
-    public Usuario(String usuario, String contraseña, String estado, String acceso, String nombre, String direccion, String telefono, String email, String dni) {
-        super(nombre, direccion, telefono, email, dni);
+    public Usuario(String usuario, String contraseña, String estado, String acceso, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
+        super(nombre, documento, pais, estado_provincia, localidad, domicilio, telefono, correo);
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.estado = estado;
@@ -86,10 +86,10 @@ public class Usuario extends Persona {
             
             
             pst.setString(1, usuario.getNombre());
-            pst.setString(2, usuario.getDni());
-            pst.setString(3, usuario.getDireccion());
+            pst.setString(2, usuario.getDocumento());
+            pst.setString(3, usuario.getDomicilio());
             pst.setString(4, usuario.getTelefono());
-            pst.setString(5, usuario.getEmail());
+            pst.setString(5, usuario.getCorreo());
             
             pst2.setString(1, usuario.getUsuario());
             pst2.setString(2, usuario.getContraseña());

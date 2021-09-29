@@ -11,20 +11,26 @@ package ar.com.bioscomputacion.Funciones;
  */
 public class Persona {
     private String nombre;
-    private String direccion;
+    private String documento;
+    private String pais;
+    private String estado_provincia;
+    private String localidad;
+    private String domicilio;
     private String telefono;
-    private String email;
-    private String dni;
+    private String correo;
 
     public Persona() {
     }
 
-    public Persona(String nombre, String direccion, String telefono, String email, String dni) {
+    public Persona(String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
         this.nombre = nombre;
-        this.direccion = direccion;
+        this.documento = documento;
+        this.pais = pais;
+        this.estado_provincia = estado_provincia;
+        this.localidad = localidad;
+        this.domicilio = domicilio;
         this.telefono = telefono;
-        this.email = email;
-        this.dni = dni;
+        this.correo = correo;
     }
     
 
@@ -36,12 +42,45 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getEstado_provincia() {
+        return estado_provincia;
+    }
+
+    public void setEstado_provincia(String estado_provincia) {
+        this.estado_provincia = estado_provincia;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.documento = domicilio;
     }
 
     public String getTelefono() {
@@ -52,26 +91,17 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", dni=" + dni + '}';
+        return "Persona{" + "nombre=" + nombre + ", documento=" + documento + ", pais=" + pais + ", estado_provincia=" + estado_provincia + ", localidad=" + localidad + ", domicilio " + domicilio + ", telefono" + telefono + ", correo" +  '}';
     }
-    
     
 }

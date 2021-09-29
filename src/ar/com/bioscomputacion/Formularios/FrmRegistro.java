@@ -47,13 +47,13 @@ public class FrmRegistro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtDireccion = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
-        txtDNI = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
-        txtContraseña = new javax.swing.JTextField();
+        tfNombre = new javax.swing.JTextField();
+        tfDomicilio = new javax.swing.JTextField();
+        tfTelefono = new javax.swing.JTextField();
+        tfCorreo = new javax.swing.JTextField();
+        tfDocumento = new javax.swing.JTextField();
+        tfUsuario = new javax.swing.JTextField();
+        tfContraseña = new javax.swing.JTextField();
         btnIniciar = new rojeru_san.RSButtonRiple();
         btnIniciar1 = new rojeru_san.RSButtonRiple();
 
@@ -72,31 +72,31 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("NOMBRE:");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Direccion:");
+        jLabel3.setText("DOMICILIO:");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Telefono:");
+        jLabel4.setText("TELEFONO:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Email:");
+        jLabel5.setText("CORREO:");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("DNI:");
+        jLabel6.setText("DOCUMENTO:");
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Usuario:");
+        jLabel7.setText("USUARIO:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Contraseña:");
+        jLabel8.setText("CONTRASEÑA:");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/Logo_login.png"))); // NOI18N
@@ -107,42 +107,42 @@ public class FrmRegistro extends javax.swing.JFrame {
             }
         });
 
-        txtNombre.setBackground(new java.awt.Color(0, 58, 146));
-        txtNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        tfNombre.setBackground(new java.awt.Color(0, 58, 146));
+        tfNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfNombre.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtDireccion.setBackground(new java.awt.Color(0, 58, 146));
-        txtDireccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        tfDomicilio.setBackground(new java.awt.Color(0, 58, 146));
+        tfDomicilio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfDomicilio.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtTelefono.setBackground(new java.awt.Color(0, 58, 146));
-        txtTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
+        tfTelefono.setBackground(new java.awt.Color(0, 58, 146));
+        tfTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTelefono.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtEmail.setBackground(new java.awt.Color(0, 58, 146));
-        txtEmail.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtEmail.setForeground(new java.awt.Color(255, 255, 255));
+        tfCorreo.setBackground(new java.awt.Color(0, 58, 146));
+        tfCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfCorreo.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtDNI.setBackground(new java.awt.Color(0, 58, 146));
-        txtDNI.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtDNI.setForeground(new java.awt.Color(255, 255, 255));
+        tfDocumento.setBackground(new java.awt.Color(0, 58, 146));
+        tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtUsuario.setBackground(new java.awt.Color(0, 58, 146));
-        txtUsuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        tfUsuario.setBackground(new java.awt.Color(0, 58, 146));
+        tfUsuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfUsuario.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtContraseña.setBackground(new java.awt.Color(0, 58, 146));
-        txtContraseña.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
+        tfContraseña.setBackground(new java.awt.Color(0, 58, 146));
+        tfContraseña.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfContraseña.setForeground(new java.awt.Color(255, 255, 255));
 
-        btnIniciar.setText("Salir");
+        btnIniciar.setText("SALIR");
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
             }
         });
 
-        btnIniciar1.setText("Registrar");
+        btnIniciar1.setText("REGISTRAR");
         btnIniciar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciar1ActionPerformed(evt);
@@ -158,42 +158,36 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 398, Short.MAX_VALUE)
-                    .addGroup(rSPanelShadow1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(33, 33, 33)
-                        .addComponent(txtContraseña))
-                    .addGroup(rSPanelShadow1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(59, 59, 59)
-                        .addComponent(txtNombre))
-                    .addGroup(rSPanelShadow1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(47, 47, 47)
-                        .addComponent(txtDireccion))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                     .addGroup(rSPanelShadow1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(52, 52, 52)
-                        .addComponent(txtTelefono))
-                    .addGroup(rSPanelShadow1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(77, 77, 77)
-                        .addComponent(txtEmail))
+                        .addGap(35, 35, 35)
+                        .addComponent(tfTelefono))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow1Layout.createSequentialGroup()
+                        .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(rSPanelShadow1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(90, 90, 90)
-                        .addComponent(txtDNI))
+                        .addGap(18, 18, 18)
+                        .addComponent(tfDocumento))
                     .addGroup(rSPanelShadow1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(60, 60, 60)
-                        .addComponent(txtUsuario)))
+                        .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5))
+                        .addGap(15, 15, 15)
+                        .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfContraseña)
+                            .addComponent(tfUsuario)
+                            .addComponent(tfNombre)
+                            .addComponent(tfCorreo)))
+                    .addGroup(rSPanelShadow1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(35, 35, 35)
+                        .addComponent(tfDomicilio)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
         );
         rSPanelShadow1Layout.setVerticalGroup(
             rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,32 +201,32 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(rSPanelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIniciar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,48 +272,52 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnIniciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciar1ActionPerformed
-        if(txtNombre.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su nombre");
-            txtNombre.requestFocus();
+        if(tfNombre.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre.");
+            tfNombre.requestFocus();
         }
-        else if(txtDireccion.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su direccion");
-            txtDireccion.requestFocus();
+        else if(tfDomicilio.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un domicilio.");
+            tfDomicilio.requestFocus();
         }
-        else if(txtTelefono.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su telefono");
-            txtTelefono.requestFocus();
+        else if(tfTelefono.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un numero de telefono.");
+            tfTelefono.requestFocus();
         }
-        else if(txtEmail.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su email");
-            txtEmail.requestFocus();
+        else if(tfCorreo.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un correo electronico.");
+            tfCorreo.requestFocus();
         }
-        else if(txtDNI.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su DNI");
-            txtDNI.requestFocus();
+        else if(tfDocumento.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un numero de documento.");
+            tfDocumento.requestFocus();
         }
-        else if(txtUsuario.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su usuario");
-            txtUsuario.requestFocus();
+        else if(tfUsuario.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre de usuario.");
+            tfUsuario.requestFocus();
         }
-        else if(txtContraseña.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese su contraseña");
-            txtContraseña.requestFocus();
+        else if(tfContraseña.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.");
+            tfContraseña.requestFocus();
         }
         else{
             JOptionPane.showMessageDialog(null, "Se registro con exito");
-            Usuario usuario = new Usuario(txtUsuario.getText(),txtContraseña.getText(),"Activo","Administrador",
-                    txtNombre.getText(),txtDireccion.getText(),txtTelefono.getText(),
-                    txtEmail.getText(),txtDNI.getText());
+            Usuario usuario = new Usuario(tfUsuario.getText(),tfContraseña.getText(),"Activo","Administrador",
+                    tfNombre.getText(),tfDocumento.getText(),
+                    //Pais, estado y localidad se cargan como valores vacios ya que la tabla
+                    //en la base de datos lo permite
+                    "","","",
+                    tfDomicilio.getText(),tfTelefono.getText(),
+                    tfCorreo.getText());
             
             if(usuario.registrar(usuario)){
-                JOptionPane.showMessageDialog(null, "Se registro el usuario con exito");
+                JOptionPane.showMessageDialog(null, "El usuario ha sido registrado exitosamente.");
                 this.dispose();
                 FrmLogin form = new FrmLogin();
                 form.setVisible(true);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Ocurrio un error al registrar el usuario");
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el usuario.");
             }
             
             
@@ -377,12 +375,12 @@ public class FrmRegistro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
-    private javax.swing.JTextField txtContraseña;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField tfContraseña;
+    private javax.swing.JTextField tfCorreo;
+    private javax.swing.JTextField tfDocumento;
+    private javax.swing.JTextField tfDomicilio;
+    private javax.swing.JTextField tfNombre;
+    private javax.swing.JTextField tfTelefono;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }
