@@ -123,7 +123,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfDomicilioFiscal = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
 
-        setTitle("REGISTRO DE CLIENTE - CAM HONEY BROTHERS");
+        setTitle("ALTA DE CLIENTE - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -425,7 +425,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSPanelShadow2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(rSPanelShadow2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -472,12 +472,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         //    tfDocumento.requestFocus();
         //}
         else{
-            //JOptionPane.showMessageDialog(null, "El cliente ha sido registrado exitosamente.");
-            Cliente cliente = new Cliente(tfRazonSocial.getText(),"",tfCuit.getText(),tfDomicilioFiscal.getText(), "Activo",
+            Cliente cliente = new Cliente(tfRazonSocial.getText(),"combo condicion",tfCuit.getText(),tfDomicilioFiscal.getText(), "Activo",
                     tfNombre.getText(),tfDocumento.getText(),
                     //Pais, estado y localidad se cargan como valores vacios ya que la tabla
                     //en la base de datos lo permite
-                    "","","",
+                    "combo pais","combo provincia","combo localidad",
                     tfDomicilio.getText(),tfTelefono.getText(),
                     tfCorreo.getText());
             if(cliente.registrar(cliente)){

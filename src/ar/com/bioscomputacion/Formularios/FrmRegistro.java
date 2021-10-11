@@ -301,7 +301,7 @@ public class FrmRegistro extends javax.swing.JFrame {
             tfContraseña.requestFocus();
         }
         else{
-            JOptionPane.showMessageDialog(null, "Se registro con exito");
+            //JOptionPane.showMessageDialog(null, "Se registro con exito");
             Usuario usuario = new Usuario(tfUsuario.getText(),tfContraseña.getText(),"Activo","Administrador",
                     tfNombre.getText(),tfDocumento.getText(),
                     //Pais, estado y localidad se cargan como valores vacios ya que la tabla

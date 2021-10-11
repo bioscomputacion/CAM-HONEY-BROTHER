@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
  * @author Caco
  */
 public class Cliente extends Persona {
-    
+
     private int cod_cliente;
     private int cod_persona; 
     private String razon_social;
@@ -46,11 +46,6 @@ public class Cliente extends Persona {
         return cod_persona;
     }
 
-    public void setCod_persona(int cod_persona) {
-        this.cod_persona = cod_persona;
-    }
-
-    
     public String getRazon_social() {
         return razon_social;
     }
@@ -95,10 +90,10 @@ public class Cliente extends Persona {
         try {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,pais, estado_provincia, localidad, domicilio,telefono,correo) "
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,pais,estado_provincia,localidad,domicilio,telefono,correo) "
                     + "VALUES (?,?,?,?,?,?,?,?)");
-            PreparedStatement pst2 = cn.prepareStatement("INSERT INTO cliente (cod_persona,razon_social,condicion_iva,cuit,domicilio_fiscal, estado) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
-                    + "?,?,?,?,?,?)");
+            PreparedStatement pst2 = cn.prepareStatement("INSERT INTO cliente (cod_persona,razon_social,condicion_iva,cuit,domicilio_fiscal,estado) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
+                    + "?,?,?,?,?)");
             
             
             pst.setString(1, cliente.getNombre());

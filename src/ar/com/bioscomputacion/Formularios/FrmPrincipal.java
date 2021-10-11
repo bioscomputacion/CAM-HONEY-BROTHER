@@ -148,15 +148,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuPersona.setForeground(new java.awt.Color(255, 255, 255));
         menuPersona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/persona.png"))); // NOI18N
-        menuPersona.setText("CLIENTES");
+        menuPersona.setText("ALTAS");
         menuPersona.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItem8.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem8.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem8.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_clientes.png"))); // NOI18N
-        jMenuItem8.setText("REGISTRO DE CLIENTE");
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_usuarios.png"))); // NOI18N
+        jMenuItem8.setText("ALTA DE CLIENTE");
         jMenuItem8.setOpaque(true);
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +170,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem9.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem9.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_usuarios.png"))); // NOI18N
-        jMenuItem9.setText("GESTION DE CLIENTES");
+        jMenuItem9.setText("ALTA DE PRODUCTOR");
         jMenuItem9.setOpaque(true);
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,7 +183,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuCtaCte.setForeground(new java.awt.Color(255, 255, 255));
         menuCtaCte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
-        menuCtaCte.setText("GESTION DE CTAS. CTES.");
+        menuCtaCte.setText("CUENTAS CORRIENTES");
         menuCtaCte.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
@@ -191,7 +191,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem10.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem10.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
-        jMenuItem10.setText("CLIENTES");
+        jMenuItem10.setText("CTAS. CTES. CLIENTES");
         jMenuItem10.setOpaque(true);
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
-        FrmRegistroCliente form = new FrmRegistroCliente();
+        FrmRegistroCliente2 form = new FrmRegistroCliente2();
         
         deskPrincipal.add(form);
         Dimension desktopSize = deskPrincipal.getSize();
@@ -262,11 +262,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
+
+        FrmRegistroProductor form = new FrmRegistroProductor();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+                            
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**

@@ -14,22 +14,51 @@ import java.sql.PreparedStatement;
  */
 public class Usuario extends Persona {
     
-    private String usuario;
-    private String contraseña;
+    private int cod_usuario;
+    private String login;
+    private String password;
+    private String tipo;
     private String estado;
-    private String acceso;
     
     
 
     public Usuario() {
     }
 
-    public Usuario(String usuario, String contraseña, String estado, String acceso, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
+    public Usuario(String login, String password, String tipo, String estado, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
         super(nombre, documento, pais, estado_provincia, localidad, domicilio, telefono, correo);
-        this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.login = login;
+        this.password = password;
+        this.tipo= tipo;
         this.estado = estado;
-        this.acceso = acceso;
+    }
+
+    public int getCod_usuario() {
+        return cod_usuario;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getEstado() {
@@ -40,35 +69,12 @@ public class Usuario extends Persona {
         this.estado = estado;
     }
 
-    public String getAcceso() {
-        return acceso;
-    }
-
-    public void setAcceso(String acceso) {
-        this.acceso = acceso;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Usuario{usuario=").append(usuario);
-        sb.append(", contrase\u00f1a=").append(contraseña);
+        sb.append("Usuario{usuario=").append(login);
+        sb.append(", contrase\u00f1a=").append(password);
         sb.append(", Persona=").append(super.toString());
         sb.append('}');
         return sb.toString();
@@ -79,7 +85,7 @@ public class Usuario extends Persona {
         try {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,num_documento,direccion,telefono,email) "
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,domicilio,telefono,correo) "
                     + "VALUES (?,?,?,?,?)");
             PreparedStatement pst2 = cn.prepareStatement("INSERT INTO usuario (cod_persona,login,password,tipo,estado) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
                     + "?,?,?,?)");
@@ -91,9 +97,9 @@ public class Usuario extends Persona {
             pst.setString(4, usuario.getTelefono());
             pst.setString(5, usuario.getCorreo());
             
-            pst2.setString(1, usuario.getUsuario());
-            pst2.setString(2, usuario.getContraseña());
-            pst2.setString(3, usuario.getAcceso());
+            pst2.setString(1, usuario.getLogin());
+            pst2.setString(2, usuario.getPassword());
+            pst2.setString(3, usuario.getTipo());
             pst2.setString(4, usuario.getEstado());
             
             int N = pst.executeUpdate();

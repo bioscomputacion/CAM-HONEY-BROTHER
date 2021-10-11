@@ -9,12 +9,12 @@ package ar.com.bioscomputacion.Formularios;
  *
  * @author Caco
  */
-public class FrmGenerico_1 extends javax.swing.JInternalFrame {
+public class FrmGenerico_1_1 extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmGenerico
      */
-    public FrmGenerico_1() {
+    public FrmGenerico_1_1() {
         initComponents();
     }
 
@@ -49,7 +49,7 @@ public class FrmGenerico_1 extends javax.swing.JInternalFrame {
             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addContainerGap())
         );

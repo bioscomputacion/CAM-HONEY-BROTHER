@@ -20,7 +20,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ar/com/bioscomputacion/MenuIcons/persona.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CLIENTES"/>
+            <Property name="text" type="java.lang.String" value="ALTAS"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="10" style="3"/>
             </Property>
@@ -44,9 +44,9 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ar/com/bioscomputacion/MenuItemIcon/gestion_clientes.png"/>
+                  <Image iconType="3" name="/ar/com/bioscomputacion/MenuItemIcon/gestion_usuarios.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="REGISTRO DE CLIENTE"/>
+                <Property name="text" type="java.lang.String" value="ALTA DE CLIENTE"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
@@ -70,7 +70,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/MenuItemIcon/gestion_usuarios.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="GESTION DE CLIENTES"/>
+                <Property name="text" type="java.lang.String" value="ALTA DE PRODUCTOR"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
@@ -87,7 +87,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="GESTION DE CTAS. CTES."/>
+            <Property name="text" type="java.lang.String" value="CUENTAS CORRIENTES"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="10" style="3"/>
             </Property>
@@ -113,7 +113,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CLIENTES"/>
+                <Property name="text" type="java.lang.String" value="CTAS. CTES. CLIENTES"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>

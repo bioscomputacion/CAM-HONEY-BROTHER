@@ -10,6 +10,8 @@ package ar.com.bioscomputacion.Funciones;
  * @author braya
  */
 public class Persona {
+    
+    private int cod_persona;
     private String nombre;
     private String documento;
     private String pais;
