@@ -38,4 +38,20 @@ public class ConexionBD {
         return link;
     }
     
+    public static void close(ResultSet rs) throws SQLException {
+        rs.close();
+    }
+
+    public static void close(Statement smtm) throws SQLException {
+        smtm.close();
+    }
+
+    public static void close(PreparedStatement smtm) throws SQLException {
+        smtm.close();
+    }
+
+    public static void close(Connection conn) throws SQLException{
+        conn.close();
+    }
+    
 }

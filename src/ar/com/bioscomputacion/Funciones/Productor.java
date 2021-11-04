@@ -7,6 +7,10 @@ package ar.com.bioscomputacion.Funciones;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,13 +29,21 @@ public class Productor extends Persona {
     private String cuit;
     private String domicilio_fiscal;
     private String estado;
+    private int cantidad_colmenas;
+    private String ubicacion_colmenas;
+    private String floracion_miel;
+    private String cura_miel;
+    
+    ConexionBD mysql = new ConexionBD();
+    Connection cn = mysql.getConexionBD();
+
 
     //metodos constructores
     
     public Productor() {
     }
 
-    public Productor(String fecha_venta_miel_1, String fecha_venta_miel_2, String fecha_venta_miel_3, String nombre_fantasia, String razon_social, String condicion_iva, String cuit, String domicilio_fiscal, String estado, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
+    public Productor(String fecha_venta_miel_1, String fecha_venta_miel_2, String fecha_venta_miel_3, String nombre_fantasia, String razon_social, String condicion_iva, String cuit, String domicilio_fiscal, String estado, Integer cantidad_colmenas, String ubicacion_colmenas, String floracion_miel, String cura_miel, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
         super(nombre, documento, pais, estado_provincia, localidad, domicilio, telefono, correo);
         this.fecha_venta_miel_1 = fecha_venta_miel_1;
         this.fecha_venta_miel_2 = fecha_venta_miel_2;
@@ -42,6 +54,10 @@ public class Productor extends Persona {
         this.cuit = cuit;
         this.domicilio_fiscal = domicilio_fiscal;
         this.estado = estado;
+        this.cantidad_colmenas = cantidad_colmenas;
+        this.ubicacion_colmenas = ubicacion_colmenas;
+        this.floracion_miel = floracion_miel;
+        this.cura_miel = cura_miel;
     }
     
     //getters y setters
@@ -125,6 +141,40 @@ public class Productor extends Persona {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getCantidad_colmenas() {
+        return cantidad_colmenas;
+    }
+
+    public void setCantidad_colmenas(int cantidad_colmenas) {
+        this.cantidad_colmenas = cantidad_colmenas;
+    }
+
+    public String getUbicacion_colmenas() {
+        return ubicacion_colmenas;
+    }
+
+    public void setUbicacion_colmenas(String ubicacion_colmenas) {
+        this.ubicacion_colmenas = ubicacion_colmenas;
+    }
+
+    public String getFloracion_miel() {
+        return floracion_miel;
+    }
+
+    public void setFloracion_miel(String floracion_miel) {
+        this.floracion_miel = floracion_miel;
+    }
+
+    public String getCura_miel() {
+        return cura_miel;
+    }
+
+    public void setCura_miel(String cura_miel) {
+        this.cura_miel = cura_miel;
+    }
+    
+    
     
     public boolean registrar(Productor productor){
         try {
@@ -132,8 +182,8 @@ public class Productor extends Persona {
             Connection cn = mysql.getConexionBD();
             PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,pais,estado_provincia,localidad,domicilio,telefono,correo) "
                     + "VALUES (?,?,?,?,?,?,?,?)");
-            PreparedStatement pst2 = cn.prepareStatement("INSERT INTO productor (cod_persona,fecha_venta_miel_1,fecha_venta_miel_2,fecha_venta_miel_3,nombre_fantasia,razon_social,condicion_iva,cuit,domicilio_fiscal,estado) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
-                    + "?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst2 = cn.prepareStatement("INSERT INTO productor (cod_persona,fecha_venta_miel_1,fecha_venta_miel_2,fecha_venta_miel_3,nombre_fantasia,razon_social,condicion_iva,cuit,domicilio_fiscal,estado,cantidad_colmenas,ubicacion_colmenas,floracion_miel,cura_miel) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
+                    + "?,?,?,?,?,?,?,?,?,?,?,?,?)");
             
             
             pst.setString(1, productor.getNombre());
@@ -154,6 +204,10 @@ public class Productor extends Persona {
             pst2.setString(7, productor.getCuit());
             pst2.setString(8, productor.getDomicilio_fiscal());
             pst2.setString(9, productor.getEstado());
+            pst2.setInt(10, productor.getCantidad_colmenas());
+            pst2.setString(11, productor.getUbicacion_colmenas());
+            pst2.setString(12, productor.getFloracion_miel());
+            pst2.setString(13, productor.getCura_miel());
             
             int N = pst.executeUpdate();
             int N2 = pst2.executeUpdate();
@@ -169,5 +223,55 @@ public class Productor extends Persona {
         }
         return false;
     }
+
+    public DefaultTableModel listarProductores(String buscar) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID", "NOMBRE", "LOCALIDAD", "TELEFONO", "CORREO"};
+
+        String[] registros = new String[5];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 11) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        };
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("cod_productor");
+                registros[1] = rs.getString("nombre");
+                registros[2] = rs.getString("localidad");
+                registros[3] = rs.getString("telefono");
+                registros[4] = rs.getString("correo");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+    }
+    
     
 }

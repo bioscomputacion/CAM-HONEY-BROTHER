@@ -57,7 +57,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuPersona = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        menuCtaCte = new javax.swing.JMenu();
+        menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
 
@@ -181,26 +181,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuPrincipal.add(menuPersona);
 
-        menuCtaCte.setForeground(new java.awt.Color(255, 255, 255));
-        menuCtaCte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
-        menuCtaCte.setText("CUENTAS CORRIENTES");
-        menuCtaCte.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
+        menuGestion.setForeground(new java.awt.Color(255, 255, 255));
+        menuGestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
+        menuGestion.setText("GESTION");
+        menuGestion.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jMenuItem10.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem10.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem10.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
-        jMenuItem10.setText("CTAS. CTES. CLIENTES");
+        jMenuItem10.setText("Gestion de productores");
         jMenuItem10.setOpaque(true);
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
             }
         });
-        menuCtaCte.add(jMenuItem10);
+        menuGestion.add(jMenuItem10);
 
-        menuPrincipal.add(menuCtaCte);
+        menuPrincipal.add(menuGestion);
 
         menuSalir.setForeground(new java.awt.Color(255, 255, 255));
         menuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cerrar_sesion.png"))); // NOI18N
@@ -247,7 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
-        FrmRegistroCliente2 form = new FrmRegistroCliente2();
+        FrmRegistroCliente form = new FrmRegistroCliente();
         
         deskPrincipal.add(form);
         Dimension desktopSize = deskPrincipal.getSize();
@@ -278,6 +278,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+
+        FrmGestionProductores form = new FrmGestionProductores();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -326,7 +339,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JLabel lbNombre;
     public javax.swing.JLabel lbTipo;
-    public static javax.swing.JMenu menuCtaCte;
+    public static javax.swing.JMenu menuGestion;
     public static javax.swing.JMenu menuPersona;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JMenu menuSalir;

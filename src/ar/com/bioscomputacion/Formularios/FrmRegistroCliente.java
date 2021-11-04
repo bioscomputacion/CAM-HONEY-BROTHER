@@ -6,11 +6,6 @@
 package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.Cliente;
-import java.awt.Desktop;
-import java.net.URI;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,63 +19,8 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
      */
     public FrmRegistroCliente() {
         initComponents();
-        inicializar();
     }
 
-    public void inicializar(){
-        //
-        tfNombre.requestFocus();
-    }
-    
-    /*public void deshabilitarCampos(){
-        dateVenta.setEnabled(false);
-        txtCliente.setEnabled(false);
-        txtDescuento.setEnabled(false);
-        btnCancelarVenta.setEnabled(false);
-        btnNuevaVenta.setEnabled(true);
-        txtCodigo.setEnabled(false);
-        txtCantidad.setEnabled(false);
-        txtProducto.setEnabled(false);
-        btnSeleccionCliente.setEnabled(false);
-        btnAgregarProducto.setEnabled(false);
-        btnQuitarProducto.setEnabled(false);
-        btnBuscarProducto.setEnabled(false);
-        btnPagar.setEnabled(false);
-    }
-    
-    public void habilitarCampos(){
-        dateVenta.setEnabled(true);
-        txtCliente.setEnabled(true);
-        txtDescuento.setEnabled(true);
-        btnCancelarVenta.setEnabled(true);
-        btnNuevaVenta.setEnabled(false);
-        txtCodigo.setEnabled(true);
-        txtCantidad.setEnabled(true);
-        txtProducto.setEnabled(true);
-        btnSeleccionCliente.setEnabled(true);
-        btnAgregarProducto.setEnabled(true);
-        btnQuitarProducto.setEnabled(true);
-        btnBuscarProducto.setEnabled(true);
-        btnPagar.setEnabled(true);
-    }
-    
-    public void limpiarCampos(){
-        Calendar hoy = new GregorianCalendar();
-        dateVenta.setCalendar(hoy);
-        
-        txtCliente.setText("Consumidor Final");
-        txtDescuento.setText("0.00");
-        txtCodigo.setText("");
-        txtPrecio.setText("");
-        txtCantidad.setText("0");
-        txtProducto.setText("");
-        txtSubTotal.setText("0.00");
-        txtTotal.setText("0.00");
-        txtImporte.setText("0.00");
-        txtCambio.setText("0.00");
-        comboMetodoPago.setSelectedIndex(0);
-    }*/
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,57 +32,55 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
         rSPanelShadow1 = new rojeru_san.RSPanelShadow();
         jPanel1 = new javax.swing.JPanel();
-        rSPanelShadow2 = new rojeru_san.RSPanelShadow();
+        tpCliente = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        rdbrRegistrar = new rojeru_san.RSButtonRiple();
+        jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         tfNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfDocumento = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfDomicilio = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        tfTelefono = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        tfCorreo = new javax.swing.JTextField();
-        rsbrCancelar = new rojeru_san.RSButtonRiple();
         jLabel9 = new javax.swing.JLabel();
         cbNacionalidad = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cbEstadoProvincia = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cbLocalidad = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        tfRazonSocial = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tfDomicilio = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tfTelefono = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tfCorreo = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        cbCondicionIva = new javax.swing.JComboBox<>();
+        tfNombreFantasia = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        tfCuit = new javax.swing.JTextField();
+        tfRazonSocial = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        cbCondicionIVA = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        tfCuit = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         tfDomicilioFiscal = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
+        rdbrRegistrar = new rojeru_san.RSButtonRiple();
+        rsbrCancelar = new rojeru_san.RSButtonRiple();
 
         setTitle("ALTA DE CLIENTE - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
-        rSPanelShadow2.setOpaque(false);
+        tpCliente.setBackground(new java.awt.Color(51, 84, 111));
+        tpCliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(51, 84, 111));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LOS DATOS DEL CLIENTE:");
-
-        rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
-        rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrRegistrar.setText("REGISTRAR CLIENTE");
-        rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
-        rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbrRegistrarActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("INGRESE LA INFORMACION PERSONAL DEL CLIENTE:");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,53 +92,20 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("DOCUMENTO:");
+        jLabel5.setText("N° DOCUMENTO:");
 
         tfDocumento.setBackground(new java.awt.Color(51, 84, 111));
         tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("DOMICILIO:");
-
-        tfDomicilio.setBackground(new java.awt.Color(51, 84, 111));
-        tfDomicilio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfDomicilio.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("TELEFONO:");
-
-        tfTelefono.setBackground(new java.awt.Color(51, 84, 111));
-        tfTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfTelefono.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("CORREO:");
-
-        tfCorreo.setBackground(new java.awt.Color(51, 84, 111));
-        tfCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfCorreo.setForeground(new java.awt.Color(255, 255, 255));
-
-        rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("CANCELAR");
-        rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
-        rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rsbrCancelarActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("NACIONALIDAD:");
 
         cbNacionalidad.setBackground(new java.awt.Color(36, 33, 33));
-        cbNacionalidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbNacionalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbNacionalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
+        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
         cbNacionalidad.setPreferredSize(new java.awt.Dimension(136, 19));
         cbNacionalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,9 +118,9 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         jLabel10.setText("ESTADO / PROVINCIA:");
 
         cbEstadoProvincia.setBackground(new java.awt.Color(36, 33, 33));
-        cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbEstadoProvincia.setForeground(new java.awt.Color(207, 207, 207));
-        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
+        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
         cbEstadoProvincia.setPreferredSize(new java.awt.Dimension(136, 19));
         cbEstadoProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,9 +133,9 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         jLabel11.setText("LOCALIDAD:");
 
         cbLocalidad.setBackground(new java.awt.Color(36, 33, 33));
-        cbLocalidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbLocalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbLocalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbLocalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
+        cbLocalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
         cbLocalidad.setPreferredSize(new java.awt.Dimension(136, 19));
         cbLocalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,194 +143,289 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("RAZON SOCIAL:");
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("DOMICILIO:");
 
-        tfRazonSocial.setBackground(new java.awt.Color(51, 84, 111));
-        tfRazonSocial.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfRazonSocial.setForeground(new java.awt.Color(255, 255, 255));
+        tfDomicilio.setBackground(new java.awt.Color(51, 84, 111));
+        tfDomicilio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfDomicilio.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("CONDICION IVA:");
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("TELEFONO/S:");
 
-        cbCondicionIva.setBackground(new java.awt.Color(36, 33, 33));
-        cbCondicionIva.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbCondicionIva.setForeground(new java.awt.Color(207, 207, 207));
-        cbCondicionIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
-        cbCondicionIva.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbCondicionIva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbCondicionIvaActionPerformed(evt);
-            }
-        });
+        tfTelefono.setBackground(new java.awt.Color(51, 84, 111));
+        tfTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTelefono.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("CUIT:");
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("CORREO ELECTRONICO:");
 
-        tfCuit.setBackground(new java.awt.Color(51, 84, 111));
-        tfCuit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfCuit.setForeground(new java.awt.Color(255, 255, 255));
+        tfCorreo.setBackground(new java.awt.Color(51, 84, 111));
+        tfCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfCorreo.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("DOMICILIO FISCAL:");
-
-        tfDomicilioFiscal.setBackground(new java.awt.Color(51, 84, 111));
-        tfDomicilioFiscal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfDomicilioFiscal.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
-        rSPanelShadow2.setLayout(rSPanelShadow2Layout);
-        rSPanelShadow2Layout.setHorizontalGroup(
-            rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbLocalidad, 0, 248, Short.MAX_VALUE)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfDomicilio)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCorreo)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tfRazonSocial))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbCondicionIva, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(61, 61, 61))
-                            .addComponent(tfCuit)))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .addGap(122, 122, 122))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tfNombre))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addComponent(tfDomicilioFiscal)
-                    .addComponent(jSeparator1)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel15))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbNacionalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(cbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(335, 335, 335))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCorreo)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(tfDomicilio)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        rSPanelShadow2Layout.setVerticalGroup(
-            rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(47, 47, 47))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(29, 29, 29)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        tpCliente.addTab("Informacion personal", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(51, 84, 111));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("INGRESE LOS DATOS DE FACTURACION DEL CLIENTE:");
+        jLabel2.setToolTipText("");
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("NOMBRE DE FANTASIA:");
+
+        tfNombreFantasia.setBackground(new java.awt.Color(51, 84, 111));
+        tfNombreFantasia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfNombreFantasia.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("RAZON SOCIAL:");
+
+        tfRazonSocial.setBackground(new java.awt.Color(51, 84, 111));
+        tfRazonSocial.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfRazonSocial.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("CONDICION FRENTE AL IVA:");
+        jLabel15.setToolTipText("");
+
+        cbCondicionIVA.setBackground(new java.awt.Color(36, 33, 33));
+        cbCondicionIVA.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbCondicionIVA.setForeground(new java.awt.Color(207, 207, 207));
+        cbCondicionIVA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CONSUMIDOR FINAL", "IVA RESP. MONOTRIBUTO", "IVA RESP. INSCRIPTO", "IVA SUJETO EXENTO" }));
+        cbCondicionIVA.setPreferredSize(new java.awt.Dimension(136, 19));
+        cbCondicionIVA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCondicionIVAActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("N° CUIT:");
+
+        tfCuit.setBackground(new java.awt.Color(51, 84, 111));
+        tfCuit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfCuit.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("DOMICILIO FISCAL:");
+
+        tfDomicilioFiscal.setBackground(new java.awt.Color(51, 84, 111));
+        tfDomicilioFiscal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfDomicilioFiscal.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .addGap(122, 122, 122))
+                    .addComponent(tfNombreFantasia)
+                    .addComponent(tfRazonSocial)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfCuit)
-                            .addComponent(cbCondicionIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(tfDomicilioFiscal)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel15)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNombreFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(tfCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
+
+        tpCliente.addTab("Datos de facturacion", jPanel3);
+
+        rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
+        rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
+        rdbrRegistrar.setText("REGISTRAR CLIENTE");
+        rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbrRegistrarActionPerformed(evt);
+            }
+        });
+
+        rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
+        rsbrCancelar.setText("CANCELAR");
+        rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rsbrCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSPanelShadow2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tpCliente)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSPanelShadow2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(tpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,68 +436,113 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbLocalidadActionPerformed
+    private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
-    private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
+        //Solo es obligatorio el ingreso del nombre del productor
+        //los demas datos se controlan para alertar al usuario del sistema que no se han ingresado los mismos
+        //pero de todas formas se puede registrar el productor sin dichos datos
+        Boolean informacionPersonal = (tfDocumento.getText().length() == 0 || tfDomicilio.getText().length() == 0 || tfTelefono.getText().length() == 0 || tfCorreo.getText().length() == 0);
+        Boolean datosFacturacion = (tfNombreFantasia.getText().length() == 0 || tfRazonSocial.getText().length() == 0 || String.valueOf(cbCondicionIVA.getSelectedItem()) == "SELECCIONAR" || tfCuit.getText().length() == 0 || tfDomicilioFiscal.getText().length() == 0);
 
-    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbNacionalidadActionPerformed
+        //el ingreso del nombre del productor es obligatorio para el registro del mismo
+        if (tfNombre.getText().length() == 0) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente.", "ALTA DE CLIENTE", JOptionPane.ERROR_MESSAGE);
+            tfNombre.requestFocus();
+            return;
+
+        }
+
+        //chequea informacion personal, avisa si esta incompleta pero da la opcion de registrar igualmente el productor
+        if (informacionPersonal) {
+
+            if (JOptionPane.showConfirmDialog(null, "La informacion personal del cliente se halla incompleta. ¿Desea registrar el cliente de todas formas?",
+                    "REGISTRAR CLIENTE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                //no tengo claro que hacer aca!
+            }
+            else {
+
+                tpCliente.setSelectedIndex(0);
+                tfDocumento.requestFocus();
+                return;
+
+            }
+            
+        } 
+
+        //chequea datos de facturacion, avisa si estan incompletos pero da la opcion de registrar igualmente el productor
+        if (datosFacturacion) {
+
+            if (JOptionPane.showConfirmDialog(null, "Los datos de facturacion del cliente se hallan incompletos. ¿Desea registrar el cliente de todas formas?",
+                    "REGISTRAR CLIENTE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                //no tengo claro que hacer aca!
+            }
+            else{
+
+                tpCliente.setSelectedIndex(1);
+                tfNombreFantasia.requestFocus();
+                return;
+
+            }
+            
+        }
+
+        //se completaron todos los datos y/o se escogio registrar el cliente con sus datos y fechas de venta incompletos
+        //se cliente el productor en la base de datos del sistema
+        Cliente cliente = new Cliente(tfRazonSocial.getText(), "condicion iva", tfCuit.getText(), tfDomicilioFiscal.getText(), "Activo",
+                tfNombre.getText(), tfDocumento.getText(),
+                //Pais, estado y localidad se cargan como valores vacios ya que la tabla
+                //en la base de datos lo permite
+                "pais", "provincia", "localidad",
+                tfDomicilio.getText(), tfTelefono.getText(),
+                tfCorreo.getText());
+
+        if (cliente.registrar(cliente)) {
+
+            JOptionPane.showMessageDialog(null, "El cliente ha sido registrado exitosamente.");
+            this.dispose();
+            //FrmLogin form = new FrmLogin();
+            //form.setVisible(true);
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el cliente.");
+
+        }
+
+    }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
-    private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
-        if(tfNombre.getText().length() == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente.");
-            tfNombre.requestFocus();
-        }
-        //else if(tfDocumento.getText().length() == 0 || tfDomicilio.getText().length() == 0 || tfTelefono.getText().length() == 0 || tfCorreo.getText().length() == 0){
-        //    JOptionPane.showMessageDialog(null, "Los datos personales del cliente no han sido ingresados completamente. ¿Desea registrar el cliente de esta forma?");
-        //    tfDocumento.requestFocus();
-        //}
-        //else if(tfDocumento.getText().length() == 0 || tfDomicilio.getText().length() == 0 || tfTelefono.getText().length() == 0 || tfCorreo.getText().length() == 0){
-        //    JOptionPane.showMessageDialog(null, "La informacion de facturacion del cliente no ha sido ingresada completamente. ¿Desea registrar el cliente de esta forma?");
-        //    tfDocumento.requestFocus();
-        //}
-        else{
-            Cliente cliente = new Cliente(tfRazonSocial.getText(),"combo condicion",tfCuit.getText(),tfDomicilioFiscal.getText(), "Activo",
-                    tfNombre.getText(),tfDocumento.getText(),
-                    //Pais, estado y localidad se cargan como valores vacios ya que la tabla
-                    //en la base de datos lo permite
-                    "combo pais","combo provincia","combo localidad",
-                    tfDomicilio.getText(),tfTelefono.getText(),
-                    tfCorreo.getText());
-            if(cliente.registrar(cliente)){
-                JOptionPane.showMessageDialog(null, "El cliente ha sido registrado exitosamente.");
-                this.dispose();
-                //FrmLogin form = new FrmLogin();
-                //form.setVisible(true);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el cliente.");
-            }
-        }
-    }//GEN-LAST:event_rdbrRegistrarActionPerformed
-
-    private void cbCondicionIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIvaActionPerformed
+    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbCondicionIvaActionPerformed
+    }//GEN-LAST:event_cbNacionalidadActionPerformed
+
+    private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
+
+    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbLocalidadActionPerformed
+
+    private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCondicionIVAActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> cbCondicionIva;
+    public javax.swing.JComboBox<String> cbCondicionIVA;
     public javax.swing.JComboBox<String> cbEstadoProvincia;
     public javax.swing.JComboBox<String> cbLocalidad;
     public javax.swing.JComboBox<String> cbNacionalidad;
@@ -508,6 +553,8 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -515,10 +562,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator4;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
-    private rojeru_san.RSPanelShadow rSPanelShadow2;
     private rojeru_san.RSButtonRiple rdbrRegistrar;
     private rojeru_san.RSButtonRiple rsbrCancelar;
     public javax.swing.JTextField tfCorreo;
@@ -527,7 +575,9 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
     public javax.swing.JTextField tfDomicilio;
     public javax.swing.JTextField tfDomicilioFiscal;
     public javax.swing.JTextField tfNombre;
+    public javax.swing.JTextField tfNombreFantasia;
     public javax.swing.JTextField tfRazonSocial;
     public javax.swing.JTextField tfTelefono;
+    private javax.swing.JTabbedPane tpCliente;
     // End of variables declaration//GEN-END:variables
 }

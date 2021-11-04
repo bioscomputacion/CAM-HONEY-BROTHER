@@ -79,7 +79,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuCtaCte">
+        <Menu class="javax.swing.JMenu" name="menuGestion">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -87,7 +87,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CUENTAS CORRIENTES"/>
+            <Property name="text" type="java.lang.String" value="GESTION"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="10" style="3"/>
             </Property>
@@ -113,7 +113,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CTAS. CTES. CLIENTES"/>
+                <Property name="text" type="java.lang.String" value="Gestion de productores"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
