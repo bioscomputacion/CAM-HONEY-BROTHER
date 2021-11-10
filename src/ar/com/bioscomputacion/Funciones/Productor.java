@@ -177,7 +177,9 @@ public class Productor extends Persona {
     
     
     public boolean registrar(Productor productor){
+        
         try {
+            
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,pais,estado_provincia,localidad,domicilio,telefono,correo) "
@@ -228,9 +230,9 @@ public class Productor extends Persona {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "NOMBRE", "LOCALIDAD", "TELEFONO", "CORREO"};
+        String[] titulos = {"ID", "NOMBRE", "DOCUMENTO", "NACIONALIDAD", "PROVINCIA", "LOCALIDAD", "DOMICILIO", "TELEFONO", "CORREO"};
 
-        String[] registros = new String[5];
+        String[] registros = new String[9];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -245,18 +247,23 @@ public class Productor extends Persona {
             }
 
         };
+        
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
+            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, Q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
 
             while (rs.next()) {
                 
                 registros[0] = rs.getString("cod_productor");
                 registros[1] = rs.getString("nombre");
-                registros[2] = rs.getString("localidad");
-                registros[3] = rs.getString("telefono");
-                registros[4] = rs.getString("correo");
+                registros[2] = rs.getString("documento");
+                registros[3] = rs.getString("pais");
+                registros[4] = rs.getString("estado_provincia");
+                registros[5] = rs.getString("localidad");
+                registros[6] = rs.getString("domicilio");
+                registros[7] = rs.getString("telefono");
+                registros[8] = rs.getString("correo");
 
                 modelo.addRow(registros);
                 

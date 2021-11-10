@@ -113,7 +113,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
-        setTitle("ALTA DE PRODUCTOR - CAM HONEY BROTHERS");
+        setTitle("REGISTRO DE PRODUCTOR - CAM HONEY BROTHERS");
         setToolTipText("");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
@@ -222,7 +222,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(122, 122, 122))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -234,6 +234,17 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cbNacionalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -244,22 +255,14 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tfDomicilio)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbNacionalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbLocalidad, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(241, 241, 241)))
                         .addGap(335, 335, 335))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel11))
+                        .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -283,21 +286,21 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addGap(29, 29, 29)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -306,7 +309,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Informacion personal", jPanel2);
@@ -415,21 +418,18 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(tfCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Datos de facturacion", jPanel3);
@@ -627,7 +627,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Venta de miel", jPanel4);
@@ -740,7 +740,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Caracteristicas de la miel", jPanel5);
@@ -779,8 +779,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(tpProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -801,6 +801,10 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rsbrCancelarActionPerformed
+
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
         //Solo es obligatorio el ingreso del nombre del productor
@@ -813,58 +817,58 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
 
         //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
         int cantidadColmenas;
-        
+
         if (tfCantidadColmenas.getText() == "0"){
-            
+
             cantidadColmenas = Integer.valueOf(tfCantidadColmenas.getText());
-            
+
         }
         else{
 
             cantidadColmenas = 0;
 
         }
-        
+
         String nacionalidad = "";
         if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
-            
+
             nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem());
-            
+
         }
-        
+
         String estadoProvincia = "";
         if (String.valueOf(cbEstadoProvincia.getSelectedItem()) != "SELECCIONAR"){
-            
+
             estadoProvincia = String.valueOf(cbEstadoProvincia.getSelectedItem());
-            
+
         }
 
         String localidad = "";
         if (String.valueOf(cbLocalidad.getSelectedItem()) != "SELECCIONAR"){
-            
+
             localidad = String.valueOf(cbLocalidad.getSelectedItem());
-            
+
         }
-        
+
         String condicionIVA = "";
         if (String.valueOf(cbCondicionIVA.getSelectedItem()) != "SELECCIONAR"){
-            
+
             condicionIVA = String.valueOf(cbCondicionIVA.getSelectedItem());
-            
+
         }
-        
+
         String floracionMiel = "";
         if (String.valueOf(cbFloracion.getSelectedItem()) != "SELECCIONAR"){
-            
+
             floracionMiel = String.valueOf(cbFloracion.getSelectedItem());
-            
+
         }
-        
+
         String curaMiel = "";
         if (String.valueOf(cbCuraMiel.getSelectedItem()) != "SELECCIONAR"){
-            
+
             curaMiel = String.valueOf(cbCuraMiel.getSelectedItem());
-            
+
         }
 
         //el ingreso del nombre del productor es obligatorio para el registro del mismo
@@ -880,83 +884,83 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         if (informacionPersonal) {
 
             if (JOptionPane.showConfirmDialog(null, "La informacion personal del productor se halla incompleta. ¿Desea registrar el productor de todas formas?",
-                    "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                //no tengo claro que hacer aca!
-            }
-            else {
+            //no tengo claro que hacer aca!
+        }
+        else {
 
-                tpProductor.setSelectedIndex(0);
-                tfDocumento.requestFocus();
-                return;
+            tpProductor.setSelectedIndex(0);
+            tfDocumento.requestFocus();
+            return;
 
-            }
-            
-        } 
+        }
+
+        }
 
         //chequea datos de facturacion, avisa si estan incompletos pero da la opcion de registrar igualmente el productor
         if (datosFacturacion) {
 
             if (JOptionPane.showConfirmDialog(null, "Los datos de facturacion del productor se hallan incompletos. ¿Desea registrar el productor de todas formas?",
-                    "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                //no tengo claro que hacer aca!
-            }
-            else{
-
-                tpProductor.setSelectedIndex(1);
-                tfNombreFantasia.requestFocus();
-                return;
-
-            }
-            
+            //no tengo claro que hacer aca!
         }
-        
+        else{
+
+            tpProductor.setSelectedIndex(1);
+            tfNombreFantasia.requestFocus();
+            return;
+
+        }
+
+        }
+
         //chequea fechas de venta de miel configuradas, avisa si estan incompletas pero da la opcion de registrar igualmente el productor
         if (ventaMiel) {
 
             if (JOptionPane.showConfirmDialog(null, "Las fechas de venta de miel no han sido configuradas completamente. ¿Desea registrar el productor de todas formas?",
-                    "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                //no tengo claro que hacer aca!
-            }
-            else{
+            //no tengo claro que hacer aca!
+        }
+        else{
 
-                tpProductor.setSelectedIndex(2);
-                cbPeriodoVentaMiel.requestFocus();
-                return;
+            tpProductor.setSelectedIndex(2);
+            cbPeriodoVentaMiel.requestFocus();
+            return;
 
-            }
-            
+        }
+
         }
 
         //chequea caracteristicas cargadas de la miel, avisa si estan incompletas pero da la opcion de registrar igualmente el productor
         if (caracteristicasMiel) {
 
             if (JOptionPane.showConfirmDialog(null, "Las caracteristicas de la miel se hallan incompletas. ¿Desea registrar el productor de todas formas?",
-                    "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "REGISTRAR PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                //no tengo claro que hacer aca!
-            }
-            else{
+            //no tengo claro que hacer aca!
+        }
+        else{
 
-                tpProductor.setSelectedIndex(3);
-                tfCantidadColmenas.requestFocus();
-                return;
+            tpProductor.setSelectedIndex(3);
+            tfCantidadColmenas.requestFocus();
+            return;
 
-            }
-            
+        }
+
         }
 
         //se completaron todos los datos y/o se escogio registrar el cliente con sus datos y fechas de venta incompletos
         //se cliente el productor en la base de datos del sistema
         Productor productor = new Productor(tfFechaVentaMiel1.getText(),tfFechaVentaMiel2.getText(),tfFechaVentaMiel3.getText(),tfNombreFantasia.getText(),tfRazonSocial.getText(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText(),"Activo", cantidadColmenas, tfUbicacionColmenas.getText(), floracionMiel, curaMiel,
-                tfNombre.getText(), tfDocumento.getText(),
-                //Pais, estado y localidad se cargan como valores vacios ya que la tabla
-                //en la base de datos lo permite
-                nacionalidad, estadoProvincia, localidad,
-                tfDomicilio.getText(), tfTelefono.getText(),
-                tfCorreo.getText());
+            tfNombre.getText(), tfDocumento.getText(),
+            //Pais, estado y localidad se cargan como valores vacios ya que la tabla
+            //en la base de datos lo permite
+            nacionalidad, estadoProvincia, localidad,
+            tfDomicilio.getText(), tfTelefono.getText(),
+            tfCorreo.getText());
 
         if (productor.registrar(productor)) {
 
@@ -970,129 +974,110 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el productor.");
 
         }
-
+        
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
-    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
+    private void cbCuraMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuraMielActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rsbrCancelarActionPerformed
+    }//GEN-LAST:event_cbCuraMielActionPerformed
 
-    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
+    private void cbFloracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFloracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFloracionActionPerformed
 
-        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
+    private void rdbrRegistrar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar4ActionPerformed
 
-        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
-        
-        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
+        // Elimina la tercer fecha configurada
+        tfFechaVentaMiel3.setText("");
+    }//GEN-LAST:event_rdbrRegistrar4ActionPerformed
 
-        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
+    private void rdbrRegistrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar3ActionPerformed
 
-        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
+        // Elimina la segunda fecha configurada
+        tfFechaVentaMiel2.setText("");
+    }//GEN-LAST:event_rdbrRegistrar3ActionPerformed
 
-        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
+    private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
 
-        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
+        // Elimina la primer fecha configurada
+        tfFechaVentaMiel1.setText("");
+    }//GEN-LAST:event_rdbrRegistrar2ActionPerformed
 
-        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
+    private void rdbrRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar1ActionPerformed
 
-        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
+        //Agrega las fechas de venta a los campos de edicion debajo
+        if (String.valueOf(cbPeriodoVentaMiel.getSelectedItem()) == "SELECCIONAR"){
 
-        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
+            JOptionPane.showMessageDialog(null, "Seleccione un periodo de venta para poder configurar la fecha.");
+            rdbrRegistrar.requestFocus();
 
-        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
+        }
+        else{
 
-        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
-        
-        if (seleccion == "ARGENTINA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String arg : argentina) {
-                cbEstadoProvincia.addItem(arg);
+            if (String.valueOf(cbMesVentaMiel.getSelectedItem()) == "SELECCIONAR"){
+
+                JOptionPane.showMessageDialog(null, "Seleccione un mes de venta para poder configurar la fecha.");
+                rdbrRegistrar.requestFocus();
+
+            }
+            else{
+
+                if (tfFechaVentaMiel1.getText().length()!=0 && tfFechaVentaMiel2.getText().length()!=0 && tfFechaVentaMiel3.getText().length()!=0){
+
+                    JOptionPane.showMessageDialog(null, "Ya cofiguro las tres fechas de venta del productor.");
+                    rdbrRegistrar.requestFocus();
+
+                }
+                else{
+
+                    if (tfFechaVentaMiel1.getText().length()==0){
+
+                        tfFechaVentaMiel1.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
+                        rdbrRegistrar.requestFocus();
+
+                    }
+                    else{
+
+                        if (tfFechaVentaMiel2.getText().length()==0){
+
+                            tfFechaVentaMiel2.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
+                            rdbrRegistrar.requestFocus();
+
+                        }
+                        else{
+
+                            if (tfFechaVentaMiel3.getText().length()==0){
+
+                                tfFechaVentaMiel3.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem()+" ");
+                                rdbrRegistrar.requestFocus();
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
             }
         }
+    }//GEN-LAST:event_rdbrRegistrar1ActionPerformed
 
-        if (seleccion == "BOLIVIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bol : bolivia) {
-                cbEstadoProvincia.addItem(bol);
-            }
-        }
+    private void cbMesVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesVentaMielActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMesVentaMielActionPerformed
 
-        if (seleccion == "BRASIL") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bra : brasil) {
-                cbEstadoProvincia.addItem(bra);
-            }
-        }
+    private void cbPeriodoVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoVentaMielActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPeriodoVentaMielActionPerformed
 
-        if (seleccion == "CHILE") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String chil : chile) {
-                cbEstadoProvincia.addItem(chil);
-            }
-        }
+    private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCondicionIVAActionPerformed
 
-        if (seleccion == "COLOMBIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String col : colombia) {
-                cbEstadoProvincia.addItem(col);
-            }
-        }
-
-        if (seleccion == "ECUADOR") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ecu : ecuador) {
-                cbEstadoProvincia.addItem(ecu);
-            }
-        }
-
-        if (seleccion == "PARAGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String par : paraguay) {
-                cbEstadoProvincia.addItem(par);
-            }
-        }
-
-        if (seleccion == "PERU") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String per : peru) {
-                cbEstadoProvincia.addItem(per);
-            }
-        }
-
-        if (seleccion == "URUGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String uru : uruguay) {
-                cbEstadoProvincia.addItem(uru);
-            }
-        }
-
-        if (seleccion == "VENEZUELA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ven : venezuela) {
-                cbEstadoProvincia.addItem(ven);
-            }
-        }
-
-        if (seleccion == "SELECCIONAR") {
-            cbEstadoProvincia.setEnabled(false);
-            cbEstadoProvincia.removeAllItems();
-            cbEstadoProvincia.addItem("SELECCIONAR");
-            cbLocalidad.setEnabled(false);
-            cbLocalidad.removeAllItems();
-            cbLocalidad.addItem("SELECCIONAR");
-        }
-        
-    }//GEN-LAST:event_cbNacionalidadActionPerformed
+    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbLocalidadActionPerformed
 
     private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
 
@@ -1143,7 +1128,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         String tucuman[] = new String[]{"7 de Abril (Siete de Abril)", "Acheral", "Aguilares", "Alderetes", "Alpachiri", "Alto Verde", "Amaicha del Valle", "Arcadia", "Atahona", "Banda del Río Salí", "Barrio Casa Rosada", "Barrio El Cruce", "Barrio Lomas de Tafí", "Barrio Mutual San Martín", "Barrio Parada 14", "Barrio San Felipe", "Barrio San Jorge", "Barrio San José III", "Barrio San Roque", "Barrio U.T.A. II", "Bella Vista", "Campo de Herrera", "Capitán Cáceres", "Choromoro", "Colalao del Valle", "Colombres", "Colonia Mayo - Barrio La Milagrosa", "Concepción", "Delfín Gallo", "Diagonal Norte (- Luz y Fuerza - Los Pocitos - Villa Nueva Italia)", "El Bracho", "El Cadillal", "El Chañar", "El Manantial", "El Mollar", "El Naranjo", "Estación Aráoz", "Famaillá", "Garmendia", "Graneros", "Iltico", "Ingenio Fronterita", "Ingenio San Pablo", "Juan Bautista Alberdi", "La Cocha", "La Florida", "Lamadrid", "La Ramada", "La Reducción", "Las Cejas", "La Trinidad", "Los Puestos", "Los Ralos", "Los Sarmientos", "Lules", "Macomitas", "Manuel García Fernández", "Medinas", "Monteagudo", "Monteros", "Nueva Trinidad", "Pacará", "Pala Pala", "Piedrabuena", "Pueblo Independencia (Santa Rosa y Los Rojo)", "Ranchillos", "Río Chico", "Río Colorado", "Río Seco", "San Andrés", "San José de La Cocha", "San Miguel de Tucumán (Est. Tucumán)", "San Pedro de Colalao", "Santa Ana", "Santa Cruz", "Santa Lucía", "Santa Rosa de Leales", "Sargento Moya", "Simoca", "Soldado Maldonado", "Taco Ralo", "Tafí del Valle", "Tafí Viejo", "Teniente Berdina", "Villa Belgrano", "Villa Benjamín Aráoz", "Villa Burruyacú", "Villa Carmela (Cebil Redondo)", "Villa Chicligasta", "Villa Clodomiro Hileret", "Villa de Leales", "Villa de Trancas", "Villa Fiad (- Ingenio Leales)", "Villa Las Flores", "Villa Mariano Moreno (- El Colmenar)", "Villa Padre Monti", "Villa Quinteros", "Yerba Buena (- Marcos Paz)"};
 
         String seleccion = String.valueOf(cbEstadoProvincia.getSelectedItem());
-        
+
         if (seleccion == "BUENOS AIRES") {
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
@@ -1330,114 +1315,123 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
             cbLocalidad.removeAllItems();
             cbLocalidad.addItem("SELECCIONAR");
         }
-
     }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
 
-    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbLocalidadActionPerformed
+    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
 
-    private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCondicionIVAActionPerformed
+        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
 
-    private void cbPeriodoVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoVentaMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbPeriodoVentaMielActionPerformed
+        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
 
-    private void cbMesVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesVentaMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMesVentaMielActionPerformed
+        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
 
-    private void rdbrRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar1ActionPerformed
+        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
 
-        //Agrega las fechas de venta a los campos de edicion debajo
-        if (String.valueOf(cbPeriodoVentaMiel.getSelectedItem()) == "SELECCIONAR"){
+        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
 
-            JOptionPane.showMessageDialog(null, "Seleccione un periodo de venta para poder configurar la fecha.");
-            rdbrRegistrar.requestFocus();
+        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
 
-        }
-        else{
+        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
 
-            if (String.valueOf(cbMesVentaMiel.getSelectedItem()) == "SELECCIONAR"){
+        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
 
-                JOptionPane.showMessageDialog(null, "Seleccione un mes de venta para poder configurar la fecha.");
-                rdbrRegistrar.requestFocus();
+        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
 
-            }
-            else{
+        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
 
-                if (tfFechaVentaMiel1.getText().length()!=0 && tfFechaVentaMiel2.getText().length()!=0 && tfFechaVentaMiel3.getText().length()!=0){
+        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
 
-                    JOptionPane.showMessageDialog(null, "Ya cofiguro las tres fechas de venta del productor.");
-                    rdbrRegistrar.requestFocus();
+        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
 
-                }
-                else{
-
-                    if (tfFechaVentaMiel1.getText().length()==0){
-
-                        tfFechaVentaMiel1.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
-                        rdbrRegistrar.requestFocus();
-
-                    }
-                    else{
-
-                        if (tfFechaVentaMiel2.getText().length()==0){
-
-                            tfFechaVentaMiel2.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
-                            rdbrRegistrar.requestFocus();
-
-                        }
-                        else{
-
-                            if (tfFechaVentaMiel3.getText().length()==0){
-
-                                tfFechaVentaMiel3.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem()+" ");
-                                rdbrRegistrar.requestFocus();
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
+        if (seleccion == "ARGENTINA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String arg : argentina) {
+                cbEstadoProvincia.addItem(arg);
             }
         }
 
-    }//GEN-LAST:event_rdbrRegistrar1ActionPerformed
+        if (seleccion == "BOLIVIA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String bol : bolivia) {
+                cbEstadoProvincia.addItem(bol);
+            }
+        }
 
-    private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
+        if (seleccion == "BRASIL") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String bra : brasil) {
+                cbEstadoProvincia.addItem(bra);
+            }
+        }
 
-        // Elimina la primer fecha configurada
-        tfFechaVentaMiel1.setText("");
+        if (seleccion == "CHILE") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String chil : chile) {
+                cbEstadoProvincia.addItem(chil);
+            }
+        }
 
-    }//GEN-LAST:event_rdbrRegistrar2ActionPerformed
+        if (seleccion == "COLOMBIA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String col : colombia) {
+                cbEstadoProvincia.addItem(col);
+            }
+        }
 
-    private void rdbrRegistrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar3ActionPerformed
+        if (seleccion == "ECUADOR") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String ecu : ecuador) {
+                cbEstadoProvincia.addItem(ecu);
+            }
+        }
 
-        // Elimina la segunda fecha configurada
-        tfFechaVentaMiel2.setText("");
+        if (seleccion == "PARAGUAY") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String par : paraguay) {
+                cbEstadoProvincia.addItem(par);
+            }
+        }
 
-    }//GEN-LAST:event_rdbrRegistrar3ActionPerformed
+        if (seleccion == "PERU") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String per : peru) {
+                cbEstadoProvincia.addItem(per);
+            }
+        }
 
-    private void rdbrRegistrar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar4ActionPerformed
+        if (seleccion == "URUGUAY") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String uru : uruguay) {
+                cbEstadoProvincia.addItem(uru);
+            }
+        }
 
-        // Elimina la tercer fecha configurada
-        tfFechaVentaMiel3.setText("");
+        if (seleccion == "VENEZUELA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String ven : venezuela) {
+                cbEstadoProvincia.addItem(ven);
+            }
+        }
 
-    }//GEN-LAST:event_rdbrRegistrar4ActionPerformed
-
-    private void cbFloracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFloracionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbFloracionActionPerformed
-
-    private void cbCuraMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuraMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCuraMielActionPerformed
+        if (seleccion == "SELECCIONAR") {
+            cbEstadoProvincia.setEnabled(false);
+            cbEstadoProvincia.removeAllItems();
+            cbEstadoProvincia.addItem("SELECCIONAR");
+            cbLocalidad.setEnabled(false);
+            cbLocalidad.removeAllItems();
+            cbLocalidad.addItem("SELECCIONAR");
+        }
+    }//GEN-LAST:event_cbNacionalidadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -32,7 +32,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     public FrmGestionProductores() {
         initComponents();
         mostrarProductores("");
-        //ocultarColumnas();
+        ocultarColumnas();
         inicializar();
     }
 
@@ -115,6 +115,11 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         tfBuscarProductor.setBackground(new java.awt.Color(51, 84, 111));
         tfBuscarProductor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfBuscarProductor.setForeground(new java.awt.Color(255, 255, 255));
+        tfBuscarProductor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBuscarProductorKeyReleased(evt);
+            }
+        });
 
         rdbrEliminar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/quitar.png"))); // NOI18N
@@ -337,11 +342,10 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         }
         */
         
-        tfBuscarProductor.requestFocus();
-        mostrarProductores("");
+        //mostrarProductores("");
         //ocultarColumnas();
         tfBuscarProductor.setText("");
-        tProductores.requestFocus();
+        tfBuscarProductor.requestFocus();
         
 }
 
@@ -381,97 +385,46 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(2).setPreferredWidth(0);
 
         
-        /*tProductores.getColumnModel().getColumn(3).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(3).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(3).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(3).setPreferredWidth(0);*/
+        tProductores.getColumnModel().getColumn(3).setPreferredWidth(0);
         
-        tProductores.getColumnModel().getColumn(4).setMaxWidth(0);
+        /*tProductores.getColumnModel().getColumn(4).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(4).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tProductores.getColumnModel().getColumn(4).setPreferredWidth(0);*/
         
-        tProductores.getColumnModel().getColumn(5).setMaxWidth(0);
+        /*tProductores.getColumnModel().getColumn(5).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(5).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tProductores.getColumnModel().getColumn(5).setPreferredWidth(0);*/
         
-        tProductores.getColumnModel().getColumn(6).setMaxWidth(0);
+        /*tProductores.getColumnModel().getColumn(6).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(6).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(6).setPreferredWidth(0);
+        tProductores.getColumnModel().getColumn(6).setPreferredWidth(0);*/
         
-        /*tProductores.getColumnModel().getColumn(7).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(7).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(7).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(7).setPreferredWidth(0);*/
+        tProductores.getColumnModel().getColumn(7).setPreferredWidth(0);
         
         tProductores.getColumnModel().getColumn(8).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(8).setMinWidth(0);
         tProductores.getColumnModel().getColumn(8).setPreferredWidth(0);
         
-        tProductores.getColumnModel().getColumn(9).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(9).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(9).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(10).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(10).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(10).setPreferredWidth(0);
-        
-        tProductores.getColumnModel().getColumn(11).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(11).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(11).setPreferredWidth(0);
-        
-        tProductores.getColumnModel().getColumn(12).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(12).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(12).setPreferredWidth(0);
-        
-        /*tProductores.getColumnModel().getColumn(13).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(13).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(13).setPreferredWidth(0);*/
-        
-        tProductores.getColumnModel().getColumn(14).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(14).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(14).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(15).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(15).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(15).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(16).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(16).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(16).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(17).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(17).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(17).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(18).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(18).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(18).setPreferredWidth(0);
-
-        tProductores.getColumnModel().getColumn(19).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(19).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(19).setPreferredWidth(0);
-
-        /*tProductores.getColumnModel().getColumn(20).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(20).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(20).setPreferredWidth(0);*/
-
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender4 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender5 = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer cellRender6 = new DefaultTableCellRenderer();
         
         cellRender1.setHorizontalAlignment(SwingConstants.CENTER);
         tProductores.getColumnModel().getColumn(0).setCellRenderer(cellRender1);   
         cellRender2.setHorizontalAlignment(SwingConstants.LEFT);
         tProductores.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
-        cellRender3.setHorizontalAlignment(SwingConstants.CENTER);
-        tProductores.getColumnModel().getColumn(3).setCellRenderer(cellRender3);   
-        cellRender4.setHorizontalAlignment(SwingConstants.LEFT);
-        tProductores.getColumnModel().getColumn(7).setCellRenderer(cellRender4);   
+        cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
+        tProductores.getColumnModel().getColumn(4).setCellRenderer(cellRender3);   
+        cellRender4.setHorizontalAlignment(SwingConstants.CENTER);
+        tProductores.getColumnModel().getColumn(5).setCellRenderer(cellRender4);   
         cellRender5.setHorizontalAlignment(SwingConstants.LEFT);
-        tProductores.getColumnModel().getColumn(13).setCellRenderer(cellRender5);
-        cellRender6.setHorizontalAlignment(SwingConstants.CENTER);
-        tProductores.getColumnModel().getColumn(20).setCellRenderer(cellRender6);
+        tProductores.getColumnModel().getColumn(6).setCellRenderer(cellRender5);
         
         ((DefaultTableCellRenderer) tProductores.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
@@ -506,6 +459,13 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbrDetalleActionPerformed
+
+    private void tfBuscarProductorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarProductorKeyReleased
+
+        mostrarProductores(tfBuscarProductor.getText());
+        ocultarColumnas();
+        
+    }//GEN-LAST:event_tfBuscarProductorKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
