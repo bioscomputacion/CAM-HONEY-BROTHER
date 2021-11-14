@@ -21,14 +21,14 @@ public class ItemFacturadoFacturaProductor {
     private int codigoItemFacturado;
     private int codigoFactura;
     private String descripcionItemFacturado;
-    private int cantidadItemFacturado;
+    private Double cantidadItemFacturado;
     private Double importeItemFacturado;
     private Double totalItemFacturado;
 
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
     
-    public ItemFacturadoFacturaProductor(int codigoItemFacturado, int codigoFactura, String descripcionItemFacturado, int cantidadItemFacturado, Double importeItemFacturado, Double totalItemFacturado) {
+    public ItemFacturadoFacturaProductor(int codigoItemFacturado, int codigoFactura, String descripcionItemFacturado, Double cantidadItemFacturado, Double importeItemFacturado, Double totalItemFacturado) {
         this.codigoItemFacturado = codigoItemFacturado;
         this.codigoFactura = codigoFactura;
         this.descripcionItemFacturado = descripcionItemFacturado;
@@ -65,11 +65,11 @@ public class ItemFacturadoFacturaProductor {
         this.descripcionItemFacturado = descripcionItemFacturado;
     }
 
-    public int getCantidadItemFacturado() {
+    public double getCantidadItemFacturado() {
         return cantidadItemFacturado;
     }
 
-    public void setCantidadItemFacturado(int cantidadItemFacturado) {
+    public void setCantidadItemFacturado(double cantidadItemFacturado) {
         this.cantidadItemFacturado = cantidadItemFacturado;
     }
 
@@ -127,7 +127,7 @@ public class ItemFacturadoFacturaProductor {
             pst.setInt(1, itemFacturado.getCodigoItemFacturado());
             pst.setInt(2, itemFacturado.getCodigoFactura());
             pst.setString(3, itemFacturado.getDescripcionItemFacturado());
-            pst.setInt(4, itemFacturado.getCantidadItemFacturado());
+            pst.setDouble(4, itemFacturado.getCantidadItemFacturado());
             pst.setDouble(5, itemFacturado.getImporteItemFacturado());
             pst.setDouble(6, itemFacturado.getTotalItemFacturado());
             

@@ -7,6 +7,7 @@ package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.Productor;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     //la variable ctaCteMostrada es para no ejecutar el mismo codigo cada vez que se hace click en la pestaña cta cte
     //una vez que se pone en true el codigo ya no debe ejecutarse, caso contrario se ejcuta dicho codigo.
     public String nombreProductor;
-    int fila = -1;
+    int fila, fila2 = -1;
     /**
      * Creates new form FrmGenerico
      */
@@ -441,7 +442,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -494,11 +495,11 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         });
 
         lbPagoTotal.setFont(new java.awt.Font("Calibri", 3, 20)); // NOI18N
-        lbPagoTotal.setForeground(new java.awt.Color(102, 255, 0));
-        lbPagoTotal.setText("PAGO / DESCUENTO TOTAL INGRESADO: $");
+        lbPagoTotal.setForeground(new java.awt.Color(153, 255, 255));
+        lbPagoTotal.setText("IMPORTE TOTAL A PAGAR: $");
 
         lImporteTotalPago.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
-        lImporteTotalPago.setForeground(new java.awt.Color(102, 255, 0));
+        lImporteTotalPago.setForeground(new java.awt.Color(153, 255, 255));
         lImporteTotalPago.setText("0.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -519,15 +520,14 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lbPagoTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lImporteTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lSaldoTotal)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lSaldoTotal)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,14 +537,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPagoTotal)
-                    .addComponent(lImporteTotalPago))
+                .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(lSaldoTotal)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lSaldoTotal)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbPagoTotal)
+                        .addComponent(lImporteTotalPago)))
                 .addContainerGap())
         );
 
@@ -573,7 +574,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -591,60 +592,100 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_bPagoActionPerformed
 
+    public void actualizarImporteTotalPago() {
+
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator('.');
+        DecimalFormat formateador = new DecimalFormat("0.00", simbolos);
+        Double importeTotalPago = 0.00;
+        
+        for (int i = 0; i < tMovimientos.getRowCount(); i++) {
+            
+            importeTotalPago = importeTotalPago + Double.valueOf(tMovimientos.getValueAt(i, 11).toString());
+            
+        }
+
+        lImporteTotalPago.setText(String.valueOf(formateador.format(importeTotalPago)));
+        System.out.println(importeTotalPago);
+
+    }
+
     private void tMovimientosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tMovimientosKeyReleased
 
-        /*
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
             DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
             simbolos.setDecimalSeparator('.');
             DecimalFormat formateador = new DecimalFormat("0.00", simbolos);
-            Double pago = 0.00;
-            pago = Double.valueOf(tMovimientos.getValueAt(fila, 11).toString());
-            tMovimientos.setValueAt(String.valueOf(formateador.format(pago)), fila, 11);
+            Double pagoRealizado = 0.00;
+            pagoRealizado = Double.valueOf(tMovimientos.getValueAt(fila2, 11).toString());
+            tMovimientos.setValueAt(String.valueOf(formateador.format(pagoRealizado)), fila2, 11);
 
+            //NORMALIZAR VENTANAS DE MENSAJES DE ERROR E INFORMACION!
+            
             try {
+                
                 int fila = tMovimientos.getSelectedRow();
-                if ((Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 8).toString())) && (tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA C") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C"))) {
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO o DESCUENTO mayor a la deuda en este movimiento.");
+                
+                if ((Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 8).toString())) && (tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C"))) {
+                    
+                    JOptionPane.showMessageDialog(null, "No se puede ingresar un pago mayor a la deuda en este movimiento.");
                     tMovimientos.setValueAt("0.00", fila, 11);
+
                 }
-                else if ((tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA C") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C")) && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) < 0.00) {
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO o DESCUENTO negativo en este movimiento.");
+                else if ((tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C")) && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) < 0.00) {
+
+                    JOptionPane.showMessageDialog(null, "No se puede ingresar un importe negativo en este movimiento.");
                     tMovimientos.setValueAt("0.00", fila, 11);
-                }
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 8).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 11).toString())) {
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO o DESCUENTO menor a la deuda en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-                }
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > 0.00) {
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO positivo en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
+
                 }
                 else if (tMovimientos.getValueAt(fila, 3).toString().equals("PAGO")) {
-                    JOptionPane.showMessageDialog(null, "No se puede PAGAR o realizar un DESCUENTO en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-                }
 
+                    JOptionPane.showMessageDialog(null, "No se puede ingresar un pago en este movimiento.");
+                    tMovimientos.setValueAt("0.00", fila, 11);
+
+                }
+                /*
+                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 8).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 11).toString())) {
+
+                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO o DESCUENTO menor a la deuda en este movimiento.");
+                    tMovimientos.setValueAt("0.00", fila, 11);
+
+                }
+                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > 0.00) {
+
+                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO positivo en este movimiento.");
+                    tMovimientos.setValueAt("0.00", fila, 11);
+
+                }
                 else if (tMovimientos.getValueAt(fila, 3).toString().equals("DESCUENTO")) {
+
                     JOptionPane.showMessageDialog(null, "No se puede PAGAR o realizar un DESCUENTO en este movimiento.");
                     tMovimientos.setValueAt("0.00", fila, 11);
+
                 }
 
                 else if (tMovimientos.getValueAt(fila, 3).toString().equals("AJUSTE")) {
+
                     JOptionPane.showMessageDialog(null, "No se puede PAGAR o realizar un DESCUENTO en este movimiento");
                     tMovimientos.setValueAt("0.00", fila, 11);
+
                 }
                 else if(tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE CREDITO C")){
+
                     JOptionPane.showMessageDialog(null, "No se puede asociar este comprobante desde este formulario, se asocia si o si desde alta de Notas de credito");
                     tMovimientos.setValueAt("0.00", fila, 11);
-                }
 
-                actualizarSaldo();
+                }*/
+                
 
             } catch (Exception e) {
+                
             }
+            
+            actualizarImporteTotalPago();
+            
         }
-        */
 
     }//GEN-LAST:event_tMovimientosKeyReleased
 
@@ -653,7 +694,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tMovimientosKeyPressed
 
     private void tMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMovimientosMouseClicked
-        //fila = tMovimientos.rowAtPoint(evt.getPoint());
+
+        fila2 = tProductores.rowAtPoint(evt.getPoint());
+
     }//GEN-LAST:event_tMovimientosMouseClicked
 
     private void tProductoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresMouseClicked
@@ -719,14 +762,14 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbPagoTotal;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSButtonRiple rsbrSalir;
-    private javax.swing.JTable tMovimientos;
-    private javax.swing.JTable tProductores;
-    private javax.swing.JTextField tfBusquedaPorNombre;
-    private javax.swing.JTextField tfDocumentoProductor;
-    private javax.swing.JTextField tfIDProductor;
-    private javax.swing.JTextField tfLocalidadProductor;
-    private javax.swing.JTextField tfNombreProductor;
-    private javax.swing.JTextField tfProvinciaProductor;
+    public static javax.swing.JTable tMovimientos;
+    public javax.swing.JTable tProductores;
+    public javax.swing.JTextField tfBusquedaPorNombre;
+    public javax.swing.JTextField tfDocumentoProductor;
+    public javax.swing.JTextField tfIDProductor;
+    public javax.swing.JTextField tfLocalidadProductor;
+    public javax.swing.JTextField tfNombreProductor;
+    public javax.swing.JTextField tfProvinciaProductor;
     private javax.swing.JTabbedPane tpFactura;
     // End of variables declaration//GEN-END:variables
 }

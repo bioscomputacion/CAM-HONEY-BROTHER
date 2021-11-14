@@ -224,9 +224,9 @@ public class CtaCteProductor {
         
         DefaultTableModel modelo;
         
-        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "DESCRIPCION", "COMPROBANTE ASOCIADO", "N° COMPROBANTE", "DEBE", "HABER", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
+        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION", "PAGO A REALIZAR"};
 
-        String[] registros = new String[11];
+        String[] registros = new String[12];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -260,6 +260,7 @@ public class CtaCteProductor {
                 registros[8] = rs.getString("saldo");
                 registros[9] = rs.getString("estado_movimiento");
                 registros[10] = rs.getString("observacion");
+                registros[11] = "0.00";
 
                 modelo.addRow(registros);
                 

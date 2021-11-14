@@ -7,6 +7,9 @@ package ar.com.bioscomputacion.Formularios;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -59,6 +62,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuFacturacion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -203,6 +208,34 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem10);
 
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem11.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem11.setText("GESTION DEL STOCK DE MIEL");
+        jMenuItem11.setOpaque(true);
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem12.setText("GESTION DE LOCACIONES");
+        jMenuItem12.setOpaque(true);
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem12);
+
         menuPrincipal.add(menuGestion);
 
         menuFacturacion.setForeground(new java.awt.Color(255, 255, 255));
@@ -329,17 +362,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
-        FrmRegistroFacturaProductor form = new FrmRegistroFacturaProductor();
-        
-        deskPrincipal.add(form);
-        Dimension desktopSize = deskPrincipal.getSize();
-        Dimension FrameSize = form.getSize();
-
-        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        form.setVisible(true);
-
-        form.setClosable(true);
-        form.setIconifiable(false);
+        try {
+            
+            FrmRegistroFacturaProductor form = new FrmRegistroFacturaProductor();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
                             
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -358,6 +399,42 @@ public class FrmPrincipal extends javax.swing.JFrame {
         form.setIconifiable(false);
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+
+        try {
+            FrmGestionStockMiel form = new FrmGestionStockMiel();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+
+        FrmRegistroLocacion form = new FrmRegistroLocacion();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,6 +479,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

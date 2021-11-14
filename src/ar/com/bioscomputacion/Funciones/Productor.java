@@ -182,6 +182,7 @@ public class Productor extends Persona {
             
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("INSERT INTO persona (nombre,documento,pais,estado_provincia,localidad,domicilio,telefono,correo) "
                     + "VALUES (?,?,?,?,?,?,?,?)");
             PreparedStatement pst2 = cn.prepareStatement("INSERT INTO productor (cod_persona,fecha_venta_miel_1,fecha_venta_miel_2,fecha_venta_miel_3,nombre_fantasia,razon_social,condicion_iva,cuit,domicilio_fiscal,estado,cantidad_colmenas,ubicacion_colmenas,floracion_miel,cura_miel) VALUES ((select cod_persona from persona order by cod_persona desc limit 1),"
@@ -215,14 +216,20 @@ public class Productor extends Persona {
             int N2 = pst2.executeUpdate();
 
             if (N != 0 || N2 != 0) {
+                
                 return true;
+                
             } else {
+                
                 return false;
+                
             }
             
             
         } catch (Exception e) {
+            
         }
+        
         return false;
     }
 

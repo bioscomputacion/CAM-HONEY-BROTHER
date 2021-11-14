@@ -9,13 +9,24 @@ import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
 import ar.com.bioscomputacion.Funciones.ItemFacturadoFacturaProductor;
 import ar.com.bioscomputacion.Funciones.Productor;
+import ar.com.bioscomputacion.Funciones.StockRealMiel;
+import ar.com.bioscomputacion.Funciones.ConexionBD;
+import ar.com.bioscomputacion.Funciones.Locacion;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,10 +43,14 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
     public List<ItemFacturadoFacturaProductor> itemsAFacturar = new ArrayList<>();
     int fila = -1;
     
+    ConexionBD mysql = new ConexionBD();
+    Connection cn = mysql.getConexionBD();
+    
+    
     /**
      * Creates new form FrmGenerico
      */
-    public FrmRegistroFacturaProductor() {
+    public FrmRegistroFacturaProductor() throws SQLException {
         
         initComponents();
         mostrarProductores("");
@@ -45,7 +60,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         
     }
 
-    public void inicializar(){
+    public void inicializar() throws SQLException{
         
         //ERROOORRR!!!!!!!, si no hay facturas cargadas aun, el mostrarIDFactura me devuelve 1, pero
         //luego esa factura no se almacena con el codigo 1, sino con el autoincrementable que corresponda
@@ -63,13 +78,6 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         //a medida que se cargan items facturados en la grilla
         codigoItemFacturado = facturaProductor.mostrarIdItemAFacturar(codigoFactura)+1;
         
-        //almaceno en la variable global codigoMovimientoCtaCte el codigo que tendra el movimiento
-        //correspondiente a la factura que se registrara
-        CtaCteProductor ctacteProductor = new CtaCteProductor();
-        codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-        System.out.println(codigoMovimientoCtaCte);
-
-
         Calendar cal = new GregorianCalendar();
         dcFechaFactura.setCalendar(cal);
         dcFechaVencimiento.setCalendar(cal);
@@ -81,6 +89,14 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         tfDocumentoProductor.setEditable(false);
         tfProvinciaProductor.setEditable(false);
         tfLocalidadProductor.setEditable(false);
+        
+        //carga del combo de las locaciones disponibles
+        ArrayList<String> locaciones= new ArrayList<String>();
+        locaciones = cargarComboLocaciones();
+        for (int i = 0; i<locaciones.size(); i++){
+            cbLocacionesDisponibles.addItem(locaciones.get(i));
+        }
+        cbLocacionesDisponibles.setSelectedIndex(0);
         
         tProductores.requestFocus();
         
@@ -188,6 +204,37 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         
     }
     
+    public ArrayList<String> cargarComboLocaciones() throws SQLException{
+        
+        ArrayList<String> locaciones = new ArrayList<String>();
+        
+        //el primer item debe ser "SELECCIONAR"
+        locaciones.add("SELECCIONAR");
+        
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery("select nombre_locacion from locacion");
+        
+        try{
+            
+            while(rs.next()){
+                
+                locaciones.add(rs.getString("nombre_locacion"));
+                
+            }
+            
+        }
+        catch (Exception e) {
+            
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+            
+        }
+        
+        return locaciones;
+        
+    }
+        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -250,6 +297,8 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         dcFechaVencimiento = new com.toedter.calendar.JDateChooser();
         cbDescripcionItem = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        cbLocacionesDisponibles = new javax.swing.JComboBox<>();
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
@@ -425,7 +474,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -527,7 +576,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
         rdbrRegistrar1.setBackground(new java.awt.Color(0, 0, 0));
         rdbrRegistrar1.setForeground(new java.awt.Color(0, 0, 0));
-        rdbrRegistrar1.setText("FACTURAR ITEM");
+        rdbrRegistrar1.setText("FACTURAR");
         rdbrRegistrar1.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
         rdbrRegistrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,7 +586,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
         rdbrRegistrar2.setBackground(new java.awt.Color(0, 0, 0));
         rdbrRegistrar2.setForeground(new java.awt.Color(0, 0, 0));
-        rdbrRegistrar2.setText("QUITAR ITEM");
+        rdbrRegistrar2.setText("QUITAR");
         rdbrRegistrar2.setToolTipText("");
         rdbrRegistrar2.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
         rdbrRegistrar2.addActionListener(new java.awt.event.ActionListener() {
@@ -557,11 +606,26 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         cbDescripcionItem.setBackground(new java.awt.Color(36, 33, 33));
         cbDescripcionItem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbDescripcionItem.setForeground(new java.awt.Color(207, 207, 207));
-        cbDescripcionItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "KG. DE MIEL", "TAMBOR DE MIEL (70 KGS.)", "LOTE DE MIEL (300 TAMB. / 21000 KGS.) ", " " }));
+        cbDescripcionItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "KG. DE MIEL", "TAMBOR DE MIEL (70 KGS.)", "TAMBOR DE MIEL (71 KGS.)", "LOTE DE MIEL (300 TAMB. / 21000 KGS.) ", "LOTE DE MIEL (300 TAMB. / 21300 KGS.) ", " " }));
         cbDescripcionItem.setPreferredSize(new java.awt.Dimension(136, 19));
         cbDescripcionItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDescripcionItemActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("SELECCIONE LA LOCACION DONDE SERA ACOPIADA LA MIEL ADQUIRIDA:");
+
+        cbLocacionesDisponibles.setBackground(new java.awt.Color(36, 33, 33));
+        cbLocacionesDisponibles.setEditable(true);
+        cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbLocacionesDisponibles.setForeground(new java.awt.Color(207, 207, 207));
+        cbLocacionesDisponibles.setPreferredSize(new java.awt.Dimension(136, 19));
+        cbLocacionesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLocacionesDisponiblesActionPerformed(evt);
             }
         });
 
@@ -596,9 +660,6 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jSeparator4)
                         .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -620,17 +681,25 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane7)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfImporteTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -638,29 +707,25 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel7))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9))
+                        .addGap(7, 7, 7)
+                        .addComponent(dcFechaFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel9))
+                                .addComponent(jLabel17)
                                 .addGap(7, 7, 7)
-                                .addComponent(dcFechaFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(1, 1, 1))
-                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 33, Short.MAX_VALUE)))
+                                .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))
+                            .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -677,17 +742,19 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbDescripcionItem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfImporteTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15)
-                        .addComponent(jLabel16))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfImporteTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -727,8 +794,8 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(tpFactura)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -755,7 +822,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         //Tambien son obligatorios todos los campos referidos a la factura: numero de factura, fecha
         //items facturados y monto total de la factura
         
-        Boolean informacionFactura = (tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0);
+        Boolean informacionFactura = (tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0 || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
         
         if (tfIDProductor.getText().length() == 0){
             
@@ -770,7 +837,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         if (informacionFactura) {
 
             if (JOptionPane.showConfirmDialog(null, "La informacion correspondiente a la factura se halla incompleta. ¿Desea ingresar la misma?",
-                "REGISTRO DE PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                 //no tengo claro que hacer aca!
                 tpFactura.setSelectedIndex(1);
@@ -787,35 +854,112 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         else{
             
             //obtengo las fechas de factura y de vencimiento del pago de la misma
-            Calendar cal;
-            int d, m, a;
-            cal = dcFechaFactura.getCalendar();
-            d = cal.get(Calendar.DAY_OF_MONTH);
-            m = cal.get(Calendar.MONTH);
-            a = cal.get(Calendar.YEAR) - 1900;
+            Calendar cal1, cal2;
+            int d1, d2, m1, m2, a1, a2;
+            cal1 = dcFechaFactura.getCalendar();
+            //ffecha de la factura
+            d1 = cal1.get(Calendar.DAY_OF_MONTH);
+            m1 = cal1.get(Calendar.MONTH);
+            a1 = cal1.get(Calendar.YEAR) - 1900;
+            cal2 = dcFechaVencimiento.getCalendar();
+            //ffecha de vencimiento de la factura
+            d2 = cal2.get(Calendar.DAY_OF_MONTH);
+            m2 = cal2.get(Calendar.MONTH);
+            a2 = cal2.get(Calendar.YEAR) - 1900;
+            
+            //ver como puedo comparar las fechas de la factura y de vencimiento de la misma para que sean 
+            //correcatmente almacenadas en la BD
             
             Double importeFactura = Double.parseDouble(tfImporteTotalFactura.getText());
             
             //se procede al registro de la factura correspondiente a la compra de miel al productor seleccionado
-            FacturaProductor factura = new FacturaProductor(codigoFactura, tfNumeroComprobante.getText(), 1, codigoProductor, new Date(a, m, d), importeFactura);
+            FacturaProductor factura = new FacturaProductor(codigoFactura, tfNumeroComprobante.getText(), codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeFactura);
             factura.registrarFacturaProductor(factura);
             
             //ahora, se guardan todos los items facturados en dicha factura (crar el metodo)
+            //ademas se calcula la cantidad de kgs de miel adquirida para guardarla correctamente
+            //en la tabla stock real de miel
+            Double totalMielFacturada = 0.00;
+            
             for (int i = 0; i<itemsAFacturar.size(); i++ ){
 
                 ItemFacturadoFacturaProductor item = itemsAFacturar.get(i);
+
+                /*KG. DE MIEL
+                TAMBOR DE MIEL (70 KGS.)
+                TAMBOR DE MIEL (71 KGS.)
+                LOTE DE MIEL (300 TAMB. / 21000 KGS.) 
+                LOTE DE MIEL (300 TAMB. / 21300 KGS.)*/ 
+                
+                switch (item.getDescripcionItemFacturado()){
+                    
+                    case "KG. DE MIEL":
+                        //se suman los kilos sin convertirlos
+                        totalMielFacturada = totalMielFacturada + item.getCantidadItemFacturado();
+                        break;
+                        
+                    case "TAMBOR DE MIEL (70 KGS.)":
+                        //se suman los kilos sin convertirlos
+                        totalMielFacturada = totalMielFacturada + 70.00;
+                        break;
+                
+                    case "TAMBOR DE MIEL (71 KGS.)":
+                        //se suman los kilos sin convertirlos
+                        totalMielFacturada = totalMielFacturada + 71.00;
+                        break;
+
+                    case "LOTE DE MIEL (300 TAMB. / 21000 KGS.)":
+                        //se suman los kilos sin convertirlos
+                        totalMielFacturada = totalMielFacturada + 21000.00;
+                        break;
+                        
+                    case "LOTE DE MIEL (300 TAMB. / 21300 KGS.)*":
+                        //se suman los kilos sin convertirlos
+                        totalMielFacturada = totalMielFacturada + 21300.00;
+                        break;
+                        
+                    default:
+                        //nada
+                        break;
+                        
+                }
+
+                //imprimo en consola para controlar
+                System.out.println(totalMielFacturada);
+                
                 item.facturarItem(item);
-                System.out.println(i+" "+item.getDescripcionItemFacturado()+" "+item.getImporteItemFacturado());
 
             }
             
             //ahora se guarda el movimiento correspondiente a la factura, en la cta. cte. de la empresa con el productor
-            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "FACTURA", codigoFactura, tfNumeroComprobante.getText(), importeFactura, 0.00, importeFactura, "PENDIENTE", "");
+            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "FACTURA", codigoFactura, tfNumeroComprobante.getText(), importeFactura, 0.00, importeFactura, "PENDIENTE", "");
             ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
             
-            //System.out.println(codigoMovimientoCtaCte);
-
+            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, SUMANDO LA CANTIDAD DE KGS. COMPRADA EN ESTA FACTURA
+            // A DICHO STOCK, APUNTANDO ADEMAS EL ESTADO DE ESTA CANTIDAD: PAGOS, IMPAGOS, ETC.
+            
+            
+            StockRealMiel stockMiel = new StockRealMiel();
+            stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
+            stockMiel.setTipo_movimiento("COMPRA");
+            stockMiel.setComprobante_asociado(codigoFactura);
+            //crear para metodo para realizar esto:
+            //en una variable deberia sumar todos los kilos de miel comprados, los cuales se pueden sacar
+            //de las descripciones y cantidades de los items facturados (en la lista esta esa informacion!)
+            //esa cantidad obtenida se almacenara en cantidad_miel
+            stockMiel.setCantidad_miel(totalMielFacturada);
+            //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
+            //no se almacenara nada!
+            //debo obtener el codigo de la locacion a partir del nombre de la misma
+            //escogido en el combo de locaciones disponibles
+            stockMiel.setLocacion_miel(cbLocacionesDisponibles.getSelectedIndex());
+            stockMiel.setObservacion("");
+            
+            stockMiel.registrarMovimientoStock(stockMiel);
+            
             this.dispose();
+            //tambien: en lugar del dispose, deberia limpiar campos y dar la opcion
+            //de registrar una nueva factura de compra de miel
             
         }
         
@@ -878,9 +1022,48 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         }
         
         String descripcionItemFacturado = String.valueOf(cbDescripcionItem.getSelectedItem());
-        int cantidadItemFacturado = Integer.parseInt(tfCantidadItemFacturado.getText());
         double importeItemFacturado = Double.parseDouble(tfImporteItemFacturado.getText());
-        double totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
+        double totalItemFacturado = 0.00;
+
+        Double cantidadItemFacturado = 0.00;
+        switch (descripcionItemFacturado){
+
+            case "KG. DE MIEL":
+                //se suman los kilos sin convertirlos
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString());
+                totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
+                break;
+
+            case "TAMBOR DE MIEL (70 KGS.)":
+                //se suman los kilos sin convertirlos
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*70;
+                totalItemFacturado = 70.00 * importeItemFacturado;
+                break;
+
+            case "TAMBOR DE MIEL (71 KGS.)":
+                //se suman los kilos sin convertirlos
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*71;
+                totalItemFacturado = 71.00 * importeItemFacturado;
+                break;
+
+            case "LOTE DE MIEL (300 TAMB. / 21000 KGS.)":
+                //se suman los kilos sin convertirlos
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21000;
+                totalItemFacturado = 21000.00 * importeItemFacturado;
+                break;
+
+            case "LOTE DE MIEL (300 TAMB. / 21300 KGS.)*":
+                //se suman los kilos sin convertirlos
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21300;
+                totalItemFacturado = 21300.00 * importeItemFacturado;
+                break;
+
+            default:
+                //nada
+                break;
+
+        }
+
         ItemFacturadoFacturaProductor itemFacturado = new ItemFacturadoFacturaProductor(codigoItemFacturado, codigoFactura, descripcionItemFacturado, cantidadItemFacturado, importeItemFacturado, totalItemFacturado);
         
         //lo agrego a la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
@@ -941,10 +1124,11 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
     private void tProductoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresMouseClicked
 
-        CtaCteProductor ctacteProductor = new CtaCteProductor();
         fila = tProductores.rowAtPoint(evt.getPoint());
         codigoProductor = Integer.parseInt(tProductores.getValueAt(fila, 0).toString());
+        CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
+        System.out.println(codigoMovimientoCtaCte);
         
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo lso datos del productor
         //correspondiente a la fila de la grilla cliqueada
@@ -967,9 +1151,14 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbDescripcionItemActionPerformed
 
+    private void cbLocacionesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocacionesDisponiblesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbLocacionesDisponiblesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> cbDescripcionItem;
+    public javax.swing.JComboBox<String> cbLocacionesDisponibles;
     public com.toedter.calendar.JDateChooser dcFechaFactura;
     public com.toedter.calendar.JDateChooser dcFechaVencimiento;
     private javax.swing.JLabel jLabel1;
@@ -984,6 +1173,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

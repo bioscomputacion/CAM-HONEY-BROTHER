@@ -25,18 +25,20 @@ public class FacturaProductor {
     private int codigo_movimiento_ctacte;
     private int codigo_productor;
     private Date fecha_factura;
+    private Date fecha_vencimiento;
     private Double importe_total_factura;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
     
 
-    public FacturaProductor(int codigo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Double importe_total_factura) {
+    public FacturaProductor(int codigo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento,Double importe_total_factura) {
         this.codigo_factura = codigo_factura;
         this.numero_comprobante = numero_comprobante;
         this.codigo_movimiento_ctacte = codigo_movimiento_ctacte;
         this.codigo_productor = codigo_productor;
         this.fecha_factura = fecha_factura;
+        this.fecha_vencimiento = fecha_vencimiento;
         this.importe_total_factura = importe_total_factura;
     }
 
@@ -81,6 +83,14 @@ public class FacturaProductor {
 
     public void setFecha_factura(Date fecha_factura) {
         this.fecha_factura = fecha_factura;
+    }
+
+    public Date getFecha_vencimiento() {
+        return fecha_vencimiento;
+    }
+
+    public void setFecha_vencimiento(Date fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
     }
 
     public Double getImporte_total_factura() {
@@ -144,15 +154,16 @@ public class FacturaProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_factura, importe_total_factura) "
-                    + "VALUES (?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_factura, fecha_vencimiento, importe_total_factura) "
+                    + "VALUES (?,?,?,?,?,?)");
             
             
             pst.setString(1, facturaProductor.getNumero_comprobante());
             pst.setInt(2, facturaProductor.getCodigo_movimiento_ctacte());
             pst.setInt(3, facturaProductor.getCodigo_productor());
             pst.setDate(4, facturaProductor.getFecha_factura());
-            pst.setDouble(5, facturaProductor.getImporte_total_factura());
+            pst.setDate(5, facturaProductor.getFecha_vencimiento());
+            pst.setDouble(6, facturaProductor.getImporte_total_factura());
             
             
             int N = pst.executeUpdate();
