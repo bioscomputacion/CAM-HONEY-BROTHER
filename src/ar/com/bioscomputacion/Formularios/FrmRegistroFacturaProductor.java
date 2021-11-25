@@ -69,18 +69,43 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         //lo mismo con el movimiento correspondiente en la cta. cte.
         //se guarda asociado a la factura 1 pero esta luego no existe, entonces no se pueden vincular
         
+        //PARA CORREGIR EL ERROR DE ARRIBA HAGO LO DE ABAJO
+        
         //creo el objeto facturaProveedor
-        FacturaProductor facturaProductor = new FacturaProductor();
-        //almaceno en la variable global codigoFactura el codigo de la nueva factura a registrar
-        codigoFactura = facturaProductor.mostrarIdFacturaProductor()+1;
+        //DEBERIA GUARDARLO EN LA BASE DE DATOS Y SI LA CARGA DE LA FACT SE CANCELA ELIMINAR LA MISMA
+        //ENTONCES EL CODIGO DE FACTURA QUE MANEJA AL OBTENER EL MISMO DESDE LA BASE DE DATOS ES REAL
+        //Y NO CAUSA ERRORES DE CARGA EN ITEMS FACTURADOS Y ERRORES DE ENLACES ENTRE FAC Y CTA. CTE
+        //esta factura en principio queda asociada al productor generico n° 38 y luego, si se confirma
+        //la insercion de la misma, se modifican sus datos por los datos reales ingresados por el usuario
+        //del soft
         
         //esto lo hago aca y a la variable codigoItemFacturado la tengo que ir incrementando
         //a medida que se cargan items facturados en la grilla
-        codigoItemFacturado = facturaProductor.mostrarIdItemAFacturar(codigoFactura)+1;
         
         Calendar cal = new GregorianCalendar();
         dcFechaFactura.setCalendar(cal);
         dcFechaVencimiento.setCalendar(cal);
+        
+        int d, m, a;
+        cal = dcFechaFactura.getCalendar();
+        //ffecha de la factura
+        d = cal.get(Calendar.DAY_OF_MONTH);
+        m = cal.get(Calendar.MONTH);
+        a = cal.get(Calendar.YEAR) - 1900;
+
+        FacturaProductor facturaProductor = new FacturaProductor("-", 0, 38, new Date(a, m, d), new Date(a, m, d), 0.00);
+        facturaProductor.registrarFacturaProductor(facturaProductor);
+        //almaceno en la variable global codigoFactura el codigo de la nueva factura a registrar
+        
+        //aca almaceno el codigo de la factura recien cargada para utilizar el mismo para los items
+        //y para ubicarla en caso de tener que eliminarla
+        codigoFactura = facturaProductor.mostrarIdFacturaProductor();
+        System.out.println("Codigo de la nueva factura a registrarse: "+codigoFactura);
+        System.out.println("");
+        
+        codigoItemFacturado = facturaProductor.mostrarIdItemAFacturar(codigoFactura)+1;
+        System.out.println("Codigo para el primer item a facturarse: "+codigoItemFacturado);
+        System.out.println("");
         
         tfImporteTotalFactura.setText("0.00");
         tfImporteTotalFactura.setEditable(false);
@@ -606,7 +631,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         cbDescripcionItem.setBackground(new java.awt.Color(36, 33, 33));
         cbDescripcionItem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbDescripcionItem.setForeground(new java.awt.Color(207, 207, 207));
-        cbDescripcionItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "KG. DE MIEL", "TAMBOR DE MIEL (70 KGS.)", "TAMBOR DE MIEL (71 KGS.)", "LOTE DE MIEL (300 TAMB. / 21000 KGS.) ", "LOTE DE MIEL (300 TAMB. / 21300 KGS.) ", " " }));
+        cbDescripcionItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "KG. DE MIEL", "TAMBOR DE MIEL X 300 KGS.", "LOTE DE MIEL X 70 TAMBORES ", "LOTE DE MIEL X 71 TAMBORES ", " " }));
         cbDescripcionItem.setPreferredSize(new java.awt.Dimension(136, 19));
         cbDescripcionItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,7 +644,6 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         jLabel21.setText("SELECCIONE LA LOCACION DONDE SERA ACOPIADA LA MIEL ADQUIRIDA:");
 
         cbLocacionesDisponibles.setBackground(new java.awt.Color(36, 33, 33));
-        cbLocacionesDisponibles.setEditable(true);
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbLocacionesDisponibles.setForeground(new java.awt.Color(207, 207, 207));
         cbLocacionesDisponibles.setPreferredSize(new java.awt.Dimension(136, 19));
@@ -696,10 +720,11 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel21)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(cbLocacionesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -751,9 +776,9 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                     .addComponent(tfImporteTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -873,8 +898,9 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
             Double importeFactura = Double.parseDouble(tfImporteTotalFactura.getText());
             
             //se procede al registro de la factura correspondiente a la compra de miel al productor seleccionado
-            FacturaProductor factura = new FacturaProductor(codigoFactura, tfNumeroComprobante.getText(), codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeFactura);
-            factura.registrarFacturaProductor(factura);
+            //que en realidad es un update de la factura ya ingresada al inicializarse este formulario!
+            FacturaProductor factura = new FacturaProductor(tfNumeroComprobante.getText(), codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeFactura);
+            factura.modificarFacturaProductor(factura, codigoFactura);
             
             //ahora, se guardan todos los items facturados en dicha factura (crar el metodo)
             //ademas se calcula la cantidad de kgs de miel adquirida para guardarla correctamente
@@ -886,10 +912,9 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                 ItemFacturadoFacturaProductor item = itemsAFacturar.get(i);
 
                 /*KG. DE MIEL
-                TAMBOR DE MIEL (70 KGS.)
-                TAMBOR DE MIEL (71 KGS.)
-                LOTE DE MIEL (300 TAMB. / 21000 KGS.) 
-                LOTE DE MIEL (300 TAMB. / 21300 KGS.)*/ 
+                TAMBOR DE MIEL (300 KGS.)
+                LOTE DE MIEL (70 TAMB. / 21000 KGS.) 
+                LOTE DE MIEL (71 TAMB. / 21300 KGS.)*/ 
                 
                 switch (item.getDescripcionItemFacturado()){
                     
@@ -898,22 +923,17 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                         totalMielFacturada = totalMielFacturada + item.getCantidadItemFacturado();
                         break;
                         
-                    case "TAMBOR DE MIEL (70 KGS.)":
+                    case "TAMBOR DE MIEL (300 KGS.)":
                         //se suman los kilos sin convertirlos
-                        totalMielFacturada = totalMielFacturada + 70.00;
+                        totalMielFacturada = totalMielFacturada + 300.00;
                         break;
                 
-                    case "TAMBOR DE MIEL (71 KGS.)":
-                        //se suman los kilos sin convertirlos
-                        totalMielFacturada = totalMielFacturada + 71.00;
-                        break;
-
-                    case "LOTE DE MIEL (300 TAMB. / 21000 KGS.)":
+                    case "LOTE DE MIEL (70 TAMB. / 21000 KGS.)":
                         //se suman los kilos sin convertirlos
                         totalMielFacturada = totalMielFacturada + 21000.00;
                         break;
                         
-                    case "LOTE DE MIEL (300 TAMB. / 21300 KGS.)*":
+                    case "LOTE DE MIEL (71 TAMB. / 21300 KGS.)*":
                         //se suman los kilos sin convertirlos
                         totalMielFacturada = totalMielFacturada + 21300.00;
                         break;
@@ -924,9 +944,6 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                         
                 }
 
-                //imprimo en consola para controlar
-                System.out.println(totalMielFacturada);
-                
                 item.facturarItem(item);
 
             }
@@ -952,7 +969,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
             //no se almacenara nada!
             //debo obtener el codigo de la locacion a partir del nombre de la misma
             //escogido en el combo de locaciones disponibles
-            stockMiel.setLocacion_miel(cbLocacionesDisponibles.getSelectedIndex());
+            stockMiel.setLocacion_miel(cbLocacionesDisponibles.getSelectedIndex()-1);
             stockMiel.setObservacion("");
             
             stockMiel.registrarMovimientoStock(stockMiel);
@@ -968,6 +985,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
+        JOptionPane.showMessageDialog(null, "CANCELAR LA FACTURA REGISTRADA!!!!");
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
@@ -1026,40 +1044,45 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         double totalItemFacturado = 0.00;
 
         Double cantidadItemFacturado = 0.00;
+        
+        System.out.println(descripcionItemFacturado);
         switch (descripcionItemFacturado){
+            
+            //KG. DE MIEL
+            //TAMBOR DE MIEL X 300 KGS.
+            //LOTE DE MIEL X 70 TAMBORES 
+            //LOTE DE MIEL X 71 TAMBORES 
+ 
+
 
             case "KG. DE MIEL":
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString());
+                System.out.println(cantidadItemFacturado);
                 totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
                 break;
 
-            case "TAMBOR DE MIEL (70 KGS.)":
+            case "TAMBOR DE MIEL X 300 KGS.":
                 //se suman los kilos sin convertirlos
-                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*70;
-                totalItemFacturado = 70.00 * importeItemFacturado;
+                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*300;
+                System.out.println(cantidadItemFacturado);
+                totalItemFacturado = 300.00 * importeItemFacturado;
                 break;
 
-            case "TAMBOR DE MIEL (71 KGS.)":
-                //se suman los kilos sin convertirlos
-                cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*71;
-                totalItemFacturado = 71.00 * importeItemFacturado;
-                break;
-
-            case "LOTE DE MIEL (300 TAMB. / 21000 KGS.)":
+            case "LOTE DE MIEL X 70 TAMBORES":
+                System.out.println("hola");
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21000;
+                System.out.println(cantidadItemFacturado);
                 totalItemFacturado = 21000.00 * importeItemFacturado;
                 break;
 
-            case "LOTE DE MIEL (300 TAMB. / 21300 KGS.)*":
+            case "LOTE DE MIEL X 71 TAMBORES":
+                System.out.println("hola");
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21300;
+                System.out.println(cantidadItemFacturado);
                 totalItemFacturado = 21300.00 * importeItemFacturado;
-                break;
-
-            default:
-                //nada
                 break;
 
         }
@@ -1128,7 +1151,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         codigoProductor = Integer.parseInt(tProductores.getValueAt(fila, 0).toString());
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-        System.out.println(codigoMovimientoCtaCte);
+        System.out.println("Codigo del nuevo movimiento en cta. cte. correspondiente a la factura: "+codigoMovimientoCtaCte);
         
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo lso datos del productor
         //correspondiente a la fila de la grilla cliqueada

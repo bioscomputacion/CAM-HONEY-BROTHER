@@ -62,8 +62,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         menuFacturacion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -208,20 +209,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem10);
 
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
-        jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jMenuItem11.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
-        jMenuItem11.setText("GESTION DEL STOCK DE MIEL");
-        jMenuItem11.setOpaque(true);
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        menuGestion.add(jMenuItem11);
-
         jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
@@ -235,6 +222,34 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuGestion.add(jMenuItem12);
+
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem11.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem11.setText("GESTION DEL STOCK DE MIEL");
+        jMenuItem11.setOpaque(true);
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem11);
+
+        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        jMenuItem13.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem13.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem13.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem13.setText("REGISTRO DE TRASLADO DE MIEL");
+        jMenuItem13.setOpaque(true);
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem13);
 
         menuPrincipal.add(menuGestion);
 
@@ -436,6 +451,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+
+        try {
+            
+            FrmRegistroTraslado form = new FrmRegistroTraslado();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,6 +520,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

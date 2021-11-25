@@ -442,7 +442,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -454,9 +454,10 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("INGRESE LA INFORMACION DE LA FACTURA:");
 
-        lSaldoTotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lSaldoTotal.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lSaldoTotal.setForeground(new java.awt.Color(255, 255, 255));
-        lSaldoTotal.setText("TOTAL:");
+        lSaldoTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lSaldoTotal.setText("TOTAL");
 
         tMovimientos.setBackground(new java.awt.Color(36, 33, 33));
         tMovimientos.setForeground(new java.awt.Color(207, 207, 207));
@@ -498,7 +499,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         lbPagoTotal.setForeground(new java.awt.Color(153, 255, 255));
         lbPagoTotal.setText("IMPORTE TOTAL A PAGAR: $");
 
-        lImporteTotalPago.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lImporteTotalPago.setFont(new java.awt.Font("Calibri", 3, 20)); // NOI18N
         lImporteTotalPago.setForeground(new java.awt.Color(153, 255, 255));
         lImporteTotalPago.setText("0.00");
 
@@ -518,15 +519,16 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jSeparator2)
                         .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lSaldoTotal)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lbPagoTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lImporteTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lImporteTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lSaldoTotal)
+                        .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
@@ -537,16 +539,16 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lSaldoTotal)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbPagoTotal)
                         .addComponent(lImporteTotalPago)))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lSaldoTotal)
+                .addGap(19, 19, 19))
         );
 
         tpFactura.addTab("Cuenta corriente con el productor", jPanel3);
@@ -574,7 +576,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

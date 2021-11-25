@@ -123,7 +123,49 @@ public class Locacion {
     
     public DefaultTableModel listarLocaciones(String buscar) {
         
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID LOCACION", "NOMBRE", "UBICACION", "OBSERVACION"};
+
+        String[] registros = new String[4];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 11) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        };
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * from locacion WHERE nombre_locacion LIKE '%" + buscar + "%' ORDER BY codigo_locacion ASC");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_locacion");
+                registros[1] = rs.getString("nombre_locacion");
+                registros[2] = rs.getString("ubicacion_locacion");
+                registros[3] = rs.getString("observacion");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
         
         return modelo;
     
@@ -156,5 +198,5 @@ public class Locacion {
         
         return modelo;
     }
-    
+
 }

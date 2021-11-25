@@ -168,6 +168,7 @@ public class CtaCteProductor {
             while (rs.next()) {
 
                 codigoMovimiento = rs.getInt("codigo_movimiento");
+                
             }
             
             return codigoMovimiento;

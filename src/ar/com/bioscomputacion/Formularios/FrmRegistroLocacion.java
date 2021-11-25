@@ -26,7 +26,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         
         initComponents();
         mostrarLocaciones("");
-        //ocultarColumnas();
+        ocultarColumnas();
         inicializar();
         
     }

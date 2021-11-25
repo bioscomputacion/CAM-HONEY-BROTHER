@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -32,8 +33,7 @@ public class FacturaProductor {
     Connection cn = mysql.getConexionBD();
     
 
-    public FacturaProductor(int codigo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento,Double importe_total_factura) {
-        this.codigo_factura = codigo_factura;
+    public FacturaProductor(String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento,Double importe_total_factura) {
         this.numero_comprobante = numero_comprobante;
         this.codigo_movimiento_ctacte = codigo_movimiento_ctacte;
         this.codigo_productor = codigo_productor;
@@ -108,11 +108,12 @@ public class FacturaProductor {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_productor");
+            ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_productor order by codigo_factura asc");
             
             while (rs.next()) {
 
                 codigoFacturaProductor = rs.getInt("codigo_factura");
+                
             }
             
             return codigoFacturaProductor;
@@ -131,7 +132,7 @@ public class FacturaProductor {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+codigoFactura+"'");
+            ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+ codigoFactura +"'");
             
             while (rs.next()) {
 
@@ -179,6 +180,44 @@ public class FacturaProductor {
             
         }
         
+        return false;
+    }
+
+    public boolean modificarFacturaProductor(FacturaProductor facturaProductor, int codigoFactura) {
+
+        try {
+
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE factura_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ? WHERE codigo_factura = '"+ codigoFactura +"'");
+
+            pst.setString(1, facturaProductor.getNumero_comprobante());
+            pst.setInt(2, facturaProductor.getCodigo_movimiento_ctacte());
+            pst.setInt(3, facturaProductor.getCodigo_productor());
+            pst.setDate(4, facturaProductor.getFecha_factura());
+            pst.setDate(5, facturaProductor.getFecha_vencimiento());
+            pst.setDouble(6, facturaProductor.getImporte_total_factura());
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
         return false;
     }
     

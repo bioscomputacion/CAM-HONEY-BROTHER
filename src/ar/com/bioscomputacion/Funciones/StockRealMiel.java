@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -152,60 +153,120 @@ public class StockRealMiel {
         
     }
     
-    public String obtenerNombreLocacion(int codigoLocacion){
+    public Double obtenerDetalleMielComprada(int codigoLocacion){
         
-        String nombreLocacion="";
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "COMPRA";
         
-        try {
-            
-            //SELECT SUM(cantidad_miel) from stock_real_miel WHere locacion_miel=1
+        try{
+ 
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre_locacion from locacion WHERE codigo_locacion='" + codigoLocacion + "'");
-
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
             while (rs.next()) {
-                
-                nombreLocacion = rs.getString("nombre_locacion");
 
+                mielComprada = rs.getDouble("cantidad_miel");
+                
             }
             
-            //ConexionBD.close(cn);
-            //ConexionBD.close(st);
-            //ConexionBD.close(rs);
+            return mielComprada;
+
+        }catch(Exception e){
             
-        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
             
-        }
-        
-        return nombreLocacion;
+        } 
         
     }
     
-    //Y SI DEVUELVE UN STRING????
-    public String obtenerDetalleStockLocacion(int codigoLocacion){
+    public Double obtenerDetalleMielVendida(int codigoLocacion){
         
-        String detalleStockLocacion="0.00";
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "VENTA";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
+    
+    public DefaultTableModel mostrarDetalleStock() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID LOCACION", "NOMBRE", "STOCK TOTAL", "STOCK PAGO", "STOCK EN CONSIGNACION"};
+
+        String[] registros = new String[5];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 5) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        };
         
         try {
             
-            //SELECT SUM(cantidad_miel) from stock_real_miel WHere locacion_miel=1
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) from stock_real_miel WHERE locacion_miel='" + codigoLocacion + "'");
+            ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
 
+            double mielComprada, mielVendida, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
             while (rs.next()) {
                 
-                detalleStockLocacion = rs.getString("SUM(cantidad_miel)");
-
+                locacion = rs.getInt("codigo_locacion");
+                mielComprada = stock.obtenerDetalleMielComprada(locacion);
+                mielVendida = stock.obtenerDetalleMielVendida(locacion);
+                saldoMiel = mielComprada - mielVendida;
+                registros[0] = rs.getString("codigo_locacion");
+                registros[1] = rs.getString("nombre_locacion");
+                registros[2] = String.valueOf(saldoMiel);
+                registros[3] = "0.00";
+                registros[4] = "0.00";
+                /*System.out.println(mielComprada);
+                System.out.println(mielVendida);
+                System.out.println(saldoMiel);*/
+                
+                modelo.addRow(registros);
+                
             }
             
-            //ConexionBD.close(cn);
-            //ConexionBD.close(st);
-            //ConexionBD.close(rs);
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
         } catch (Exception e) {
             
         }
         
-        return detalleStockLocacion;
+        return modelo;
         
     }
     
