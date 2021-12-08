@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Funciones;
 
+import ar.com.bioscomputacion.Formularios.FrmGestionStockMiel;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,22 +23,24 @@ public class StockRealMiel {
     private int codigo_movimiento;
     private Date fecha_movimiento; 
     private String tipo_movimiento;
-    private int comprobante_asociado;
+    private String comprobante_asociado;
+    private int numero_comprobante_asociado;
     private Double cantidad_miel;
     private int locacion_miel;
-    private String observacion;
+    private int miel_deposito_productor;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
 
-    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, int comprobante_asociado, Double cantidad_miel, int locacion_miel, String observacion) {
+    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, String comprobante_asociado, int numero_comprobante_asociado, Double cantidad_miel, int locacion_miel, int miel_deposito_productor) {
         this.codigo_movimiento = codigo_movimiento;
         this.fecha_movimiento = fecha_movimiento;
         this.tipo_movimiento = tipo_movimiento;
         this.comprobante_asociado = comprobante_asociado;
+        this.numero_comprobante_asociado = numero_comprobante_asociado;
         this.cantidad_miel = cantidad_miel;
         this.locacion_miel = locacion_miel;
-        this.observacion = observacion;
+        this.miel_deposito_productor = miel_deposito_productor;
     }
 
     public StockRealMiel() {
@@ -67,12 +70,20 @@ public class StockRealMiel {
         this.tipo_movimiento = tipo_movimiento;
     }
 
-    public int getComprobante_asociado() {
+    public String getComprobante_asociado() {
         return comprobante_asociado;
     }
 
-    public void setComprobante_asociado(int comprobante_asociado) {
+    public void setComprobante_asociado(String comprobante_asociado) {
         this.comprobante_asociado = comprobante_asociado;
+    }
+
+    public int getNumero_comprobante_asociado() {
+        return numero_comprobante_asociado;
+    }
+
+    public void setNumero_comprobante_asociado(int numero_comprobante_asociado) {
+        this.numero_comprobante_asociado = numero_comprobante_asociado;
     }
 
     public Double getCantidad_miel() {
@@ -91,13 +102,14 @@ public class StockRealMiel {
         this.locacion_miel = locacion_miel;
     }
 
-    public String getObservacion() {
-        return observacion;
+    public int getMiel_deposito_productor() {
+        return miel_deposito_productor;
     }
 
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
+    public void setMiel_deposito_productor(int miel_deposito_productor) {
+        this.miel_deposito_productor = miel_deposito_productor;
     }
+
 
     public ConexionBD getMysql() {
         return mysql;
@@ -122,15 +134,16 @@ public class StockRealMiel {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, cantidad_miel, locacion_miel, observacion) "
-                    + "VALUES (?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor) "
+                    + "VALUES (?,?,?,?,?,?,?)");
             
             pst.setDate(1, stockMiel.getFecha_movimiento());
             pst.setString(2, stockMiel.getTipo_movimiento());
-            pst.setInt(3, stockMiel.getComprobante_asociado());
-            pst.setDouble(4, stockMiel.getCantidad_miel());
-            pst.setDouble(5, stockMiel.getLocacion_miel());
-            pst.setString(6, stockMiel.getObservacion());
+            pst.setString(3, stockMiel.getComprobante_asociado());
+            pst.setInt(4, stockMiel.getNumero_comprobante_asociado());
+            pst.setDouble(5, stockMiel.getCantidad_miel());
+            pst.setInt(6, stockMiel.getLocacion_miel());
+            pst.setInt(7, stockMiel.getMiel_deposito_productor());
             
             int N = pst.executeUpdate();
 
@@ -206,12 +219,68 @@ public class StockRealMiel {
         } 
         
     }
+
+    public Double obtenerDetalleMielRecibidaTraslado(int codigoLocacion){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "TRASLADO - DESTINO";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
     
+    public Double obtenerDetalleMielEnviadaTraslado(int codigoLocacion){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "TRASLADO - ORIGEN";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
+    
+    
+
     public DefaultTableModel mostrarDetalleStock() {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID LOCACION", "NOMBRE", "STOCK TOTAL", "STOCK PAGO", "STOCK EN CONSIGNACION"};
+        String[] titulos = {"ID", "LOCACION", "STOCK TOTAL", "STOCK PAGO", "STOCK EN CONSIGNACION"};
 
         String[] registros = new String[5];
 
@@ -234,7 +303,7 @@ public class StockRealMiel {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
 
-            double mielComprada, mielVendida, saldoMiel = 0.00;
+            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
             int locacion = 0;
             
             StockRealMiel stock = new StockRealMiel();
@@ -244,7 +313,9 @@ public class StockRealMiel {
                 locacion = rs.getInt("codigo_locacion");
                 mielComprada = stock.obtenerDetalleMielComprada(locacion);
                 mielVendida = stock.obtenerDetalleMielVendida(locacion);
-                saldoMiel = mielComprada - mielVendida;
+                mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
+                mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
                 registros[0] = rs.getString("codigo_locacion");
                 registros[1] = rs.getString("nombre_locacion");
                 registros[2] = String.valueOf(saldoMiel);
@@ -269,5 +340,96 @@ public class StockRealMiel {
         return modelo;
         
     }
+    
+    public Double calcularTotalStockGlobal() {
+
+        Double totalStockGlobal = 0.00;
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion order by codigo_locacion asc");
+
+            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                mielComprada = stock.obtenerDetalleMielComprada(locacion);
+                mielVendida = stock.obtenerDetalleMielVendida(locacion);
+                mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
+                mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
+                totalStockGlobal = totalStockGlobal + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockGlobal;
+        
+    }
+    
+    public DefaultTableModel mostrarDetalleMovimientosStockLocacion(int codigoLocacion) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"FECHA", "REFERENCIA", "COMPROBANTE", "N° COMPROBANTE", "KGS. MIEL"};
+
+        String[] registros = new String[5];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 5) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        };
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, numero_comprobante_asociado, cantidad_miel from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("fecha_movimiento");
+                registros[1] = rs.getString("tipo_movimiento");
+                registros[2] = rs.getString("comprobante_asociado");
+                registros[3] = rs.getString("numero_comprobante_asociado");
+                registros[4] = rs.getString("cantidad_miel");
+                
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+
+    
     
 }

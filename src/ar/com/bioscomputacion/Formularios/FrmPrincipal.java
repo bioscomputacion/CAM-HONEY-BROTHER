@@ -67,6 +67,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         menuFacturacion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
 
@@ -269,6 +270,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuFacturacion.add(jMenuItem1);
+
+        jMenuItem3.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem3.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem3.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem3.setText("REGISTRO DE PRESUPUESTO DE PRODUCTOR");
+        jMenuItem3.setOpaque(true);
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuFacturacion.add(jMenuItem3);
 
         jMenuItem2.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem2.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
@@ -475,6 +488,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+        try {
+            
+            FrmRegistroPresupuestoProductor form = new FrmRegistroPresupuestoProductor();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -522,6 +559,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JLabel lbNombre;

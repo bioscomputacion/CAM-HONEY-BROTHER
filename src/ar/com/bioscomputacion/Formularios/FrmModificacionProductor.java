@@ -5,37 +5,34 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
-import ar.com.bioscomputacion.Funciones.Cliente;
 import ar.com.bioscomputacion.Funciones.Productor;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Caco
  */
-public class FrmRegistroProductor extends javax.swing.JInternalFrame {
+public class FrmModificacionProductor extends javax.swing.JInternalFrame {
 
+    int codigoProductor;
     /**
      * Creates new form FrmGenerico
      */
-    public FrmRegistroProductor() {
+    public FrmModificacionProductor() {
         
         initComponents();
         inicializar();
-        
     }
     
     public void inicializar(){
         
         tfNombre.requestFocus();
         //solo se habilitan los combos estadoprovincia y localidades si se selecciona una nacionalidad
-        cbEstadoProvincia.setEnabled(false);
-        cbLocalidad.setEnabled(false);
+        //cbEstadoProvincia.setEnabled(false);
+        //cbLocalidad.setEnabled(false);
         
     }
-
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,8 +110,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
-        setTitle("REGISTRO DE PRODUCTOR - CAM HONEY BROTHERS");
-        setToolTipText("");
+        setTitle("MODIFICACION DE PRODUCTOR - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -126,7 +122,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LA INFORMACION PERSONAL DEL PRODUCTOR:");
+        jLabel1.setText("INFORMACION PERSONAL DEL PRODUCTOR:");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -319,7 +315,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("INGRESE LOS DATOS DE FACTURACION DEL PRODUCTOR:");
+        jLabel2.setText("DATOS DE FACTURACION DEL PRODUCTOR:");
         jLabel2.setToolTipText("");
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -439,7 +435,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("CONFIGURE LAS FECHAS DE VENTA DE MIEL:");
+        jLabel3.setText("FECHAS DE VENTA DE MIEL:");
         jLabel3.setToolTipText("");
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -670,7 +666,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel26.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel26.setText("INGRESE LAS CARACTERISTICAS DE LA MIEL:");
+        jLabel26.setText("CARACTERISTICAS DE LA MIEL:");
         jLabel26.setToolTipText("");
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -747,7 +743,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrRegistrar.setText("REGISTRAR PRODUCTOR");
+        rdbrRegistrar.setText("MODIFICAR");
         rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -801,210 +797,121 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
+    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
 
-        // se cancela el registro del productor y se cierra el formulario
-        JOptionPane.showMessageDialog(null, "Se ha cancelado el registro del productor.", "REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
+        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
 
-    }//GEN-LAST:event_rsbrCancelarActionPerformed
+        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
 
-    private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
+        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
 
-        //Solo es obligatorio el ingreso del NOMBRE del productor
+        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
 
-        //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
-        int cantidadColmenas;
+        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
 
-        if (tfCantidadColmenas.getText() == "0"){
+        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
 
-            cantidadColmenas = Integer.valueOf(tfCantidadColmenas.getText());
+        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
 
-        }
-        else{
+        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
 
-            cantidadColmenas = 0;
+        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
 
-        }
+        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
 
-        String nacionalidad = "";
-        if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
+        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
 
-            nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem());
+        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
 
-        }
-
-        String estadoProvincia = "";
-        if (String.valueOf(cbEstadoProvincia.getSelectedItem()) != "SELECCIONAR"){
-
-            estadoProvincia = String.valueOf(cbEstadoProvincia.getSelectedItem());
-
-        }
-
-        String localidad = "";
-        if (String.valueOf(cbLocalidad.getSelectedItem()) != "SELECCIONAR"){
-
-            localidad = String.valueOf(cbLocalidad.getSelectedItem());
-
-        }
-
-        String condicionIVA = "";
-        if (String.valueOf(cbCondicionIVA.getSelectedItem()) != "SELECCIONAR"){
-
-            condicionIVA = String.valueOf(cbCondicionIVA.getSelectedItem());
-
-        }
-
-        String floracionMiel = "";
-        if (String.valueOf(cbFloracion.getSelectedItem()) != "SELECCIONAR"){
-
-            floracionMiel = String.valueOf(cbFloracion.getSelectedItem());
-
-        }
-
-        String curaMiel = "";
-        if (String.valueOf(cbCuraMiel.getSelectedItem()) != "SELECCIONAR"){
-
-            curaMiel = String.valueOf(cbCuraMiel.getSelectedItem());
-
-        }
-
-        //el ingreso del nombre del productor es obligatorio para el registro del mismo
-        if (tfNombre.getText().length() == 0) {
-
-            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del productor.", "REGISTRO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tfNombre.requestFocus();
-            return;
-
-        }
-
-        //se completaron todos los datos y/o se escogio registrar el cliente con sus demas datos incompletos
-        //se procede al registro del productor
-        
-        Productor productor = new Productor(tfFechaVentaMiel1.getText(),tfFechaVentaMiel2.getText(),tfFechaVentaMiel3.getText(),tfNombreFantasia.getText(),tfRazonSocial.getText(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText(),"Activo", cantidadColmenas, tfUbicacionColmenas.getText(), floracionMiel, curaMiel,
-            tfNombre.getText(), tfDocumento.getText(),
-            //Pais, estado y localidad se cargan como valores vacios ya que la tabla
-            //en la base de datos lo permite
-            nacionalidad, estadoProvincia, localidad,
-            tfDomicilio.getText(), tfTelefono.getText(),
-            tfCorreo.getText());
-
-        if (productor.registrar(productor)) {
-
-            JOptionPane.showMessageDialog(null, "El productor ha sido registrado exitosamente.","REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-            //FrmLogin form = new FrmLogin();
-            //form.setVisible(true);
-
-        } else {
-
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el productor.","REGISTRO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-
-        }
-        
-    }//GEN-LAST:event_rdbrRegistrarActionPerformed
-
-    private void cbCuraMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuraMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCuraMielActionPerformed
-
-    private void cbFloracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFloracionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbFloracionActionPerformed
-
-    private void rdbrRegistrar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar4ActionPerformed
-
-        // Elimina la tercer fecha configurada
-        tfFechaVentaMiel3.setText("");
-    }//GEN-LAST:event_rdbrRegistrar4ActionPerformed
-
-    private void rdbrRegistrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar3ActionPerformed
-
-        // Elimina la segunda fecha configurada
-        tfFechaVentaMiel2.setText("");
-    }//GEN-LAST:event_rdbrRegistrar3ActionPerformed
-
-    private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
-
-        // Elimina la primer fecha configurada
-        tfFechaVentaMiel1.setText("");
-    }//GEN-LAST:event_rdbrRegistrar2ActionPerformed
-
-    private void rdbrRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar1ActionPerformed
-
-        //Agrega las fechas de venta a los campos de edicion debajo
-        if (String.valueOf(cbPeriodoVentaMiel.getSelectedItem()) == "SELECCIONAR"){
-
-            JOptionPane.showMessageDialog(null, "Seleccione un periodo de venta para poder configurar la fecha.");
-            rdbrRegistrar.requestFocus();
-
-        }
-        else{
-
-            if (String.valueOf(cbMesVentaMiel.getSelectedItem()) == "SELECCIONAR"){
-
-                JOptionPane.showMessageDialog(null, "Seleccione un mes de venta para poder configurar la fecha.");
-                rdbrRegistrar.requestFocus();
-
-            }
-            else{
-
-                if (tfFechaVentaMiel1.getText().length()!=0 && tfFechaVentaMiel2.getText().length()!=0 && tfFechaVentaMiel3.getText().length()!=0){
-
-                    JOptionPane.showMessageDialog(null, "Ya cofiguro las tres fechas de venta del productor.");
-                    rdbrRegistrar.requestFocus();
-
-                }
-                else{
-
-                    if (tfFechaVentaMiel1.getText().length()==0){
-
-                        tfFechaVentaMiel1.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
-                        rdbrRegistrar.requestFocus();
-
-                    }
-                    else{
-
-                        if (tfFechaVentaMiel2.getText().length()==0){
-
-                            tfFechaVentaMiel2.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
-                            rdbrRegistrar.requestFocus();
-
-                        }
-                        else{
-
-                            if (tfFechaVentaMiel3.getText().length()==0){
-
-                                tfFechaVentaMiel3.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem()+" ");
-                                rdbrRegistrar.requestFocus();
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
+        if (seleccion == "ARGENTINA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String arg : argentina) {
+                cbEstadoProvincia.addItem(arg);
             }
         }
-    }//GEN-LAST:event_rdbrRegistrar1ActionPerformed
 
-    private void cbMesVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesVentaMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMesVentaMielActionPerformed
+        if (seleccion == "BOLIVIA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String bol : bolivia) {
+                cbEstadoProvincia.addItem(bol);
+            }
+        }
 
-    private void cbPeriodoVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoVentaMielActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbPeriodoVentaMielActionPerformed
+        if (seleccion == "BRASIL") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String bra : brasil) {
+                cbEstadoProvincia.addItem(bra);
+            }
+        }
 
-    private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCondicionIVAActionPerformed
+        if (seleccion == "CHILE") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String chil : chile) {
+                cbEstadoProvincia.addItem(chil);
+            }
+        }
 
-    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbLocalidadActionPerformed
+        if (seleccion == "COLOMBIA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String col : colombia) {
+                cbEstadoProvincia.addItem(col);
+            }
+        }
+
+        if (seleccion == "ECUADOR") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String ecu : ecuador) {
+                cbEstadoProvincia.addItem(ecu);
+            }
+        }
+
+        if (seleccion == "PARAGUAY") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String par : paraguay) {
+                cbEstadoProvincia.addItem(par);
+            }
+        }
+
+        if (seleccion == "PERU") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String per : peru) {
+                cbEstadoProvincia.addItem(per);
+            }
+        }
+
+        if (seleccion == "URUGUAY") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String uru : uruguay) {
+                cbEstadoProvincia.addItem(uru);
+            }
+        }
+
+        if (seleccion == "VENEZUELA") {
+            cbEstadoProvincia.setEnabled(true);
+            cbEstadoProvincia.removeAllItems();
+            for (String ven : venezuela) {
+                cbEstadoProvincia.addItem(ven);
+            }
+        }
+
+        if (seleccion == "SELECCIONAR") {
+            cbEstadoProvincia.setEnabled(false);
+            cbEstadoProvincia.removeAllItems();
+            cbEstadoProvincia.addItem("SELECCIONAR");
+            cbLocalidad.setEnabled(false);
+            cbLocalidad.removeAllItems();
+            cbLocalidad.addItem("SELECCIONAR");
+        }
+    }//GEN-LAST:event_cbNacionalidadActionPerformed
 
     private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
 
@@ -1244,121 +1151,209 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
 
-    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
+    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbLocalidadActionPerformed
 
-        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
+    private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCondicionIVAActionPerformed
 
-        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
+    private void cbPeriodoVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoVentaMielActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPeriodoVentaMielActionPerformed
 
-        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
+    private void cbMesVentaMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesVentaMielActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMesVentaMielActionPerformed
 
-        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
+    private void rdbrRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar1ActionPerformed
 
-        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
+        //Agrega las fechas de venta a los campos de edicion debajo
+        if (String.valueOf(cbPeriodoVentaMiel.getSelectedItem()) == "SELECCIONAR"){
 
-        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
+            JOptionPane.showMessageDialog(null, "Seleccione un periodo de venta para poder configurar la fecha.");
+            rdbrRegistrar.requestFocus();
 
-        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
+        }
+        else{
 
-        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
+            if (String.valueOf(cbMesVentaMiel.getSelectedItem()) == "SELECCIONAR"){
 
-        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
+                JOptionPane.showMessageDialog(null, "Seleccione un mes de venta para poder configurar la fecha.");
+                rdbrRegistrar.requestFocus();
 
-        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
+            }
+            else{
 
-        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
+                if (tfFechaVentaMiel1.getText().length()!=0 && tfFechaVentaMiel2.getText().length()!=0 && tfFechaVentaMiel3.getText().length()!=0){
 
-        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
+                    JOptionPane.showMessageDialog(null, "Ya cofiguro las tres fechas de venta del productor.");
+                    rdbrRegistrar.requestFocus();
 
-        if (seleccion == "ARGENTINA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String arg : argentina) {
-                cbEstadoProvincia.addItem(arg);
+                }
+                else{
+
+                    if (tfFechaVentaMiel1.getText().length()==0){
+
+                        tfFechaVentaMiel1.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
+                        rdbrRegistrar.requestFocus();
+
+                    }
+                    else{
+
+                        if (tfFechaVentaMiel2.getText().length()==0){
+
+                            tfFechaVentaMiel2.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem());
+                            rdbrRegistrar.requestFocus();
+
+                        }
+                        else{
+
+                            if (tfFechaVentaMiel3.getText().length()==0){
+
+                                tfFechaVentaMiel3.setText(cbPeriodoVentaMiel.getSelectedItem()+" "+cbMesVentaMiel.getSelectedItem()+" ");
+                                rdbrRegistrar.requestFocus();
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
             }
         }
+    }//GEN-LAST:event_rdbrRegistrar1ActionPerformed
 
-        if (seleccion == "BOLIVIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bol : bolivia) {
-                cbEstadoProvincia.addItem(bol);
-            }
+    private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
+
+        // Elimina la primer fecha configurada
+        tfFechaVentaMiel1.setText("");
+    }//GEN-LAST:event_rdbrRegistrar2ActionPerformed
+
+    private void rdbrRegistrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar3ActionPerformed
+
+        // Elimina la segunda fecha configurada
+        tfFechaVentaMiel2.setText("");
+    }//GEN-LAST:event_rdbrRegistrar3ActionPerformed
+
+    private void rdbrRegistrar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar4ActionPerformed
+
+        // Elimina la tercer fecha configurada
+        tfFechaVentaMiel3.setText("");
+    }//GEN-LAST:event_rdbrRegistrar4ActionPerformed
+
+    private void cbFloracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFloracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFloracionActionPerformed
+
+    private void cbCuraMielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuraMielActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCuraMielActionPerformed
+
+    private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
+
+        //Solo es obligatorio el ingreso del NOMBRE del productor
+
+        //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
+        int cantidadColmenas;
+
+        if (tfCantidadColmenas.getText() == "0"){
+
+            cantidadColmenas = Integer.valueOf(tfCantidadColmenas.getText());
+
+        }
+        else{
+
+            cantidadColmenas = 0;
+
         }
 
-        if (seleccion == "BRASIL") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bra : brasil) {
-                cbEstadoProvincia.addItem(bra);
-            }
+        String nacionalidad = "";
+        if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
+
+            nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem());
+
         }
 
-        if (seleccion == "CHILE") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String chil : chile) {
-                cbEstadoProvincia.addItem(chil);
-            }
+        String estadoProvincia = "";
+        if (String.valueOf(cbEstadoProvincia.getSelectedItem()) != "SELECCIONAR"){
+
+            estadoProvincia = String.valueOf(cbEstadoProvincia.getSelectedItem());
+
         }
 
-        if (seleccion == "COLOMBIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String col : colombia) {
-                cbEstadoProvincia.addItem(col);
-            }
+        String localidad = "";
+        if (String.valueOf(cbLocalidad.getSelectedItem()) != "SELECCIONAR"){
+
+            localidad = String.valueOf(cbLocalidad.getSelectedItem());
+
         }
 
-        if (seleccion == "ECUADOR") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ecu : ecuador) {
-                cbEstadoProvincia.addItem(ecu);
-            }
+        String condicionIVA = "";
+        if (String.valueOf(cbCondicionIVA.getSelectedItem()) != "SELECCIONAR"){
+
+            condicionIVA = String.valueOf(cbCondicionIVA.getSelectedItem());
+
         }
 
-        if (seleccion == "PARAGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String par : paraguay) {
-                cbEstadoProvincia.addItem(par);
-            }
+        String floracionMiel = "";
+        if (String.valueOf(cbFloracion.getSelectedItem()) != "SELECCIONAR"){
+
+            floracionMiel = String.valueOf(cbFloracion.getSelectedItem());
+
         }
 
-        if (seleccion == "PERU") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String per : peru) {
-                cbEstadoProvincia.addItem(per);
-            }
+        String curaMiel = "";
+        if (String.valueOf(cbCuraMiel.getSelectedItem()) != "SELECCIONAR"){
+
+            curaMiel = String.valueOf(cbCuraMiel.getSelectedItem());
+
         }
 
-        if (seleccion == "URUGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String uru : uruguay) {
-                cbEstadoProvincia.addItem(uru);
-            }
+        //el ingreso del nombre del productor es obligatorio para el registro del mismo
+        if (tfNombre.getText().length() == 0) {
+
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del productor.", "MODIFICACION DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tfNombre.requestFocus();
+            return;
+
         }
 
-        if (seleccion == "VENEZUELA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ven : venezuela) {
-                cbEstadoProvincia.addItem(ven);
-            }
+        //se completaron todos los datos y/o se escogio registrar el cliente con sus demas datos incompletos
+        //se procede al registro del productor
+
+        Productor productor = new Productor(tfFechaVentaMiel1.getText(),tfFechaVentaMiel2.getText(),tfFechaVentaMiel3.getText(),tfNombreFantasia.getText(),tfRazonSocial.getText(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText(),"Activo", cantidadColmenas, tfUbicacionColmenas.getText(), floracionMiel, curaMiel,
+            tfNombre.getText(), tfDocumento.getText(),
+            //Pais, estado y localidad se cargan como valores vacios ya que la tabla
+            //en la base de datos lo permite
+            nacionalidad, estadoProvincia, localidad,
+            tfDomicilio.getText(), tfTelefono.getText(),
+            tfCorreo.getText());
+
+        if (productor.modificar(productor)) {
+
+            JOptionPane.showMessageDialog(null, "La informacion del productor ha sido modificada exitosamente.","MODIFICACION DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            //FrmLogin form = new FrmLogin();
+            //form.setVisible(true);
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar la informacion del productor.","MODIFICACION DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+
         }
 
-        if (seleccion == "SELECCIONAR") {
-            cbEstadoProvincia.setEnabled(false);
-            cbEstadoProvincia.removeAllItems();
-            cbEstadoProvincia.addItem("SELECCIONAR");
-            cbLocalidad.setEnabled(false);
-            cbLocalidad.removeAllItems();
-            cbLocalidad.addItem("SELECCIONAR");
-        }
-    }//GEN-LAST:event_cbNacionalidadActionPerformed
+    }//GEN-LAST:event_rdbrRegistrarActionPerformed
+
+    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
+
+        // se cancela el registro del productor y se cierra el formulario
+        JOptionPane.showMessageDialog(null, "Se ha cancelado el registro del productor.", "REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+    }//GEN-LAST:event_rsbrCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

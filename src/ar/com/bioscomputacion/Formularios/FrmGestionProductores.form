@@ -91,22 +91,18 @@
                           <Component id="jSeparator1" max="32767" attributes="0"/>
                           <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                           <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="rdbrDetalle" min="-2" pref="239" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="rdbrCtaCte" min="-2" pref="239" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="rsbrSalir" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="rsbrSalir" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="rdbrModificar" min="-2" pref="239" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="rdbrEliminar" min="-2" pref="239" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="tfBuscarProductor" alignment="0" min="-2" pref="306" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="rdbrModificar" min="-2" pref="208" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="rdbrEliminar" min="-2" pref="208" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="rdbrDetalle" min="-2" pref="201" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -131,20 +127,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rsbrSalir" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="rdbrModificar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rdbrEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="rdbrCtaCte" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rdbrDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="rdbrModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbrEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbrDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rsbrSalir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -245,7 +234,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/Iconos/quitar.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="ELIMINAR PRODUCTOR"/>
+                <Property name="text" type="java.lang.String" value="ELIMINAR"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto Bold" size="14" style="3"/>
                 </Property>
@@ -257,11 +246,11 @@
             <Component class="rojeru_san.RSButtonRiple" name="rsbrSalir">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="a4" green="6e" red="2f" type="rgb"/>
+                  <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="SALIR"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto Bold" size="14" style="3"/>
+                  <Font name="Roboto Bold" size="18" style="3"/>
                 </Property>
               </Properties>
               <Events>
@@ -276,31 +265,13 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/Iconos/editar.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="MODIFICAR PRODUCTOR"/>
+                <Property name="text" type="java.lang.String" value="EDITAR DATOS"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto Bold" size="14" style="3"/>
                 </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbrModificarActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="rojeru_san.RSButtonRiple" name="rdbrCtaCte">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="a4" green="6e" red="2f" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ar/com/bioscomputacion/Iconos/pagar.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="VER CTA. CTE."/>
-                <Property name="actionCommand" type="java.lang.String" value="VER DETALLE"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto Bold" size="14" style="3"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbrCtaCteActionPerformed"/>
               </Events>
             </Component>
             <Component class="rojeru_san.RSButtonRiple" name="rdbrDetalle">
@@ -311,7 +282,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ar/com/bioscomputacion/Iconos/editar.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="VER DETALLE"/>
+                <Property name="text" type="java.lang.String" value="CONSULTA"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto Bold" size="14" style="3"/>
                 </Property>

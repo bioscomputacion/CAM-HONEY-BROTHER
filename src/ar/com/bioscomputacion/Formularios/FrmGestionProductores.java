@@ -5,7 +5,9 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
 import ar.com.bioscomputacion.Funciones.Productor;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -63,7 +65,6 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         rdbrEliminar = new rojeru_san.RSButtonRiple();
         rsbrSalir = new rojeru_san.RSButtonRiple();
         rdbrModificar = new rojeru_san.RSButtonRiple();
-        rdbrCtaCte = new rojeru_san.RSButtonRiple();
         rdbrDetalle = new rojeru_san.RSButtonRiple();
 
         rdbrRegistrar3.setBackground(new java.awt.Color(47, 110, 164));
@@ -123,7 +124,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
 
         rdbrEliminar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/quitar.png"))); // NOI18N
-        rdbrEliminar.setText("ELIMINAR PRODUCTOR");
+        rdbrEliminar.setText("ELIMINAR");
         rdbrEliminar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,9 +132,9 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             }
         });
 
-        rsbrSalir.setBackground(new java.awt.Color(47, 110, 164));
+        rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 18)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
@@ -142,7 +143,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
 
         rdbrModificar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrModificar.setText("MODIFICAR PRODUCTOR");
+        rdbrModificar.setText("EDITAR DATOS");
         rdbrModificar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,20 +151,9 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             }
         });
 
-        rdbrCtaCte.setBackground(new java.awt.Color(47, 110, 164));
-        rdbrCtaCte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/pagar.png"))); // NOI18N
-        rdbrCtaCte.setText("VER CTA. CTE.");
-        rdbrCtaCte.setActionCommand("VER DETALLE");
-        rdbrCtaCte.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
-        rdbrCtaCte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbrCtaCteActionPerformed(evt);
-            }
-        });
-
         rdbrDetalle.setBackground(new java.awt.Color(47, 110, 164));
         rdbrDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrDetalle.setText("VER DETALLE");
+        rdbrDetalle.setText("CONSULTA");
         rdbrDetalle.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,20 +172,17 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator1)
                     .addComponent(jScrollPane4)
                     .addComponent(jSeparator2)
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbrCtaCte, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfBuscarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -215,16 +202,12 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rsbrSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdbrCtaCte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -261,7 +244,6 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             rdbrModificar.setVisible(true);
             rdbrEliminar.setVisible(true);
             rdbrDetalle.setVisible(true);
-            rdbrCtaCte.setVisible(true);
             
             //this.setTitle("CondorCom Technology - Gestion de Clientes");
             //lTitulo.setText("LISTADO DE CLIENTES REGISTRADOS:");
@@ -409,6 +391,58 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(8).setMinWidth(0);
         tProductores.getColumnModel().getColumn(8).setPreferredWidth(0);
         
+        tProductores.getColumnModel().getColumn(9).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(9).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(9).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(10).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(10).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(10).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(11).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(11).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(11).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(12).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(12).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(12).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(13).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(13).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(13).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(14).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(14).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(14).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(15).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(15).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(15).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(16).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(16).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(16).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(17).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(17).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(17).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(18).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(18).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(18).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(19).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(19).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(19).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(20).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(20).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(20).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(21).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(21).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(21).setPreferredWidth(0);
+
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
@@ -427,6 +461,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(6).setCellRenderer(cellRender5);
         
         ((DefaultTableCellRenderer) tProductores.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        
     }
 
     private void tProductoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresMouseClicked
@@ -438,26 +473,113 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
 
     private void rdbrEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrEliminarActionPerformed
 
+        // ELIMINACION DE PRODUCTOR
+ 
+        if (fila == -1) {
+            
+            JOptionPane.showMessageDialog(null, "Por favor seleccione el productor que desea dar de baja.", "BAJA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        else{
+            
+            if(JOptionPane.showConfirmDialog(null, "Seguro desea dar de baja el productor?", "BAJA DE PRODUCTOR", JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE) == 0){
+                
+                Productor productor = new Productor();
+                
+                if(productor.eliminar(Integer.parseInt(tProductores.getValueAt(fila, 0).toString()))){
+                    
+                    JOptionPane.showMessageDialog(null, "El productor ha sido dado de baja exitosamente.", "BAJA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                    
+                }
+                else{
+                    
+                    JOptionPane.showMessageDialog(null, "Ocurrió un error al intentardar de baja el productor.", "BAJA DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                    
+                }
+                
+            }
+            else{
+                
+                JOptionPane.showMessageDialog(null, "Se ha cancelado la eliminacion del productor.", "BAJA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            
+            //btnActualizar.doClick();
+            
+        }
+        
     }//GEN-LAST:event_rdbrEliminarActionPerformed
 
     private void rsbrSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrSalirActionPerformed
+
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_rsbrSalirActionPerformed
 
     private void rdbrModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdbrModificarActionPerformed
 
-    private void rdbrCtaCteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrCtaCteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdbrCtaCteActionPerformed
+        // MODIFICACION DE LOS DATOS DEL PRODUCTOR
+        if (fila == -1) {
+            
+            JOptionPane.showMessageDialog(null, "Por favor seleccione el productor cuyos datos desea modificar.", "MODIFICACION DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        else{
+            
+            FrmModificacionProductor form = new FrmModificacionProductor();
+
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+            //llevo el codigo del productor seleccionado
+            form.codigoProductor = Integer.parseInt(tProductores.getValueAt(fila, 0).toString());
+            form.tfNombre.setText(tProductores.getValueAt(fila, 1).toString());
+            form.tfDocumento.setText(tProductores.getValueAt(fila, 2).toString());
+            //nacionalidad
+            //form.tfDocumento.setText(tProductores.getValueAt(fila, 3).toString());
+            //provincia
+            //form.tfDocumento.setText(tProductores.getValueAt(fila, 4).toString());
+            //localidad
+            //form.tfDocumento.setText(tProductores.getValueAt(fila, 5).toString());
+            
+            form.tfDomicilio.setText(tProductores.getValueAt(fila, 6).toString());
+            form.tfTelefono.setText(tProductores.getValueAt(fila, 7).toString());
+            form.tfCorreo.setText(tProductores.getValueAt(fila, 8).toString());
+            form.tfNombreFantasia.setText(tProductores.getValueAt(fila, 12).toString());
+            form.tfRazonSocial.setText(tProductores.getValueAt(fila, 13).toString());
+            //condicion iva
+            form.tfCuit.setText(tProductores.getValueAt(fila, 15).toString());
+            form.tfDomicilioFiscal.setText(tProductores.getValueAt(fila, 16).toString());
+            form.tfFechaVentaMiel1.setText(tProductores.getValueAt(fila, 9).toString());
+            form.tfFechaVentaMiel2.setText(tProductores.getValueAt(fila, 10).toString());
+            form.tfFechaVentaMiel3.setText(tProductores.getValueAt(fila, 11).toString());
+            form.tfCantidadColmenas.setText(tProductores.getValueAt(fila, 15).toString());
+            form.tfUbicacionColmenas.setText(tProductores.getValueAt(fila, 16).toString());
+            //floracion
+            //form.tfDocumento.setText(tProductores.getValueAt(fila, 1).toString());
+            //cura
+            //form.tfDocumento.setText(tProductores.getValueAt(fila, 1).toString());
+ 
+            //btnActualizar.doClick();
+            
+        }
+
+    }//GEN-LAST:event_rdbrModificarActionPerformed
 
     private void rdbrRegistrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbrRegistrar3ActionPerformed
 
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
-        // TODO add your handling code here:
+
+        // CONSULTA DETALLADA DE PRODUCTOR
+        JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE PRODUCTOR - EN CONSTRUCCION");
     }//GEN-LAST:event_rdbrDetalleActionPerformed
 
     private void tfBuscarProductorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarProductorKeyReleased
@@ -477,7 +599,6 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSPanelShadow rSPanelShadow2;
-    private rojeru_san.RSButtonRiple rdbrCtaCte;
     private rojeru_san.RSButtonRiple rdbrDetalle;
     private rojeru_san.RSButtonRiple rdbrEliminar;
     private rojeru_san.RSButtonRiple rdbrModificar;

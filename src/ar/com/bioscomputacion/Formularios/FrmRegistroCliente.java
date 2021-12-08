@@ -68,7 +68,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
-        setTitle("ALTA DE CLIENTE - CAM HONEY BROTHERS");
+        setTitle("REGISTRO DE CLIENTE - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -89,6 +89,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfNombre.setBackground(new java.awt.Color(51, 84, 111));
         tfNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNombre.setForeground(new java.awt.Color(255, 255, 255));
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNombreKeyReleased(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,6 +193,14 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCorreo)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbNacionalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,14 +214,6 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(cbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(335, 335, 335))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCorreo)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tfDomicilio)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,6 +240,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(29, 29, 29)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
@@ -259,7 +265,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Informacion personal", jPanel2);
@@ -367,6 +373,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -381,7 +388,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Datos de facturacion", jPanel3);
@@ -420,8 +427,8 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(tpCliente)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -444,59 +451,20 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
-        //Solo es obligatorio el ingreso del nombre del productor
-        //los demas datos se controlan para alertar al usuario del sistema que no se han ingresado los mismos
-        //pero de todas formas se puede registrar el productor sin dichos datos
-        Boolean informacionPersonal = (tfDocumento.getText().length() == 0 || tfDomicilio.getText().length() == 0 || tfTelefono.getText().length() == 0 || tfCorreo.getText().length() == 0);
-        Boolean datosFacturacion = (tfNombreFantasia.getText().length() == 0 || tfRazonSocial.getText().length() == 0 || String.valueOf(cbCondicionIVA.getSelectedItem()) == "SELECCIONAR" || tfCuit.getText().length() == 0 || tfDomicilioFiscal.getText().length() == 0);
+        //Solo es obligatorio el ingreso del nombre del cliente
 
         //el ingreso del nombre del productor es obligatorio para el registro del mismo
         if (tfNombre.getText().length() == 0) {
 
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente.", "ALTA DE CLIENTE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del cliente.", "REGISTRO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
             tfNombre.requestFocus();
             return;
 
         }
 
-        //chequea informacion personal, avisa si esta incompleta pero da la opcion de registrar igualmente el productor
-        if (informacionPersonal) {
-
-            if (JOptionPane.showConfirmDialog(null, "La informacion personal del cliente se halla incompleta. ¿Desea registrar el cliente de todas formas?",
-                    "REGISTRAR CLIENTE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                //no tengo claro que hacer aca!
-            }
-            else {
-
-                tpCliente.setSelectedIndex(0);
-                tfDocumento.requestFocus();
-                return;
-
-            }
-            
-        } 
-
-        //chequea datos de facturacion, avisa si estan incompletos pero da la opcion de registrar igualmente el productor
-        if (datosFacturacion) {
-
-            if (JOptionPane.showConfirmDialog(null, "Los datos de facturacion del cliente se hallan incompletos. ¿Desea registrar el cliente de todas formas?",
-                    "REGISTRAR CLIENTE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                //no tengo claro que hacer aca!
-            }
-            else{
-
-                tpCliente.setSelectedIndex(1);
-                tfNombreFantasia.requestFocus();
-                return;
-
-            }
-            
-        }
-
-        //se completaron todos los datos y/o se escogio registrar el cliente con sus datos y fechas de venta incompletos
-        //se cliente el productor en la base de datos del sistema
+        //se completaron todos los datos y/o se escogio registrar el cliente solo con su nombre como informacion
+        //se procede al registro del cliente
+        
         Cliente cliente = new Cliente(tfRazonSocial.getText(), "condicion iva", tfCuit.getText(), tfDomicilioFiscal.getText(), "Activo",
                 tfNombre.getText(), tfDocumento.getText(),
                 //Pais, estado y localidad se cargan como valores vacios ya que la tabla
@@ -507,21 +475,25 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
         if (cliente.registrar(cliente)) {
 
-            JOptionPane.showMessageDialog(null, "El cliente ha sido registrado exitosamente.");
+            JOptionPane.showMessageDialog(null, "El cliente ha sido registrado exitosamente.","REGISTRO DE CLIENTE", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             //FrmLogin form = new FrmLogin();
             //form.setVisible(true);
 
         } else {
 
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el cliente.");
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el cliente.","REGISTRO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
 
         }
 
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
-        // TODO add your handling code here:
+
+        // se cancela el registro del cliente y se cierra el formulario
+        JOptionPane.showMessageDialog(null, "Se ha cancelado el registro del cliente.", "REGISTRO DE CLIENTE", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
     private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
@@ -539,6 +511,12 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
     private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCondicionIVAActionPerformed
+
+    private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
+
+       tfNombre.setText(tfNombre.getText().toUpperCase());
+       
+    }//GEN-LAST:event_tfNombreKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
