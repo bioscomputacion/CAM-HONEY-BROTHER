@@ -48,6 +48,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
     int codigoLocacion;
 
     int fila = -1;
+    int filaItemsFacturados = -1;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -1068,11 +1069,18 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
             //debo obtener el codigo de la locacion a partir del nombre de la misma
             //escogido en el combo de locaciones disponibles
             
-            //TENGO EL MISMO PROBLEMA CON LAS LOCACIONES QUE EN EL RESGISTRO DE LOS TRASLADOS
             stockMiel.setLocacion_miel(codigoLocacion);
             
-            if (codigoLocacion == 0){
+            //chequeo si la compra de miel quedara depositada en la locacion del productor
+            Locacion locacion = new Locacion();
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
+            
+            System.out.println(codigoLocacion);
+            System.out.println(categoriaLocacion);
+            
+            if (categoriaLocacion == "DEPOSITO DE PRODUCTOR"){
                 
+                System.out.println("JASMINUCHAA");
                 //se trata de una compra cen la cual la miel adquirida quedara acopiada en alguna locacion del productor
                 //que vende la miel
                 //cargo en el campo observacion el codigo del productor vendedor en esta compra
@@ -1090,6 +1098,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
                 
                 
             }
+            
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             
             stockMiel.registrarMovimientoStock(stockMiel);
@@ -1105,14 +1114,15 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "CANCELAR LA FACTURA REGISTRADA!!!!");
+        FacturaProductor factura = new FacturaProductor();
+        factura.eliminarFacturaProductor(codigoFactura);
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
     private void tItemsFacturadostItemsFacturadosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tItemsFacturadostItemsFacturadosFacturaMouseClicked
 
-        fila = tItemsFacturados.rowAtPoint(evt.getPoint());
+        filaItemsFacturados = tItemsFacturados.rowAtPoint(evt.getPoint());
 
     }//GEN-LAST:event_tItemsFacturadostItemsFacturadosFacturaMouseClicked
 
@@ -1165,36 +1175,29 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
 
         Double cantidadItemFacturado = 0.00;
         
-        System.out.println(descripcionItemFacturado);
         switch (descripcionItemFacturado){
             
             case "KG. DE MIEL":
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString());
-                //System.out.println(cantidadItemFacturado);
                 totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
                 break;
 
             case "TAMBOR DE MIEL X 300 KGS.":
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*300.00;
-                //System.out.println(cantidadItemFacturado);
                 totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
                 break;
 
             case "LOTE DE MIEL X 70 TAMBORES":
-                System.out.println("entra aca");
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21000.00;
-                //System.out.println(cantidadItemFacturado);
                 totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
                 break;
 
             case "LOTE DE MIEL X 71 TAMBORES":
-                System.out.println("entra aca");
                 //se suman los kilos sin convertirlos
                 cantidadItemFacturado = Double.parseDouble(tfCantidadItemFacturado.getText().toString())*21300.00;
-                //System.out.println(cantidadItemFacturado);
                 totalItemFacturado = cantidadItemFacturado * importeItemFacturado;
                 break;
 
@@ -1256,6 +1259,44 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
     
     
     private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
+
+        //tengo que quitar le item facturado de la lista de items a facturar
+        //los cuales aun no se han dado de alta en la BD sino que aguardan
+        //en dicha lista para luego ser recorridos y dados todos de alta
+        //hay que eliminar el item de la lista de items a facturar y de la grilla que los muestra
+        //mientras tanto
+        
+
+        if (filaItemsFacturados == -1){
+            
+            JOptionPane.showMessageDialog(null, "Por favor seleccione el item desvincular de la factura.", "DESVINCULACION DE ITEM FACTURADO", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        else{
+            
+            if (itemsAFacturar.size()>0){
+                
+                //lo elimino de la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
+                itemsAFacturar.remove(filaItemsFacturados);
+
+                //lo quito de la tabla
+
+                listarItemsFacturados();
+                ocultarColumnasItemsFacturados();
+                calcularImporteTotalFactura();
+                JOptionPane.showMessageDialog(null, "El item facturado ha sido desvinculado con exito de la factura.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            else{
+                
+                JOptionPane.showMessageDialog(null, "No existen items facturados para poder desvincular.", "DESVINCULACION DE ITEM FACTURADO", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            
+            cbDescripcionItem.requestFocus();
+            
+        }
+        
     }//GEN-LAST:event_rdbrRegistrar2ActionPerformed
 
     private void tProductoresRegistradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresRegistradosMouseClicked
@@ -1264,7 +1305,6 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         codigoProductor = Integer.parseInt(tProductoresRegistrados.getValueAt(fila, 0).toString());
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-        System.out.println("Codigo del nuevo movimiento en cta. cte. correspondiente a la factura: "+codigoMovimientoCtaCte);
         
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo lso datos del productor
         //correspondiente a la fila de la grilla cliqueada

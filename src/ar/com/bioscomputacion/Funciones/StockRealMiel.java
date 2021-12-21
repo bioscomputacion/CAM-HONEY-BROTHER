@@ -129,6 +129,8 @@ public class StockRealMiel {
     
     public boolean registrarMovimientoStock(StockRealMiel stockMiel){
         
+        System.out.println("llega por aca");
+        
         try {
             
             ConexionBD mysql = new ConexionBD();
@@ -273,8 +275,60 @@ public class StockRealMiel {
         } 
         
     }
-    
-    
+
+    public Double obtenerDetalleMielCompradaDepositadaLocacionProductor(int codigoProductor){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "COMPRA";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
+
+    public Double obtenerDetalleMielTrasladadaDesdeLocacionProductor(int codigoProductor){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "TRASLADO - ORIGEN";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
 
     public DefaultTableModel mostrarDetalleStock() {
 

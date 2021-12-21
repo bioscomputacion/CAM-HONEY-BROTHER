@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -25,14 +26,17 @@ public class Locacion {
     private String nombre_locacion; 
     private String ubicacion_locacion;
     private String observacion;
+    private String categoria;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
 
-    public Locacion(String nombre_locacion, String ubicacion_locacion, String observacion) {
+    public Locacion(String nombre_locacion, String ubicacion_locacion, String observacion, String categoria) {
+        
         this.nombre_locacion = nombre_locacion;
         this.ubicacion_locacion = ubicacion_locacion;
         this.observacion = observacion;
+        this.categoria = categoria;
     }
 
     public Locacion() {
@@ -70,22 +74,14 @@ public class Locacion {
         this.observacion = observacion;
     }
 
-    public ConexionBD getMysql() {
-        return mysql;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setMysql(ConexionBD mysql) {
-        this.mysql = mysql;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public Connection getCn() {
-        return cn;
-    }
-
-    public void setCn(Connection cn) {
-        this.cn = cn;
-    }
-    
     public boolean registrarLocacion(Locacion locacion){
         
         try {
@@ -93,12 +89,13 @@ public class Locacion {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO locacion (nombre_locacion, ubicacion_locacion, observacion) "
-                    + "VALUES (?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO locacion (nombre_locacion, ubicacion_locacion, observacion, categoria) "
+                    + "VALUES (?,?,?,?)");
             
             pst.setString(1, locacion.getNombre_locacion());
             pst.setString(2, locacion.getUbicacion_locacion());
             pst.setString(3, locacion.getObservacion());
+            pst.setString(4, locacion.getCategoria());
             
             int N = pst.executeUpdate();
 
@@ -120,27 +117,49 @@ public class Locacion {
         return false;
         
     }
+
+    public boolean eliminar(int codigoLocacion) {
+
+        try {
+
+            PreparedStatement pst;
+            pst = cn.prepareStatement("DELETE FROM locacion WHERE codigo_locacion ='"+ codigoLocacion +"'");
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
     
     public DefaultTableModel listarLocaciones(String buscar) {
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID LOCACION", "NOMBRE", "UBICACION", "OBSERVACION"};
+        String[] titulos = {"ID LOCACION", "NOMBRE", "UBICACION", "OBSERVACION", "CATEGORIA"};
 
-        String[] registros = new String[4];
+        String[] registros = new String[5];
 
         modelo = new DefaultTableModel(null, titulos) {
             
-            @Override
-            public boolean isCellEditable(int filas, int columnas) {
-                if (columnas == 11) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            }
-
         };
         
         try {
@@ -154,6 +173,7 @@ public class Locacion {
                 registros[1] = rs.getString("nombre_locacion");
                 registros[2] = rs.getString("ubicacion_locacion");
                 registros[3] = rs.getString("observacion");
+                registros[4] = rs.getString("categoria");
 
                 modelo.addRow(registros);
                 
@@ -199,4 +219,34 @@ public class Locacion {
         return modelo;
     }
 
+    public String mostrarCategoriaLocacion(int codigoLocacion) {
+        
+        String categoriaLocacion = "";
+
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT categoria from locacion WHERE codigo_locacion = '" + codigoLocacion + "'");
+
+            while (rs.next()){
+            
+                categoriaLocacion = rs.getString("categoria");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return categoriaLocacion;
+            
+        }
+        
+        return categoriaLocacion;
+    
+    }
+    
 }

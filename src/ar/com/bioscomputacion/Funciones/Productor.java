@@ -67,9 +67,18 @@ public class Productor extends Persona {
         return cod_productor;
     }
 
+    public void setCod_productor(int cod_productor) {
+        this.cod_productor = cod_productor;
+    }
+
     public int getCod_persona() {
         return cod_persona;
     }
+
+    public void setCod_persona(int cod_persona) {
+        this.cod_persona = cod_persona;
+    }
+
     
     public String getFecha_venta_miel_1() {
         return fecha_venta_miel_1;
@@ -356,10 +365,8 @@ public class Productor extends Persona {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
+            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE p.cod_productor > '38' and q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
 
-            System.out.println("pasa por acaaaaaaaaa");
-            
             while (rs.next()) {
                 
                 registros[0] = rs.getString("cod_productor");
@@ -388,8 +395,6 @@ public class Productor extends Persona {
                 modelo.addRow(registros);
                 
             }
-            
-            System.out.println("pasa por aca tambien");
             
             ConexionBD.close(cn);
             ConexionBD.close(st);

@@ -235,4 +235,35 @@ public class PresupuestoProductor {
         return false;
     }
     
+    public boolean eliminarPresupuestoProductor(int codigoPresupuesto) {
+
+        try {
+
+            PreparedStatement pst = cn.prepareStatement("DELETE FROM presupuesto_productor WHERE codigo_presupuesto = '"+ codigoPresupuesto +"'");
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
+
 }

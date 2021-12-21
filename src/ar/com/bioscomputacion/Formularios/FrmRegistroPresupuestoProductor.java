@@ -50,6 +50,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     int codigoLocacion;
 
     int fila = -1;
+    int filaItemsPresupuestados = -1;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -116,6 +117,10 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         tfDocumentoProductor.setEditable(false);
         tfProvinciaProductor.setEditable(false);
         tfLocalidadProductor.setEditable(false);
+        
+        //campo con el numero del presupuesto, no se debe poder editar
+        tfNumeroComprobante.setText(String.valueOf(codigoPresupuesto));
+        tfNumeroComprobante.setEditable(false);
         
         //carga del combo de las locaciones disponibles y almacena en la lista las mismas, con codigo y nombre
         //para tener acceso facilmente al codigo de la locacion, segun el nombre seleccionado en el combo
@@ -948,7 +953,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         codigoProductor = Integer.parseInt(tProductoresRegistrados.getValueAt(fila, 0).toString());
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-        System.out.println("Codigo del nuevo movimiento en cta. cte. correspondiente a la factura: "+codigoMovimientoCtaCte);
 
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo lso datos del productor
         //correspondiente a la fila de la grilla cliqueada
@@ -962,7 +966,8 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
     private void tItemsPresupuestadostItemsFacturadosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tItemsPresupuestadostItemsFacturadosFacturaMouseClicked
 
-        fila = tItemsPresupuestados.rowAtPoint(evt.getPoint());
+        filaItemsPresupuestados = tItemsPresupuestados.rowAtPoint(evt.getPoint());
+
     }//GEN-LAST:event_tItemsPresupuestadostItemsFacturadosFacturaMouseClicked
 
     private void rdbrPresupuestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrPresupuestarActionPerformed
@@ -1031,7 +1036,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             break;
 
             case "LOTE DE MIEL X 70 TAMBORES":
-            System.out.println("entra aca");
             //se suman los kilos sin convertirlos
             cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString())*21000.00;
             //System.out.println(cantidadItemFacturado);
@@ -1039,7 +1043,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             break;
 
             case "LOTE DE MIEL X 71 TAMBORES":
-            System.out.println("entra aca");
             //se suman los kilos sin convertirlos
             cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString())*21300.00;
             //System.out.println(cantidadItemFacturado);
@@ -1105,6 +1108,43 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     
     private void rdbrQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrQuitarActionPerformed
 
+        //tengo que quitar le item presupuestado de la lista de items a presupuestar
+        //los cuales aun no se han dado de alta en la BD sino que aguardan
+        //en dicha lista para luego ser recorridos y dados todos de alta
+        //hay que eliminar el item de la lista de items a presupuestar y de la grilla que los muestra
+        //mientras tanto
+        
+
+        if (filaItemsPresupuestados == -1){
+            
+            JOptionPane.showMessageDialog(null, "Por favor seleccione el item desvincular del presupuesto.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        else{
+            
+            if (itemsAPresupuestar.size()>0){
+                
+                //lo elimino de la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
+                itemsAPresupuestar.remove(filaItemsPresupuestados);
+
+                //lo quito de la tabla
+
+                listarItemsPresupuestados();
+                ocultarColumnasItemsPresupuestados();
+                calcularImporteTotalPresupuesto();
+                JOptionPane.showMessageDialog(null, "El item presupuestado ha sido desvinculado con exito del presupuesto.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            else{
+                
+                JOptionPane.showMessageDialog(null, "No existen items presupuestados para poder desvincular.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            
+            cbDescripcionItem.requestFocus();
+            
+        }
+        
     }//GEN-LAST:event_rdbrQuitarActionPerformed
 
     private void cbDescripcionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDescripcionItemActionPerformed
@@ -1131,7 +1171,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         //Tambien son obligatorios todos los campos referidos a la factura: numero de factura, fecha
         //items facturados y monto total de la factura
 
-        Boolean informacionFactura = (tfNumeroComprobante.getText().length() == 0 || tfImporteTotalPresupuesto.getText().length() == 0 || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
+        Boolean informacionFactura = (tfImporteTotalPresupuesto.getText().length() == 0 || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
 
         if (tfIDProductor.getText().length() == 0){
 
@@ -1258,10 +1298,16 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             //debo obtener el codigo de la locacion a partir del nombre de la misma
             //escogido en el combo de locaciones disponibles
 
-            //TENGO EL MISMO PROBLEMA CON LAS LOCACIONES QUE EN EL RESGISTRO DE LOS TRASLADOS
             stockMiel.setLocacion_miel(codigoLocacion);
-
-            if (codigoLocacion == 0){
+            
+            //chequeo si la compra de miel quedara depositada en la locacion del productor
+            Locacion locacion = new Locacion();
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
+            
+            System.out.println(codigoLocacion);
+            System.out.println(categoriaLocacion);
+            
+            if (categoriaLocacion == "DEPOSITO DE PRODUCTOR"){
                 
                 //se trata de una compra cen la cual la miel adquirida quedara acopiada en alguna locacion del productor
                 //que vende la miel
@@ -1294,8 +1340,10 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "CANCELAR EL PRESUPUESTO REGISTRADO");
+        PresupuestoProductor factura = new PresupuestoProductor();
+        factura.eliminarPresupuestoProductor(codigoPresupuesto);
         this.dispose();
+        
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
 

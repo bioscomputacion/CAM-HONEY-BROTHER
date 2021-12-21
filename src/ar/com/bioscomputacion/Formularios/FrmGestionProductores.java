@@ -198,7 +198,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBuscarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -580,6 +580,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
 
         // CONSULTA DETALLADA DE PRODUCTOR
         JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE PRODUCTOR - EN CONSTRUCCION");
+        
     }//GEN-LAST:event_rdbrDetalleActionPerformed
 
     private void tfBuscarProductorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarProductorKeyReleased

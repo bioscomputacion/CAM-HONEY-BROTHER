@@ -34,8 +34,15 @@ public class Persona {
         this.telefono = telefono;
         this.correo = correo;
     }
-    
 
+    public int getCod_persona() {
+        return cod_persona;
+    }
+
+    public void setCod_persona(int cod_persona) {
+        this.cod_persona = cod_persona;
+    }
+    
     public String getNombre() {
         return nombre;
     }

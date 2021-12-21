@@ -90,9 +90,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(3).setMinWidth(0);
         tProductores.getColumnModel().getColumn(3).setPreferredWidth(0);
         
-        tProductores.getColumnModel().getColumn(4).setMaxWidth(0);
+        /*tProductores.getColumnModel().getColumn(4).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(4).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tProductores.getColumnModel().getColumn(4).setPreferredWidth(0);*/
         
         /*tProductores.getColumnModel().getColumn(5).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(5).setMinWidth(0);
@@ -110,6 +110,58 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(8).setMinWidth(0);
         tProductores.getColumnModel().getColumn(8).setPreferredWidth(0);
         
+        tProductores.getColumnModel().getColumn(9).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(9).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(9).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(10).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(10).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(10).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(11).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(11).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(11).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(12).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(12).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(12).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(13).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(13).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(13).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(14).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(14).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(14).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(15).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(15).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(15).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(16).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(16).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(16).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(17).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(17).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(17).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(18).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(18).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(18).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(19).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(19).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(19).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(20).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(20).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(20).setPreferredWidth(0);
+
+        tProductores.getColumnModel().getColumn(21).setMaxWidth(0);
+        tProductores.getColumnModel().getColumn(21).setMinWidth(0);
+        tProductores.getColumnModel().getColumn(21).setPreferredWidth(0);
+
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
@@ -454,7 +506,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("INGRESE LA INFORMACION DE LA FACTURA:");
+        jLabel3.setText("MOVIMIENTOS EN LA CTA. CTE. DEL PRODUCTOR SELECCIONADO:");
 
         lSaldoTotal.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lSaldoTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -512,26 +564,19 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                        .addGap(132, 132, 132))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lSaldoTotal)
-                        .addContainerGap())
+                        .addComponent(lSaldoTotal))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lbPagoTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lImporteTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
