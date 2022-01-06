@@ -5,11 +5,17 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.Productor;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -180,7 +186,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
     }
 
-    public void ocultarColumnasCtaCte() {
+    public static void ocultarColumnasCtaCte() {
 
         tMovimientos.getColumnModel().getColumn(0).setMaxWidth(0);
         tMovimientos.getColumnModel().getColumn(0).setMinWidth(0);
@@ -251,7 +257,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
     }
 
-    public void mostrarCtaCteProductor(int codigoProductor) {
+    public static void mostrarCtaCteProductor(int codigoProductor) {
         
         try {
             
@@ -671,7 +677,8 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
     private void tMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMovimientosMouseClicked
 
-        fila2 = tProductores.rowAtPoint(evt.getPoint());
+        fila2 = tMovimientos.rowAtPoint(evt.getPoint());
+        
     }//GEN-LAST:event_tMovimientosMouseClicked
 
     private void tMovimientosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tMovimientosKeyPressed
@@ -679,100 +686,74 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tMovimientosKeyPressed
 
     private void tMovimientosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tMovimientosKeyReleased
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
-            DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
-            simbolos.setDecimalSeparator('.');
-            DecimalFormat formateador = new DecimalFormat("0.00", simbolos);
-            Double pagoRealizado = 0.00;
-            pagoRealizado = Double.valueOf(tMovimientos.getValueAt(fila2, 11).toString());
-            tMovimientos.setValueAt(String.valueOf(formateador.format(pagoRealizado)), fila2, 11);
-
-            //NORMALIZAR VENTANAS DE MENSAJES DE ERROR E INFORMACION!
-
-            try {
-
-                int fila = tMovimientos.getSelectedRow();
-
-                if ((Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 8).toString())) && (tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C"))) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un pago mayor a la deuda en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                else if ((tMovimientos.getValueAt(fila, 3).toString().equals("FACTURA") || tMovimientos.getValueAt(fila, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE DEBITO C")) && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) < 0.00) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un importe negativo en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("PAGO")) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un pago en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                /*
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 8).toString()) > Double.valueOf(tMovimientos.getValueAt(fila, 11).toString())) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO o DESCUENTO menor a la deuda en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("SALDO A FAVOR") && Double.valueOf(tMovimientos.getValueAt(fila, 11).toString()) > 0.00) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede ingresar un PAGO positivo en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("DESCUENTO")) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede PAGAR o realizar un DESCUENTO en este movimiento.");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-
-                else if (tMovimientos.getValueAt(fila, 3).toString().equals("AJUSTE")) {
-
-                    JOptionPane.showMessageDialog(null, "No se puede PAGAR o realizar un DESCUENTO en este movimiento");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }
-                else if(tMovimientos.getValueAt(fila, 3).toString().equals("NOTA DE CREDITO C")){
-
-                    JOptionPane.showMessageDialog(null, "No se puede asociar este comprobante desde este formulario, se asocia si o si desde alta de Notas de credito");
-                    tMovimientos.setValueAt("0.00", fila, 11);
-
-                }*/
-
-            } catch (Exception e) {
-
-            }
-
-            actualizarImporteTotalPago();
-
-        }
     }//GEN-LAST:event_tMovimientosKeyReleased
 
     private void bPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagoActionPerformed
 
+        //1er chequeo: se debe seleccionar una fila de la grilla
+        if (fila2 == -1) {
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente al movimiento que desea anular.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
+        //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
+        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //3er chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
+        if (tMovimientos.getValueAt(fila2, 9).toString().equals("CANCELADO")) {
+            
+            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
+        //asigno valores que debera mostrar el formulario de pago al productor
+        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 6)));
+        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+        FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
+        FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
+        FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
+        FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
+        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 6).toString());
+        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 7).toString());
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+        
+        form.inicializar();
+                            
+
     }//GEN-LAST:event_bPagoActionPerformed
 
     private void tpFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpFacturaMouseClicked
-
-        /*
-        if (ctaCteMostrada == false){
-            mostrarCtaCteProductor(codigoProductor);
-            ocultarColumnasCtaCte();
-            ctaCteMostrada = true;
-        }
-        */
     }//GEN-LAST:event_tpFacturaMouseClicked
 
     private void rsbrSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrSalirActionPerformed
 
         this.dispose();
+        
     }//GEN-LAST:event_rsbrSalirActionPerformed
 
     public void actualizarImporteTotalPago() {
@@ -812,7 +793,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lImporteTotalPago;
-    private javax.swing.JLabel lSaldoTotal;
+    public static javax.swing.JLabel lSaldoTotal;
     private javax.swing.JLabel lbPagoTotal;
     private rojeru_san.RSButtonRiple rsbrSalir;
     public static javax.swing.JTable tMovimientos;

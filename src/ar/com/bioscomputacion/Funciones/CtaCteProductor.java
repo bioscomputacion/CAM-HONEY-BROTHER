@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -225,9 +226,9 @@ public class CtaCteProductor {
         
         DefaultTableModel modelo;
         
-        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION", "PAGO A REALIZAR"};
+        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
 
-        String[] registros = new String[12];
+        String[] registros = new String[11];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -261,7 +262,6 @@ public class CtaCteProductor {
                 registros[8] = rs.getString("saldo");
                 registros[9] = rs.getString("estado_movimiento");
                 registros[10] = rs.getString("observacion");
-                registros[11] = "0.00";
 
                 modelo.addRow(registros);
                 
@@ -304,5 +304,97 @@ public class CtaCteProductor {
         return saldo;
         
     }
+    
+    /*public boolean pagarComprobantes(int cliente, int movimiento, Double pago){
+        
+        sSQL = "UPDATE ctas_ctes_clientes SET saldo = ? , haber = ? , estado_movimiento = ?   WHERE codigo_cliente =? AND codigo_movimiento =? ";
 
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            
+            pst.setDouble(1, mostrarSaldoActualDeUnaFactura(cliente, movimiento) - pago);
+            pst.setDouble(2, mostrarPagoActualDeUnaFactura(cliente, movimiento) + pago);
+            if(mostrarSaldoActualDeUnaFactura(cliente, movimiento) - pago == 0.00)
+            {
+                pst.setString(3, "CANCELADA");
+            }
+            else
+            {
+                pst.setString(3, "PENDIENTE");
+            }
+            pst.setInt(4, cliente);
+            pst.setInt(5, movimiento);
+
+            int N = pst.executeUpdate();
+            if (N != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+        }
+        
+    }*/
+    
+    public boolean actualizarSaldoComprobanteProductor(int movimiento, int productor, double debeComprobante, double pagoRealizado, double montoPagado) {
+
+        try {
+
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE cta_cte_productor SET haber = ?, saldo = ?, estado_movimiento = ? WHERE codigo_productor = '"+ productor +"' and codigo_movimiento = '"+ movimiento +"'");
+
+            //tengo que sumar el valor del pago realizado al valor que ya se encuentra en el campo haber
+            //y tengo que guardar en el campo saldo la resta entre el campo debe y el nuevo valor del campo haber
+            
+            double haberActualizado = pagoRealizado + montoPagado;
+            double saldoActualizado = debeComprobante - haberActualizado;
+            
+            pst.setDouble(1, haberActualizado);
+            pst.setDouble(2, debeComprobante - haberActualizado);
+            
+            //System.out.println(debe);
+            //System.out.println(pago);
+            //System.out.println(pago);
+            
+            if (saldoActualizado == 0){
+                
+                //
+                pst.setString(3, "CANCELADO");
+                
+            }
+            else{
+                
+                //
+                pst.setString(3, "PENDIENTE");
+                
+            }
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
+    
 }

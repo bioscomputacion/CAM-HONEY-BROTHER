@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -62,32 +64,36 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         initComponents();
         mostrarProductores("");
         ocultarColumnasProductores();
+        listarItemsFacturados();
         ocultarColumnasItemsFacturados();
         inicializar();
         
     }
 
+    public void limpiarCampos(){
+
+        tfNumeroComprobante.setText("");
+        Calendar cal = new GregorianCalendar();
+        dcFechaFactura.setCalendar(cal);
+        dcFechaVencimiento.setCalendar(cal);
+        cbDescripcionItem.setSelectedIndex(0);
+        tfCantidadItemFacturado.setText("");
+        tfImporteItemFacturado.setText("");
+        tfImporteTotalFactura.setText("0.00");
+        cbLocacionesDisponibles.setSelectedIndex(0);
+        mostrarProductores("");
+        ocultarColumnasProductores();
+        
+        itemsAFacturar.clear();
+        listarItemsFacturados();
+        tpFactura.setSelectedIndex(0);
+        tProductoresRegistrados.requestFocus();
+        
+        
+
+    }
+    
     public void inicializar() throws SQLException{
-        
-        //ERROOORRR!!!!!!!, si no hay facturas cargadas aun, el mostrarIDFactura me devuelve 1, pero
-        //luego esa factura no se almacena con el codigo 1, sino con el autoincrementable que corresponda
-        //lo cual hace que los items facturados en esa factura se asocien a la factura 1
-        //que luego no existe!
-        //lo mismo con el movimiento correspondiente en la cta. cte.
-        //se guarda asociado a la factura 1 pero esta luego no existe, entonces no se pueden vincular
-        
-        //PARA CORREGIR EL ERROR DE ARRIBA HAGO LO DE ABAJO
-        
-        //creo el objeto facturaProveedor
-        //DEBERIA GUARDARLO EN LA BASE DE DATOS Y SI LA CARGA DE LA FACT SE CANCELA ELIMINAR LA MISMA
-        //ENTONCES EL CODIGO DE FACTURA QUE MANEJA AL OBTENER EL MISMO DESDE LA BASE DE DATOS ES REAL
-        //Y NO CAUSA ERRORES DE CARGA EN ITEMS FACTURADOS Y ERRORES DE ENLACES ENTRE FAC Y CTA. CTE
-        //esta factura en principio queda asociada al productor generico n° 38 y luego, si se confirma
-        //la insercion de la misma, se modifican sus datos por los datos reales ingresados por el usuario
-        //del soft
-        
-        //esto lo hago aca y a la variable codigoItemFacturado la tengo que ir incrementando
-        //a medida que se cargan items facturados en la grilla
         
         Calendar cal = new GregorianCalendar();
         dcFechaFactura.setCalendar(cal);
@@ -424,6 +430,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE FACTURA DE PRODUCTOR - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
@@ -893,7 +900,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("CANCELAR");
+        rsbrCancelar.setText("SALIR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1075,13 +1082,9 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
             Locacion locacion = new Locacion();
             String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
             
-            System.out.println(codigoLocacion);
-            System.out.println(categoriaLocacion);
-            
-            if (categoriaLocacion == "DEPOSITO DE PRODUCTOR"){
+            if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
                 
-                System.out.println("JASMINUCHAA");
-                //se trata de una compra cen la cual la miel adquirida quedara acopiada en alguna locacion del productor
+                //se trata de una compra en la cual la miel adquirida quedara acopiada en alguna locacion del productor
                 //que vende la miel
                 //cargo en el campo observacion el codigo del productor vendedor en esta compra
                 stockMiel.setMiel_deposito_productor(codigoProductor);
@@ -1102,18 +1105,29 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             
             stockMiel.registrarMovimientoStock(stockMiel);
+                    
+            /*tfIDProductor.setText("");
+            tfNombreProductor.setText("");
+            tfDocumentoProductor.setText("");
+            tfProvinciaProductor.setText("");
+            tfLocalidadProductor.setText("");
+
+            limpiarCampos();
+            try {
+                inicializar();
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmRegistroFacturaProductor.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
             
             this.dispose();
-            //tambien: en lugar del dispose, deberia limpiar campos y dar la opcion
-            //de registrar una nueva factura de compra de miel
             
         }
-        
 
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
         FacturaProductor factura = new FacturaProductor();
         factura.eliminarFacturaProductor(codigoFactura);
         this.dispose();
@@ -1313,6 +1327,13 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         tfDocumentoProductor.setText(tProductoresRegistrados.getValueAt(fila, 2).toString());
         tfProvinciaProductor.setText(tProductoresRegistrados.getValueAt(fila, 4).toString());
         tfLocalidadProductor.setText(tProductoresRegistrados.getValueAt(fila, 5).toString());
+        
+        //tamb, al hacer click en un productor, cancela los datos que se hayan insertado y aun no se hayan guardado
+        //en la solapa de la factura
+        limpiarCampos();
+        
+        itemsAFacturar.clear();
+        listarItemsFacturados();
         
     }//GEN-LAST:event_tProductoresRegistradosMouseClicked
 

@@ -129,8 +129,6 @@ public class StockRealMiel {
     
     public boolean registrarMovimientoStock(StockRealMiel stockMiel){
         
-        System.out.println("llega por aca");
-        
         try {
             
             ConexionBD mysql = new ConexionBD();
