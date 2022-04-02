@@ -77,8 +77,10 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             }
         });
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GESTION DE PRODUCTORES - CAM HONEY BROTHERS");
         setToolTipText("");
+        setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -87,7 +89,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("LISTADO DE PRODUCTORES REGISTRADOS EN EL SISTEMA");
+        jLabel1.setText("PRODUCTORES REGISTRADOS EN EL SISTEMA");
 
         tProductores.setBackground(new java.awt.Color(36, 33, 33));
         tProductores.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -198,7 +200,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBuscarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -331,7 +333,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         
 }
 
-    public void mostrarProductores(String buscar) {
+    public static void mostrarProductores(String buscar) {
         
         try {
             
@@ -352,7 +354,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         
     }
     
-    public void ocultarColumnas() {
+    public static void ocultarColumnas() {
 
         /*tProductores.getColumnModel().getColumn(0).setMaxWidth(0);
         tProductores.getColumnModel().getColumn(0).setMinWidth(0);
@@ -455,7 +457,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         tProductores.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
         cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
         tProductores.getColumnModel().getColumn(4).setCellRenderer(cellRender3);   
-        cellRender4.setHorizontalAlignment(SwingConstants.CENTER);
+        cellRender4.setHorizontalAlignment(SwingConstants.LEFT);
         tProductores.getColumnModel().getColumn(5).setCellRenderer(cellRender4);   
         cellRender5.setHorizontalAlignment(SwingConstants.LEFT);
         tProductores.getColumnModel().getColumn(6).setCellRenderer(cellRender5);
@@ -489,6 +491,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 if(productor.eliminar(Integer.parseInt(tProductores.getValueAt(fila, 0).toString()))){
                     
                     JOptionPane.showMessageDialog(null, "El productor ha sido dado de baja exitosamente.", "BAJA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                    //para refrescar la grilla y visualizar los cambios
                     
                 }
                 else{
@@ -496,6 +499,10 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Ocurrió un error al intentardar de baja el productor.", "BAJA DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
                     
                 }
+
+                mostrarProductores("");
+                ocultarColumnas();
+                fila = -1;
                 
             }
             else{
@@ -503,8 +510,6 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Se ha cancelado la eliminacion del productor.", "BAJA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
                 
             }
-            
-            //btnActualizar.doClick();
             
         }
         
@@ -541,32 +546,108 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             form.codigoProductor = Integer.parseInt(tProductores.getValueAt(fila, 0).toString());
             form.tfNombre.setText(tProductores.getValueAt(fila, 1).toString());
             form.tfDocumento.setText(tProductores.getValueAt(fila, 2).toString());
-            //nacionalidad
-            //form.tfDocumento.setText(tProductores.getValueAt(fila, 3).toString());
-            //provincia
-            //form.tfDocumento.setText(tProductores.getValueAt(fila, 4).toString());
-            //localidad
-            //form.tfDocumento.setText(tProductores.getValueAt(fila, 5).toString());
+            
+            //combo nacionalidad
+            //no hacer nada, es por defecto "ARGENTINA" para todos los productores
+            
+            //combos provincia y localidad
+            if (tProductores.getValueAt(fila, 4).toString().length() == 0)
+            {
+                
+                //el productor fue cargado sin una provincia
+                form.cbEstadoProvincia.setSelectedIndex(0);
+                form.cbLocalidad.setSelectedIndex(0);
+                form.cbLocalidad.setEnabled(false);
+                
+            }
+            else
+            {
+                
+                //el productor fue cargado con una provincia
+                form.cbEstadoProvincia.setSelectedItem(tProductores.getValueAt(fila, 4));
+                
+                if (tProductores.getValueAt(fila, 5).toString().length() == 0)
+                {
+                    
+                    //el productor fue cargado sin una localidad
+                    form.cbLocalidad.setSelectedIndex(0);
+                    form.cbLocalidad.setEnabled(true);
+                    
+                }
+                else
+                {
+                    
+                    //el productor fue cargado con una localidad
+                    form.cbLocalidad.setSelectedItem(tProductores.getValueAt(fila, 5));
+                    form.cbLocalidad.setEnabled(true);
+                    
+                }
+                
+            }
+            
             
             form.tfDomicilio.setText(tProductores.getValueAt(fila, 6).toString());
             form.tfTelefono.setText(tProductores.getValueAt(fila, 7).toString());
             form.tfCorreo.setText(tProductores.getValueAt(fila, 8).toString());
             form.tfNombreFantasia.setText(tProductores.getValueAt(fila, 12).toString());
             form.tfRazonSocial.setText(tProductores.getValueAt(fila, 13).toString());
-            //condicion iva
+            
+            //combos condicion frente al iva
+            if (tProductores.getValueAt(fila, 14).toString().length() == 0)
+            {
+                
+                //el productor fue cargado sin una condicion frente al iva
+                form.cbCondicionIVA.setSelectedIndex(0);
+                
+            }
+            else{
+            
+                //el productor fue cargado con una condicion frente al iva
+                form.cbCondicionIVA.setSelectedItem(tProductores.getValueAt(fila, 14));
+                
+            }
+            
+            
             form.tfCuit.setText(tProductores.getValueAt(fila, 15).toString());
             form.tfDomicilioFiscal.setText(tProductores.getValueAt(fila, 16).toString());
             form.tfFechaVentaMiel1.setText(tProductores.getValueAt(fila, 9).toString());
             form.tfFechaVentaMiel2.setText(tProductores.getValueAt(fila, 10).toString());
             form.tfFechaVentaMiel3.setText(tProductores.getValueAt(fila, 11).toString());
-            form.tfCantidadColmenas.setText(tProductores.getValueAt(fila, 15).toString());
-            form.tfUbicacionColmenas.setText(tProductores.getValueAt(fila, 16).toString());
-            //floracion
-            //form.tfDocumento.setText(tProductores.getValueAt(fila, 1).toString());
-            //cura
-            //form.tfDocumento.setText(tProductores.getValueAt(fila, 1).toString());
+            form.tfCantidadColmenas.setText(tProductores.getValueAt(fila, 18).toString());
+            
+            
+            form.tfUbicacionColmenas.setText(tProductores.getValueAt(fila, 19).toString());
  
-            //btnActualizar.doClick();
+            //combo floracion
+            if (tProductores.getValueAt(fila, 20).toString().length() == 0)
+            {
+                
+                //el productor fue cargado sin una floracion
+                form.cbFloracion.setSelectedIndex(0);
+                
+            }
+            else{
+            
+                //el productor fue cargado con una floracion
+                form.cbFloracion.setSelectedItem(tProductores.getValueAt(fila, 20));
+                
+            }
+
+            //combo cura
+            if (tProductores.getValueAt(fila, 21).toString().length() == 0)
+            {
+                
+                //el productor fue cargado sin una cura
+                form.cbCuraMiel.setSelectedIndex(0);
+                
+            }
+            else{
+            
+                //el productor fue cargado con una cura
+                form.cbCuraMiel.setSelectedItem(tProductores.getValueAt(fila, 21));
+                
+            }
+            
             
         }
 
@@ -579,7 +660,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
 
         // CONSULTA DETALLADA DE PRODUCTOR
-        JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE PRODUCTOR - EN CONSTRUCCION");
+        JOptionPane.showMessageDialog(null, "EN DESARROLLO.","CONSULTA DE PRODUCTOR",JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_rdbrDetalleActionPerformed
 
@@ -605,7 +686,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private rojeru_san.RSButtonRiple rdbrModificar;
     private rojeru_san.RSButtonRiple rdbrRegistrar3;
     private rojeru_san.RSButtonRiple rsbrSalir;
-    public javax.swing.JTable tProductores;
+    public static javax.swing.JTable tProductores;
     public javax.swing.JTextField tfBuscarProductor;
     // End of variables declaration//GEN-END:variables
 }

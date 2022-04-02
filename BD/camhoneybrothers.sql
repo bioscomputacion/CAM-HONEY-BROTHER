@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2021 a las 23:29:35
+-- Tiempo de generación: 11-01-2022 a las 00:54:46
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -38,13 +38,6 @@ CREATE TABLE `cliente` (
   `domicilio_fiscal` varchar(100) DEFAULT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`cod_cliente`, `cod_persona`, `razon_social`, `condicion_iva`, `cuit`, `domicilio_fiscal`, `estado`) VALUES
-(11, 66, '-', '-', '-', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -86,15 +79,6 @@ CREATE TABLE `cta_cte_productor` (
   `observacion` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
---
--- Volcado de datos para la tabla `cta_cte_productor`
---
-
-INSERT INTO `cta_cte_productor` (`codigo_productor`, `codigo_movimiento`, `fecha_movimiento`, `descripcion_movimiento`, `comprobante_asociado`, `numero_comprobante`, `debe`, `haber`, `saldo`, `estado_movimiento`, `observacion`) VALUES
-(39, 1, '2021-11-10', 'FACTURA', 30, '0001-0001', '1000.00', '0.00', '1000.00', 'PENDIENTE', ''),
-(39, 2, '2021-11-10', 'FACTURA', 32, '0001-0002', '2000.00', '0.00', '2000.00', 'PENDIENTE', NULL),
-(39, 3, '2021-11-10', 'FACTURA', 34, 'aaaaaa', '100000000.00', '0.00', '100000000.00', 'PENDIENTE', '');
-
 -- --------------------------------------------------------
 
 --
@@ -110,13 +94,6 @@ CREATE TABLE `factura_cliente` (
   `importe_total_factura` double(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
---
--- Volcado de datos para la tabla `factura_cliente`
---
-
-INSERT INTO `factura_cliente` (`codigo_factura`, `numero_comprobante`, `codigo_movimiento_ctacte`, `codigo_cliente`, `fecha_factura`, `importe_total_factura`) VALUES
-(3, '0', 0, 11, '2021-11-10', 0.00);
-
 -- --------------------------------------------------------
 
 --
@@ -129,18 +106,9 @@ CREATE TABLE `factura_productor` (
   `codigo_movimiento_ctacte` int(11) NOT NULL,
   `codigo_productor` int(11) NOT NULL,
   `fecha_factura` date NOT NULL,
+  `fecha_vencimiento` date NOT NULL,
   `importe_total_factura` double(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Volcado de datos para la tabla `factura_productor`
---
-
-INSERT INTO `factura_productor` (`codigo_factura`, `numero_comprobante`, `codigo_movimiento_ctacte`, `codigo_productor`, `fecha_factura`, `importe_total_factura`) VALUES
-(29, '0', 0, 39, '2021-11-10', 0.00),
-(32, '0001-0001', 1, 39, '2021-11-10', 1000.00),
-(33, '123456789', 1, 39, '2021-11-10', 50000.00),
-(34, 'aaaaaa', 1, 39, '2021-11-10', 100000000.00);
 
 -- --------------------------------------------------------
 
@@ -152,18 +120,57 @@ CREATE TABLE `items_facturados_factura_productor` (
   `codigo_item_facturado` int(11) NOT NULL,
   `codigo_factura` int(11) NOT NULL,
   `descripcion_item_facturado` varchar(255) NOT NULL,
-  `cantidad_item_facturado` int(11) NOT NULL,
-  `importe_item_facturado` double(20,2) NOT NULL,
-  `total_item_facturado` double(20,2) NOT NULL
+  `cantidad_item_facturado` decimal(20,2) NOT NULL,
+  `importe_item_facturado` decimal(20,2) NOT NULL,
+  `total_item_facturado` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `items_facturados_factura_productor`
+-- Estructura de tabla para la tabla `items_facturados_presupuesto_productor`
 --
 
-INSERT INTO `items_facturados_factura_productor` (`codigo_item_facturado`, `codigo_factura`, `descripcion_item_facturado`, `cantidad_item_facturado`, `importe_item_facturado`, `total_item_facturado`) VALUES
-(1, 33, 'LOTE DE MIEL (300 TAMB. / 21000 KGS.) ', 1, 50000.00, 50000.00),
-(1, 34, 'LOTE DE MIEL (300 TAMB. / 21000 KGS.) ', 1, 100000000.00, 100000000.00);
+CREATE TABLE `items_facturados_presupuesto_productor` (
+  `codigo_item_presupuestado` int(11) NOT NULL,
+  `codigo_presupuesto` int(11) NOT NULL,
+  `descripcion_item_presupuestado` varchar(255) NOT NULL,
+  `cantidad_item_presupuestado` decimal(20,2) NOT NULL,
+  `importe_item_presupuestado` decimal(20,2) NOT NULL,
+  `total_item_presupuestado` decimal(20,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `locacion`
+--
+
+CREATE TABLE `locacion` (
+  `codigo_locacion` int(11) NOT NULL,
+  `nombre_locacion` varchar(60) NOT NULL,
+  `ubicacion_locacion` varchar(60) NOT NULL,
+  `observacion` varchar(60) DEFAULT NULL,
+  `categoria` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pago_productor`
+--
+
+CREATE TABLE `pago_productor` (
+  `codigo_pago` int(11) NOT NULL,
+  `codigo_movimiento_ctacte` int(11) NOT NULL,
+  `codigo_productor` int(11) NOT NULL,
+  `fecha_pago` date NOT NULL,
+  `metodo_pago` varchar(60) NOT NULL,
+  `observacion` varchar(100) NOT NULL,
+  `monto_pago` double(20,2) NOT NULL,
+  `codigo_comprobante_pagado` int(11) NOT NULL,
+  `tipo_comprobante_pagado` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -183,17 +190,6 @@ CREATE TABLE `persona` (
   `correo` varchar(100) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `persona`
---
-
-INSERT INTO `persona` (`cod_persona`, `nombre`, `documento`, `pais`, `estado_provincia`, `localidad`, `domicilio`, `telefono`, `correo`) VALUES
-(63, 'PRODUCTOR GENERICO', '-', '-', '-', '-', '-', '-', '-'),
-(64, 'Cesar Galoppo', '10', 'ARGENTINA', 'SAN LUIS', 'Justo Daract', 'Cordoba 40', '', ''),
-(65, 'Jasmina Constanza Mana', '20', 'ARGENTINA', 'SAN LUIS', 'Villa Mercedes', 'Madre Cabrini', '', ''),
-(66, 'CLIENTE GENERICO', '-', '-', '-', '-', '-', '-', '-'),
-(67, 'CARLOS MANA', '-', NULL, NULL, NULL, '-', '-', '-');
-
 -- --------------------------------------------------------
 
 --
@@ -206,6 +202,7 @@ CREATE TABLE `presupuesto_productor` (
   `codigo_movimiento_ctacte` int(11) NOT NULL,
   `codigo_productor` int(11) NOT NULL,
   `fecha_presupuesto` date NOT NULL,
+  `fecha_vencimiento` date NOT NULL,
   `importe_total_presupuesto` double(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -233,14 +230,38 @@ CREATE TABLE `productor` (
   `cura_miel` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `productor`
+-- Estructura de tabla para la tabla `stock_real_miel`
 --
 
-INSERT INTO `productor` (`cod_productor`, `cod_persona`, `fecha_venta_miel_1`, `fecha_venta_miel_2`, `fecha_venta_miel_3`, `nombre_fantasia`, `razon_social`, `condicion_iva`, `cuit`, `domicilio_fiscal`, `estado`, `cantidad_colmenas`, `ubicacion_colmenas`, `floracion_miel`, `cura_miel`) VALUES
-(38, 63, '-', '-', '-', '-', '-', '-', '-', '-', '-', 0, '-', '-', '-'),
-(39, 64, '', '', '', '', '', '', '', '', 'Activo', 0, '', '', ''),
-(40, 65, '', '', '', '', '', '', '', '', 'Activo', 0, '', '', '');
+CREATE TABLE `stock_real_miel` (
+  `codigo_movimiento` int(11) NOT NULL,
+  `fecha_movimiento` date NOT NULL,
+  `tipo_movimiento` varchar(60) NOT NULL,
+  `comprobante_asociado` varchar(60) NOT NULL,
+  `numero_comprobante_asociado` int(11) NOT NULL,
+  `cantidad_miel` decimal(20,2) NOT NULL,
+  `locacion_miel` int(11) NOT NULL,
+  `miel_deposito_productor` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `traslado`
+--
+
+CREATE TABLE `traslado` (
+  `codigo_traslado` int(11) NOT NULL,
+  `descripcion_item_trasladado` varchar(60) NOT NULL,
+  `cantidad_item_trasladado` decimal(20,0) NOT NULL,
+  `observacion_traslado` varchar(100) NOT NULL,
+  `origen_traslado` int(11) NOT NULL,
+  `destino_traslado` int(11) NOT NULL,
+  `fecha_traslado` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -256,13 +277,6 @@ CREATE TABLE `usuario` (
   `tipo` varchar(20) NOT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`cod_usuario`, `cod_persona`, `login`, `password`, `tipo`, `estado`) VALUES
-(4, 67, 'CACO', 'CACO', 'Activo', 'Administrador');
 
 --
 -- Índices para tablas volcadas
@@ -309,6 +323,26 @@ ALTER TABLE `items_facturados_factura_productor`
   ADD KEY `fkFactura` (`codigo_factura`);
 
 --
+-- Indices de la tabla `items_facturados_presupuesto_productor`
+--
+ALTER TABLE `items_facturados_presupuesto_productor`
+  ADD PRIMARY KEY (`codigo_item_presupuestado`,`codigo_presupuesto`),
+  ADD KEY `fkPresupuesto` (`codigo_presupuesto`);
+
+--
+-- Indices de la tabla `locacion`
+--
+ALTER TABLE `locacion`
+  ADD PRIMARY KEY (`codigo_locacion`);
+
+--
+-- Indices de la tabla `pago_productor`
+--
+ALTER TABLE `pago_productor`
+  ADD PRIMARY KEY (`codigo_pago`),
+  ADD KEY `productorFK` (`codigo_productor`);
+
+--
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
@@ -330,6 +364,21 @@ ALTER TABLE `productor`
   ADD KEY `productor` (`cod_persona`);
 
 --
+-- Indices de la tabla `stock_real_miel`
+--
+ALTER TABLE `stock_real_miel`
+  ADD PRIMARY KEY (`codigo_movimiento`),
+  ADD KEY `locacionfk` (`locacion_miel`);
+
+--
+-- Indices de la tabla `traslado`
+--
+ALTER TABLE `traslado`
+  ADD PRIMARY KEY (`codigo_traslado`),
+  ADD KEY `origenfkLocacion` (`origen_traslado`),
+  ADD KEY `destinofkLocacion` (`destino_traslado`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -344,25 +393,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `factura_cliente`
 --
 ALTER TABLE `factura_cliente`
-  MODIFY `codigo_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo_factura` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `factura_productor`
 --
 ALTER TABLE `factura_productor`
-  MODIFY `codigo_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `codigo_factura` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `locacion`
+--
+ALTER TABLE `locacion`
+  MODIFY `codigo_locacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pago_productor`
+--
+ALTER TABLE `pago_productor`
+  MODIFY `codigo_pago` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `cod_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `cod_persona` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `presupuesto_productor`
@@ -374,13 +435,25 @@ ALTER TABLE `presupuesto_productor`
 -- AUTO_INCREMENT de la tabla `productor`
 --
 ALTER TABLE `productor`
-  MODIFY `cod_productor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `cod_productor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `stock_real_miel`
+--
+ALTER TABLE `stock_real_miel`
+  MODIFY `codigo_movimiento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `traslado`
+--
+ALTER TABLE `traslado`
+  MODIFY `codigo_traslado` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -423,6 +496,18 @@ ALTER TABLE `items_facturados_factura_productor`
   ADD CONSTRAINT `fkFactura` FOREIGN KEY (`codigo_factura`) REFERENCES `factura_productor` (`codigo_factura`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `items_facturados_presupuesto_productor`
+--
+ALTER TABLE `items_facturados_presupuesto_productor`
+  ADD CONSTRAINT `fkPresupuesto` FOREIGN KEY (`codigo_presupuesto`) REFERENCES `presupuesto_productor` (`codigo_presupuesto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pago_productor`
+--
+ALTER TABLE `pago_productor`
+  ADD CONSTRAINT `productorFK` FOREIGN KEY (`codigo_productor`) REFERENCES `productor` (`cod_productor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `presupuesto_productor`
 --
 ALTER TABLE `presupuesto_productor`
@@ -433,6 +518,19 @@ ALTER TABLE `presupuesto_productor`
 --
 ALTER TABLE `productor`
   ADD CONSTRAINT `productor` FOREIGN KEY (`cod_persona`) REFERENCES `persona` (`cod_persona`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `stock_real_miel`
+--
+ALTER TABLE `stock_real_miel`
+  ADD CONSTRAINT `locacionfk` FOREIGN KEY (`locacion_miel`) REFERENCES `locacion` (`codigo_locacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `traslado`
+--
+ALTER TABLE `traslado`
+  ADD CONSTRAINT `destinofkLocacion` FOREIGN KEY (`destino_traslado`) REFERENCES `locacion` (`codigo_locacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `origenfkLocacion` FOREIGN KEY (`origen_traslado`) REFERENCES `locacion` (`codigo_locacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`

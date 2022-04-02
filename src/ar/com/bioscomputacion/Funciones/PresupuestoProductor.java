@@ -25,17 +25,21 @@ public class PresupuestoProductor {
     private Date fechaPresupuesto;
     private Date fechaVencimiento;
     private Double importeTotalPresupuesto;
+    private Double cantidadMiel;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
 
-    public PresupuestoProductor(String numeroComprobante, int codigoMovimientoCtacte, int codigoProductor, Date fechaPresupuesto, Date fechaVencimiento, Double importeTotalPresupuesto) {
+    public PresupuestoProductor(String numeroComprobante, int codigoMovimientoCtacte, int codigoProductor, Date fechaPresupuesto, Date fechaVencimiento, Double importeTotalPresupuesto, Double cantidadMiel) {
+        
         this.numeroComprobante = numeroComprobante;
         this.codigoMovimientoCtacte = codigoMovimientoCtacte;
         this.codigoProductor = codigoProductor;
         this.fechaPresupuesto = fechaPresupuesto;
         this.fechaVencimiento = fechaVencimiento;
         this.importeTotalPresupuesto = importeTotalPresupuesto;
+        this.cantidadMiel = cantidadMiel;
+        
     }
 
     public PresupuestoProductor() {
@@ -112,6 +116,14 @@ public class PresupuestoProductor {
     public void setCn(Connection cn) {
         this.cn = cn;
     }
+
+    public Double getCantidadMiel() {
+        return cantidadMiel;
+    }
+
+    public void setCantidadMiel(Double cantidadMiel) {
+        this.cantidadMiel = cantidadMiel;
+    }
     
     public int mostrarIdPresupuestoProductor() {
 
@@ -169,8 +181,8 @@ public class PresupuestoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO presupuesto_productor (numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_presupuesto, fecha_vencimiento, importe_total_presupuesto) "
-                    + "VALUES (?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO presupuesto_productor (numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_presupuesto, fecha_vencimiento, importe_total_presupuesto, cantidad_miel) "
+                    + "VALUES (?,?,?,?,?,?,?)");
             
             
             pst.setString(1, presupuestoProductor.getNumeroComprobante());
@@ -179,6 +191,7 @@ public class PresupuestoProductor {
             pst.setDate(4, presupuestoProductor.getFechaPresupuesto());
             pst.setDate(5, presupuestoProductor.getFechaVencimiento());
             pst.setDouble(6, presupuestoProductor.getImporteTotalPresupuesto());
+            pst.setDouble(7, presupuestoProductor.getCantidadMiel());
             
             
             int N = pst.executeUpdate();
@@ -202,7 +215,7 @@ public class PresupuestoProductor {
         try {
 
 
-            PreparedStatement pst = cn.prepareStatement("UPDATE presupuesto_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_presupuesto = ?,fecha_vencimiento = ?,importe_total_presupuesto = ? WHERE codigo_presupuesto = '"+ codigoPresupuesto +"'");
+            PreparedStatement pst = cn.prepareStatement("UPDATE presupuesto_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_presupuesto = ?,fecha_vencimiento = ?,importe_total_presupuesto = ?,cantidad_miel = ? WHERE codigo_presupuesto = '"+ codigoPresupuesto +"'");
 
             pst.setString(1, presupuestoProductor.getNumeroComprobante());
             pst.setInt(2, presupuestoProductor.getCodigoMovimientoCtacte());
@@ -210,6 +223,7 @@ public class PresupuestoProductor {
             pst.setDate(4, presupuestoProductor.getFechaPresupuesto());
             pst.setDate(5, presupuestoProductor.getFechaVencimiento());
             pst.setDouble(6, presupuestoProductor.getImporteTotalPresupuesto());
+            pst.setDouble(7, presupuestoProductor.getCantidadMiel());
 
             int N = pst.executeUpdate();
 

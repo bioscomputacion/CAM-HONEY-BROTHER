@@ -96,7 +96,7 @@ public class ItemFacturadoFacturaProductor {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura where codigo_factura='"+codigoFactura+"'");
+            ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+codigoFactura+"'");
             
             while(rs.next()){
                 

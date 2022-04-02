@@ -275,12 +275,12 @@ public class Productor extends Persona {
         return false;
     }
     
-    public boolean modificar(Productor productor) {
+    public boolean modificar(Productor productor, int codigoProductor) {
 
         try {
 
-            PreparedStatement pst = cn.prepareStatement("UPDATE productor SET fecha_venta_miel1 = ?,fecha_venta_miel2 = ?,fecha_venta_miel3 = ?,nombre_fantasia = ?,razon_social = ?,"
-                    + "condicion_iva = ?,cuit = ?,domicilio_fiscal = ?,estado = ?,cantidad_colmenas = ?,ubicacion_colmenas = ?,floracion_miel = ?,"
+            PreparedStatement pst = cn.prepareStatement("UPDATE productor SET fecha_venta_miel_1 = ?, fecha_venta_miel_2 = ?, fecha_venta_miel_3 = ?, nombre_fantasia = ?,razon_social = ?,"
+                    + "condicion_iva = ?, cuit = ?, domicilio_fiscal = ?, estado = ?, cantidad_colmenas = ?, ubicacion_colmenas = ?, floracion_miel = ?,"
                     + "cura_miel = ? WHERE cod_productor = ?");
             
             PreparedStatement pst2 = cn.prepareStatement("UPDATE persona SET nombre = ?,documento = ?,"
@@ -299,7 +299,7 @@ public class Productor extends Persona {
             pst.setString(11, productor.getUbicacion_colmenas());
             pst.setString(12, productor.getFloracion_miel());
             pst.setString(13, productor.getCura_miel());
-            pst.setInt(14, productor.getCod_productor());
+            pst.setInt(14, codigoProductor);
             
             pst2.setString(1, productor.getNombre());
             pst2.setString(2, productor.getDocumento());
@@ -308,8 +308,8 @@ public class Productor extends Persona {
             pst2.setString(5, productor.getLocalidad());
             pst2.setString(6, productor.getDomicilio());
             pst2.setString(7, productor.getTelefono());
-            pst2.setString(7, productor.getCorreo());
-            pst2.setInt(7, productor.getCod_productor());
+            pst2.setString(8, productor.getCorreo());
+            pst2.setInt(9, codigoProductor);
             
             int N = pst.executeUpdate();
             
@@ -317,16 +317,16 @@ public class Productor extends Persona {
 
             if (N != 0 || N2 != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
-                ConexionBD.close(pst2);
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                //ConexionBD.close(pst2);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
-                ConexionBD.close(pst2);
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                //ConexionBD.close(pst2);
                 return false;
                 
             }
@@ -346,11 +346,11 @@ public class Productor extends Persona {
 
         String[] titulos = {"ID", "NOMBRE", "DOCUMENTO", "NACIONALIDAD", "PROVINCIA", "LOCALIDAD", "DOMICILIO", "TELEFONO", "CORREO", "FECHA VENTA MIEL 1", "FECHA VENTA MIEL 2", "FECHA VENTA MIEL 3", "NOMBRE FANTASIA", "RAZON SOCIAL", "CONDICION IVA", "CUIT", "DOMICIlIO FISCAL", "ESTADO", "CANTIDAD COLMENAS", "UBICACION COLMENAS", "FLORACION MIEL", "CURA MIEL"};
 
-        String[] registros = new String[21];
+        String[] registros = new String[22];
 
         modelo = new DefaultTableModel(null, titulos) {
             
-            @Override
+            /*@Override
             public boolean isCellEditable(int filas, int columnas) {
                 if (columnas == 21) {
                     return true;
@@ -358,14 +358,14 @@ public class Productor extends Persona {
                     return false;
                 }
 
-            }
+            }*/
 
         };
         
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE p.cod_productor > '38' and q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
+            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE p.cod_productor <> '22' and q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
 
             while (rs.next()) {
                 
@@ -390,7 +390,7 @@ public class Productor extends Persona {
                 registros[18] = rs.getString("cantidad_colmenas");
                 registros[19] = rs.getString("ubicacion_colmenas");
                 registros[20] = rs.getString("floracion_miel");
-                //registros[21] = rs.getString("cura_miel");
+                registros[21] = rs.getString("cura_miel");
 
                 modelo.addRow(registros);
                 

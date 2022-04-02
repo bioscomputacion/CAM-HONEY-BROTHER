@@ -22,14 +22,12 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         
         initComponents();
         inicializar();
+        
     }
     
     public void inicializar(){
         
         tfNombre.requestFocus();
-        //solo se habilitan los combos estadoprovincia y localidades si se selecciona una nacionalidad
-        //cbEstadoProvincia.setEnabled(false);
-        //cbLocalidad.setEnabled(false);
         
     }
     
@@ -53,8 +51,6 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         tfNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfDocumento = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        cbNacionalidad = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cbEstadoProvincia = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -110,7 +106,9 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("MODIFICACION DE PRODUCTOR - CAM HONEY BROTHERS");
+        setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -140,29 +138,14 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("NACIONALIDAD:");
-
-        cbNacionalidad.setBackground(new java.awt.Color(36, 33, 33));
-        cbNacionalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbNacionalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "ARGENTINA", "BOLIVIA", "BRASIL", "CHILE", "COLOMBIA", "ECUADOR", "PARAGUAY", "PERU", "URUGUAY", "VENEZUELA" }));
-        cbNacionalidad.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbNacionalidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbNacionalidadActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ESTADO / PROVINCIA:");
+        jLabel10.setText("PROVINCIA:");
 
         cbEstadoProvincia.setBackground(new java.awt.Color(36, 33, 33));
         cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbEstadoProvincia.setForeground(new java.awt.Color(207, 207, 207));
-        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
+        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN" }));
         cbEstadoProvincia.setPreferredSize(new java.awt.Dimension(136, 19));
         cbEstadoProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,51 +199,46 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbNacionalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .addGap(132, 132, 132))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCorreo)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(tfDomicilio)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbLocalidad, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(241, 241, 241)))
-                        .addGap(335, 335, 335))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfCorreo)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(tfDomicilio))
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,18 +258,16 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(29, 29, 29)))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(4, 4, 4)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,7 +281,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Informacion personal", jPanel2);
@@ -425,7 +401,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Datos de facturacion", jPanel3);
@@ -623,7 +599,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Venta de miel", jPanel4);
@@ -677,7 +653,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         cbCuraMiel.setBackground(new java.awt.Color(36, 33, 33));
         cbCuraMiel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbCuraMiel.setForeground(new java.awt.Color(207, 207, 207));
-        cbCuraMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", " " }));
+        cbCuraMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CUMAFOS", "AMITRAZ", "OXALICO", "FUMAGILINA", " " }));
         cbCuraMiel.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCuraMiel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,7 +712,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Caracteristicas de la miel", jPanel5);
@@ -752,7 +728,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("CANCELAR");
+        rsbrCancelar.setText("SALIR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -775,8 +751,8 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpProductor)
-                .addGap(18, 18, 18)
+                .addComponent(tpProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -796,122 +772,6 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
-
-        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
-
-        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
-
-        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
-
-        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
-
-        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
-
-        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
-
-        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
-
-        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
-
-        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
-
-        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
-
-        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
-
-        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
-
-        if (seleccion == "ARGENTINA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String arg : argentina) {
-                cbEstadoProvincia.addItem(arg);
-            }
-        }
-
-        if (seleccion == "BOLIVIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bol : bolivia) {
-                cbEstadoProvincia.addItem(bol);
-            }
-        }
-
-        if (seleccion == "BRASIL") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bra : brasil) {
-                cbEstadoProvincia.addItem(bra);
-            }
-        }
-
-        if (seleccion == "CHILE") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String chil : chile) {
-                cbEstadoProvincia.addItem(chil);
-            }
-        }
-
-        if (seleccion == "COLOMBIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String col : colombia) {
-                cbEstadoProvincia.addItem(col);
-            }
-        }
-
-        if (seleccion == "ECUADOR") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ecu : ecuador) {
-                cbEstadoProvincia.addItem(ecu);
-            }
-        }
-
-        if (seleccion == "PARAGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String par : paraguay) {
-                cbEstadoProvincia.addItem(par);
-            }
-        }
-
-        if (seleccion == "PERU") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String per : peru) {
-                cbEstadoProvincia.addItem(per);
-            }
-        }
-
-        if (seleccion == "URUGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String uru : uruguay) {
-                cbEstadoProvincia.addItem(uru);
-            }
-        }
-
-        if (seleccion == "VENEZUELA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ven : venezuela) {
-                cbEstadoProvincia.addItem(ven);
-            }
-        }
-
-        if (seleccion == "SELECCIONAR") {
-            cbEstadoProvincia.setEnabled(false);
-            cbEstadoProvincia.removeAllItems();
-            cbEstadoProvincia.addItem("SELECCIONAR");
-            cbLocalidad.setEnabled(false);
-            cbLocalidad.removeAllItems();
-            cbLocalidad.addItem("SELECCIONAR");
-        }
-    }//GEN-LAST:event_cbNacionalidadActionPerformed
 
     private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
 
@@ -1225,6 +1085,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
 
             }
         }
+        
     }//GEN-LAST:event_rdbrRegistrar1ActionPerformed
 
     private void rdbrRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrar2ActionPerformed
@@ -1260,7 +1121,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
         int cantidadColmenas;
 
-        if (tfCantidadColmenas.getText() == "0"){
+        if (tfCantidadColmenas.getText().length() != 0){
 
             cantidadColmenas = Integer.valueOf(tfCantidadColmenas.getText());
 
@@ -1271,12 +1132,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
 
         }
 
-        String nacionalidad = "";
-        if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
-
-            nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem());
-
-        }
+        String nacionalidad = "ARGENTINA";
 
         String estadoProvincia = "";
         if (String.valueOf(cbEstadoProvincia.getSelectedItem()) != "SELECCIONAR"){
@@ -1288,7 +1144,7 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         String localidad = "";
         if (String.valueOf(cbLocalidad.getSelectedItem()) != "SELECCIONAR"){
 
-            localidad = String.valueOf(cbLocalidad.getSelectedItem());
+            localidad = String.valueOf(cbLocalidad.getSelectedItem()).toUpperCase();
 
         }
 
@@ -1325,20 +1181,22 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
         //se completaron todos los datos y/o se escogio registrar el cliente con sus demas datos incompletos
         //se procede al registro del productor
 
-        Productor productor = new Productor(tfFechaVentaMiel1.getText(),tfFechaVentaMiel2.getText(),tfFechaVentaMiel3.getText(),tfNombreFantasia.getText(),tfRazonSocial.getText(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText(),"Activo", cantidadColmenas, tfUbicacionColmenas.getText(), floracionMiel, curaMiel,
-            tfNombre.getText(), tfDocumento.getText(),
+        Productor productor = new Productor(tfFechaVentaMiel1.getText().toUpperCase(),tfFechaVentaMiel2.getText().toUpperCase(),tfFechaVentaMiel3.getText().toUpperCase(),tfNombreFantasia.getText().toUpperCase(),tfRazonSocial.getText().toUpperCase(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText().toUpperCase(),"ACTIVO", cantidadColmenas, tfUbicacionColmenas.getText().toUpperCase(), floracionMiel, curaMiel,
+            tfNombre.getText().toUpperCase(), tfDocumento.getText(),
             //Pais, estado y localidad se cargan como valores vacios ya que la tabla
             //en la base de datos lo permite
             nacionalidad, estadoProvincia, localidad,
-            tfDomicilio.getText(), tfTelefono.getText(),
-            tfCorreo.getText());
+            tfDomicilio.getText().toUpperCase(), tfTelefono.getText().toUpperCase(),
+            tfCorreo.getText().toUpperCase());
 
-        if (productor.modificar(productor)) {
+        if (productor.modificar(productor, codigoProductor)) {
 
             JOptionPane.showMessageDialog(null, "La informacion del productor ha sido modificada exitosamente.","MODIFICACION DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            //para refrescar la grilla y visualizar los cambios
+            FrmGestionProductores.mostrarProductores("");
+            FrmGestionProductores.ocultarColumnas();
+
             this.dispose();
-            //FrmLogin form = new FrmLogin();
-            //form.setVisible(true);
 
         } else {
 
@@ -1351,8 +1209,9 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
         // se cancela el registro del productor y se cierra el formulario
-        JOptionPane.showMessageDialog(null, "Se ha cancelado el registro del productor.", "REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha cancelado la modificacion del productor.", "MODIFICACION DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
+        
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
 
@@ -1363,7 +1222,6 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> cbFloracion;
     public javax.swing.JComboBox<String> cbLocalidad;
     public javax.swing.JComboBox<String> cbMesVentaMiel;
-    public javax.swing.JComboBox<String> cbNacionalidad;
     public javax.swing.JComboBox<String> cbPeriodoVentaMiel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1390,7 +1248,6 @@ public class FrmModificacionProductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

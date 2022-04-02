@@ -24,23 +24,29 @@ public class StockRealMiel {
     private Date fecha_movimiento; 
     private String tipo_movimiento;
     private String comprobante_asociado;
-    private int numero_comprobante_asociado;
+    private int id_comprobante_asociado;
+    private String numero_comprobante_asociado;
     private Double cantidad_miel;
     private int locacion_miel;
     private int miel_deposito_productor;
+    private String estado_compra;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
 
-    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, String comprobante_asociado, int numero_comprobante_asociado, Double cantidad_miel, int locacion_miel, int miel_deposito_productor) {
+    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, String comprobante_asociado, int id_comprobante_asociado, String numero_comprobante_asociado, Double cantidad_miel, int locacion_miel, int miel_deposito_productor, String estado_compra) {
+        
         this.codigo_movimiento = codigo_movimiento;
         this.fecha_movimiento = fecha_movimiento;
         this.tipo_movimiento = tipo_movimiento;
         this.comprobante_asociado = comprobante_asociado;
+        this.id_comprobante_asociado = id_comprobante_asociado;
         this.numero_comprobante_asociado = numero_comprobante_asociado;
         this.cantidad_miel = cantidad_miel;
         this.locacion_miel = locacion_miel;
         this.miel_deposito_productor = miel_deposito_productor;
+        this.estado_compra = estado_compra;
+        
     }
 
     public StockRealMiel() {
@@ -78,11 +84,19 @@ public class StockRealMiel {
         this.comprobante_asociado = comprobante_asociado;
     }
 
-    public int getNumero_comprobante_asociado() {
+    public int getId_comprobante_asociado() {
+        return id_comprobante_asociado;
+    }
+
+    public void setId_comprobante_asociado(int numero_comprobante_asociado) {
+        this.id_comprobante_asociado = numero_comprobante_asociado;
+    }
+
+    public String getNumero_comprobante_asociado() {
         return numero_comprobante_asociado;
     }
 
-    public void setNumero_comprobante_asociado(int numero_comprobante_asociado) {
+    public void setNumero_comprobante_asociado(String numero_comprobante_asociado) {
         this.numero_comprobante_asociado = numero_comprobante_asociado;
     }
 
@@ -126,6 +140,14 @@ public class StockRealMiel {
     public void setCn(Connection cn) {
         this.cn = cn;
     }
+
+    public String getEstado_compra() {
+        return estado_compra;
+    }
+
+    public void setEstado_compra(String estado_compra) {
+        this.estado_compra = estado_compra;
+    }
     
     public boolean registrarMovimientoStock(StockRealMiel stockMiel){
         
@@ -134,16 +156,18 @@ public class StockRealMiel {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor) "
-                    + "VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor, estado_compra) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?)");
             
             pst.setDate(1, stockMiel.getFecha_movimiento());
             pst.setString(2, stockMiel.getTipo_movimiento());
             pst.setString(3, stockMiel.getComprobante_asociado());
-            pst.setInt(4, stockMiel.getNumero_comprobante_asociado());
-            pst.setDouble(5, stockMiel.getCantidad_miel());
-            pst.setInt(6, stockMiel.getLocacion_miel());
-            pst.setInt(7, stockMiel.getMiel_deposito_productor());
+            pst.setInt(4, stockMiel.getId_comprobante_asociado());
+            pst.setString(5, stockMiel.getNumero_comprobante_asociado());
+            pst.setDouble(6, stockMiel.getCantidad_miel());
+            pst.setInt(7, stockMiel.getLocacion_miel());
+            pst.setInt(8, stockMiel.getMiel_deposito_productor());
+            pst.setString(9, stockMiel.getEstado_compra());
             
             int N = pst.executeUpdate();
 
@@ -166,15 +190,18 @@ public class StockRealMiel {
         
     }
     
+    //CHEQUEAAAR BIEEEEN
     public Double obtenerDetalleMielComprada(int codigoLocacion){
         
         Double mielComprada = 0.00;
         String tipoMovimiento = "COMPRA";
+        String tipoMovimiento2 = "INGRESO";
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"'");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='"+ tipoMovimiento +"' or tipo_movimiento='"+ tipoMovimiento2 +"')");
             
             while (rs.next()) {
 
@@ -193,6 +220,65 @@ public class StockRealMiel {
         
     }
     
+    //metodos para devolver miel comprada: el primero devuelve la miel comprada que esta paga - el segundo la miel comprada impaga
+    
+    public Double obtenerDetalleMielCompradaPaga(int codigoLocacion){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "COMPRA";
+        String tipoMovimiento2 = "INGRESO";
+        String estadoCompra = "FACTURADA";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='"+ tipoMovimiento +"' or tipo_movimiento='"+ tipoMovimiento2 +"') and estado_compra='"+ estadoCompra +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
+
+    public Double obtenerDetalleMielCompradaCredito(int codigoLocacion){
+        
+        Double mielComprada = 0.00;
+        String tipoMovimiento = "COMPRA";
+        String estadoCompra = "SIN FACTURAR";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra='"+ estadoCompra +"'");
+            
+            while (rs.next()) {
+
+                mielComprada = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielComprada;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielComprada;
+            
+        } 
+        
+    }
+
     public Double obtenerDetalleMielVendida(int codigoLocacion){
         
         Double mielComprada = 0.00;
@@ -332,7 +418,7 @@ public class StockRealMiel {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "LOCACION", "STOCK TOTAL", "STOCK PAGO", "STOCK EN CONSIGNACION"};
+        String[] titulos = {"ID", "LOCACION", "STOCK TOTAL", "STOCK PAGO", "STOCK A CREDITO"};
 
         String[] registros = new String[5];
 
@@ -355,7 +441,7 @@ public class StockRealMiel {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
 
-            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+            double mielComprada, mielCompradaPaga, mielCompradaImpaga, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
             int locacion = 0;
             
             StockRealMiel stock = new StockRealMiel();
@@ -367,12 +453,15 @@ public class StockRealMiel {
                 mielVendida = stock.obtenerDetalleMielVendida(locacion);
                 mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
                 mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                mielCompradaPaga = stock.obtenerDetalleMielCompradaPaga(locacion);
+                mielCompradaImpaga = stock.obtenerDetalleMielCompradaCredito(locacion);
                 saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
                 registros[0] = rs.getString("codigo_locacion");
                 registros[1] = rs.getString("nombre_locacion");
                 registros[2] = String.valueOf(saldoMiel);
-                registros[3] = "0.00";
-                registros[4] = "0.00";
+                registros[3] = String.valueOf(mielCompradaPaga);
+                registros[4] = String.valueOf(mielCompradaImpaga);
+                
                 /*System.out.println(mielComprada);
                 System.out.println(mielVendida);
                 System.out.println(saldoMiel);*/
@@ -393,14 +482,16 @@ public class StockRealMiel {
         
     }
     
+
     public Double calcularTotalStockGlobal() {
 
         Double totalStockGlobal = 0.00;
+        String categoria = "EMBARQUE";
 
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion from locacion order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> '"+ categoria +"' order by codigo_locacion asc");
 
             double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
             int locacion = 0;
@@ -431,6 +522,127 @@ public class StockRealMiel {
         
     }
     
+    //SEGUIR DESDE ACA! Tengo que crear metodos que devuelvan la cantidad de miel que esta paga y la cantidad de miel que esta impaga
+    
+    public Double calcularTotalStockGlobalPago() {
+
+        Double totalStockGlobal = 0.00;
+        String categoria = "EMBARQUE";
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> '"+ categoria +"' order by codigo_locacion asc");
+
+            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                //deberia crear un metodo que devuelva la miel comprada pero facturada y/o presupuestada (que se toma como paga)
+                mielComprada = stock.obtenerDetalleMielCompradaPaga(locacion);
+                mielVendida = stock.obtenerDetalleMielVendida(locacion);
+                mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
+                mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
+                totalStockGlobal = totalStockGlobal + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockGlobal;
+        
+    }
+    
+    public Double calcularTotalStockGlobalCredito() {
+
+        Double totalStockGlobal = 0.00;
+        String categoria = "EMBARQUE";
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> '"+ categoria +"' order by codigo_locacion asc");
+
+            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                //deberia crear un metodo que devuelva la miel comprada pero a credito / no facturada (que se toma como impaga)
+                mielComprada = stock.obtenerDetalleMielCompradaCredito(locacion);
+                mielVendida = stock.obtenerDetalleMielVendida(locacion);
+                mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
+                mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
+                totalStockGlobal = totalStockGlobal + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockGlobal;
+        
+    }
+
+    public Double calcularTotalStockEmbarque() {
+
+        Double totalStockGlobal = 0.00;
+        String categoria = "EMBARQUE";
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria = '"+ categoria +"' order by codigo_locacion asc");
+
+            double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                mielComprada = stock.obtenerDetalleMielComprada(locacion);
+                mielVendida = stock.obtenerDetalleMielVendida(locacion);
+                mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(locacion);
+                mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(locacion);
+                saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
+                totalStockGlobal = totalStockGlobal + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockGlobal;
+        
+    }
+
     public DefaultTableModel mostrarDetalleMovimientosStockLocacion(int codigoLocacion) {
 
         DefaultTableModel modelo;

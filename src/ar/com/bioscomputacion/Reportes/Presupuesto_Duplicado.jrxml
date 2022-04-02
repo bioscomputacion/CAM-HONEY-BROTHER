@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="992e7b66-cfa2-4da2-91c6-c3263fbe87f9">
+	<property name="ireport.zoom" value="1.7715610000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="380"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="cod_cliente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cod_presupuesto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="num_presupuesto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     clientes.`nombre_fantasia` AS clientes_nombre_fantasia,
+     clientes.`dni` AS clientes_dni,
+     clientes.`telefono` AS clientes_telefono,
+     clientes.`correo` AS clientes_correo,
+     clientes.`provincia` AS clientes_provincia,
+     clientes.`localidad` AS clientes_localidad,
+     clientes.`domicilio` AS clientes_domicilio,
+     items_facturados_presupuesto.`codigo_item_facturado` AS items_facturados_presupuesto_codigo_item_facturado,
+     items_facturados_presupuesto.`codigo_presupuesto` AS items_facturados_presupuesto_codigo_presupuesto,
+     items_facturados_presupuesto.`descripcion_item_facturado` AS items_facturados_presupuesto_descripcion_item_facturado,
+     items_facturados_presupuesto.`cantidad_item_facturado` AS items_facturados_presupuesto_cantidad_item_facturado,
+     items_facturados_presupuesto.`importe_item_facturado` AS items_facturados_presupuesto_importe_item_facturado,
+     items_facturados_presupuesto.`total_item_facturado` AS items_facturados_presupuesto_total_item_facturado,
+     presupuestos.`fecha_presupuesto` AS presupuestos_fecha_presupuesto,
+     presupuestos.`importe_total_presupuesto` AS presupuestos_importe_total_presupuesto,
+     presupuestos.`codigo_presupuesto` AS presupuestos_codigo_presupuesto,
+     clientes.`codigo_cliente` AS clientes_codigo_cliente,
+     presupuestos.`codigo_cliente` AS presupuestos_codigo_cliente
+FROM
+     `clientes` clientes,
+     `items_facturados_presupuesto` items_facturados_presupuesto,
+     `presupuestos` presupuestos
+WHERE
+     clientes.codigo_cliente = $P{cod_cliente}
+ AND items_facturados_presupuesto.codigo_presupuesto = presupuestos.codigo_presupuesto
+AND 
+  presupuestos.codigo_presupuesto = $P{cod_presupuesto}]]>
+	</queryString>
+	<field name="clientes_nombre_fantasia" class="java.lang.String"/>
+	<field name="clientes_dni" class="java.lang.String"/>
+	<field name="clientes_telefono" class="java.lang.String"/>
+	<field name="clientes_correo" class="java.lang.String"/>
+	<field name="clientes_provincia" class="java.lang.String"/>
+	<field name="clientes_localidad" class="java.lang.String"/>
+	<field name="clientes_domicilio" class="java.lang.String"/>
+	<field name="items_facturados_presupuesto_codigo_item_facturado" class="java.lang.Integer"/>
+	<field name="items_facturados_presupuesto_codigo_presupuesto" class="java.lang.Integer"/>
+	<field name="items_facturados_presupuesto_descripcion_item_facturado" class="java.lang.String"/>
+	<field name="items_facturados_presupuesto_cantidad_item_facturado" class="java.lang.Integer"/>
+	<field name="items_facturados_presupuesto_importe_item_facturado" class="java.lang.Double"/>
+	<field name="items_facturados_presupuesto_total_item_facturado" class="java.lang.Double"/>
+	<field name="presupuestos_fecha_presupuesto" class="java.sql.Date"/>
+	<field name="presupuestos_importe_total_presupuesto" class="java.math.BigDecimal"/>
+	<field name="presupuestos_codigo_presupuesto" class="java.lang.Integer"/>
+	<field name="clientes_codigo_cliente" class="java.lang.Integer"/>
+	<field name="presupuestos_codigo_cliente" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="396" splitType="Stretch">
+			<staticText>
+				<reportElement x="237" y="180" width="81" height="46" forecolor="#666666" uuid="62cbaa70-0197-4f04-a3cf-0abb9f85fa6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO NO VALIDO COMO FACTURA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="244" y="103" width="60" height="1" uuid="e71bba91-cbc1-4658-85a4-61e9102c8881"/>
+			</line>
+			<line>
+				<reportElement x="244" y="45" width="1" height="59" uuid="b629397d-1dfd-44a7-a6d9-df1baebeecdb"/>
+			</line>
+			<staticText>
+				<reportElement x="261" y="42" width="27" height="77" forecolor="#666666" uuid="9546c183-fb14-4001-ba9f-4583460784b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="48"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<line>
+				<reportElement x="244" y="45" width="60" height="1" uuid="a829b02a-ac25-4b98-9f44-c899379b7db6"/>
+			</line>
+			<line>
+				<reportElement x="276" y="103" width="1" height="77" uuid="237a724d-aff2-4160-9e88-dd51933390c2"/>
+			</line>
+			<line>
+				<reportElement x="304" y="45" width="1" height="59" uuid="54fb57e9-cd55-4212-8816-8b0087d59aa6"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="100" width="185" height="14" forecolor="#666666" uuid="861ce9c5-fe96-452d-9005-980bfae65667"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[CondorCom Technology]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="119" width="137" height="14" forecolor="#666666" uuid="20b9395f-c656-4302-85d9-1614c640ee7d"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Domicilio: Pringles 42]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="138" width="116" height="14" forecolor="#666666" uuid="93576dcc-2a78-418e-87ad-d316f9393a32"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Tel: 2657 - 203442]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="157" width="137" height="14" forecolor="#666666" uuid="9158d04c-7f6c-4952-ad8d-0abee1a8cf40"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Rubro: Comunicaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="0" width="152" height="25" uuid="5d74933d-5c83-408e-9cf8-df209da12fce"/>
+				<textElement>
+					<font fontName="Arial" size="20" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="441" y="33" width="40" height="15" uuid="c571816b-717c-4e5a-b072-d67c59a6a8e0"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="481" y="33" width="60" height="15" uuid="41e4fdf7-1bb2-42c1-b483-a6ca830ad7e4"/>
+				<textFieldExpression><![CDATA[$F{presupuestos_fecha_presupuesto}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="140" height="100" uuid="c22fd58a-4b10-4bcc-89a4-a1eef5d61240"/>
+				<imageExpression><![CDATA["Imagenes\\LOGO_CONDORCOM.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="177" y="10" width="196" height="25" uuid="9a943be8-3287-493f-a973-f46587f01147"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[DUPLICADO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="318" y="202" width="260" height="1" uuid="7fc3cf41-ecf3-4cf6-a27d-fa2872060815"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="203" width="257" height="1" uuid="889e4282-49c9-4726-ba33-645f437057d8"/>
+			</line>
+			<line>
+				<reportElement x="318" y="180" width="1" height="46" uuid="61b357c2-e6d0-432c-a020-bee4a34d863c"/>
+			</line>
+			<line>
+				<reportElement x="237" y="180" width="1" height="46" uuid="f98c2353-b960-4750-b7b8-d6d6b464a24c"/>
+			</line>
+			<line>
+				<reportElement x="238" y="180" width="81" height="1" uuid="64b02ecd-6ef3-41d3-b6cc-011acfd1e546"/>
+			</line>
+			<line>
+				<reportElement x="237" y="226" width="82" height="1" uuid="f303ef1a-2b34-476b-bb6b-32317213711c"/>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="70" y="371" width="485" height="15" uuid="1be31908-719a-48d0-b8bf-fec70d25dc99"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_domicilio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="27" y="291" width="528" height="15" uuid="71cd2a95-72b9-4819-896d-65a473b1b979"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_dni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="371" width="68" height="15" uuid="8969ced9-1328-4a52-b786-a85493177050"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DOMICILIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="291" width="25" height="15" uuid="777d6561-b4f5-4a97-941a-b4364cae11ff"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DNI: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="58" y="251" width="497" height="15" uuid="f484dac9-614b-409c-99e8-8f03f0b8e51a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_nombre_fantasia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="331" width="75" height="15" uuid="bd7e010e-b5f1-4dc3-a448-2b62a6553a6c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[LOCALIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="251" width="56" height="15" uuid="6ad70435-6c15-4811-913b-25dd665cdd52"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="77" y="331" width="478" height="15" uuid="9c16aa41-b0b9-49f3-baf2-27ad5079ea3d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_localidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="933061f0-378a-455c-9d4b-060fe1764bbb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" mode="Opaque" x="59" y="20" width="305" height="15" forecolor="#000000" backcolor="#6E98BE" uuid="a9b71f04-d012-466e-a03a-3e8754ab3247"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" mode="Opaque" x="0" y="20" width="60" height="15" forecolor="#000000" backcolor="#6E98BE" uuid="31556c5d-3693-4ad5-91e3-03f99914f44f"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CANT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" mode="Opaque" x="363" y="20" width="103" height="15" forecolor="#000000" backcolor="#6E98BE" uuid="1f8d219f-6c83-4a94-8f4a-77b6f6f5ac42"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" mode="Opaque" x="465" y="20" width="90" height="15" forecolor="#000000" backcolor="#6E98BE" uuid="7d4b1b8d-9616-4e5b-89de-f38bfb4f6ed1"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="d681c565-c51c-4776-a4b9-c0b1cf5d3d8b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="60" y="0" width="303" height="15" uuid="6619e93f-c226-43dc-9ac4-10026a61a6ad"/>
+				<textFieldExpression><![CDATA[$F{items_facturados_presupuesto_descripcion_item_facturado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="60" height="15" uuid="b381d597-5d7c-41e9-a1a1-7ab5ab12de17"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{items_facturados_presupuesto_cantidad_item_facturado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="363" y="0" width="102" height="15" uuid="b24a40c8-2ff7-47bb-b7f8-ad8138be1107"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{items_facturados_presupuesto_importe_item_facturado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="465" y="0" width="90" height="15" uuid="42fd71b0-dc90-4e47-9c3c-5edc0fc33f32"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{items_facturados_presupuesto_total_item_facturado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="0fad5a1d-c82b-46df-8c13-8fee62c24882"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="431" y="4" width="48" height="15" uuid="afc9236d-640e-4f6d-9d32-8bcdf7bee57c"/>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="479" y="4" width="76" height="15" uuid="e416e366-8b07-4552-b2c0-356a6de04790"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{presupuestos_importe_total_presupuesto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="4" width="116" height="15" uuid="1b85edb2-9056-4d5a-83ef-920203b8af85"/>
+				<text><![CDATA[PRESUPUESTO N°:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="4" width="100" height="20" uuid="a31b4bc7-b96d-4210-9f7f-5856ed1e05c1"/>
+				<textFieldExpression><![CDATA[$P{num_presupuesto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="a6e4aff2-f1b6-40e7-806b-d0c70939662d"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -118,7 +118,7 @@ public class Locacion {
         
     }
 
-    public boolean eliminar(int codigoLocacion) {
+    public boolean eliminarLocacion(int codigoLocacion) {
 
         try {
 
@@ -149,6 +149,46 @@ public class Locacion {
 
         return false;
     }
+    
+    public boolean modificarLocacion(Locacion locacion, int codigoLocacion) {
+
+        try {
+
+            PreparedStatement pst = cn.prepareStatement("update locacion set nombre_locacion = ?, ubicacion_locacion = ?, observacion = ?, categoria = ? where codigo_locacion = ?");
+            
+            pst.setString(1, locacion.getNombre_locacion());
+            pst.setString(2, locacion.getUbicacion_locacion());
+            pst.setString(3, locacion.getObservacion());
+            pst.setString(4, locacion.getCategoria());
+            pst.setInt(5, codigoLocacion);
+            
+            int N = pst.executeUpdate();
+            
+            if (N != 0) {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                //ConexionBD.close(pst2);
+                return true;
+                
+            } else {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                //ConexionBD.close(pst2);
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
+    
     
     public DefaultTableModel listarLocaciones(String buscar) {
         

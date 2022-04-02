@@ -26,6 +26,7 @@ public class CtaCteProductor {
     private String descripcionMovimiento; 
     private int comprobanteAsociado;
     private String numeroComprobante;
+    private Double cantidadMiel;
     private Double debe;
     private Double haber;
     private Double saldo;
@@ -36,13 +37,14 @@ public class CtaCteProductor {
     Connection cn = mysql.getConexionBD();
 
 
-    public CtaCteProductor(int codigoProductor, int codigoMovimiento, Date fechaMovimiento, String descripcionMovimiento, int comprobanteAsociado, String numeroComprobante, Double debe, Double haber, Double saldo, String estadoMovimiento, String observacion) {
+    public CtaCteProductor(int codigoProductor, int codigoMovimiento, Date fechaMovimiento, String descripcionMovimiento, int comprobanteAsociado, String numeroComprobante, Double cantidadMiel, Double debe, Double haber, Double saldo, String estadoMovimiento, String observacion) {
         this.codigoProductor = codigoProductor;
         this.codigoMovimiento = codigoMovimiento;
         this.fechaMovimiento = fechaMovimiento;
         this.descripcionMovimiento = descripcionMovimiento;
         this.comprobanteAsociado = comprobanteAsociado;
         this.numeroComprobante = numeroComprobante;
+        this.cantidadMiel = cantidadMiel;
         this.debe = debe;
         this.haber = haber;
         this.saldo = saldo;
@@ -156,6 +158,14 @@ public class CtaCteProductor {
     public void setCn(Connection cn) {
         this.cn = cn;
     }
+
+    public Double getCantidadMiel() {
+        return cantidadMiel;
+    }
+
+    public void setCantidadMiel(Double cantidadMiel) {
+        this.cantidadMiel = cantidadMiel;
+    }
     
     public int mostrarIdMovimiento(int codigoProductor) {
 
@@ -188,8 +198,8 @@ public class CtaCteProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO cta_cte_productor (codigo_productor, codigo_movimiento, fecha_movimiento, descripcion_movimiento, comprobante_asociado, numero_comprobante, debe, haber, saldo, estado_movimiento, observacion) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO cta_cte_productor (codigo_productor, codigo_movimiento, fecha_movimiento, descripcion_movimiento, comprobante_asociado, numero_comprobante, cantidad_miel, debe, haber, saldo, estado_movimiento, observacion) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             
             
             pst.setInt(1, ctacteProductor.getCodigoProductor());
@@ -198,11 +208,12 @@ public class CtaCteProductor {
             pst.setString(4, ctacteProductor.getDescripcionMovimiento());
             pst.setInt(5, ctacteProductor.getComprobanteAsociado());
             pst.setString(6, ctacteProductor.getNumeroComprobante());
-            pst.setDouble(7, ctacteProductor.getDebe());
-            pst.setDouble(8, ctacteProductor.getHaber());
-            pst.setDouble(9, ctacteProductor.getSaldo());
-            pst.setString(10, ctacteProductor.getEstadoMovimiento());
-            pst.setString(11, ctacteProductor.getObservacion());
+            pst.setDouble(7, ctacteProductor.getCantidadMiel());
+            pst.setDouble(8, ctacteProductor.getDebe());
+            pst.setDouble(9, ctacteProductor.getHaber());
+            pst.setDouble(10, ctacteProductor.getSaldo());
+            pst.setString(11, ctacteProductor.getEstadoMovimiento());
+            pst.setString(12, ctacteProductor.getObservacion());
             
             
             int N = pst.executeUpdate();
@@ -226,9 +237,9 @@ public class CtaCteProductor {
         
         DefaultTableModel modelo;
         
-        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
+        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "KGS. MIEL", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
 
-        String[] registros = new String[11];
+        String[] registros = new String[12];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -257,11 +268,12 @@ public class CtaCteProductor {
                 registros[3] = rs.getString("descripcion_movimiento");
                 registros[4] = rs.getString("comprobante_asociado");
                 registros[5] = rs.getString("numero_comprobante");
-                registros[6] = rs.getString("debe");
-                registros[7] = rs.getString("haber");
-                registros[8] = rs.getString("saldo");
-                registros[9] = rs.getString("estado_movimiento");
-                registros[10] = rs.getString("observacion");
+                registros[6] = rs.getString("cantidad_miel");
+                registros[7] = rs.getString("debe");
+                registros[8] = rs.getString("haber");
+                registros[9] = rs.getString("saldo");
+                registros[10] = rs.getString("estado_movimiento");
+                registros[11] = rs.getString("observacion");
 
                 modelo.addRow(registros);
                 
@@ -305,6 +317,34 @@ public class CtaCteProductor {
         
     }
     
+    public Double mostrarSaldoMielImpagaAProductor(int codigoProductor) {
+
+        Double saldo = 0.00;
+        String comprobante = "CREDITO";
+        String estadoComprobante = "PENDIENTE";
+        
+        try {
+
+            Statement st = cn.createStatement();
+            Statement st2 = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM cta_cte_productor WHERE codigo_productor='" +codigoProductor+ "' and descripcion_movimiento='" +comprobante+ "' and estado_movimiento='"+estadoComprobante+"'");
+
+            while (rs.next()) {
+                
+                saldo = saldo + rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return saldo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+
+        return saldo;
+        
+    }
+
     /*public boolean pagarComprobantes(int cliente, int movimiento, Double pago){
         
         sSQL = "UPDATE ctas_ctes_clientes SET saldo = ? , haber = ? , estado_movimiento = ?   WHERE codigo_cliente =? AND codigo_movimiento =? ";

@@ -42,16 +42,14 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfDocumento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         cbNacionalidad = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        cbEstadoProvincia = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        cbLocalidad = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         tfDomicilio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tfCorreo = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        cbCategoriaCliente = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -68,6 +66,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE CLIENTE - CAM HONEY BROTHERS");
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
@@ -110,41 +109,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         cbNacionalidad.setBackground(new java.awt.Color(36, 33, 33));
         cbNacionalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbNacionalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
+        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "AFGANISTAN", "ALBANIA", "ALEMANIA", "ANDORRA", "ANGOLA", "ANTIGUA Y BARBUDA", "ARABIA SAUDITAARGELIA", "ARGENTINA", "ARMENIA", "AUSTRALIA", "AUSTRIA", "AZERBAIYÁN", "BAHAMAS", "BANGLADÉS", "BARBADOS", "BARÉIN", "BÉLGICA", "BELICE", "BIELORRUSIA", "BENÍN", "BIRMANIABOLIVIA", "BOSNIA Y HERZEGOVINA", "BOTSUANA", "BRASIL", "BRUNEI", "BULGARIA", "BURKINA FASO", "BURUNDI", "BUTÁN", "CABO VERDE", "CAMBOYA", "CAMERÚN", "CANADÁ", "CATAR", "REPÚBLICA CENTROAFRICANA", "CHAD", "REPÚBLICA CHECACHILE", "CHINA", "CHIPRE", "COLOMBIA", "COMORAS", "REPÚBLICA DEL CONGO", "REPÚBLICA DEMOCRÁTICA DEL CONGO", "COREA DEL NORTE", "COREA DEL SUR", "COSTA DE MARFIL", "COSTA RICA", "CROACIA", "CUBA", "DINAMARCA", "DOMINICA", "REPÚBLICA DOMINICANA", "ECUADOR", "EGIPTO", "EL SALVADOR", "EMIRATOS ÁRABES UNIDOS", "ERITREA", "ESLOVAQUIA", "ESLOVENIA", "ESPAÑA", "ESTADOS UNIDOS", "ESTONIA", "ETIOPÍA", "FILIPINAS", "FINLANDIA", "FIYI", "FRANCIA", "GABÓN", "GAMBIA", "GEORGIA", "GHANA", "GRANADA", "GRECIA", "GUATEMALA", "GUINEA", "GUINEA-BISÁU", "GUINEA ECUATORIAL", "GUYANA", "HAITÍ", "HONDURAS", "HUNGRÍA", "INDIA", "INDONESIA", "IRAK", "IRÁN", "IRLANDA", "ISLANDIA", "ISRAEL", "ITALIA", "JAMAICA", "JAPÓN", "JORDANIA", "KAZAJISTÁN", "KENIA", "KIRGUISTÁN", "KIRIBATI", "KUWAIT", "LAOS", "LESOTO", "LETONIA", "LÍBANO", "LIBERIA", "LIBIA", "LIECHTENSTEIN", "LITUANIA", "LUXEMBURGO", "MACEDONIA DEL NORTE", "MADAGASCAR", "MALASIA", "MALAUI", "MALDIVAS", "MALI / MALÍ", "MALTA", "MARRUECOS", "ISLAS MARSHALL", "MAURICIO", "MAURITANIA", "MÉXICO", "MICRONESIA", "MOLDAVIA", "MÓNACO", "MONGOLIA", "MONTENEGRO", "MOZAMBIQUE", "NAMIBIA", "NAURU", "NEPAL", "NICARAGUA", "NÍGER", "NIGERIA", "NORUEGA", "NUEVA ZELANDA", "OMÁN", "PAÍSES BAJOS", "PAKISTÁN", "PALAOS", "PALESTINA", "PANAMÁ", "PAPÚA NUEVA GUINEA", "PARAGUAY", "PERÚ", "POLONIA", "PORTUGAL", "REINO UNIDO", "RUANDA", "RUMANIA", "RUSIA", "ISLAS SALOMÓN", "SAMOA", "SAN CRISTÓBAL Y NIEVES", "SAN MARINO", "SAN VICENTE Y LAS GRANADINAS", "SANTA LUCÍA", "SANTO TOMÉ Y PRÍNCIPE", "SENEGAL", "SERBIA", "SEYCHELLES", "SIERRA LEONA", "SINGAPUR", "SIRIA", "SOMALIA", "SRI LANKA", "SUAZILANDIA", "SUDÁFRICA", "SUDÁN", "SUDÁN DEL SUR", "SUECIA", "SUIZA", "SURINAM", "TAILANDIA", "TANZANIA", "TAYIKISTÁN", "TIMOR ORIENTAL", "TOGO", "TONGA", "TRINIDAD Y TOBAGO", "TÚNEZ", "TURKMENISTÁN", "TURQUÍA", "TUVALU", "UCRANIA", "UGANDA", "URUGUAY", "UZBEKISTÁN", "VANUATU", "CIUDAD DEL VATICANO", "VENEZUELA", "VIETNAM", "YEMEN", "YIBUTI", "ZAMBIA", "ZIMBABUE" }));
         cbNacionalidad.setPreferredSize(new java.awt.Dimension(136, 19));
         cbNacionalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbNacionalidadActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ESTADO / PROVINCIA:");
-
-        cbEstadoProvincia.setBackground(new java.awt.Color(36, 33, 33));
-        cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbEstadoProvincia.setForeground(new java.awt.Color(207, 207, 207));
-        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
-        cbEstadoProvincia.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbEstadoProvincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEstadoProvinciaActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("LOCALIDAD:");
-
-        cbLocalidad.setBackground(new java.awt.Color(36, 33, 33));
-        cbLocalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbLocalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbLocalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
-        cbLocalidad.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbLocalidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocalidadActionPerformed(evt);
             }
         });
 
@@ -172,6 +141,22 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfCorreo.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("CATEGORIA DE CLIENTE:");
+        jLabel17.setToolTipText("");
+
+        cbCategoriaCliente.setBackground(new java.awt.Color(36, 33, 33));
+        cbCategoriaCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbCategoriaCliente.setForeground(new java.awt.Color(207, 207, 207));
+        cbCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CLIENTE STANDARD", "EXPORTADOR INTERNO" }));
+        cbCategoriaCliente.setPreferredSize(new java.awt.Dimension(136, 19));
+        cbCategoriaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoriaClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -179,48 +164,45 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tfDomicilio)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(132, 132, 132))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCorreo)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tfCorreo)
+                                .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbNacionalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(335, 335, 335))
-                    .addComponent(tfDomicilio)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tfDocumento)
+                            .addComponent(cbCategoriaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(tfNombre)
+                            .addComponent(cbNacionalidad, 0, 431, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(333, 333, 333))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,29 +211,24 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(23, 23, 23)
+                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(29, 29, 29)))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbCategoriaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,7 +242,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Informacion personal", jPanel2);
@@ -388,7 +365,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Datos de facturacion", jPanel3);
@@ -427,8 +404,8 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpCliente)
-                .addGap(18, 18, 18)
+                .addComponent(tpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -451,9 +428,43 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
-        //Solo es obligatorio el ingreso del nombre del cliente
+        //Solo es obligatorio el ingreso del nombre del cliente y la categoria del mismo
 
-        //el ingreso del nombre del productor es obligatorio para el registro del mismo
+        //para evitar errores al cargar pais del cliente
+        String categoriaCliente = "";
+        String estadoProvincia = "";
+        String localidad = "";
+        String nacionalidad = "";
+        
+        if (String.valueOf(cbCategoriaCliente.getSelectedItem()) != "SELECCIONAR"){
+            
+            categoriaCliente = String.valueOf(cbCategoriaCliente.getSelectedItem()).toUpperCase();
+            
+        }
+
+        if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
+            
+            nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem()).toUpperCase();
+            
+        }
+
+        String condicionIVA = "";
+        if (String.valueOf(cbCondicionIVA.getSelectedItem()) != "SELECCIONAR"){
+
+            condicionIVA = String.valueOf(cbCondicionIVA.getSelectedItem()).toUpperCase();
+
+        }
+
+        //chequeo de categoria de cliente
+        if (String.valueOf(cbCategoriaCliente.getSelectedItem()) == "SELECCIONAR") {
+
+            JOptionPane.showMessageDialog(null, "Debe seleccionar la categoria del cliente.", "REGISTRO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
+            cbCategoriaCliente.requestFocus();
+            return;
+
+        }
+
+        //el ingreso del nombre del cliente es obligatorio para el registro del mismo
         if (tfNombre.getText().length() == 0) {
 
             JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del cliente.", "REGISTRO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
@@ -465,13 +476,13 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         //se completaron todos los datos y/o se escogio registrar el cliente solo con su nombre como informacion
         //se procede al registro del cliente
         
-        Cliente cliente = new Cliente(tfRazonSocial.getText(), "condicion iva", tfCuit.getText(), tfDomicilioFiscal.getText(), "Activo",
-                tfNombre.getText(), tfDocumento.getText(),
+        Cliente cliente = new Cliente(tfNombreFantasia.getText().toUpperCase(), tfRazonSocial.getText().toUpperCase(), condicionIVA, tfCuit.getText(), tfDomicilioFiscal.getText().toUpperCase(), "ACTIVO", categoriaCliente,
+                tfNombre.getText().toUpperCase(), tfDocumento.getText(),
                 //Pais, estado y localidad se cargan como valores vacios ya que la tabla
                 //en la base de datos lo permite
-                "pais", "provincia", "localidad",
-                tfDomicilio.getText(), tfTelefono.getText(),
-                tfCorreo.getText());
+                nacionalidad, estadoProvincia, localidad,
+                tfDomicilio.getText().toUpperCase(), tfTelefono.getText().toUpperCase(),
+                tfCorreo.getText().toUpperCase());
 
         if (cliente.registrar(cliente)) {
 
@@ -500,38 +511,29 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbNacionalidadActionPerformed
 
-    private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
-
-    private void cbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbLocalidadActionPerformed
-
     private void cbCondicionIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCondicionIVAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCondicionIVAActionPerformed
 
     private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
-
-       tfNombre.setText(tfNombre.getText().toUpperCase());
-       
     }//GEN-LAST:event_tfNombreKeyReleased
+
+    private void cbCategoriaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoriaClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JComboBox<String> cbCategoriaCliente;
     public javax.swing.JComboBox<String> cbCondicionIVA;
-    public javax.swing.JComboBox<String> cbEstadoProvincia;
-    public javax.swing.JComboBox<String> cbLocalidad;
     public javax.swing.JComboBox<String> cbNacionalidad;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

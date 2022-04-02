@@ -62,18 +62,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
-        menuFacturacion = new javax.swing.JMenu();
+        menuCompraMiel = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        menuVentaMiel = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CAMHONEYBROTHER - SOFTWARE");
         setResizable(false);
+
+        deskPrincipal.setPreferredSize(new java.awt.Dimension(980, 550));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/Logo_principal.png"))); // NOI18N
 
@@ -129,7 +138,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addComponent(lbTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCod_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rSLabelHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +147,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         deskPrincipalLayout.setVerticalGroup(
             deskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deskPrincipalLayout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
+                .addContainerGap(122, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addGroup(deskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -210,7 +219,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem10);
 
-        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem4.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem4.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem4.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem4.setText("GESTION DE CLIENTES");
+        jMenuItem4.setOpaque(true);
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem4);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,7 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem12);
 
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem11.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,7 +261,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem11);
 
-        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         jMenuItem13.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem13.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem13.setForeground(new java.awt.Color(255, 255, 255));
@@ -254,38 +277,72 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuPrincipal.add(menuGestion);
 
-        menuFacturacion.setForeground(new java.awt.Color(255, 255, 255));
-        menuFacturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
-        menuFacturacion.setText("FACTURACION");
-        menuFacturacion.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
+        menuCompraMiel.setForeground(new java.awt.Color(255, 255, 255));
+        menuCompraMiel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/producto.png"))); // NOI18N
+        menuCompraMiel.setText("COMPRA DE MIEL");
+        menuCompraMiel.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
         jMenuItem1.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem1.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem1.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem1.setText("REGISTRO DE FACTURA DE PRODUCTOR");
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem1.setText("REGISTRO DE COMPRA CON FACTURA A PRODUCTOR");
         jMenuItem1.setOpaque(true);
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        menuFacturacion.add(jMenuItem1);
+        menuCompraMiel.add(jMenuItem1);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         jMenuItem3.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem3.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem3.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem3.setText("REGISTRO DE PRESUPUESTO DE PRODUCTOR");
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem3.setText("REGISTRO DE COMPRA CON PRESUPUESTO A PRODUCTOR");
         jMenuItem3.setOpaque(true);
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        menuFacturacion.add(jMenuItem3);
+        menuCompraMiel.add(jMenuItem3);
 
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
+        jMenuItem5.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem5.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem5.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem5.setText("REGISTRO DE COMPRA A CREDITO A PRODUCTOR");
+        jMenuItem5.setOpaque(true);
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuCompraMiel.add(jMenuItem5);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        jMenuItem6.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem6.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem6.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem6.setText("REGISTRO DE INGRESO DE MIEL PROPIA");
+        jMenuItem6.setOpaque(true);
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        menuCompraMiel.add(jMenuItem6);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
         jMenuItem2.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem2.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem2.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
         jMenuItem2.setText("CUENTAS CORRIENTES CON PRODUCTORES");
         jMenuItem2.setOpaque(true);
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -293,9 +350,55 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        menuFacturacion.add(jMenuItem2);
+        menuCompraMiel.add(jMenuItem2);
 
-        menuPrincipal.add(menuFacturacion);
+        menuPrincipal.add(menuCompraMiel);
+
+        menuVentaMiel.setForeground(new java.awt.Color(255, 255, 255));
+        menuVentaMiel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
+        menuVentaMiel.setText("VENTA DE MIEL");
+        menuVentaMiel.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
+
+        jMenuItem7.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem7.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem7.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem7.setText("REGISTRO DE VENTA A EXPORTADOR INTERNO");
+        jMenuItem7.setOpaque(true);
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        menuVentaMiel.add(jMenuItem7);
+
+        jMenuItem15.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem15.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem15.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem15.setText("REGISTRO DE VENTA A CLIENTE EN EL EXTERIOR");
+        jMenuItem15.setOpaque(true);
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        menuVentaMiel.add(jMenuItem15);
+
+        jMenuItem14.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem14.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem14.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
+        jMenuItem14.setText("CUENTAS CORRIENTES DE CLIENTES");
+        jMenuItem14.setOpaque(true);
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        menuVentaMiel.add(jMenuItem14);
+
+        menuPrincipal.add(menuVentaMiel);
 
         menuSalir.setForeground(new java.awt.Color(255, 255, 255));
         menuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cerrar_sesion.png"))); // NOI18N
@@ -319,12 +422,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskPrincipal)
+            .addComponent(deskPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(deskPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        deskPrincipal.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -512,6 +617,134 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+        FrmGestionClientes form = new FrmGestionClientes();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        try {
+            
+            FrmRegistroCreditoProductor form = new FrmRegistroCreditoProductor();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+        try {
+            
+            FrmRegistroIngresoMielPropia form = new FrmRegistroIngresoMielPropia();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+
+        try {
+            
+            FrmRegistroFacturaExportadorInterno form = new FrmRegistroFacturaExportadorInterno();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+
+        FrmCtaCteCliente form = new FrmCtaCteCliente();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+
+        try {
+            
+            FrmRegistroFacturaClienteExterior form = new FrmRegistroFacturaClienteExterior();
+            
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+            
+            form.setClosable(true);
+            form.setIconifiable(false);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+                            
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -558,17 +791,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JLabel lbNombre;
     public javax.swing.JLabel lbTipo;
-    private javax.swing.JMenu menuFacturacion;
+    private javax.swing.JMenu menuCompraMiel;
     public static javax.swing.JMenu menuGestion;
     public static javax.swing.JMenu menuPersona;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JMenu menuSalir;
+    private javax.swing.JMenu menuVentaMiel;
     private rojeru_san.RSLabelHora rSLabelHora1;
     public javax.swing.JTextField txtCod_usuario;
     // End of variables declaration//GEN-END:variables

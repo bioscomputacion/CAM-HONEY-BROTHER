@@ -8,6 +8,7 @@
     </Container>
   </NonVisualComponents>
   <Properties>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="REGISTRO DE CLIENTE - CAM HONEY BROTHERS"/>
   </Properties>
   <SyntheticProperties>
@@ -61,8 +62,8 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="tpCliente" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="tpCliente" min="-2" pref="434" max="-2" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="rdbrRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rsbrCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -102,27 +103,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="tfDomicilio" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" pref="537" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfDocumento" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jSeparator2" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -131,38 +125,40 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="cbNacionalidad" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel6" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="tfCorreo" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbEstadoProvincia" alignment="0" min="-2" pref="317" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="cbLocalidad" max="32767" attributes="0"/>
-                                  <EmptySpace min="335" pref="335" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="tfDomicilio" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="tfDocumento" max="32767" attributes="0"/>
+                                      <Component id="cbCategoriaCliente" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbNacionalidad" pref="431" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -173,35 +169,30 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="tfNombre" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="tfNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cbCategoriaCliente" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbNacionalidad" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cbEstadoProvincia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbLocalidad" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -218,7 +209,7 @@
                               </Group>
                               <Component id="tfCorreo" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="52" max="32767" attributes="0"/>
+                          <EmptySpace pref="102" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -318,8 +309,200 @@
                       <Color blue="cf" green="cf" red="cf" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
+                      <StringArray count="193">
                         <StringItem index="0" value="SELECCIONAR"/>
+                        <StringItem index="1" value="AFGANISTAN"/>
+                        <StringItem index="2" value="ALBANIA"/>
+                        <StringItem index="3" value="ALEMANIA"/>
+                        <StringItem index="4" value="ANDORRA"/>
+                        <StringItem index="5" value="ANGOLA"/>
+                        <StringItem index="6" value="ANTIGUA Y BARBUDA"/>
+                        <StringItem index="7" value="ARABIA SAUDITAARGELIA"/>
+                        <StringItem index="8" value="ARGENTINA"/>
+                        <StringItem index="9" value="ARMENIA"/>
+                        <StringItem index="10" value="AUSTRALIA"/>
+                        <StringItem index="11" value="AUSTRIA"/>
+                        <StringItem index="12" value="AZERBAIY&#xc1;N"/>
+                        <StringItem index="13" value="BAHAMAS"/>
+                        <StringItem index="14" value="BANGLAD&#xc9;S"/>
+                        <StringItem index="15" value="BARBADOS"/>
+                        <StringItem index="16" value="BAR&#xc9;IN"/>
+                        <StringItem index="17" value="B&#xc9;LGICA"/>
+                        <StringItem index="18" value="BELICE"/>
+                        <StringItem index="19" value="BIELORRUSIA"/>
+                        <StringItem index="20" value="BEN&#xcd;N"/>
+                        <StringItem index="21" value="BIRMANIABOLIVIA"/>
+                        <StringItem index="22" value="BOSNIA Y HERZEGOVINA"/>
+                        <StringItem index="23" value="BOTSUANA"/>
+                        <StringItem index="24" value="BRASIL"/>
+                        <StringItem index="25" value="BRUNEI"/>
+                        <StringItem index="26" value="BULGARIA"/>
+                        <StringItem index="27" value="BURKINA FASO"/>
+                        <StringItem index="28" value="BURUNDI"/>
+                        <StringItem index="29" value="BUT&#xc1;N"/>
+                        <StringItem index="30" value="CABO VERDE"/>
+                        <StringItem index="31" value="CAMBOYA"/>
+                        <StringItem index="32" value="CAMER&#xda;N"/>
+                        <StringItem index="33" value="CANAD&#xc1;"/>
+                        <StringItem index="34" value="CATAR"/>
+                        <StringItem index="35" value="REP&#xda;BLICA CENTROAFRICANA"/>
+                        <StringItem index="36" value="CHAD"/>
+                        <StringItem index="37" value="REP&#xda;BLICA CHECACHILE"/>
+                        <StringItem index="38" value="CHINA"/>
+                        <StringItem index="39" value="CHIPRE"/>
+                        <StringItem index="40" value="COLOMBIA"/>
+                        <StringItem index="41" value="COMORAS"/>
+                        <StringItem index="42" value="REP&#xda;BLICA DEL CONGO"/>
+                        <StringItem index="43" value="REP&#xda;BLICA DEMOCR&#xc1;TICA DEL CONGO"/>
+                        <StringItem index="44" value="COREA DEL NORTE"/>
+                        <StringItem index="45" value="COREA DEL SUR"/>
+                        <StringItem index="46" value="COSTA DE MARFIL"/>
+                        <StringItem index="47" value="COSTA RICA"/>
+                        <StringItem index="48" value="CROACIA"/>
+                        <StringItem index="49" value="CUBA"/>
+                        <StringItem index="50" value="DINAMARCA"/>
+                        <StringItem index="51" value="DOMINICA"/>
+                        <StringItem index="52" value="REP&#xda;BLICA DOMINICANA"/>
+                        <StringItem index="53" value="ECUADOR"/>
+                        <StringItem index="54" value="EGIPTO"/>
+                        <StringItem index="55" value="EL SALVADOR"/>
+                        <StringItem index="56" value="EMIRATOS &#xc1;RABES UNIDOS"/>
+                        <StringItem index="57" value="ERITREA"/>
+                        <StringItem index="58" value="ESLOVAQUIA"/>
+                        <StringItem index="59" value="ESLOVENIA"/>
+                        <StringItem index="60" value="ESPA&#xd1;A"/>
+                        <StringItem index="61" value="ESTADOS UNIDOS"/>
+                        <StringItem index="62" value="ESTONIA"/>
+                        <StringItem index="63" value="ETIOP&#xcd;A"/>
+                        <StringItem index="64" value="FILIPINAS"/>
+                        <StringItem index="65" value="FINLANDIA"/>
+                        <StringItem index="66" value="FIYI"/>
+                        <StringItem index="67" value="FRANCIA"/>
+                        <StringItem index="68" value="GAB&#xd3;N"/>
+                        <StringItem index="69" value="GAMBIA"/>
+                        <StringItem index="70" value="GEORGIA"/>
+                        <StringItem index="71" value="GHANA"/>
+                        <StringItem index="72" value="GRANADA"/>
+                        <StringItem index="73" value="GRECIA"/>
+                        <StringItem index="74" value="GUATEMALA"/>
+                        <StringItem index="75" value="GUINEA"/>
+                        <StringItem index="76" value="GUINEA-BIS&#xc1;U"/>
+                        <StringItem index="77" value="GUINEA ECUATORIAL"/>
+                        <StringItem index="78" value="GUYANA"/>
+                        <StringItem index="79" value="HAIT&#xcd;"/>
+                        <StringItem index="80" value="HONDURAS"/>
+                        <StringItem index="81" value="HUNGR&#xcd;A"/>
+                        <StringItem index="82" value="INDIA"/>
+                        <StringItem index="83" value="INDONESIA"/>
+                        <StringItem index="84" value="IRAK"/>
+                        <StringItem index="85" value="IR&#xc1;N"/>
+                        <StringItem index="86" value="IRLANDA"/>
+                        <StringItem index="87" value="ISLANDIA"/>
+                        <StringItem index="88" value="ISRAEL"/>
+                        <StringItem index="89" value="ITALIA"/>
+                        <StringItem index="90" value="JAMAICA"/>
+                        <StringItem index="91" value="JAP&#xd3;N"/>
+                        <StringItem index="92" value="JORDANIA"/>
+                        <StringItem index="93" value="KAZAJIST&#xc1;N"/>
+                        <StringItem index="94" value="KENIA"/>
+                        <StringItem index="95" value="KIRGUIST&#xc1;N"/>
+                        <StringItem index="96" value="KIRIBATI"/>
+                        <StringItem index="97" value="KUWAIT"/>
+                        <StringItem index="98" value="LAOS"/>
+                        <StringItem index="99" value="LESOTO"/>
+                        <StringItem index="100" value="LETONIA"/>
+                        <StringItem index="101" value="L&#xcd;BANO"/>
+                        <StringItem index="102" value="LIBERIA"/>
+                        <StringItem index="103" value="LIBIA"/>
+                        <StringItem index="104" value="LIECHTENSTEIN"/>
+                        <StringItem index="105" value="LITUANIA"/>
+                        <StringItem index="106" value="LUXEMBURGO"/>
+                        <StringItem index="107" value="MACEDONIA DEL NORTE"/>
+                        <StringItem index="108" value="MADAGASCAR"/>
+                        <StringItem index="109" value="MALASIA"/>
+                        <StringItem index="110" value="MALAUI"/>
+                        <StringItem index="111" value="MALDIVAS"/>
+                        <StringItem index="112" value="MALI / MAL&#xcd;"/>
+                        <StringItem index="113" value="MALTA"/>
+                        <StringItem index="114" value="MARRUECOS"/>
+                        <StringItem index="115" value="ISLAS MARSHALL"/>
+                        <StringItem index="116" value="MAURICIO"/>
+                        <StringItem index="117" value="MAURITANIA"/>
+                        <StringItem index="118" value="M&#xc9;XICO"/>
+                        <StringItem index="119" value="MICRONESIA"/>
+                        <StringItem index="120" value="MOLDAVIA"/>
+                        <StringItem index="121" value="M&#xd3;NACO"/>
+                        <StringItem index="122" value="MONGOLIA"/>
+                        <StringItem index="123" value="MONTENEGRO"/>
+                        <StringItem index="124" value="MOZAMBIQUE"/>
+                        <StringItem index="125" value="NAMIBIA"/>
+                        <StringItem index="126" value="NAURU"/>
+                        <StringItem index="127" value="NEPAL"/>
+                        <StringItem index="128" value="NICARAGUA"/>
+                        <StringItem index="129" value="N&#xcd;GER"/>
+                        <StringItem index="130" value="NIGERIA"/>
+                        <StringItem index="131" value="NORUEGA"/>
+                        <StringItem index="132" value="NUEVA ZELANDA"/>
+                        <StringItem index="133" value="OM&#xc1;N"/>
+                        <StringItem index="134" value="PA&#xcd;SES BAJOS"/>
+                        <StringItem index="135" value="PAKIST&#xc1;N"/>
+                        <StringItem index="136" value="PALAOS"/>
+                        <StringItem index="137" value="PALESTINA"/>
+                        <StringItem index="138" value="PANAM&#xc1;"/>
+                        <StringItem index="139" value="PAP&#xda;A NUEVA GUINEA"/>
+                        <StringItem index="140" value="PARAGUAY"/>
+                        <StringItem index="141" value="PER&#xda;"/>
+                        <StringItem index="142" value="POLONIA"/>
+                        <StringItem index="143" value="PORTUGAL"/>
+                        <StringItem index="144" value="REINO UNIDO"/>
+                        <StringItem index="145" value="RUANDA"/>
+                        <StringItem index="146" value="RUMANIA"/>
+                        <StringItem index="147" value="RUSIA"/>
+                        <StringItem index="148" value="ISLAS SALOM&#xd3;N"/>
+                        <StringItem index="149" value="SAMOA"/>
+                        <StringItem index="150" value="SAN CRIST&#xd3;BAL Y NIEVES"/>
+                        <StringItem index="151" value="SAN MARINO"/>
+                        <StringItem index="152" value="SAN VICENTE Y LAS GRANADINAS"/>
+                        <StringItem index="153" value="SANTA LUC&#xcd;A"/>
+                        <StringItem index="154" value="SANTO TOM&#xc9; Y PR&#xcd;NCIPE"/>
+                        <StringItem index="155" value="SENEGAL"/>
+                        <StringItem index="156" value="SERBIA"/>
+                        <StringItem index="157" value="SEYCHELLES"/>
+                        <StringItem index="158" value="SIERRA LEONA"/>
+                        <StringItem index="159" value="SINGAPUR"/>
+                        <StringItem index="160" value="SIRIA"/>
+                        <StringItem index="161" value="SOMALIA"/>
+                        <StringItem index="162" value="SRI LANKA"/>
+                        <StringItem index="163" value="SUAZILANDIA"/>
+                        <StringItem index="164" value="SUD&#xc1;FRICA"/>
+                        <StringItem index="165" value="SUD&#xc1;N"/>
+                        <StringItem index="166" value="SUD&#xc1;N DEL SUR"/>
+                        <StringItem index="167" value="SUECIA"/>
+                        <StringItem index="168" value="SUIZA"/>
+                        <StringItem index="169" value="SURINAM"/>
+                        <StringItem index="170" value="TAILANDIA"/>
+                        <StringItem index="171" value="TANZANIA"/>
+                        <StringItem index="172" value="TAYIKIST&#xc1;N"/>
+                        <StringItem index="173" value="TIMOR ORIENTAL"/>
+                        <StringItem index="174" value="TOGO"/>
+                        <StringItem index="175" value="TONGA"/>
+                        <StringItem index="176" value="TRINIDAD Y TOBAGO"/>
+                        <StringItem index="177" value="T&#xda;NEZ"/>
+                        <StringItem index="178" value="TURKMENIST&#xc1;N"/>
+                        <StringItem index="179" value="TURQU&#xcd;A"/>
+                        <StringItem index="180" value="TUVALU"/>
+                        <StringItem index="181" value="UCRANIA"/>
+                        <StringItem index="182" value="UGANDA"/>
+                        <StringItem index="183" value="URUGUAY"/>
+                        <StringItem index="184" value="UZBEKIST&#xc1;N"/>
+                        <StringItem index="185" value="VANUATU"/>
+                        <StringItem index="186" value="CIUDAD DEL VATICANO"/>
+                        <StringItem index="187" value="VENEZUELA"/>
+                        <StringItem index="188" value="VIETNAM"/>
+                        <StringItem index="189" value="YEMEN"/>
+                        <StringItem index="190" value="YIBUTI"/>
+                        <StringItem index="191" value="ZAMBIA"/>
+                        <StringItem index="192" value="ZIMBABUE"/>
                       </StringArray>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -328,84 +511,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNacionalidadActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel10">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="ESTADO / PROVINCIA:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="cbEstadoProvincia">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="21" green="21" red="24" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cf" green="cf" red="cf" type="rgb"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="SELECCIONAR"/>
-                      </StringArray>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[136, 19]"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbEstadoProvinciaActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="LOCALIDAD:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="cbLocalidad">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="21" green="21" red="24" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cf" green="cf" red="cf" type="rgb"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="SELECCIONAR"/>
-                      </StringArray>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[136, 19]"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbLocalidadActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -490,6 +595,48 @@
                     </Property>
                   </Properties>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel17">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="CATEGORIA DE CLIENTE:"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbCategoriaCliente">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="21" green="21" red="24" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cf" green="cf" red="cf" type="rgb"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="SELECCIONAR"/>
+                        <StringItem index="1" value="CLIENTE STANDARD"/>
+                        <StringItem index="2" value="EXPORTADOR INTERNO"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[136, 19]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCategoriaClienteActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
@@ -584,7 +731,7 @@
                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tfDomicilioFiscal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="126" max="32767" attributes="0"/>
+                          <EmptySpace pref="91" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

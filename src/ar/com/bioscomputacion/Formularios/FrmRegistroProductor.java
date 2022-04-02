@@ -29,10 +29,10 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
     
     public void inicializar(){
         
-        tfNombre.requestFocus();
-        //solo se habilitan los combos estadoprovincia y localidades si se selecciona una nacionalidad
-        cbEstadoProvincia.setEnabled(false);
+        //solo se habilita el combo localidad si se seleccionar una provincia en el combo provincia
         cbLocalidad.setEnabled(false);
+        //tpProductor.setSelectedIndex(0);
+        tfNombre.requestFocus();
         
     }
 
@@ -56,8 +56,6 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         tfNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfDocumento = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        cbNacionalidad = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cbEstadoProvincia = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -113,8 +111,10 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE PRODUCTOR - CAM HONEY BROTHERS");
         setToolTipText("");
+        setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -144,29 +144,14 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("NACIONALIDAD:");
-
-        cbNacionalidad.setBackground(new java.awt.Color(36, 33, 33));
-        cbNacionalidad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbNacionalidad.setForeground(new java.awt.Color(207, 207, 207));
-        cbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "ARGENTINA", "BOLIVIA", "BRASIL", "CHILE", "COLOMBIA", "ECUADOR", "PARAGUAY", "PERU", "URUGUAY", "VENEZUELA" }));
-        cbNacionalidad.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbNacionalidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbNacionalidadActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ESTADO / PROVINCIA:");
+        jLabel10.setText("PROVINCIA:");
 
         cbEstadoProvincia.setBackground(new java.awt.Color(36, 33, 33));
         cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbEstadoProvincia.setForeground(new java.awt.Color(207, 207, 207));
-        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
+        cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN" }));
         cbEstadoProvincia.setPreferredSize(new java.awt.Dimension(136, 19));
         cbEstadoProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,17 +219,6 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbNacionalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -254,16 +228,19 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                             .addComponent(tfCorreo)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tfDomicilio)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbLocalidad, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
-                                .addGap(241, 241, 241)))
-                        .addGap(335, 335, 335))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(241, 241, 241)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -285,17 +262,16 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel5)
                         .addGap(29, 29, 29)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(32, 32, 32)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -429,7 +405,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Datos de facturacion", jPanel3);
@@ -627,7 +603,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Venta de miel", jPanel4);
@@ -681,7 +657,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         cbCuraMiel.setBackground(new java.awt.Color(36, 33, 33));
         cbCuraMiel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cbCuraMiel.setForeground(new java.awt.Color(207, 207, 207));
-        cbCuraMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", " " }));
+        cbCuraMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CUMAFOS", "AMITRAZ", "OXALICO", "FUMAGILINA", " " }));
         cbCuraMiel.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCuraMiel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -740,7 +716,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Caracteristicas de la miel", jPanel5);
@@ -756,7 +732,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("CANCELAR");
+        rsbrCancelar.setText("SALIR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -779,8 +755,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpProductor)
-                .addGap(18, 18, 18)
+                .addComponent(tpProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -816,7 +792,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
         int cantidadColmenas;
 
-        if (tfCantidadColmenas.getText() == "0"){
+        if (tfCantidadColmenas.getText().length() != 0){
 
             cantidadColmenas = Integer.valueOf(tfCantidadColmenas.getText());
 
@@ -827,24 +803,19 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
 
         }
 
-        String nacionalidad = "";
-        if (String.valueOf(cbNacionalidad.getSelectedItem()) != "SELECCIONAR"){
-
-            nacionalidad = String.valueOf(cbNacionalidad.getSelectedItem());
-
-        }
+        String nacionalidad = "ARGENTINA";
 
         String estadoProvincia = "";
         if (String.valueOf(cbEstadoProvincia.getSelectedItem()) != "SELECCIONAR"){
 
-            estadoProvincia = String.valueOf(cbEstadoProvincia.getSelectedItem());
+            estadoProvincia = String.valueOf(cbEstadoProvincia.getSelectedItem()).toUpperCase();
 
         }
 
         String localidad = "";
         if (String.valueOf(cbLocalidad.getSelectedItem()) != "SELECCIONAR"){
 
-            localidad = String.valueOf(cbLocalidad.getSelectedItem());
+            localidad = String.valueOf(cbLocalidad.getSelectedItem()).toUpperCase();
 
         }
 
@@ -881,20 +852,18 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         //se completaron todos los datos y/o se escogio registrar el cliente con sus demas datos incompletos
         //se procede al registro del productor
         
-        Productor productor = new Productor(tfFechaVentaMiel1.getText(),tfFechaVentaMiel2.getText(),tfFechaVentaMiel3.getText(),tfNombreFantasia.getText(),tfRazonSocial.getText(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText(),"Activo", cantidadColmenas, tfUbicacionColmenas.getText(), floracionMiel, curaMiel,
-            tfNombre.getText(), tfDocumento.getText(),
+        Productor productor = new Productor(tfFechaVentaMiel1.getText().toUpperCase(),tfFechaVentaMiel2.getText().toUpperCase(),tfFechaVentaMiel3.getText().toUpperCase(),tfNombreFantasia.getText().toUpperCase(),tfRazonSocial.getText().toUpperCase(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText().toUpperCase(),"ACTIVO", cantidadColmenas, tfUbicacionColmenas.getText().toUpperCase(), floracionMiel, curaMiel,
+            tfNombre.getText().toUpperCase(), tfDocumento.getText(),
             //Pais, estado y localidad se cargan como valores vacios ya que la tabla
             //en la base de datos lo permite
             nacionalidad, estadoProvincia, localidad,
-            tfDomicilio.getText(), tfTelefono.getText(),
-            tfCorreo.getText());
+            tfDomicilio.getText().toUpperCase(), tfTelefono.getText().toUpperCase(),
+            tfCorreo.getText().toUpperCase());
 
         if (productor.registrar(productor)) {
 
             JOptionPane.showMessageDialog(null, "El productor ha sido registrado exitosamente.","REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-            //FrmLogin form = new FrmLogin();
-            //form.setVisible(true);
 
         } else {
 
@@ -1008,357 +977,407 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
 
     private void cbEstadoProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoProvinciaActionPerformed
 
-        String buenosaires[] = new String[]{"12 de Octubre", "16 de Julio", "17 de Agosto", "25 de Mayo (Villa Veinticinco de Mayo)", "30 de Agosto (Treinta de Agosto)", "9 de Julio (Nueve de Julio)", "Abbott", "Acevedo", "Adolfo Gonzales Chaves (Est. Chaves)", "Agustina", "Agustín Mosconi", "Agustín Roca", "Alberdi Viejo", "Alberti (Est. Andrés Vaccarezza)", "Alejandro Petión", "Alfredo Demarchi (Est. Facundo Quiroga)", "Almirante Brown (Adrogué)", "Altamirano", "Álvarez de Toledo", "Alvarez Jonte", "América", "Andant", "Antonio Carboni", "Aparicio", "Arboledas", "Arenas Verdes", "Arenaza", "Argerich", "Ariel", "Arrecifes", "Arribeños", "Arroyo Corto", "Arroyo de la Cruz", "Arroyo Dulce", "Arroyo Venado", "Asamblea", "Ascensión", "Atalaya", "Avellaneda", "Ayacucho", "Azcuénaga", "Azopardo", "Azul", "Bahía Blanca", "Bahía San Blas", "Baigorrita", "Bajo Hondo", "Balcarce", "Balneario Laguna de Gómez", "Balneario Orense", "Balneario Pehuen-Có", "Balneario San Cayetano", "Balneario Sauce Grande", "Banderaló", "Baradero", "Barker", "Barrio El Boquerón", "Barrio El Mirador", "Barrio El Taladro", "Barrio La Gloria", "Barrio Las Golondrinas", "Barrio Lomas Altas", "Barrio Los Bosquecitos", "Barrio Los Pioneros (Barrio Tavella)", "Barrio Parque Las Acacias", "Barrio Río Salado", "Barrio Santa Paula", "Barrio Santa Rosa", "Batán", "Bayauca", "Bellocq", "Benitez", "Benito Juárez (Est. Juárez)", "Berazategui", "Berdier", "Berisso", "Bermúdez", "Berutti", "Blancagrande", "Blaquier", "Bocayuva", "Bordenave", "Bragado", "Cabildo", "Cacharí", "Cadret", "Campana", "Campos de Roca", "Cañada Seca", "Cañuelas", "Capilla del Señor (Est. Capilla)", "Capitán Castro", "Capitán Sarmiento", "Cardenal Cagliero", "Carhué", "Carlos Beguerie", "Carlos Casares", "Carlos Keen", "Carlos María Naón", "Carlos Salas", "Carlos Tejedor", "Carmen de Areco", "Carmen de Patagones", "Casalins", "Casbas", "Cascadas", "Castelli", "Castilla", "Cazón", "Centinela del Mar", "Centro Guerrero", "Cerro de la Gloria", "Chacabuco", "Chacras del Río Luján", "Chapadmalal", "Chascomús", "Chasicó", "Chillar", "Chivilcoy", "Claraz", "Claromecó", "Club de Campo las Malvinas", "Club de Campo Los Puentes", "Colón", "Colonia Mauricio", "Colonia Nievas", "Colonia San Adolfo", "Colonia San Martín", "Colonia San Miguel", "Colonia San Miguel Arcángel", "Colonia San Ricardo (Est. Iriarte)", "Colonia Seré", "Comandante Nicanor Otamendi", "Comodoro Py", "Conesa", "Copetonas", "Coronel Boerr", "Coronel Brandsen", "Coronel Charlone", "Coronel Dorrego", "Coronel Martínez de Hoz (Ap. Kilómetro 322)", "Coronel Pringles (Est. Pringles)", "Coronel Seguí", "Coronel Suárez", "Coronel Vidal", "Country Club El Casco", "Country Club El Rodeo", "Country Los Medanos", "Crotto", "Culullú", "Cura Malal", "Curarú", "Daireaux", "Darregueira", "De Bary", "De la Canal", "De la Garma", "Del Carril", "Delfín Huergo", "Del Valle", "Diego Gaynor", "Dolores", "D'Orbigny", "Dudignac", "Dufaur", "Duggan", "El Divisorio", "El Dorado", "El Marquesado", "El Paraíso", "El Pensamiento", "El Perdido (Est. José A. Guisasola)", "El Trigo", "El Triunfo", "Elvira", "Emilio Ayarza", "Emilio V. Bunge", "Energia", "Ensenada", "Erézcano", "Ernestina", "Escalada", "Escobar (Belén de Escobar)", "Espartillar", "Espartillar", "Espigas", "Estación Arenales", "Estación Chapadmalal", "Esteban Agustín Gascón", "Esteban Echeverría (Monte Grande)", "Estela", "Ezeiza", "Faro", "Felipe Solá", "Ferré", "Florencio Varela", "Florentino Ameghino", "Fontezuela", "Fortín Acha", "Fortín Olavarría", "Fortín Tiburcio", "Francisco Madero", "Franklin", "Gahan", "Gardey", "Garré", "General Alvear", "General Arenales", "General Belgrano", "General Conesa", "General Daniel Cerri (Est. General Cerri)", "General Guido", "General Hornos", "General Juan Madariaga", "General La Madrid", "General Las Heras (Est. Las Heras)", "General Lavalle", "General Mansilla (Est. Bartolomé Bavio)", "General O'Brien", "General Pinto", "General Pirán", "General Rivas", "General Rodríguez", "General Rojo", "General San Martín", "General Villegas (Est. Villegas)", "Germania (Est. Mayor José Orellano)", "Girodias", "Gobernador Castro", "Gobernador Udaondo", "Gobernador Ugarte", "Goldney", "Gómez", "González Moreno", "Gorchs", "Gorostiaga", "Gowland", "Goyena", "Guaminí", "Guerrico", "Gunther", "Hale", "Henderson", "Herrera Vegas", "Hilario Ascasubi", "Hinojo", "Hortensia", "Huanguelén", "Hurlingham", "Ignacio Correas", "Indio Rico", "Inés Indart", "Ingeniero Moneta", "Ingeniero Thompson", "Inocencio Sosa", "Irala", "Irene", "Irineo Portela", "Ituzaingó", "Jeppener", "Jorge Born (Tomás Jofré)", "José B. Casas", "José C. Paz", "José Juan Almeyra", "Juan A. de la Peña", "Juan Anchorena (Est. Urquiza)", "Juan A. Pradere", "Juan Bautista Alberdi (Est. Alberdi)", "Juan Cousté (Est. Algarrobo)", "Juan E. Barra", "Juan F. Ibarra", "Juan José Paso", "Juan Nepomuceno Fernández", "Junín", "La Angelita", "La Armonía", "La Aurora (Est. La Niña)", "Labardén", "La Beba", "La Carreta", "La Choza", "La Colina", "La Constancia", "La Delfina", "La Emilia", "La Gruta (Villa Serrana)", "Laguna Alsina (Est. Bonifacio)", "Laguna de Lobos", "Laguna Vitel", "La Invencible", "La Larga", "La Limpia", "La Luisa", "La Matanza (San Justo)", "Lanús", "La Pala", "Laplacette", "La Plata", "Laprida", "La Rica", "Lartigau", "Las Armas", "Las Bahamas", "Las Carabelas", "Las Encadenadas", "Las Flores", "Las Marianas", "Las Martinetas", "La Sofía", "Las Toninas", "Las Toscas", "La Trinidad", "La Violeta", "Leandro N. Alem", "Líbano", "Licenciado Matienzo", "Lima", "Lincoln", "Lobería", "Lobos", "Lomas de Copello", "Lomas del Río Luján (Est. Río Luján)", "Lomas de Zamora", "Loma Verde", "López", "López Lecube", "Los Ángeles", "Los Cardales", "Los Cardales", "Los Indios", "Los Naranjos", "Los Pinos", "Los Toldos", "Lucas Monteverde", "Luján", "Magdala", "Magdalena", "Maipú", "Malvinas Argentinas (Los Polvorines)", "Manuel B. Gonnet (Est. French)", "Manuel J. Cobo (Est. Lezama)", "Manuel Ocampo", "Mar Azul", "Marcelino Ugarte (Est. Dennehy)", "Mar Chiquita", "Marcos Paz", "Mar de Ajó (- San Bernardo)", "Mar de Cobo", "Mar del Plata", "Mar del Sur", "María Ignacia (Est. Vela)", "Mariano Benítez", "Mariano H. Alfonzo (Est. San Patricio)", "Marisol", "Massey (Est. Elordi)", "Mauricio Hirsch", "Máximo Fernández (Est. Juan F. Salaberry)", "Máximo Paz (- Barrio Belgrano)", "Mayor Buratovich", "Maza", "Mechita", "Mechita (Est. Mecha)", "Mechongué", "Médanos", "Mercedes", "Merlo", "Micaela Cascallares (Est. Cascallares)", "Miramar", "Mira Pampa", "Moctezuma", "Mones Cazón", "Monte Hermoso", "Moquehuá", "Morea", "Moreno", "Morón", "Morse", "Napaleofú", "Navarro", "Necochea (- Quequén)", "Nicanor Olivera (Est. La Dulce)", "Norberto de la Riestra", "Norumbega", "Nueva Plata", "Obligado", "Ochandío", "O'Higgins", "Olascoaga", "Olavarría", "Oliden", "Olivera", "Ordoqui", "Orense", "Oriente", "Pago Chico (Villa del Mar)", "Parada Orlando", "Parada Robles (- Pavón)", "Paraje La Agraria", "Paraje la Ruta", "Pardo", "Pasman", "Pasteur", "Patricios", "Paula", "Pavón", "Pearson", "Pedernales", "Pedro Luro", "Pehuajó", "Pellegrini", "Pérez Millán", "Pergamino", "Pichincha", "Piedritas", "Pieres", "Pigüé", "Pila", "Pilar", "Pinamar", "Pinzón", "Pipinas", "Pirovano", "Pla", "Plomer", "Polvaredas", "Pontaut", "Porvenir", "Posada de Los Lagos", "Presidente Perón (Guernica)", "Puan", "Pueblo Doyle", "Pueblo Gouin", "Pueblo Nuevo", "Pueblo San Jorge", "Punta Alta (Est. Almirante Solier)", "Punta Indio", "Quenumá", "Quilmes", "Rafael Obligado", "Ramallo", "Ramón Biaus", "Ramón Santamarina", "Ramos Otero", "Rancagua", "Ranchos", "Rauch", "Rawson", "Recalde", "Reta", "Río Tala", "Rivera", "Roberto Cano", "Roberto J. Payró", "Roberts", "Rojas", "Roosevelt", "Roque Pérez", "Ruta Sol (incl. Barrio El Peligro)", "Saavedra", "Saforcada", "Saladillo", "Salazar", "Saldungaray", "Salliqueló", "Salto", "Salvador María", "Samborombón", "San Agustín", "San Andrés de Giles", "San Antonio de Areco", "San Bernardo (Est. Guanaco)", "San Carlos de Bolívar (Est. Bolívar)", "San Cayetano", "San Clemente del Tuyú", "San Emilio", "San Enrique", "San Esteban (Chiclana)", "San Fernando", "San Francisco de Bellocq", "San Germán", "San Isidro", "San José", "San Manuel", "San Mauricio", "San Mayol", "San Miguel", "San Miguel del Monte (Est. Monte)", "San Nicolás de los Arroyos", "San Pedro", "San Román", "San Sebastián", "Sansinena", "Santa Clara del Mar", "Santa Coloma", "Santa Eleodora", "Santa Lucía", "Santa Luisa", "Santa María", "Santa Regina", "Santa Rosa", "Santa Teresita (- Mar del Tuyú)", "Santa Trinidad", "Santo Domingo", "Santo Tomas", "San Vicente", "Sarasa", "Sevigne", "Sierra Chica", "Sierra de la Ventana", "Sierra de los Padres", "Sierras Bayas", "Smith", "Solanet", "Sol de Mayo", "Solís", "Stroeder", "Suipacha", "Sundblad", "Tamangueyú", "Tandil", "Tapalqué", "Tedín Uriburu", "Teniente Origone", "Tigre", "Timote", "Todd", "Tornquist", "Torres", "Trenque Lauquen", "Tres Algarrobos (Est. Cuenca)", "Tres Arroyos", "Tres de Febrero (Caseros)", "Tres Lomas", "Tres Picos", "Tres Sargentos", "Triunvirato", "Trongé", "Udaquiola", "Urdampilleta", "Uribelarrea", "Valdés", "Vásquez", "Vedia", "Velloso", "Verónica", "Vicente Casares", "Vicente López (Olivos)", "Vieytes", "Villa Alfredo Fortabat (Loma Negra)", "Villa Alsina (Est. Alsina)", "Villa Angélica (Est. El Socorro)", "Villa Cacique (Est. Alfredo Fortabat)", "Villa Castelar (Est. Erize)", "Villa Esperanza", "Villa Espil", "Villa Fournier (Est. 9 de Julio Sud)", "Villa Francia (Est. Coronel Granada)", "Villa General Arias (Est. Kilómetro 638)", "Villa General Savio (Est. Sánchez)", "Villa Gesell", "Villa Grisolía (Est. Achupallas)", "Villa Iris", "Villa La Arcadia", "Villa Laguna La Brava", "Villa La Serranía", "Villa Lía", "Villalonga", "Villa Lynch Pueyrredón", "Villa Manuel Pomar (El Arbolito)", "Villa Manuel Pomar", "Villa María", "Villa Moll (Est. Moll)", "Villanueva (Ap. Río Salado)", "Villa Ortiz (Est. Coronel Mom)", "Villa Parque Girado", "Villa Ramallo", "Villa Rodríguez (Est. Barrow)", "Villa Roth (Est. Ingeniero Balbín)", "Villars", "Villa Ruiz", "Villa Saboya", "Villa San José", "Villa Sauze", "Villa Ventana", "Viña", "Vivoratá", "Warnes", "Yutuyaco", "Zárate", "Zavalía", "Zenón Videla Dorna"};
+        String buenosaires[] = new String[]{"SELECCIONAR","12 de Octubre", "16 de Julio", "17 de Agosto", "25 de Mayo (Villa Veinticinco de Mayo)", "30 de Agosto (Treinta de Agosto)", "9 de Julio (Nueve de Julio)", "Abbott", "Acevedo", "Adolfo Gonzales Chaves (Est. Chaves)", "Agustina", "Agustín Mosconi", "Agustín Roca", "Alberdi Viejo", "Alberti (Est. Andrés Vaccarezza)", "Alejandro Petión", "Alfredo Demarchi (Est. Facundo Quiroga)", "Almirante Brown (Adrogué)", "Altamirano", "Álvarez de Toledo", "Alvarez Jonte", "América", "Andant", "Antonio Carboni", "Aparicio", "Arboledas", "Arenas Verdes", "Arenaza", "Argerich", "Ariel", "Arrecifes", "Arribeños", "Arroyo Corto", "Arroyo de la Cruz", "Arroyo Dulce", "Arroyo Venado", "Asamblea", "Ascensión", "Atalaya", "Avellaneda", "Ayacucho", "Azcuénaga", "Azopardo", "Azul", "Bahía Blanca", "Bahía San Blas", "Baigorrita", "Bajo Hondo", "Balcarce", "Balneario Laguna de Gómez", "Balneario Orense", "Balneario Pehuen-Có", "Balneario San Cayetano", "Balneario Sauce Grande", "Banderaló", "Baradero", "Barker", "Barrio El Boquerón", "Barrio El Mirador", "Barrio El Taladro", "Barrio La Gloria", "Barrio Las Golondrinas", "Barrio Lomas Altas", "Barrio Los Bosquecitos", "Barrio Los Pioneros (Barrio Tavella)", "Barrio Parque Las Acacias", "Barrio Río Salado", "Barrio Santa Paula", "Barrio Santa Rosa", "Batán", "Bayauca", "Bellocq", "Benitez", "Benito Juárez (Est. Juárez)", "Berazategui", "Berdier", "Berisso", "Bermúdez", "Berutti", "Blancagrande", "Blaquier", "Bocayuva", "Bordenave", "Bragado", "Cabildo", "Cacharí", "Cadret", "Campana", "Campos de Roca", "Cañada Seca", "Cañuelas", "Capilla del Señor (Est. Capilla)", "Capitán Castro", "Capitán Sarmiento", "Cardenal Cagliero", "Carhué", "Carlos Beguerie", "Carlos Casares", "Carlos Keen", "Carlos María Naón", "Carlos Salas", "Carlos Tejedor", "Carmen de Areco", "Carmen de Patagones", "Casalins", "Casbas", "Cascadas", "Castelli", "Castilla", "Cazón", "Centinela del Mar", "Centro Guerrero", "Cerro de la Gloria", "Chacabuco", "Chacras del Río Luján", "Chapadmalal", "Chascomús", "Chasicó", "Chillar", "Chivilcoy", "Claraz", "Claromecó", "Club de Campo las Malvinas", "Club de Campo Los Puentes", "Colón", "Colonia Mauricio", "Colonia Nievas", "Colonia San Adolfo", "Colonia San Martín", "Colonia San Miguel", "Colonia San Miguel Arcángel", "Colonia San Ricardo (Est. Iriarte)", "Colonia Seré", "Comandante Nicanor Otamendi", "Comodoro Py", "Conesa", "Copetonas", "Coronel Boerr", "Coronel Brandsen", "Coronel Charlone", "Coronel Dorrego", "Coronel Martínez de Hoz (Ap. Kilómetro 322)", "Coronel Pringles (Est. Pringles)", "Coronel Seguí", "Coronel Suárez", "Coronel Vidal", "Country Club El Casco", "Country Club El Rodeo", "Country Los Medanos", "Crotto", "Culullú", "Cura Malal", "Curarú", "Daireaux", "Darregueira", "De Bary", "De la Canal", "De la Garma", "Del Carril", "Delfín Huergo", "Del Valle", "Diego Gaynor", "Dolores", "D'Orbigny", "Dudignac", "Dufaur", "Duggan", "El Divisorio", "El Dorado", "El Marquesado", "El Paraíso", "El Pensamiento", "El Perdido (Est. José A. Guisasola)", "El Trigo", "El Triunfo", "Elvira", "Emilio Ayarza", "Emilio V. Bunge", "Energia", "Ensenada", "Erézcano", "Ernestina", "Escalada", "Escobar (Belén de Escobar)", "Espartillar", "Espartillar", "Espigas", "Estación Arenales", "Estación Chapadmalal", "Esteban Agustín Gascón", "Esteban Echeverría (Monte Grande)", "Estela", "Ezeiza", "Faro", "Felipe Solá", "Ferré", "Florencio Varela", "Florentino Ameghino", "Fontezuela", "Fortín Acha", "Fortín Olavarría", "Fortín Tiburcio", "Francisco Madero", "Franklin", "Gahan", "Gardey", "Garré", "General Alvear", "General Arenales", "General Belgrano", "General Conesa", "General Daniel Cerri (Est. General Cerri)", "General Guido", "General Hornos", "General Juan Madariaga", "General La Madrid", "General Las Heras (Est. Las Heras)", "General Lavalle", "General Mansilla (Est. Bartolomé Bavio)", "General O'Brien", "General Pinto", "General Pirán", "General Rivas", "General Rodríguez", "General Rojo", "General San Martín", "General Villegas (Est. Villegas)", "Germania (Est. Mayor José Orellano)", "Girodias", "Gobernador Castro", "Gobernador Udaondo", "Gobernador Ugarte", "Goldney", "Gómez", "González Moreno", "Gorchs", "Gorostiaga", "Gowland", "Goyena", "Guaminí", "Guerrico", "Gunther", "Hale", "Henderson", "Herrera Vegas", "Hilario Ascasubi", "Hinojo", "Hortensia", "Huanguelén", "Hurlingham", "Ignacio Correas", "Indio Rico", "Inés Indart", "Ingeniero Moneta", "Ingeniero Thompson", "Inocencio Sosa", "Irala", "Irene", "Irineo Portela", "Ituzaingó", "Jeppener", "Jorge Born (Tomás Jofré)", "José B. Casas", "José C. Paz", "José Juan Almeyra", "Juan A. de la Peña", "Juan Anchorena (Est. Urquiza)", "Juan A. Pradere", "Juan Bautista Alberdi (Est. Alberdi)", "Juan Cousté (Est. Algarrobo)", "Juan E. Barra", "Juan F. Ibarra", "Juan José Paso", "Juan Nepomuceno Fernández", "Junín", "La Angelita", "La Armonía", "La Aurora (Est. La Niña)", "Labardén", "La Beba", "La Carreta", "La Choza", "La Colina", "La Constancia", "La Delfina", "La Emilia", "La Gruta (Villa Serrana)", "Laguna Alsina (Est. Bonifacio)", "Laguna de Lobos", "Laguna Vitel", "La Invencible", "La Larga", "La Limpia", "La Luisa", "La Matanza (San Justo)", "Lanús", "La Pala", "Laplacette", "La Plata", "Laprida", "La Rica", "Lartigau", "Las Armas", "Las Bahamas", "Las Carabelas", "Las Encadenadas", "Las Flores", "Las Marianas", "Las Martinetas", "La Sofía", "Las Toninas", "Las Toscas", "La Trinidad", "La Violeta", "Leandro N. Alem", "Líbano", "Licenciado Matienzo", "Lima", "Lincoln", "Lobería", "Lobos", "Lomas de Copello", "Lomas del Río Luján (Est. Río Luján)", "Lomas de Zamora", "Loma Verde", "López", "López Lecube", "Los Ángeles", "Los Cardales", "Los Cardales", "Los Indios", "Los Naranjos", "Los Pinos", "Los Toldos", "Lucas Monteverde", "Luján", "Magdala", "Magdalena", "Maipú", "Malvinas Argentinas (Los Polvorines)", "Manuel B. Gonnet (Est. French)", "Manuel J. Cobo (Est. Lezama)", "Manuel Ocampo", "Mar Azul", "Marcelino Ugarte (Est. Dennehy)", "Mar Chiquita", "Marcos Paz", "Mar de Ajó (- San Bernardo)", "Mar de Cobo", "Mar del Plata", "Mar del Sur", "María Ignacia (Est. Vela)", "Mariano Benítez", "Mariano H. Alfonzo (Est. San Patricio)", "Marisol", "Massey (Est. Elordi)", "Mauricio Hirsch", "Máximo Fernández (Est. Juan F. Salaberry)", "Máximo Paz (- Barrio Belgrano)", "Mayor Buratovich", "Maza", "Mechita", "Mechita (Est. Mecha)", "Mechongué", "Médanos", "Mercedes", "Merlo", "Micaela Cascallares (Est. Cascallares)", "Miramar", "Mira Pampa", "Moctezuma", "Mones Cazón", "Monte Hermoso", "Moquehuá", "Morea", "Moreno", "Morón", "Morse", "Napaleofú", "Navarro", "Necochea (- Quequén)", "Nicanor Olivera (Est. La Dulce)", "Norberto de la Riestra", "Norumbega", "Nueva Plata", "Obligado", "Ochandío", "O'Higgins", "Olascoaga", "Olavarría", "Oliden", "Olivera", "Ordoqui", "Orense", "Oriente", "Pago Chico (Villa del Mar)", "Parada Orlando", "Parada Robles (- Pavón)", "Paraje La Agraria", "Paraje la Ruta", "Pardo", "Pasman", "Pasteur", "Patricios", "Paula", "Pavón", "Pearson", "Pedernales", "Pedro Luro", "Pehuajó", "Pellegrini", "Pérez Millán", "Pergamino", "Pichincha", "Piedritas", "Pieres", "Pigüé", "Pila", "Pilar", "Pinamar", "Pinzón", "Pipinas", "Pirovano", "Pla", "Plomer", "Polvaredas", "Pontaut", "Porvenir", "Posada de Los Lagos", "Presidente Perón (Guernica)", "Puan", "Pueblo Doyle", "Pueblo Gouin", "Pueblo Nuevo", "Pueblo San Jorge", "Punta Alta (Est. Almirante Solier)", "Punta Indio", "Quenumá", "Quilmes", "Rafael Obligado", "Ramallo", "Ramón Biaus", "Ramón Santamarina", "Ramos Otero", "Rancagua", "Ranchos", "Rauch", "Rawson", "Recalde", "Reta", "Río Tala", "Rivera", "Roberto Cano", "Roberto J. Payró", "Roberts", "Rojas", "Roosevelt", "Roque Pérez", "Ruta Sol (incl. Barrio El Peligro)", "Saavedra", "Saforcada", "Saladillo", "Salazar", "Saldungaray", "Salliqueló", "Salto", "Salvador María", "Samborombón", "San Agustín", "San Andrés de Giles", "San Antonio de Areco", "San Bernardo (Est. Guanaco)", "San Carlos de Bolívar (Est. Bolívar)", "San Cayetano", "San Clemente del Tuyú", "San Emilio", "San Enrique", "San Esteban (Chiclana)", "San Fernando", "San Francisco de Bellocq", "San Germán", "San Isidro", "San José", "San Manuel", "San Mauricio", "San Mayol", "San Miguel", "San Miguel del Monte (Est. Monte)", "San Nicolás de los Arroyos", "San Pedro", "San Román", "San Sebastián", "Sansinena", "Santa Clara del Mar", "Santa Coloma", "Santa Eleodora", "Santa Lucía", "Santa Luisa", "Santa María", "Santa Regina", "Santa Rosa", "Santa Teresita (- Mar del Tuyú)", "Santa Trinidad", "Santo Domingo", "Santo Tomas", "San Vicente", "Sarasa", "Sevigne", "Sierra Chica", "Sierra de la Ventana", "Sierra de los Padres", "Sierras Bayas", "Smith", "Solanet", "Sol de Mayo", "Solís", "Stroeder", "Suipacha", "Sundblad", "Tamangueyú", "Tandil", "Tapalqué", "Tedín Uriburu", "Teniente Origone", "Tigre", "Timote", "Todd", "Tornquist", "Torres", "Trenque Lauquen", "Tres Algarrobos (Est. Cuenca)", "Tres Arroyos", "Tres de Febrero (Caseros)", "Tres Lomas", "Tres Picos", "Tres Sargentos", "Triunvirato", "Trongé", "Udaquiola", "Urdampilleta", "Uribelarrea", "Valdés", "Vásquez", "Vedia", "Velloso", "Verónica", "Vicente Casares", "Vicente López (Olivos)", "Vieytes", "Villa Alfredo Fortabat (Loma Negra)", "Villa Alsina (Est. Alsina)", "Villa Angélica (Est. El Socorro)", "Villa Cacique (Est. Alfredo Fortabat)", "Villa Castelar (Est. Erize)", "Villa Esperanza", "Villa Espil", "Villa Fournier (Est. 9 de Julio Sud)", "Villa Francia (Est. Coronel Granada)", "Villa General Arias (Est. Kilómetro 638)", "Villa General Savio (Est. Sánchez)", "Villa Gesell", "Villa Grisolía (Est. Achupallas)", "Villa Iris", "Villa La Arcadia", "Villa Laguna La Brava", "Villa La Serranía", "Villa Lía", "Villalonga", "Villa Lynch Pueyrredón", "Villa Manuel Pomar (El Arbolito)", "Villa Manuel Pomar", "Villa María", "Villa Moll (Est. Moll)", "Villanueva (Ap. Río Salado)", "Villa Ortiz (Est. Coronel Mom)", "Villa Parque Girado", "Villa Ramallo", "Villa Rodríguez (Est. Barrow)", "Villa Roth (Est. Ingeniero Balbín)", "Villars", "Villa Ruiz", "Villa Saboya", "Villa San José", "Villa Sauze", "Villa Ventana", "Viña", "Vivoratá", "Warnes", "Yutuyaco", "Zárate", "Zavalía", "Zenón Videla Dorna"};
 
-        String catamarca[] = new String[]{"Adolfo E. Carranza", "Alijilán", "Amadores", "Amanao", "Ancasti", "Andalgalá", "Andalhualá", "Anillaco", "Anquincila", "Antinaco", "Antofagasta de la Sierra", "Antofalla", "Apoyaco", "Balde de la Punta", "Bañado de Ovanta", "Banda de Lucero", "Barranca Larga", "Belén", "Capayán", "Casa de Piedra", "Caspichango", "Catamarca (San Fernando del Valle de Catamarca)", "Cerro Negro", "Chañar Punco", "Chaquiago", "Choya", "Chuchucaruana", "Chumbicha", "Colana", "Collagasta", "Colonia del Valle", "Colonia Nueva Coneta", "Colpes", "Colpes", "Concepción", "Cóndor Huasi", "Coneta", "Copacabana", "Cordobita", "Corral Quemado", "Costa de Reyes", "El Alamito", "El Alto", "El Aybal", "El Bañado", "El Bañado", "El Bolsón", "El Cajón", "El Desmonte", "El Divisadero", "El Durazno", "El Lindero", "El Pajonal (Est. Pomán)", "El Pantanillo", "El Peñón", "El Portezuelo", "El Potrero", "El Pueblito", "El Puesto", "El Puesto", "El Quimilo", "El Rodeo", "El Rosario", "El Salado", "Esquiú", "Famatanca", "Farallón Negro", "Fiambalá", "Fuerte Quemado", "Guayamba", "Hualfín", "Huaycama", "Huaycama", "Huillapima", "Icaño", "Infanzón", "Jacipunco", "Joyango", "La Aguada", "La Bajada", "La Candelaria", "La Dorada", "La Guardia", "La Higuera", "La Hoyada", "La Loma", "La Majada", "La Merced", "La Puerta", "La Puntilla", "Las Cañas", "Las Chacritas", "Las Esquinas", "Las Juntas", "Las Juntas", "Las Lajas", "Las Mojarras", "Las Palmitas", "Las Tejas", "Lavalle", "La Viña", "Londres", "Loro Huasi", "Los Altos", "Los Ángeles", "Los Balverdis", "Los Castillos", "Los Corrales", "Los Nacimientos", "Los Nacimientos", "Los Talas", "Los Varela", "Manantiales", "Medanitos", "Miraflores", "Monte Potrero", "Mutquín", "Palo Blanco", "Palo Labrado", "Pomán", "Pomancillo Este", "Pomancillo Oeste", "Puerta de Corral Quemado", "Puerta de San José", "Punta de Balasto", "Punta del Agua", "Quirós", "Ramblones", "Recreo", "Rincón", "San Antonio", "San Antonio", "San Isidro", "San José", "San José", "San Martín", "San Miguel", "San Pablo", "San Pedro", "San Pedro (San Pedro de Guasayán)", "Santa Cruz", "Santa María", "Saujil", "Saujil", "Siján", "Singuil", "Tapso", "Tatón", "Tinogasta", "Vilismán", "Villa de Balcozna", "Villa Las Pirquitas", "Villa Vil", "Yapes"};
+        String catamarca[] = new String[]{"SELECCIONAR","Adolfo E. Carranza", "Alijilán", "Amadores", "Amanao", "Ancasti", "Andalgalá", "Andalhualá", "Anillaco", "Anquincila", "Antinaco", "Antofagasta de la Sierra", "Antofalla", "Apoyaco", "Balde de la Punta", "Bañado de Ovanta", "Banda de Lucero", "Barranca Larga", "Belén", "Capayán", "Casa de Piedra", "Caspichango", "Catamarca (San Fernando del Valle de Catamarca)", "Cerro Negro", "Chañar Punco", "Chaquiago", "Choya", "Chuchucaruana", "Chumbicha", "Colana", "Collagasta", "Colonia del Valle", "Colonia Nueva Coneta", "Colpes", "Colpes", "Concepción", "Cóndor Huasi", "Coneta", "Copacabana", "Cordobita", "Corral Quemado", "Costa de Reyes", "El Alamito", "El Alto", "El Aybal", "El Bañado", "El Bañado", "El Bolsón", "El Cajón", "El Desmonte", "El Divisadero", "El Durazno", "El Lindero", "El Pajonal (Est. Pomán)", "El Pantanillo", "El Peñón", "El Portezuelo", "El Potrero", "El Pueblito", "El Puesto", "El Puesto", "El Quimilo", "El Rodeo", "El Rosario", "El Salado", "Esquiú", "Famatanca", "Farallón Negro", "Fiambalá", "Fuerte Quemado", "Guayamba", "Hualfín", "Huaycama", "Huaycama", "Huillapima", "Icaño", "Infanzón", "Jacipunco", "Joyango", "La Aguada", "La Bajada", "La Candelaria", "La Dorada", "La Guardia", "La Higuera", "La Hoyada", "La Loma", "La Majada", "La Merced", "La Puerta", "La Puntilla", "Las Cañas", "Las Chacritas", "Las Esquinas", "Las Juntas", "Las Juntas", "Las Lajas", "Las Mojarras", "Las Palmitas", "Las Tejas", "Lavalle", "La Viña", "Londres", "Loro Huasi", "Los Altos", "Los Ángeles", "Los Balverdis", "Los Castillos", "Los Corrales", "Los Nacimientos", "Los Nacimientos", "Los Talas", "Los Varela", "Manantiales", "Medanitos", "Miraflores", "Monte Potrero", "Mutquín", "Palo Blanco", "Palo Labrado", "Pomán", "Pomancillo Este", "Pomancillo Oeste", "Puerta de Corral Quemado", "Puerta de San José", "Punta de Balasto", "Punta del Agua", "Quirós", "Ramblones", "Recreo", "Rincón", "San Antonio", "San Antonio", "San Isidro", "San José", "San José", "San Martín", "San Miguel", "San Pablo", "San Pedro", "San Pedro (San Pedro de Guasayán)", "Santa Cruz", "Santa María", "Saujil", "Saujil", "Siján", "Singuil", "Tapso", "Tatón", "Tinogasta", "Vilismán", "Villa de Balcozna", "Villa Las Pirquitas", "Villa Vil", "Yapes"};
 
-        String chaco[] = new String[]{"Avia Terai", "Barranqueras", "Barrio de los Pescadores", "Basail", "Campo Largo", "Capitán Solari", "Charadai", "Charata", "Chorotis", "Ciervo Petiso", "Colonia Aborigen", "Colonia Baranda", "Colonia Benítez", "Colonia Elisa", "Colonia Popular", "Colonias Unidas", "Concepción del Bermejo", "Coronel Du Graty", "Corzuela", "Cote Lai", "El Espinillo", "El Sauzal", "El Sauzalito", "Enrique Urién", "Estación General Obligado", "Fontana", "Fortín Las Chuñas", "Fortín Lavalle", "Fuerte Esperanza", "Gancedo", "General Capdevila", "General José de San Martín", "General Pinedo", "General Vedia", "Haumonía", "Hermoso Campo", "Horquilla", "Ingeniero Barbet", "Isla del Cerrito", "Itín", "Juan José Castelli", "La Clotilde", "La Eduvigis", "La Escondida", "Laguna Blanca", "Laguna Limpia", "La Leonesa", "Lapachito", "La Sabana", "Las Breñas", "Las Garcitas", "Las Palmas", "La Tigra", "La Verde", "Los Frentones", "Machagai", "Makallé", "Margarita Belén", "Mesón de Fierro", "Miraflores", "Napalpí", "Napenay", "Nueva Pompeya", "Pampa Almirón", "Pampa del Indio", "Pampa del Infierno", "Pampa Landriel", "Presidencia de la Plaza", "Presidencia Roca", "Presidencia Roque Sáenz Peña", "Puerto Bermejo Nuevo", "Puerto Bermejo Viejo", "Puerto Eva Perón", "Puerto Tirol", "Puerto Vilelas", "Quitilipi", "Resistencia", "Río Muerto", "Samuhú", "San Bernardo", "Santa Sylvina", "Selvas del Río de Oro", "Taco Pozo", "Tres Isletas", "Venados Grandes", "Villa Ángela", "Villa Berthet", "Villa El Palmar", "Villa Río Bermejito", "Wichí", "Zaparinqui"};
+        String chaco[] = new String[]{"SELECCIONAR","Avia Terai", "Barranqueras", "Barrio de los Pescadores", "Basail", "Campo Largo", "Capitán Solari", "Charadai", "Charata", "Chorotis", "Ciervo Petiso", "Colonia Aborigen", "Colonia Baranda", "Colonia Benítez", "Colonia Elisa", "Colonia Popular", "Colonias Unidas", "Concepción del Bermejo", "Coronel Du Graty", "Corzuela", "Cote Lai", "El Espinillo", "El Sauzal", "El Sauzalito", "Enrique Urién", "Estación General Obligado", "Fontana", "Fortín Las Chuñas", "Fortín Lavalle", "Fuerte Esperanza", "Gancedo", "General Capdevila", "General José de San Martín", "General Pinedo", "General Vedia", "Haumonía", "Hermoso Campo", "Horquilla", "Ingeniero Barbet", "Isla del Cerrito", "Itín", "Juan José Castelli", "La Clotilde", "La Eduvigis", "La Escondida", "Laguna Blanca", "Laguna Limpia", "La Leonesa", "Lapachito", "La Sabana", "Las Breñas", "Las Garcitas", "Las Palmas", "La Tigra", "La Verde", "Los Frentones", "Machagai", "Makallé", "Margarita Belén", "Mesón de Fierro", "Miraflores", "Napalpí", "Napenay", "Nueva Pompeya", "Pampa Almirón", "Pampa del Indio", "Pampa del Infierno", "Pampa Landriel", "Presidencia de la Plaza", "Presidencia Roca", "Presidencia Roque Sáenz Peña", "Puerto Bermejo Nuevo", "Puerto Bermejo Viejo", "Puerto Eva Perón", "Puerto Tirol", "Puerto Vilelas", "Quitilipi", "Resistencia", "Río Muerto", "Samuhú", "San Bernardo", "Santa Sylvina", "Selvas del Río de Oro", "Taco Pozo", "Tres Isletas", "Venados Grandes", "Villa Ángela", "Villa Berthet", "Villa El Palmar", "Villa Río Bermejito", "Wichí", "Zaparinqui"};
 
-        String chubut[] = new String[]{"28 de Julio", "Aldea Apeleg", "Aldea Beleiro", "Aldea Epulef", "Aldea Escolar (Losrápidos)", "Alto Río Senguer", "Arroyo Verde", "Astra", "Bahía Bustamante", "Blancuntre", "Buenos Aires Chico", "Buen Pasto", "Camarones", "Carrenleufú", "Cerro Cóndor", "Cholila", "Colan Conhué", "Comodoro Rivadavia", "Corcovado", "Costa del Chubut", "Cushamen Centro", "Diadema Argentina", "Dique Florentino Ameghino", "Doctor Oscar Atilio Viglione (Frontera de Río Pico)", "Doctor Ricardo Rojas", "Dolavon", "El Escorial", "El Hoyo", "El Maitén", "El Mirasol", "Epuyén", "Esquel", "Facundo", "Fofo Cahuel", "Gaiman", "Gan Gan", "Garayalde", "Gastre", "Gobernador Costa", "Gualjaina", "José de San Martín", "Lago Blanco", "Lago Epuyén", "Lago Puelo", "Lago Rosario", "Lagunita Salada", "Las Plumas", "Leleque", "Los Altares", "Los Cipreses", "Paso de Indios", "Paso del Sapo", "Playa Magagna", "Playa Unión", "Puerto Madryn", "Puerto Pirámides", "Quinta El Mirador", "Rada Tilly", "Rawson", "Reserva Area Protegida El Doradillo", "Río Mayo", "Río Pico", "Sarmiento", "Tecka", "Telsen", "Trelew", "Trevelin", "Villa Futalaufquen", "Yala Laubat", " "};
+        String chubut[] = new String[]{"SELECCIONAR","28 de Julio", "Aldea Apeleg", "Aldea Beleiro", "Aldea Epulef", "Aldea Escolar (Losrápidos)", "Alto Río Senguer", "Arroyo Verde", "Astra", "Bahía Bustamante", "Blancuntre", "Buenos Aires Chico", "Buen Pasto", "Camarones", "Carrenleufú", "Cerro Cóndor", "Cholila", "Colan Conhué", "Comodoro Rivadavia", "Corcovado", "Costa del Chubut", "Cushamen Centro", "Diadema Argentina", "Dique Florentino Ameghino", "Doctor Oscar Atilio Viglione (Frontera de Río Pico)", "Doctor Ricardo Rojas", "Dolavon", "El Escorial", "El Hoyo", "El Maitén", "El Mirasol", "Epuyén", "Esquel", "Facundo", "Fofo Cahuel", "Gaiman", "Gan Gan", "Garayalde", "Gastre", "Gobernador Costa", "Gualjaina", "José de San Martín", "Lago Blanco", "Lago Epuyén", "Lago Puelo", "Lago Rosario", "Lagunita Salada", "Las Plumas", "Leleque", "Los Altares", "Los Cipreses", "Paso de Indios", "Paso del Sapo", "Playa Magagna", "Playa Unión", "Puerto Madryn", "Puerto Pirámides", "Quinta El Mirador", "Rada Tilly", "Rawson", "Reserva Area Protegida El Doradillo", "Río Mayo", "Río Pico", "Sarmiento", "Tecka", "Telsen", "Trelew", "Trevelin", "Villa Futalaufquen", "Yala Laubat", " "};
 
-        String cordoba[] = new String[]{"Achiras", "Adelia María", "Agua de Oro", "Alcira (Gigena)", "Aldea Santa María", "Alejandro Roca (Est. Alejandro)", "Alejo Ledesma", "Alicia", "Almafuerte", "Alpa Corral", "Alta Gracia", "Alto Alegre", "Alto de los Quebrachos", "Altos de Chipión", "Amboy", "Ámbul", "Ana Zumarán", "Anisacate", "Arias", "Arroyito", "Arroyo Algodón", "Arroyo Cabral", "Arroyo Los Patos", "Ascochinga", "Assunta", "Atahona", "Ausonia", "Avellaneda", "Ballesteros", "Ballesteros Sur", "Balnearia", "Bañado de Soto", "Barrio Gilbert (- Tejas Tres; 1° de Mayo)", "Barrio Nuevo Rio Ceballos", "Barrio Santa Isabel", "Bell Ville", "Bengolea", "Benjamín Gould", "Berrotarán", "Bialet Massé", "Bouwer", "Brinkmann", "Bulnes", "Cabalango", "Calchín", "Calchín Oeste", "Camilo Aldao", "Caminiaga", "Campos del Virrey", "Cañada del Sauce", "Cañada de Luque", "Cañada de Machado", "Cañada de Río Pinto", "Canals", "Candelaria Sur", "Canteras El Sauce", "Canteras Quilpo", "Capilla del Carmen", "Capilla del Monte", "Capilla de los Remedios", "Capilla de Sitón", "Capilla Vieja", "Capitán General Bernardo O'Higgins", "Carnerillo", "Carrilobo", "Casa Bamba", "Casa Grande", "Caseros Centro", "Causana", "Cavanagh", "Cerro Colorado", "Chaján", "Chalacea", "Chañar Viejo", "Chancaní", "Charbonier", "Charras", "Chazón", "Chilibroste", "Chucul", "Chuña", "Chuña Huasi", "Churqui Cañada", "Ciénaga del Coro", "Cintra", "Colazo", "Colonia 10 de Julio", "Colonia Almada", "Colonia Anita", "Colonia Barge", "Colonia Bismarck", "Colonia Bremen", "Colonia Caroya", "Colonia Italiana", "Colonia Iturraspe", "Colonia Las Cuatro Esquinas", "Colonia Las Pichanas", "Colonia Marina", "Colonia Prosperidad", "Colonia San Bartolomé", "Colonia San Pedro", "Colonia Santa María", "Colonia Tirolesa", "Colonia Valtelina", "Colonia Veinticinco", "Colonia Vicente Agüero", "Colonia Videla", "Colonia Vignaud", "Conlara", "Copacabana", "Córdoba", "Coronel Baigorria", "Coronel Moldes", "Corral de Bustos", "Corralito", "Corral Quemado", "Cosquín", "Costa Azul", "Costa Sacate", "Country Chacras de la Villa (- Country San Isidro)", "Cruz Alta", "Cruz Caña", "Cruz de Caña", "Cruz del Eje", "Cuesta Blanca", "Dalmacio Vélez", "Deán Funes", "Del Campillo", "Despeñaderos", "Devoto", "Diego de Rojas", "Dique Chico", "Dos Arroyos", "El Alcalde (Est. Tala Norte)", "El Arañado", "El Brete", "El Chacho", "El Corcovado - El Torreón", "El Crispín", "El Durazno", "Elena", "El Fortín", "El Fuertecito", "El Huayco", "El Manzano", "El Pantanillo", "El Potrerillo", "El Rastreador", "El Rincón", "El Rodeo", "El Tío", "El Tuscal", "Embalse", "Esquina", "Esquina del Alambre", "Estación Colonia Tirolesa", "Estación Lecueder", "Estación Luxardo", "Estancia de Guadalupe", "Estancia Vieja", "Etruria", "Eufrasio Loza", "Falda del Cañete", "Falda del Carmen", "Freyre", "General Baldissera", "General Cabrera", "General Deheza", "General Fotheringham", "General Levalle", "General Paz", "General Roca", "Guanaco Muerto", "Guasapampa", "Guatimozín", "Gutemberg", "Hernando", "Hipólito Bouchard (Buchardo)", "Huanchillas", "Huerta Grande", "Huinca Renancó", "Idiazábal", "Impira", "Inriville", "Isla Verde", "Italó", "James Craik", "Jesús María", "José de la Quintana", "Justiniano Posse", "Kilómetro 658", "La Banda", "La Batea", "La Boca del Río", "Laborde", "Laboulaye", "La Calera", "La Carbonada", "La Carlota", "La Carolina", "La Cautiva", "La Cesira", "La Cortadera", "La Cruz", "La Cumbre", "La Cumbrecita", "La Falda", "La Francia", "La Gilda", "La Granja", "Laguna Larga", "La Higuera", "La Laguna", "La Morada", "La Paisanita", "La Palestina", "La Pampa", "La Paquita", "La Para", "La Paz", "La Perla", "La Playa", "La Playosa", "La Población", "La Posta", "La Puerta", "La Puerta", "La Quinta", "La Ramada", "La Rancherita y Las Cascadas", "La Rinconada", "Las Acequias", "Las Albahacas", "Las Arrias", "Las Bajadas", "Las Caleras", "Las Calles", "Las Cañadas", "Las Chacras", "Las Corzuelas", "La Serranita", "Las Gramillas", "Las Higueras", "Las Isletillas", "Las Jarillas", "Las Junturas", "Las Mojarras", "Las Oscuras", "Las Palmas", "Las Peñas (Sud)", "Las Peñas", "Las Perdices", "Las Playas", "Las Rabonas", "Las Saladas", "Las Tapias", "Las Varas", "Las Varillas", "Las Vertientes", "La Tordilla", "La Travesía", "Leguizamón", "Leones", "Loma Bola", "Los Callejones", "Los Cedros", "Los Cerrillos", "Los Chañaritos", "Los Chañaritos", "Los Cisnes", "Los Cocos", "Los Cóndores", "Los Hornillos", "Los Hoyos", "Los Mistoles", "Los Molinos", "Los Molles", "Los Molles", "Los Pozos", "Los Reartes", "Los Surgentes", "Los Talares", "Los Zorros", "Lozada", "Luca", "Lucio V. Mansilla", "Luque", "Lutti", "Luyaba", "Malagueño", "Malena", "Mallín", "Malvinas Argentinas", "Manfredi", "Maquinista Gallini", "Marcos Juárez", "Marull", "Matorrales", "Mattaldi", "Mayu Sumaj", "Media Naranja", "Melo", "Mendiolaza", "Mi Granja", "Mina Clavero", "Miramar", "Monte Buey", "Monte Cristo", "Monte de los Gauchos", "Monte del Rosario", "Monte Leña", "Monte Maíz", "Monte Ralo", "Morrison", "Morteros", "Mussi", "Nicolás Bruzzone", "Noetinger", "Nono", "Obispo Trejo", "Olaeta", "Oliva", "Olivares de San Nicolás", "Onagoity", "Oncativo", "Ordóñez", "Pacheco de Melo", "Pajas Blancas", "Pampayasta Norte", "Pampayasta Sur", "Panaholma", "Parque Calmayo", "Pascanas", "Pasco", "Paso del Durazno", "Paso del Durazno", "Paso Viejo", "Pilar", "Pincén", "Piquillín", "Plaza de Mercedes", "Plaza Luxardo", "Plaza San Francisco", "Porteña", "Potrero de Garay", "Pozo del Molle", "Pozo Nuevo", "Pueblo Comechingones", "Pueblo Italiano", "Puesto de Castro", "Punta del Agua", "Quebracho Herrado", "Quebracho Ladeado", "Quebrada de los Pozos", "Quebrada de Luna", "Quilino", "Rafael García", "Ramón J. Cárcano", "Ranqueles", "Rayo Cortado", "Rincón", "Río Bamba", "Río Ceballos", "Río Cuarto", "Río de los Sauces", "Río Primero", "Río Segundo", "Río Tercero", "Rosales", "Rosario del Saladillo", "Sacanta", "Sagrada Familia", "Saira", "Saladillo", "Saldán", "Salsacate", "Salsipuedes", "Sampacho", "Sanabria", "San Agustín", "San Antonio de Arredondo", "San Antonio de Litín", "San Basilio", "San Carlos Minas", "San Clemente", "San Esteban", "San Francisco", "San Francisco del Chañar", "San Gerónimo", "San Huberto", "San Ignacio (Loteo San Javier)", "San Javier y Yacanto", "San Joaquín", "San José", "San José de la Dormida", "San José de las Salinas", "San Lorenzo", "San Marcos", "San Marcos Sierra", "San Martín", "San Nicolás (- Tierra Alta)", "San Pedro", "San Pedro de Gütemberg", "San Pedro de Toyos", "San Pedro Norte", "San Roque", "San Severo", "Santa Catalina (Holmberg)", "Santa Catalina", "Santa Elena", "Santa Elena", "Santa Eufemia", "Santa Magdalena (Est. Jovita)", "Santa María de Punilla", "Santa Rosa de Calamuchita", "Santa Rosa de Río Primero", "Santiago Temple", "San Vicente", "Sarmiento", "Saturnino María Laspiur", "Sauce Arriba", "Sebastián Elcano", "Seeber", "Segunda Usina", "Serrano", "Serrezuela", "Silvio Pellico", "Simbolar", "Sinsacate", "Socavones", "Solar de los Molinos", "Suco", "Tala Cañada", "Tala Huasi", "Talaini", "Tancacha", "Taninga", "Tanti", "Tasna", "Ticino", "Tinoco", "Tío Pujio", "Toledo", "Toro Pujio", "Tosno", "Tosquitas", "Tránsito", "Tuclame", "Ucacha", "Unquillo", "Valle Alegre", "Valle de Anisacate", "Valle Hermoso", "Viamonte", "Vicuña Mackenna", "Villa Albertina", "Villa Allende", "Villa Alpina", "Villa Amancay", "Villa Ascasubi", "Villa Berna", "Villa Candelaria", "Villa Carlos Paz", "Villa Cerro Azul", "Villa Ciudad de América (Loteo Diego de Rojas)", "Villa Ciudad Parque Los Reartes", "Villa Concepción del Tío", "Villa Corazon de Maria", "Villa Cura Brochero", "Villa de Las Rosas", "Villa del Dique", "Villa del Prado", "Villa del Rosario", "Villa del Totoral", "Villa del Tránsito", "Villa de María", "Villa de Pocho", "Villa de Soto", "Villa Dolores", "Villa El Chacay", "Villa El Fachinal (- Parque Norte - Guiñazú Norte)", "Villa Elisa", "Villa El Tala", "Villa Flor Serrana", "Villa Fontana", "Villa General Belgrano", "Villa Giardino", "Villa Gutiérrez", "Villa Huidobro", "Villa La Bolsa", "Villa Lago Azul", "Villa La Rivera", "Villa La Viña", "Villa Los Aromos", "Villa Los Llanos (- Juárez Celman)", "Villa Los Patos", "Villa María", "Villa Nueva", "Villa Oeste", "Villa Parque Santa Ana", "Villa Parque Síquiman", "Villa Quilino", "Villa Quillinzo", "Villa Reducción", "Villa Río Icho Cruz", "Villa Rossi", "Villa Rumipal", "Villa San Esteban", "Villa San Isidro", "Villa San José (San José de los Ríos)", "Villa Santa Cruz del Lago", "Villa Santa Eugenia", "Villa Sarmiento", "Villa Sarmiento", "Villa Sierras de Oro", "Villa Tulumba", "Villa Valeria", "Villa Yacanto (Yacanto de Calamuchita)", "Washington", "Wenceslao Escalante", "Yocsina", " "};
+        String cordoba[] = new String[]{"SELECCIONAR","Achiras", "Adelia María", "Agua de Oro", "Alcira (Gigena)", "Aldea Santa María", "Alejandro Roca (Est. Alejandro)", "Alejo Ledesma", "Alicia", "Almafuerte", "Alpa Corral", "Alta Gracia", "Alto Alegre", "Alto de los Quebrachos", "Altos de Chipión", "Amboy", "Ámbul", "Ana Zumarán", "Anisacate", "Arias", "Arroyito", "Arroyo Algodón", "Arroyo Cabral", "Arroyo Los Patos", "Ascochinga", "Assunta", "Atahona", "Ausonia", "Avellaneda", "Ballesteros", "Ballesteros Sur", "Balnearia", "Bañado de Soto", "Barrio Gilbert (- Tejas Tres; 1° de Mayo)", "Barrio Nuevo Rio Ceballos", "Barrio Santa Isabel", "Bell Ville", "Bengolea", "Benjamín Gould", "Berrotarán", "Bialet Massé", "Bouwer", "Brinkmann", "Bulnes", "Cabalango", "Calchín", "Calchín Oeste", "Camilo Aldao", "Caminiaga", "Campos del Virrey", "Cañada del Sauce", "Cañada de Luque", "Cañada de Machado", "Cañada de Río Pinto", "Canals", "Candelaria Sur", "Canteras El Sauce", "Canteras Quilpo", "Capilla del Carmen", "Capilla del Monte", "Capilla de los Remedios", "Capilla de Sitón", "Capilla Vieja", "Capitán General Bernardo O'Higgins", "Carnerillo", "Carrilobo", "Casa Bamba", "Casa Grande", "Caseros Centro", "Causana", "Cavanagh", "Cerro Colorado", "Chaján", "Chalacea", "Chañar Viejo", "Chancaní", "Charbonier", "Charras", "Chazón", "Chilibroste", "Chucul", "Chuña", "Chuña Huasi", "Churqui Cañada", "Ciénaga del Coro", "Cintra", "Colazo", "Colonia 10 de Julio", "Colonia Almada", "Colonia Anita", "Colonia Barge", "Colonia Bismarck", "Colonia Bremen", "Colonia Caroya", "Colonia Italiana", "Colonia Iturraspe", "Colonia Las Cuatro Esquinas", "Colonia Las Pichanas", "Colonia Marina", "Colonia Prosperidad", "Colonia San Bartolomé", "Colonia San Pedro", "Colonia Santa María", "Colonia Tirolesa", "Colonia Valtelina", "Colonia Veinticinco", "Colonia Vicente Agüero", "Colonia Videla", "Colonia Vignaud", "Conlara", "Copacabana", "Córdoba", "Coronel Baigorria", "Coronel Moldes", "Corral de Bustos", "Corralito", "Corral Quemado", "Cosquín", "Costa Azul", "Costa Sacate", "Country Chacras de la Villa (- Country San Isidro)", "Cruz Alta", "Cruz Caña", "Cruz de Caña", "Cruz del Eje", "Cuesta Blanca", "Dalmacio Vélez", "Deán Funes", "Del Campillo", "Despeñaderos", "Devoto", "Diego de Rojas", "Dique Chico", "Dos Arroyos", "El Alcalde (Est. Tala Norte)", "El Arañado", "El Brete", "El Chacho", "El Corcovado - El Torreón", "El Crispín", "El Durazno", "Elena", "El Fortín", "El Fuertecito", "El Huayco", "El Manzano", "El Pantanillo", "El Potrerillo", "El Rastreador", "El Rincón", "El Rodeo", "El Tío", "El Tuscal", "Embalse", "Esquina", "Esquina del Alambre", "Estación Colonia Tirolesa", "Estación Lecueder", "Estación Luxardo", "Estancia de Guadalupe", "Estancia Vieja", "Etruria", "Eufrasio Loza", "Falda del Cañete", "Falda del Carmen", "Freyre", "General Baldissera", "General Cabrera", "General Deheza", "General Fotheringham", "General Levalle", "General Paz", "General Roca", "Guanaco Muerto", "Guasapampa", "Guatimozín", "Gutemberg", "Hernando", "Hipólito Bouchard (Buchardo)", "Huanchillas", "Huerta Grande", "Huinca Renancó", "Idiazábal", "Impira", "Inriville", "Isla Verde", "Italó", "James Craik", "Jesús María", "José de la Quintana", "Justiniano Posse", "Kilómetro 658", "La Banda", "La Batea", "La Boca del Río", "Laborde", "Laboulaye", "La Calera", "La Carbonada", "La Carlota", "La Carolina", "La Cautiva", "La Cesira", "La Cortadera", "La Cruz", "La Cumbre", "La Cumbrecita", "La Falda", "La Francia", "La Gilda", "La Granja", "Laguna Larga", "La Higuera", "La Laguna", "La Morada", "La Paisanita", "La Palestina", "La Pampa", "La Paquita", "La Para", "La Paz", "La Perla", "La Playa", "La Playosa", "La Población", "La Posta", "La Puerta", "La Puerta", "La Quinta", "La Ramada", "La Rancherita y Las Cascadas", "La Rinconada", "Las Acequias", "Las Albahacas", "Las Arrias", "Las Bajadas", "Las Caleras", "Las Calles", "Las Cañadas", "Las Chacras", "Las Corzuelas", "La Serranita", "Las Gramillas", "Las Higueras", "Las Isletillas", "Las Jarillas", "Las Junturas", "Las Mojarras", "Las Oscuras", "Las Palmas", "Las Peñas (Sud)", "Las Peñas", "Las Perdices", "Las Playas", "Las Rabonas", "Las Saladas", "Las Tapias", "Las Varas", "Las Varillas", "Las Vertientes", "La Tordilla", "La Travesía", "Leguizamón", "Leones", "Loma Bola", "Los Callejones", "Los Cedros", "Los Cerrillos", "Los Chañaritos", "Los Chañaritos", "Los Cisnes", "Los Cocos", "Los Cóndores", "Los Hornillos", "Los Hoyos", "Los Mistoles", "Los Molinos", "Los Molles", "Los Molles", "Los Pozos", "Los Reartes", "Los Surgentes", "Los Talares", "Los Zorros", "Lozada", "Luca", "Lucio V. Mansilla", "Luque", "Lutti", "Luyaba", "Malagueño", "Malena", "Mallín", "Malvinas Argentinas", "Manfredi", "Maquinista Gallini", "Marcos Juárez", "Marull", "Matorrales", "Mattaldi", "Mayu Sumaj", "Media Naranja", "Melo", "Mendiolaza", "Mi Granja", "Mina Clavero", "Miramar", "Monte Buey", "Monte Cristo", "Monte de los Gauchos", "Monte del Rosario", "Monte Leña", "Monte Maíz", "Monte Ralo", "Morrison", "Morteros", "Mussi", "Nicolás Bruzzone", "Noetinger", "Nono", "Obispo Trejo", "Olaeta", "Oliva", "Olivares de San Nicolás", "Onagoity", "Oncativo", "Ordóñez", "Pacheco de Melo", "Pajas Blancas", "Pampayasta Norte", "Pampayasta Sur", "Panaholma", "Parque Calmayo", "Pascanas", "Pasco", "Paso del Durazno", "Paso del Durazno", "Paso Viejo", "Pilar", "Pincén", "Piquillín", "Plaza de Mercedes", "Plaza Luxardo", "Plaza San Francisco", "Porteña", "Potrero de Garay", "Pozo del Molle", "Pozo Nuevo", "Pueblo Comechingones", "Pueblo Italiano", "Puesto de Castro", "Punta del Agua", "Quebracho Herrado", "Quebracho Ladeado", "Quebrada de los Pozos", "Quebrada de Luna", "Quilino", "Rafael García", "Ramón J. Cárcano", "Ranqueles", "Rayo Cortado", "Rincón", "Río Bamba", "Río Ceballos", "Río Cuarto", "Río de los Sauces", "Río Primero", "Río Segundo", "Río Tercero", "Rosales", "Rosario del Saladillo", "Sacanta", "Sagrada Familia", "Saira", "Saladillo", "Saldán", "Salsacate", "Salsipuedes", "Sampacho", "Sanabria", "San Agustín", "San Antonio de Arredondo", "San Antonio de Litín", "San Basilio", "San Carlos Minas", "San Clemente", "San Esteban", "San Francisco", "San Francisco del Chañar", "San Gerónimo", "San Huberto", "San Ignacio (Loteo San Javier)", "San Javier y Yacanto", "San Joaquín", "San José", "San José de la Dormida", "San José de las Salinas", "San Lorenzo", "San Marcos", "San Marcos Sierra", "San Martín", "San Nicolás (- Tierra Alta)", "San Pedro", "San Pedro de Gütemberg", "San Pedro de Toyos", "San Pedro Norte", "San Roque", "San Severo", "Santa Catalina (Holmberg)", "Santa Catalina", "Santa Elena", "Santa Elena", "Santa Eufemia", "Santa Magdalena (Est. Jovita)", "Santa María de Punilla", "Santa Rosa de Calamuchita", "Santa Rosa de Río Primero", "Santiago Temple", "San Vicente", "Sarmiento", "Saturnino María Laspiur", "Sauce Arriba", "Sebastián Elcano", "Seeber", "Segunda Usina", "Serrano", "Serrezuela", "Silvio Pellico", "Simbolar", "Sinsacate", "Socavones", "Solar de los Molinos", "Suco", "Tala Cañada", "Tala Huasi", "Talaini", "Tancacha", "Taninga", "Tanti", "Tasna", "Ticino", "Tinoco", "Tío Pujio", "Toledo", "Toro Pujio", "Tosno", "Tosquitas", "Tránsito", "Tuclame", "Ucacha", "Unquillo", "Valle Alegre", "Valle de Anisacate", "Valle Hermoso", "Viamonte", "Vicuña Mackenna", "Villa Albertina", "Villa Allende", "Villa Alpina", "Villa Amancay", "Villa Ascasubi", "Villa Berna", "Villa Candelaria", "Villa Carlos Paz", "Villa Cerro Azul", "Villa Ciudad de América (Loteo Diego de Rojas)", "Villa Ciudad Parque Los Reartes", "Villa Concepción del Tío", "Villa Corazon de Maria", "Villa Cura Brochero", "Villa de Las Rosas", "Villa del Dique", "Villa del Prado", "Villa del Rosario", "Villa del Totoral", "Villa del Tránsito", "Villa de María", "Villa de Pocho", "Villa de Soto", "Villa Dolores", "Villa El Chacay", "Villa El Fachinal (- Parque Norte - Guiñazú Norte)", "Villa Elisa", "Villa El Tala", "Villa Flor Serrana", "Villa Fontana", "Villa General Belgrano", "Villa Giardino", "Villa Gutiérrez", "Villa Huidobro", "Villa La Bolsa", "Villa Lago Azul", "Villa La Rivera", "Villa La Viña", "Villa Los Aromos", "Villa Los Llanos (- Juárez Celman)", "Villa Los Patos", "Villa María", "Villa Nueva", "Villa Oeste", "Villa Parque Santa Ana", "Villa Parque Síquiman", "Villa Quilino", "Villa Quillinzo", "Villa Reducción", "Villa Río Icho Cruz", "Villa Rossi", "Villa Rumipal", "Villa San Esteban", "Villa San Isidro", "Villa San José (San José de los Ríos)", "Villa Santa Cruz del Lago", "Villa Santa Eugenia", "Villa Sarmiento", "Villa Sarmiento", "Villa Sierras de Oro", "Villa Tulumba", "Villa Valeria", "Villa Yacanto (Yacanto de Calamuchita)", "Washington", "Wenceslao Escalante", "Yocsina", " "};
 
-        String corrientes[] = new String[]{"9 de Julio (Est. Pueblo 9 de Julio)", "Alvear", "Bella Vista", "Berón de Astrada", "Bonpland", "Carolina", "Cazadores Correntinos", "Chavarría", "Colonia Carlos Pellegrini", "Colonia Libertad", "Colonia Liebig's", "Colonia Pando", "Concepción", "Corrientes", "Cruz de los Milagros", "Curuzú Cuatiá", "El Sombrero", "Empedrado", "Esquina", "Estación Libertad", "Estación Torrent", "Felipe Yofre", "Garruchos", "Gobernador Igr. Valentín Virasoro", "Gobernador Juan E. Martínez", "Goya", "Guaviraví", "Ingenio Primer Correntino", "Itá Ibaté", "Itatí", "Ituzaingó", "José Rafael Gómez (Garabí)", "Juan Pujol", "La Cruz", "Laguna Brava", "Lavalle", "Lomas de Vallejos", "Loreto", "Mariano I. Loza (Est. Justino Solari)", "Mburucuyá", "Mercedes", "Mocoretá", "Monte Caseros", "Nuestra Señora del Rosario de Caá Catí", "Palmar Grande", "Parada Acuña", "Parada Labougle", "Parada Pucheta", "Paso de la Patria", "Paso de los Libres", "Pedro R. Fernández (Est. Manuel F. Mantilla)", "Perugorría", "Pueblo Libertador", "Ramada Paso", "Riachuelo", "Saladas", "San Antonio", "San Carlos", "San Cayetano", "San Cosme", "San Lorenzo", "San Luis del Palmar", "San Miguel", "San Roque", "Santa Ana", "Santa Lucía", "Santa Rosa", "Santo Tomé", "Sauce", "Tabay", "Tapebicuá", "Tatacuá", "Villa Córdoba", "Villa Olivari", "Yahapé", "Yapeyú", "Yatayti Calle", " "};
+        String corrientes[] = new String[]{"SELECCIONAR","9 de Julio (Est. Pueblo 9 de Julio)", "Alvear", "Bella Vista", "Berón de Astrada", "Bonpland", "Carolina", "Cazadores Correntinos", "Chavarría", "Colonia Carlos Pellegrini", "Colonia Libertad", "Colonia Liebig's", "Colonia Pando", "Concepción", "Corrientes", "Cruz de los Milagros", "Curuzú Cuatiá", "El Sombrero", "Empedrado", "Esquina", "Estación Libertad", "Estación Torrent", "Felipe Yofre", "Garruchos", "Gobernador Igr. Valentín Virasoro", "Gobernador Juan E. Martínez", "Goya", "Guaviraví", "Ingenio Primer Correntino", "Itá Ibaté", "Itatí", "Ituzaingó", "José Rafael Gómez (Garabí)", "Juan Pujol", "La Cruz", "Laguna Brava", "Lavalle", "Lomas de Vallejos", "Loreto", "Mariano I. Loza (Est. Justino Solari)", "Mburucuyá", "Mercedes", "Mocoretá", "Monte Caseros", "Nuestra Señora del Rosario de Caá Catí", "Palmar Grande", "Parada Acuña", "Parada Labougle", "Parada Pucheta", "Paso de la Patria", "Paso de los Libres", "Pedro R. Fernández (Est. Manuel F. Mantilla)", "Perugorría", "Pueblo Libertador", "Ramada Paso", "Riachuelo", "Saladas", "San Antonio", "San Carlos", "San Cayetano", "San Cosme", "San Lorenzo", "San Luis del Palmar", "San Miguel", "San Roque", "Santa Ana", "Santa Lucía", "Santa Rosa", "Santo Tomé", "Sauce", "Tabay", "Tapebicuá", "Tatacuá", "Villa Córdoba", "Villa Olivari", "Yahapé", "Yapeyú", "Yatayti Calle", " "};
 
-        String entrerios[] = new String[]{"1º de Mayo (Primero de Mayo)", "Aldea Asunción", "Aldea Brasilera", "Aldea Grapschental", "Aldea María Luisa", "Aldea Protestante", "Aldea Salto", "Aldea San Antonio", "Aldea San Francisco", "Aldea San Isidro (El Cimarrón)", "Aldea San Juan", "Aldea San Juan", "Aldea San Rafael", "Aldea Santa María", "Aldea Santa Rosa", "Aldea Spatzenkutter", "Aldea Valle María", "Altamirano Sur", "Antelo", "Aranguren", "Arroyo Barú", "Basavilbaso", "Betbeder", "Bovril", "Calabacilla", "Caseros", "Ceibas", "Cerrito", "Chajarí", "Clodomiro Ledesma", "Colón", "Colonia Alemana", "Colonia Avellaneda", "Colonia Avigdor", "Colonia Ayuí", "Colonia Crespo", "Colonia Elía", "Colonia Ensayo", "Colonia General Roca", "Colonia Hugues", "Colonia La Argentina", "Colonia Peña", "Concepción del Uruguay", "Concordia", "Conscripto Bernardi", "Crespo", "Diamante", "Don Cristóbal", "Durazno", "El Palenque", "El Pingo", "El Ramblón", "El Solar", "Enrique Carbó", "Estación Arroyo Clé", "Estación Camps", "Estación Escriña", "Estación Lazo", "Estación Raíces", "Estación Yeruá", "Estación Yuquerí", "Estancia Grande (Colonia Yeruá)", "Faustino M. Parera", "Febré", "Federación", "Federal", "General Almada", "General Alvear (Puerto Alvear)", "General Campos", "General Galarza", "General Racedo (El Carmen)", "General Ramírez", "Gilbert", "Gobernador Echagüe", "Gobernador Mansilla", "Gobernador Sola", "Gualeguay", "Gualeguaychú", "Guardamonte", "Hambis", "Hasenkamp", "Hernandarias", "Hernández", "Herrera", "Hocker", "Ibicuy", "Ingeniero Miguel Sajaroff", "Irazusta", "Jubileo", "La Clarita", "La Criolla", "La Juanita", "La Paz", "La Picada", "Larroque", "Las Guachas", "Las Jaulas", "Las Moscas", "Las Tunas", "Líbaros", "Los Charrúas", "Los Conquistadores", "Lucas González", "Maciá", "María Grande", "Médanos", "Molino Doll", "Nogoyá", "Nueva Escocia", "Nueva Vizcaya", "Oro Verde", "Osvaldo Magnasco", "Paraje La Virgen", "Paraná", "Paso de la Laguna", "Pastor Britos", "Pedernal", "Piedras Blancas", "Pronunciamiento", "Pueblo Arrúa (Est. Alcaraz)", "Pueblo Bellocq (Est. Las Garzas)", "Pueblo Brugo", "Pueblo Cazes", "Pueblo General Belgrano", "Pueblo General San Martín", "Pueblo Liebig's", "Puerto Las Cuevas", "Puerto Ruiz", "Puerto Yeruá", "Rocamora", "Rosario del Tala", "San Benito", "San Gustavo", "San Jaime de la Frontera", "San José", "San José de Feliciano", "San Pedro", "San Ramón", "San Salvador", "Santa Ana", "Santa Anita", "Santa Elena", "San Víctor", "Sauce de Luna", "Sauce Montrull", "Sauce Pinto", "Seguí", "Sir Leonard", "Sosa", "Tabossi", "Tezanos Pinto", "Ubajay", "Urdinarrain", "Viale", "Victoria", "Villa Clara", "Villa del Rosario", "Villa Domínguez", "Villa Elisa", "Villa Fontana", "Villa Gobernador Luis F. Etchevehere", "Villaguay", "Villa Libertador San Martín", "Villa Mantero", "Villa Paranacito", "Villa San Justo", "Villa San Marcial (Est. Gobernador Urquiza)", "Villa Urquiza", "XX de Setiembre", " "};
+        String entrerios[] = new String[]{"SELECCIONAR","1º de Mayo (Primero de Mayo)", "Aldea Asunción", "Aldea Brasilera", "Aldea Grapschental", "Aldea María Luisa", "Aldea Protestante", "Aldea Salto", "Aldea San Antonio", "Aldea San Francisco", "Aldea San Isidro (El Cimarrón)", "Aldea San Juan", "Aldea San Juan", "Aldea San Rafael", "Aldea Santa María", "Aldea Santa Rosa", "Aldea Spatzenkutter", "Aldea Valle María", "Altamirano Sur", "Antelo", "Aranguren", "Arroyo Barú", "Basavilbaso", "Betbeder", "Bovril", "Calabacilla", "Caseros", "Ceibas", "Cerrito", "Chajarí", "Clodomiro Ledesma", "Colón", "Colonia Alemana", "Colonia Avellaneda", "Colonia Avigdor", "Colonia Ayuí", "Colonia Crespo", "Colonia Elía", "Colonia Ensayo", "Colonia General Roca", "Colonia Hugues", "Colonia La Argentina", "Colonia Peña", "Concepción del Uruguay", "Concordia", "Conscripto Bernardi", "Crespo", "Diamante", "Don Cristóbal", "Durazno", "El Palenque", "El Pingo", "El Ramblón", "El Solar", "Enrique Carbó", "Estación Arroyo Clé", "Estación Camps", "Estación Escriña", "Estación Lazo", "Estación Raíces", "Estación Yeruá", "Estación Yuquerí", "Estancia Grande (Colonia Yeruá)", "Faustino M. Parera", "Febré", "Federación", "Federal", "General Almada", "General Alvear (Puerto Alvear)", "General Campos", "General Galarza", "General Racedo (El Carmen)", "General Ramírez", "Gilbert", "Gobernador Echagüe", "Gobernador Mansilla", "Gobernador Sola", "Gualeguay", "Gualeguaychú", "Guardamonte", "Hambis", "Hasenkamp", "Hernandarias", "Hernández", "Herrera", "Hocker", "Ibicuy", "Ingeniero Miguel Sajaroff", "Irazusta", "Jubileo", "La Clarita", "La Criolla", "La Juanita", "La Paz", "La Picada", "Larroque", "Las Guachas", "Las Jaulas", "Las Moscas", "Las Tunas", "Líbaros", "Los Charrúas", "Los Conquistadores", "Lucas González", "Maciá", "María Grande", "Médanos", "Molino Doll", "Nogoyá", "Nueva Escocia", "Nueva Vizcaya", "Oro Verde", "Osvaldo Magnasco", "Paraje La Virgen", "Paraná", "Paso de la Laguna", "Pastor Britos", "Pedernal", "Piedras Blancas", "Pronunciamiento", "Pueblo Arrúa (Est. Alcaraz)", "Pueblo Bellocq (Est. Las Garzas)", "Pueblo Brugo", "Pueblo Cazes", "Pueblo General Belgrano", "Pueblo General San Martín", "Pueblo Liebig's", "Puerto Las Cuevas", "Puerto Ruiz", "Puerto Yeruá", "Rocamora", "Rosario del Tala", "San Benito", "San Gustavo", "San Jaime de la Frontera", "San José", "San José de Feliciano", "San Pedro", "San Ramón", "San Salvador", "Santa Ana", "Santa Anita", "Santa Elena", "San Víctor", "Sauce de Luna", "Sauce Montrull", "Sauce Pinto", "Seguí", "Sir Leonard", "Sosa", "Tabossi", "Tezanos Pinto", "Ubajay", "Urdinarrain", "Viale", "Victoria", "Villa Clara", "Villa del Rosario", "Villa Domínguez", "Villa Elisa", "Villa Fontana", "Villa Gobernador Luis F. Etchevehere", "Villaguay", "Villa Libertador San Martín", "Villa Mantero", "Villa Paranacito", "Villa San Justo", "Villa San Marcial (Est. Gobernador Urquiza)", "Villa Urquiza", "XX de Setiembre", " "};
 
-        String formosa[] = new String[]{"Banco Payaguá", "Bartolomé de las Casas", "Buena Vista", "Clorinda", "Colonia Campo Villafañe (Mayor Vicente Villafañe)", "Colonia Pastoril", "Colonia Sarmiento", "Comandante Fontana", "El Colorado", "El Espinillo", "El Potrillo", "El Quebracho", "El Recreo", "Estanislao del Campo", "Formosa", "Fortín Cabo 1º Lugones", "Fortín Sargento 1º Leyes", "Fortín Soledad", "General Lucio Victorio Mansilla", "General Mosconi", "Gran Guardia", "Guadalcazar", "Herradura", "Ibarreta", "Ingeniero Guillermo N. Juárez", "Juan G. Bazán", "Laguna Blanca", "Laguna Gallo", "Laguna Naick-Neck", "Laguna Yema", "Lamadrid", "La Rinconada", "Las Lomitas", "Los Chiriguanos", "Mariano Boedo", "Misión Tacaaglé", "Mojón de Fierro", "Palma Sola", "Palo Santo", "Pirané", "Portón Negro", "Posta Cambio Zalazar", "Pozo del Mortero", "Pozo del Tigre", "Pozo de Maza", "Puerto Pilcomayo", "Riacho He-He", "Riacho Negro", "San Francisco de Laishi", "San Hilario", "San Martín I", "San Martín II", "Siete Palmas", "Subteniente Perín", "Tatané", "Tres Lagunas", "Vaca Perdida", "Villa del Carmen", "Villa Escolar", "Villa General Güemes", "Villa General Manuel Belgrano", "Villa Kilómetro 213 (Villa Dos Trece)", " "};
+        String formosa[] = new String[]{"SELECCIONAR","Banco Payaguá", "Bartolomé de las Casas", "Buena Vista", "Clorinda", "Colonia Campo Villafañe (Mayor Vicente Villafañe)", "Colonia Pastoril", "Colonia Sarmiento", "Comandante Fontana", "El Colorado", "El Espinillo", "El Potrillo", "El Quebracho", "El Recreo", "Estanislao del Campo", "Formosa", "Fortín Cabo 1º Lugones", "Fortín Sargento 1º Leyes", "Fortín Soledad", "General Lucio Victorio Mansilla", "General Mosconi", "Gran Guardia", "Guadalcazar", "Herradura", "Ibarreta", "Ingeniero Guillermo N. Juárez", "Juan G. Bazán", "Laguna Blanca", "Laguna Gallo", "Laguna Naick-Neck", "Laguna Yema", "Lamadrid", "La Rinconada", "Las Lomitas", "Los Chiriguanos", "Mariano Boedo", "Misión Tacaaglé", "Mojón de Fierro", "Palma Sola", "Palo Santo", "Pirané", "Portón Negro", "Posta Cambio Zalazar", "Pozo del Mortero", "Pozo del Tigre", "Pozo de Maza", "Puerto Pilcomayo", "Riacho He-He", "Riacho Negro", "San Francisco de Laishi", "San Hilario", "San Martín I", "San Martín II", "Siete Palmas", "Subteniente Perín", "Tatané", "Tres Lagunas", "Vaca Perdida", "Villa del Carmen", "Villa Escolar", "Villa General Güemes", "Villa General Manuel Belgrano", "Villa Kilómetro 213 (Villa Dos Trece)", " "};
 
-        String jujuy[] = new String[]{"Abdón Castro Tolay", "Abralaite", "Abra Pampa", "Agua de Castilla", "Aguas Calientes", "Aparzo", "Arrayanal", "Arroyo Colorado", "Bananal", "Bárcena", "Barrio El Milagro (La Ovejería)", "Barrio La Unión", "Barrios", "Bermejito", "Caimancito", "Calilegua", "Cangrejillos", "Carahunco", "Casabindo", "Casa Colorada", "Casira", "Caspalá", "Catua", "Centro Forestal", "Chalicán", "Cianzo", "Ciénega de Paicone", "Cieneguillas", "Cochinoca", "Coctaca", "Colonia San José", "Coranzulí", "Coyaguaima", "Cusi Cusi", "Don Emilio", "El Acheral", "El Aguilar", "El Angosto", "El Carmen", "El Ceibal", "El Cóndor", "El Fuerte", "El Moreno", "El Piquete", "El Puesto", "El Quemado", "El Talar", "El Toro", "Fraile Pintado", "Guerrero", "Hipólito Yrigoyen (Est. Iturbe)", "Huacalera", "Huáncar", "Humahuaca", "Jama", "Juella", "La Almona", "La Ciénega", "La Esperanza", "Lagunillas de Farallón", "La Intermedia", "La Manga", "La Mendieta", "La Quiaca", "La Redonda", "León", "Libertad", "Libertador General San Martín (Est. Ledesma)", "Liviara", "Llulluchayoc", "Loma Blanca", "Los Alisos", "Los Lapachos (Est. Maquinista Veró)", "Loteo Navea (Los Alisos)", "Loteo San Vicente", "Lozano (Ap. Chañi)", "Maimará", "Manantiales", "Mina Providencia", "Miraflores", "Misarrumi", "Monterrico", "Nuestra Señora del Rosario", "Nuevo Pirquitas (Mina Pirquitas)", "Ocloyas", "Olacapato", "Olaroz Chico", "Oratorio", "Orosmayo", "Paicone", "Palca de Aparzo", "Palca de Varas", "Palma Sola", "Palos Blancos", "Palpalá (Est. Gral. Manuel N. Savio)", "Pampa Blanca", "Pampichuela", "Parapetí", "Pastos Chicos", "Paulina", "Perico", "Piedritas", "Puente Lavayén", "Puerta de Colorados", "Puesto del Marquéz", "Puesto Sey", "Puesto Viejo", "Pumahuasi", "Purmamarca", "Quebraleña", "Quera", "Rinconada", "Rinconadillas", "Rodeíto", "Rodero", "Rosario de Río Grande (Barro Negro)", "San Antonio", "San Antonio", "San Francisco", "San Francisco de Alfarcito", "San Isidro", "San Juancito", "San Juan de Oros", "San Juan de Quillaqués", "San Lucas", "San Pedro (Est. San Pedro de Jujuy)", "San Salvador de Jujuy (Est. Jujuy)", "Santa Ana", "Santa Ana de la Puna", "Santa Catalina", "Santa Clara", "Santuario de Tres Pozos", "Sauzal", "Susques", "Tambillos", "Tesorero", "Tilcara", "Tres Cruces", "Tumbaya", "Tusaquillas", "Uquía (Est. Senador Pérez)", "Valle Colorado", "Valle Grande", "Vinalito", "Volcán", "Yala", "Yavi", "Yavi Chico", "Yoscaba", "Yuto", " "};
+        String jujuy[] = new String[]{"SELECCIONAR","Abdón Castro Tolay", "Abralaite", "Abra Pampa", "Agua de Castilla", "Aguas Calientes", "Aparzo", "Arrayanal", "Arroyo Colorado", "Bananal", "Bárcena", "Barrio El Milagro (La Ovejería)", "Barrio La Unión", "Barrios", "Bermejito", "Caimancito", "Calilegua", "Cangrejillos", "Carahunco", "Casabindo", "Casa Colorada", "Casira", "Caspalá", "Catua", "Centro Forestal", "Chalicán", "Cianzo", "Ciénega de Paicone", "Cieneguillas", "Cochinoca", "Coctaca", "Colonia San José", "Coranzulí", "Coyaguaima", "Cusi Cusi", "Don Emilio", "El Acheral", "El Aguilar", "El Angosto", "El Carmen", "El Ceibal", "El Cóndor", "El Fuerte", "El Moreno", "El Piquete", "El Puesto", "El Quemado", "El Talar", "El Toro", "Fraile Pintado", "Guerrero", "Hipólito Yrigoyen (Est. Iturbe)", "Huacalera", "Huáncar", "Humahuaca", "Jama", "Juella", "La Almona", "La Ciénega", "La Esperanza", "Lagunillas de Farallón", "La Intermedia", "La Manga", "La Mendieta", "La Quiaca", "La Redonda", "León", "Libertad", "Libertador General San Martín (Est. Ledesma)", "Liviara", "Llulluchayoc", "Loma Blanca", "Los Alisos", "Los Lapachos (Est. Maquinista Veró)", "Loteo Navea (Los Alisos)", "Loteo San Vicente", "Lozano (Ap. Chañi)", "Maimará", "Manantiales", "Mina Providencia", "Miraflores", "Misarrumi", "Monterrico", "Nuestra Señora del Rosario", "Nuevo Pirquitas (Mina Pirquitas)", "Ocloyas", "Olacapato", "Olaroz Chico", "Oratorio", "Orosmayo", "Paicone", "Palca de Aparzo", "Palca de Varas", "Palma Sola", "Palos Blancos", "Palpalá (Est. Gral. Manuel N. Savio)", "Pampa Blanca", "Pampichuela", "Parapetí", "Pastos Chicos", "Paulina", "Perico", "Piedritas", "Puente Lavayén", "Puerta de Colorados", "Puesto del Marquéz", "Puesto Sey", "Puesto Viejo", "Pumahuasi", "Purmamarca", "Quebraleña", "Quera", "Rinconada", "Rinconadillas", "Rodeíto", "Rodero", "Rosario de Río Grande (Barro Negro)", "San Antonio", "San Antonio", "San Francisco", "San Francisco de Alfarcito", "San Isidro", "San Juancito", "San Juan de Oros", "San Juan de Quillaqués", "San Lucas", "San Pedro (Est. San Pedro de Jujuy)", "San Salvador de Jujuy (Est. Jujuy)", "Santa Ana", "Santa Ana de la Puna", "Santa Catalina", "Santa Clara", "Santuario de Tres Pozos", "Sauzal", "Susques", "Tambillos", "Tesorero", "Tilcara", "Tres Cruces", "Tumbaya", "Tusaquillas", "Uquía (Est. Senador Pérez)", "Valle Colorado", "Valle Grande", "Vinalito", "Volcán", "Yala", "Yavi", "Yavi Chico", "Yoscaba", "Yuto", " "};
 
-        String lapampa[] = new String[]{"25 de Mayo (Villa Veinticinco de Mayo)", "Abramo", "Adolfo Van Praet", "Agustoni", "Algarrobo del Águila", "Alpachiri", "Alta Italia", "Anguil", "Anzoátegui", "Arata", "Ataliva Roca", "Bernardo Larroudé", "Bernasconi", "Cachirulo", "Caleufú", "Carro Quemado", "Casa de Piedra", "Catriló", "Ceballos", "Chacharramendi", "Colonia Barón", "Colonia San José", "Colonia Santa María", "Conhelo", "Coronel Hilario Lagos (Est. Aguas Buenas)", "Cuchillo-Có", "Damián Maisonave (Est. Simson)", "Doblas", "Dorila", "Eduardo Castex", "Embajador Martini", "Falucho", "General Acha", "General Manuel J. Campos", "General Pico", "General San Martín (Est. Villa Alba)", "Gobernador Duval", "Guatraché", "Hucal", "Ingeniero Foster", "Ingeniero Luiggi", "Intendente Alvear", "Jacinto Aráuz", "La Adela", "La Gloria", "La Humada", "La Maruja", "La Reforma", "Limay Mahuida", "Lonquimay", "Loventué", "Luan Toro", "Macachín", "Mauricio Mayer", "Metileo", "Miguel Cané", "Miguel Riglos", "Monte Nievas", "Naicó", "Ojeda", "Parera", "Perú", "Pichi Huinca", "Puelches", "Puelén", "Quehué", "Quemú Quemú", "Quetrequén", "Rancul", "Realicó", "Relmo", "Rolón", "Rucanelo", "Santa Isabel", "Santa Rosa", "Santa Teresa", "Sarah", "Speluzzi", "Telén", "Toay", "Tomás Manuel de Anchorena", "Trebolares", "Trenel", "Unanué", "Uriburu", "Vértiz", "Victorica", "Villa Mirasol", "Winifreda", " "};
+        String lapampa[] = new String[]{"SELECCIONAR","25 de Mayo (Villa Veinticinco de Mayo)", "Abramo", "Adolfo Van Praet", "Agustoni", "Algarrobo del Águila", "Alpachiri", "Alta Italia", "Anguil", "Anzoátegui", "Arata", "Ataliva Roca", "Bernardo Larroudé", "Bernasconi", "Cachirulo", "Caleufú", "Carro Quemado", "Casa de Piedra", "Catriló", "Ceballos", "Chacharramendi", "Colonia Barón", "Colonia San José", "Colonia Santa María", "Conhelo", "Coronel Hilario Lagos (Est. Aguas Buenas)", "Cuchillo-Có", "Damián Maisonave (Est. Simson)", "Doblas", "Dorila", "Eduardo Castex", "Embajador Martini", "Falucho", "General Acha", "General Manuel J. Campos", "General Pico", "General San Martín (Est. Villa Alba)", "Gobernador Duval", "Guatraché", "Hucal", "Ingeniero Foster", "Ingeniero Luiggi", "Intendente Alvear", "Jacinto Aráuz", "La Adela", "La Gloria", "La Humada", "La Maruja", "La Reforma", "Limay Mahuida", "Lonquimay", "Loventué", "Luan Toro", "Macachín", "Mauricio Mayer", "Metileo", "Miguel Cané", "Miguel Riglos", "Monte Nievas", "Naicó", "Ojeda", "Parera", "Perú", "Pichi Huinca", "Puelches", "Puelén", "Quehué", "Quemú Quemú", "Quetrequén", "Rancul", "Realicó", "Relmo", "Rolón", "Rucanelo", "Santa Isabel", "Santa Rosa", "Santa Teresa", "Sarah", "Speluzzi", "Telén", "Toay", "Tomás Manuel de Anchorena", "Trebolares", "Trenel", "Unanué", "Uriburu", "Vértiz", "Victorica", "Villa Mirasol", "Winifreda", " "};
 
-        String larioja[] = new String[]{"Aicuña", "Aimogasta", "Alto Carrizal", "Amaná", "Ambil", "Aminga", "Angulos", "Anillaco", "Anjullón", "Antinaco", "Arauco", "Bajo Carrizal", "Bañado de los Pantanos", "Campanas", "Castro Barros", "Chamical", "Chañar", "Chañarmuyo", "Chepes", "Chilecito", "Chuquis", "Colonia Anguinán", "Colonia Catinzaco", "Colonia Malligasta", "Colonia Ortiz de Ocampo", "Colonia Vichigasta", "Desiderio Tello", "Estación Mazán", "Famatina", "Guanchín", "Guandacol", "Jagüé", "La Cuadra", "La Rioja", "Loma Blanca", "Los Molinos", "Los Palacios", "Malanzán", "Malligasta", "Milagro", "Miranda", "Nácate", "Nonogasta", "Olpas", "Olta", "Pagancillo", "Patquía", "Pinchas", "Pituil", "Plaza Vieja", "Polco", "Portezuelo", "Punta de los Llanos", "Salicas (- San Blas)", "San Antonio", "San Nicolás", "Sañogasta", "San Pedro", "Santa Cruz", "Santa Florentina", "Santa Rita de Catuna", "Santa Vera Cruz", "Santo Domingo", "Tama", "Termas Santa Teresita", "Tilimuqui", "Ulapes", "Vichigasta", "Villa Castelli", "Villa Mazán", "Villa Sanagasta", "Villa San José de Vinchina", "Villa Unión"};
+        String larioja[] = new String[]{"SELECCIONAR","Aicuña", "Aimogasta", "Alto Carrizal", "Amaná", "Ambil", "Aminga", "Angulos", "Anillaco", "Anjullón", "Antinaco", "Arauco", "Bajo Carrizal", "Bañado de los Pantanos", "Campanas", "Castro Barros", "Chamical", "Chañar", "Chañarmuyo", "Chepes", "Chilecito", "Chuquis", "Colonia Anguinán", "Colonia Catinzaco", "Colonia Malligasta", "Colonia Ortiz de Ocampo", "Colonia Vichigasta", "Desiderio Tello", "Estación Mazán", "Famatina", "Guanchín", "Guandacol", "Jagüé", "La Cuadra", "La Rioja", "Loma Blanca", "Los Molinos", "Los Palacios", "Malanzán", "Malligasta", "Milagro", "Miranda", "Nácate", "Nonogasta", "Olpas", "Olta", "Pagancillo", "Patquía", "Pinchas", "Pituil", "Plaza Vieja", "Polco", "Portezuelo", "Punta de los Llanos", "Salicas (- San Blas)", "San Antonio", "San Nicolás", "Sañogasta", "San Pedro", "Santa Cruz", "Santa Florentina", "Santa Rita de Catuna", "Santa Vera Cruz", "Santo Domingo", "Tama", "Termas Santa Teresita", "Tilimuqui", "Ulapes", "Vichigasta", "Villa Castelli", "Villa Mazán", "Villa Sanagasta", "Villa San José de Vinchina", "Villa Unión"};
 
-        String mendoza[] = new String[]{"25 de Mayo (Villa Veinticinco de Mayo)", "3 de Mayo", "Agrelo", "Agua Escondida", "Alto Verde", "Andrade", "Barrancas", "Barrio 12 de Octubre", "Barrio Alto del Olvido", "Barrio Belgrano Norte", "Barrio Campos El Toledano", "Barrio Carrasco", "Barrio Chivilcoy", "Barrio Cooperativa Los Campamentos", "Barrio El Cepillo", "Barrio El Nevado", "Barrio Emanuel", "Barrio Empleados de Comercio", "Barrio Intendencia", "Barrio Jesús de Nazaret", "Barrio Jocolí II", "Barrio la Estación", "Barrio Lagunas de Bartoluzzi", "Barrio La Palmera", "Barrio La Pega", "Barrio Los Charabones", "Barrio Los Jarilleros", "Barrio Los Olivos", "Barrio María Auxiliadora", "Barrio Molina Cabrera", "Barrio Nuestra Señora de Fátima", "Barrio Perdriel IV", "Barrio Rivadavia", "Barrio San Cayetano", "Barrio Virgen del Rosario", "Blanco Encalada", "Bowen", "Cacheuta", "Campo Los Andes", "Capitán Montoya", "Carmensa", "Chapanay", "Chilecito", "Chivilcoy", "Colonia Las Rosas", "Colonia Segovia", "Cordón del Plata", "Costa de Araujo", "Costa Flores", "Cruz de Piedra", "Cuadro Benegas", "Desaguadero", "El Carrizal", "El Espino", "El Manzano", "El Mirador", "El Nihuil", "El Paramillo", "El Pedregal", "El Peral", "El Ramblón", "El Salto", "El Sosneado", "El Tropezón", "El Vergel", "El Zampal", "Eugenio Bustos", "Fray Luis Beltrán", "General Alvear", "Godoy Cruz", "Goudge", "Guaymallén (Villa Nueva)", "Ingeniero Giagnoni", "Ingeniero Gustavo André", "Jaime Prats", "Jocolí", "Jocolí", "Jocolí Viejo", "Junín", "La Arboleda", "La Central", "La Colonia", "La Consulta", "La Dormida", "La Esperanza", "La Florida", "La Libertad", "La Llave Nueva", "La Paz", "La Primavera", "Las Catitas", "Las Compuertas", "Las Cuevas", "Las Heras", "Las Leñas", "Las Malvinas", "Las Vegas", "Las Violetas", "Los Árboles", "Los Barriales", "Los Campamentos", "Los Compartos", "Los Corralitos", "Los Penitentes", "Los Reyunos", "Los Sauces", "Luján de Cuyo", "Maipú", "Malargüe", "Medrano", "Medrano", "Mendoza", "Montecaseros", "Monte Comán", "Mundo Nuevo", "Nueva California (Est. Moluches)", "Pareditas", "Perdriel", "Phillips", "Pobre Diablo", "Polvaredas", "Potrerillos", "Puente de Hierro", "Puente del Inca", "Punta del Agua", "Punta de Vacas", "Rama Caída", "Real del Padre", "Reducción de Abajo", "Rivadavia", "Rodeo del Medio", "Rodríguez Peña", "Russell", "Salto de las Rosas", "San Carlos", "San José", "San Martín", "San Rafael", "San Roque", "Santa María de Oro", "Santa Rosa", "Tres Porteñas", "Tunuyán", "Tupungato", "Ugarteche", "Uspallata", "Villa Antigua", "Villa Atuel", "Villa Atuel Norte", "Villa Teresa", "Villa Tulumaya", "Vista Flores"};
+        String mendoza[] = new String[]{"SELECCIONAR","25 de Mayo (Villa Veinticinco de Mayo)", "3 de Mayo", "Agrelo", "Agua Escondida", "Alto Verde", "Andrade", "Barrancas", "Barrio 12 de Octubre", "Barrio Alto del Olvido", "Barrio Belgrano Norte", "Barrio Campos El Toledano", "Barrio Carrasco", "Barrio Chivilcoy", "Barrio Cooperativa Los Campamentos", "Barrio El Cepillo", "Barrio El Nevado", "Barrio Emanuel", "Barrio Empleados de Comercio", "Barrio Intendencia", "Barrio Jesús de Nazaret", "Barrio Jocolí II", "Barrio la Estación", "Barrio Lagunas de Bartoluzzi", "Barrio La Palmera", "Barrio La Pega", "Barrio Los Charabones", "Barrio Los Jarilleros", "Barrio Los Olivos", "Barrio María Auxiliadora", "Barrio Molina Cabrera", "Barrio Nuestra Señora de Fátima", "Barrio Perdriel IV", "Barrio Rivadavia", "Barrio San Cayetano", "Barrio Virgen del Rosario", "Blanco Encalada", "Bowen", "Cacheuta", "Campo Los Andes", "Capitán Montoya", "Carmensa", "Chapanay", "Chilecito", "Chivilcoy", "Colonia Las Rosas", "Colonia Segovia", "Cordón del Plata", "Costa de Araujo", "Costa Flores", "Cruz de Piedra", "Cuadro Benegas", "Desaguadero", "El Carrizal", "El Espino", "El Manzano", "El Mirador", "El Nihuil", "El Paramillo", "El Pedregal", "El Peral", "El Ramblón", "El Salto", "El Sosneado", "El Tropezón", "El Vergel", "El Zampal", "Eugenio Bustos", "Fray Luis Beltrán", "General Alvear", "Godoy Cruz", "Goudge", "Guaymallén (Villa Nueva)", "Ingeniero Giagnoni", "Ingeniero Gustavo André", "Jaime Prats", "Jocolí", "Jocolí", "Jocolí Viejo", "Junín", "La Arboleda", "La Central", "La Colonia", "La Consulta", "La Dormida", "La Esperanza", "La Florida", "La Libertad", "La Llave Nueva", "La Paz", "La Primavera", "Las Catitas", "Las Compuertas", "Las Cuevas", "Las Heras", "Las Leñas", "Las Malvinas", "Las Vegas", "Las Violetas", "Los Árboles", "Los Barriales", "Los Campamentos", "Los Compartos", "Los Corralitos", "Los Penitentes", "Los Reyunos", "Los Sauces", "Luján de Cuyo", "Maipú", "Malargüe", "Medrano", "Medrano", "Mendoza", "Montecaseros", "Monte Comán", "Mundo Nuevo", "Nueva California (Est. Moluches)", "Pareditas", "Perdriel", "Phillips", "Pobre Diablo", "Polvaredas", "Potrerillos", "Puente de Hierro", "Puente del Inca", "Punta del Agua", "Punta de Vacas", "Rama Caída", "Real del Padre", "Reducción de Abajo", "Rivadavia", "Rodeo del Medio", "Rodríguez Peña", "Russell", "Salto de las Rosas", "San Carlos", "San José", "San Martín", "San Rafael", "San Roque", "Santa María de Oro", "Santa Rosa", "Tres Porteñas", "Tunuyán", "Tupungato", "Ugarteche", "Uspallata", "Villa Antigua", "Villa Atuel", "Villa Atuel Norte", "Villa Teresa", "Villa Tulumaya", "Vista Flores"};
 
-        String misiones[] = new String[]{"1º de Mayo (Primero de Mayo)", "25 de Mayo (Villa Veinticinco de Mayo)", "9 de Julio Kilómetro 20 (Nueve de Julio Kilómetro 20)", "9 de Julio Kilómetro 28 (Nueve de Julio Kilómetro 28)", "Alba Posse", "Alicia Alta", "Alicia Baja", "Almafuerte", "Apóstoles", "Aristóbulo del Valle", "Arroyo del Medio", "Azara", "Barra Concepción", "Barrio Cuatro Bocas", "Barrio del Lago", "Barrio Escuela 461", "Barrio Escuela 633", "Barrio Guatambú", "Barrio Itá", "Barrio Nuevo Garupa", "Barrio Rural", "Barrio Tungoil", "Bernardo de Irigoyen", "Bonpland", "Caá - Yarí", "Caburei", "Campo Grande", "Campo Ramón", "Campo Viera", "Candelaria", "Capioví", "Caraguatay", "Cerro Azul", "Cerro Corá", "Colonia Alberdi", "Colonia Aurora", "Colonia Polana", "Colonia Victoria", "Colonia Wanda", "Comandante Andresito (Almirante Brown)", "Concepción de la Sierra", "Copioviciño", "Corpus", "Cruce Caballero", "Domingo Savio", "Dos Arroyos", "Dos de Mayo", "Dos de Mayo Núcleo III (Barrio Bernardino Rivadavia)", "Dos Hermanas", "El Alcázar", "Eldorado", "El Salto", "El Soberbio", "Estación Apóstoles", "Florentino Ameghino", "Fracrán", "Garuhapé", "Garupá", "General Alvear", "General Urquiza", "Gobernador López", "Gobernador Roca", "Guaraní", "Helvecia (Barrio Eva Perón)", "Hipólito Yrigoyen", "Integración", "Itacaruaré", "Jardín América", "Kilómetro 17", "La Corita", "Laharrague", "Leandro N. Alem", "Loreto", "Los Helechos", "María Magdalena (Colonia Delicia)", "Mártires", "Mbopicuá", "Mojón Grande", "Montecarlo", "Nemesio Parma", "Nueva Delicia", "Oasis", "Oberá", "Olegario V. Andrade", "Panambí", "Panambí Kilómetro 15", "Panambí Kilómetro 8", "Paraíso", "Piñalito Norte", "Piñalito Sur", "Pindapoy", "Piray Kilómetro 18", "Posadas", "Posadas (Expansión)", "Profundidad", "Pueblo Illia", "Pueblo Nuevo", "Puerto Andresito", "Puerto Deseado", "Puerto Esperanza", "Puerto Iguazú", "Puerto Leoni", "Puerto Libertad", "Puerto Mado", "Puerto Pinares", "Puerto Piray", "Puerto Rico", "Puerto Santa Ana", "Rincón de Azara (Puerto Azara)", "Roca Chica", "Ruiz de Montoya", "Salto Encantado", "San Alberto", "San Antonio", "San Francisco de Asís", "San Gotardo", "San Ignacio", "San Javier", "San José", "San Martín", "San Miguel (Garuhapé-Mi)", "San Pedro", "Santa Ana", "Santa María", "Santa Rita", "Santiago de Liniers", "Santo Pipó", "San Vicente", "Tarumá", "Tobuna", "Tres Capones", "Valle Hermoso", "Villa Akerman", "Villa Bonita", "Villa Cooperativa", "Villa Libertad (Municipio Caá Yarí)", "Villa Parodi", "Villa Roulet", "Villa Urrutia"};
+        String misiones[] = new String[]{"SELECCIONAR","1º de Mayo (Primero de Mayo)", "25 de Mayo (Villa Veinticinco de Mayo)", "9 de Julio Kilómetro 20 (Nueve de Julio Kilómetro 20)", "9 de Julio Kilómetro 28 (Nueve de Julio Kilómetro 28)", "Alba Posse", "Alicia Alta", "Alicia Baja", "Almafuerte", "Apóstoles", "Aristóbulo del Valle", "Arroyo del Medio", "Azara", "Barra Concepción", "Barrio Cuatro Bocas", "Barrio del Lago", "Barrio Escuela 461", "Barrio Escuela 633", "Barrio Guatambú", "Barrio Itá", "Barrio Nuevo Garupa", "Barrio Rural", "Barrio Tungoil", "Bernardo de Irigoyen", "Bonpland", "Caá - Yarí", "Caburei", "Campo Grande", "Campo Ramón", "Campo Viera", "Candelaria", "Capioví", "Caraguatay", "Cerro Azul", "Cerro Corá", "Colonia Alberdi", "Colonia Aurora", "Colonia Polana", "Colonia Victoria", "Colonia Wanda", "Comandante Andresito (Almirante Brown)", "Concepción de la Sierra", "Copioviciño", "Corpus", "Cruce Caballero", "Domingo Savio", "Dos Arroyos", "Dos de Mayo", "Dos de Mayo Núcleo III (Barrio Bernardino Rivadavia)", "Dos Hermanas", "El Alcázar", "Eldorado", "El Salto", "El Soberbio", "Estación Apóstoles", "Florentino Ameghino", "Fracrán", "Garuhapé", "Garupá", "General Alvear", "General Urquiza", "Gobernador López", "Gobernador Roca", "Guaraní", "Helvecia (Barrio Eva Perón)", "Hipólito Yrigoyen", "Integración", "Itacaruaré", "Jardín América", "Kilómetro 17", "La Corita", "Laharrague", "Leandro N. Alem", "Loreto", "Los Helechos", "María Magdalena (Colonia Delicia)", "Mártires", "Mbopicuá", "Mojón Grande", "Montecarlo", "Nemesio Parma", "Nueva Delicia", "Oasis", "Oberá", "Olegario V. Andrade", "Panambí", "Panambí Kilómetro 15", "Panambí Kilómetro 8", "Paraíso", "Piñalito Norte", "Piñalito Sur", "Pindapoy", "Piray Kilómetro 18", "Posadas", "Posadas (Expansión)", "Profundidad", "Pueblo Illia", "Pueblo Nuevo", "Puerto Andresito", "Puerto Deseado", "Puerto Esperanza", "Puerto Iguazú", "Puerto Leoni", "Puerto Libertad", "Puerto Mado", "Puerto Pinares", "Puerto Piray", "Puerto Rico", "Puerto Santa Ana", "Rincón de Azara (Puerto Azara)", "Roca Chica", "Ruiz de Montoya", "Salto Encantado", "San Alberto", "San Antonio", "San Francisco de Asís", "San Gotardo", "San Ignacio", "San Javier", "San José", "San Martín", "San Miguel (Garuhapé-Mi)", "San Pedro", "Santa Ana", "Santa María", "Santa Rita", "Santiago de Liniers", "Santo Pipó", "San Vicente", "Tarumá", "Tobuna", "Tres Capones", "Valle Hermoso", "Villa Akerman", "Villa Bonita", "Villa Cooperativa", "Villa Libertad (Municipio Caá Yarí)", "Villa Parodi", "Villa Roulet", "Villa Urrutia"};
 
-        String neuquen[] = new String[]{"11 de Octubre", "Aguada San Roque", "Aluminé", "Andacollo", "Añelo", "Arroyito", "Bajada del Agrio", "Barrancas", "Barrio Ruca Luhé", "Buta Ranquil", "Caviahue", "Centenario", "Chorriaca", "Chos Malal", "Copahue", "Cutral Có", "El Chocón (Barrio Llequen)", "El Cholar", "El Huecú", "El Sauce", "Huinganco", "Junín de los Andes", "La Buitrera", "Las Coloradas", "Las Lajas", "Las Ovejas", "Loncopué", "Los Catutos", "Los Miches", "Manzano Amargo", "Mariano Moreno", "Mari Menuco", "Moquehue", "Neuquén", "Octavio Pico", "Paso Aguerre", "Picún Leufú", "Piedra del Águila", "Plaza Huincul", "Plottier", "Quili Malal", "Ramón M. Castro", "Rincón de los Sauces", "San Martín de los Andes", "San Patricio del Chañar", "Santo Tomás", "Senillosa", "Taquimilán", "Tricao Malal", "Varvarco", "Villa del Curi Leuvú", "Villa El Chocón", "Villa La Angostura", "Villa Lago Meliquina", "Villa Nahueve", "Villa Pehuenia", "Villa Traful", "Vista Alegre Norte", "Vista Alegre Sur", "Zapala"};
+        String neuquen[] = new String[]{"SELECCIONAR","11 de Octubre", "Aguada San Roque", "Aluminé", "Andacollo", "Añelo", "Arroyito", "Bajada del Agrio", "Barrancas", "Barrio Ruca Luhé", "Buta Ranquil", "Caviahue", "Centenario", "Chorriaca", "Chos Malal", "Copahue", "Cutral Có", "El Chocón (Barrio Llequen)", "El Cholar", "El Huecú", "El Sauce", "Huinganco", "Junín de los Andes", "La Buitrera", "Las Coloradas", "Las Lajas", "Las Ovejas", "Loncopué", "Los Catutos", "Los Miches", "Manzano Amargo", "Mariano Moreno", "Mari Menuco", "Moquehue", "Neuquén", "Octavio Pico", "Paso Aguerre", "Picún Leufú", "Piedra del Águila", "Plaza Huincul", "Plottier", "Quili Malal", "Ramón M. Castro", "Rincón de los Sauces", "San Martín de los Andes", "San Patricio del Chañar", "Santo Tomás", "Senillosa", "Taquimilán", "Tricao Malal", "Varvarco", "Villa del Curi Leuvú", "Villa El Chocón", "Villa La Angostura", "Villa Lago Meliquina", "Villa Nahueve", "Villa Pehuenia", "Villa Traful", "Vista Alegre Norte", "Vista Alegre Sur", "Zapala"};
 
-        String rionegro[] = new String[]{"Aguada Cecilio", "Aguada de Guerra", "Aguada Guzmán", "Allen", "Arelauquen", "Arroyo Los Berros", "Arroyo Ventana", "Bahía Creek", "Barda del Medio", "Barrio Blanco", "Barrio Calle Ciega Nº 10", "Barrio Calle Ciega Nº 6", "Barrio Canale", "Barrio Chacra Monte", "Barrio Colonia Conesa", "Barrio Costa Este", "Barrio Costa Linda", "Barrio Costa Oeste", "Barrio Destacamento", "Barrio El Labrador", "Barrio El Maruchito", "Barrio El Petróleo", "Barrio El Pilar", "Barrio Emergente", "Barrio Esperanza", "Barrio Fátima", "Barrio Frontera", "Barrio Guerrico", "Barrio Isla 10", "Barrio La Barda", "Barrio La Costa (Municipio General Roca)", "Barrio La Costa (Municipio Ingeniero Huergo)", "Barrio La Defensa", "Barrio la Herradura", "Barrio La Ribera - Barrio Apycar", "Barrio Luisillo", "Barrio Mar del Plata", "Barrio María Elvira", "Barrio Moño Azul", "Barrio Mosconi", "Barrio Norte (Municipio de Cinco Saltos)", "Barrio Pinar", "Barrio Planta Compresora de Gas", "Barrio Porvenir", "Barrio Puente 83", "Barrio Santa Lucía", "Barrio Santa Rita", "Barrio Unión", "Barrio Unión", "Cañadón Chileno", "Catriel", "Cerro Policía", "Cervantes", "Chelforó", "Chichinales", "Chimpay", "Choele Choel", "Cinco Saltos", "Cipolletti", "Clemente Onelli", "Colan Conhue", "Colonia Juliá y Echarren", "Colonia Suiza", "Comallo", "Comicó", "Cona Niyeu", "Contralmirante Cordero", "Coronel Belisle", "Darwin", "Dina Huapi", "El Bolsón", "El Caín", "El Cóndor", "El Cuy", "El Empalme", "El Foyel", "El Juncal", "Ferri", "General Conesa", "General Enrique Godoy", "General Fernández Oro", "General Roca", "Guardia Mitre", "Ingeniero Jacobacci", "Ingeniero Luis A. Huergo", "Ingeniero Otto Krause", "Juventud Unida", "Laguna Blanca", "La Lobería", "Lamarque", "Las Bayas", "Las Grutas", "Las Perlas", "Los Menucos", "Loteo Costa de Río", "Luis Beltrán", "Mainqué", "Mallin Ahogado", "Mamuel Choique", "Maquinchao", "Mencué", "Mina Santa Teresita", "Ministro Ramos Mexía", "Nahuel Niyeu", "Naupa Huen", "Ñirihuau", "Ñorquincó", "Ojos de Agua", "Paraje Arroyón (Bajo San Cayetano)", "Paso Córdova (Paso Córdoba)", "Paso Córdova (Paso Córdoba)", "Península Ruca Co", "Pichi Mahuida", "Pilcaniyeu", "Pilquiniyeu", "Pilquiniyeu del Limay", "Playas Doradas", "Pomona", "Pozo Salado", "Prahuaniyeu", "Puente Cero (Barrio Las Angustias)", "Puerto San Antonio Este", "Punta Colorada", "Río Chico (Est. Cerro Mesa)", "Río Colorado", "Río Villegas", "Saco Viejo", "Salto Andersen", "San Antonio Oeste", "San Carlos de Bariloche", "San Javier", "Sargento Vidal", "Sierra Colorada", "Sierra Grande", "Sierra Pailemán", "Treneta", "Valcheta", "Valle Azul", "Viedma", "Villa Alberdi", "Villa Catedral", "Villa del Parque", "Villa Llanquín", "Villa Los Coihues", "Villa Manzano", "Villa Mascardi", "Villa Regina", "Villa San Isidro", "Yaminué"};
+        String rionegro[] = new String[]{"SELECCIONAR","Aguada Cecilio", "Aguada de Guerra", "Aguada Guzmán", "Allen", "Arelauquen", "Arroyo Los Berros", "Arroyo Ventana", "Bahía Creek", "Barda del Medio", "Barrio Blanco", "Barrio Calle Ciega Nº 10", "Barrio Calle Ciega Nº 6", "Barrio Canale", "Barrio Chacra Monte", "Barrio Colonia Conesa", "Barrio Costa Este", "Barrio Costa Linda", "Barrio Costa Oeste", "Barrio Destacamento", "Barrio El Labrador", "Barrio El Maruchito", "Barrio El Petróleo", "Barrio El Pilar", "Barrio Emergente", "Barrio Esperanza", "Barrio Fátima", "Barrio Frontera", "Barrio Guerrico", "Barrio Isla 10", "Barrio La Barda", "Barrio La Costa (Municipio General Roca)", "Barrio La Costa (Municipio Ingeniero Huergo)", "Barrio La Defensa", "Barrio la Herradura", "Barrio La Ribera - Barrio Apycar", "Barrio Luisillo", "Barrio Mar del Plata", "Barrio María Elvira", "Barrio Moño Azul", "Barrio Mosconi", "Barrio Norte (Municipio de Cinco Saltos)", "Barrio Pinar", "Barrio Planta Compresora de Gas", "Barrio Porvenir", "Barrio Puente 83", "Barrio Santa Lucía", "Barrio Santa Rita", "Barrio Unión", "Barrio Unión", "Cañadón Chileno", "Catriel", "Cerro Policía", "Cervantes", "Chelforó", "Chichinales", "Chimpay", "Choele Choel", "Cinco Saltos", "Cipolletti", "Clemente Onelli", "Colan Conhue", "Colonia Juliá y Echarren", "Colonia Suiza", "Comallo", "Comicó", "Cona Niyeu", "Contralmirante Cordero", "Coronel Belisle", "Darwin", "Dina Huapi", "El Bolsón", "El Caín", "El Cóndor", "El Cuy", "El Empalme", "El Foyel", "El Juncal", "Ferri", "General Conesa", "General Enrique Godoy", "General Fernández Oro", "General Roca", "Guardia Mitre", "Ingeniero Jacobacci", "Ingeniero Luis A. Huergo", "Ingeniero Otto Krause", "Juventud Unida", "Laguna Blanca", "La Lobería", "Lamarque", "Las Bayas", "Las Grutas", "Las Perlas", "Los Menucos", "Loteo Costa de Río", "Luis Beltrán", "Mainqué", "Mallin Ahogado", "Mamuel Choique", "Maquinchao", "Mencué", "Mina Santa Teresita", "Ministro Ramos Mexía", "Nahuel Niyeu", "Naupa Huen", "Ñirihuau", "Ñorquincó", "Ojos de Agua", "Paraje Arroyón (Bajo San Cayetano)", "Paso Córdova (Paso Córdoba)", "Paso Córdova (Paso Córdoba)", "Península Ruca Co", "Pichi Mahuida", "Pilcaniyeu", "Pilquiniyeu", "Pilquiniyeu del Limay", "Playas Doradas", "Pomona", "Pozo Salado", "Prahuaniyeu", "Puente Cero (Barrio Las Angustias)", "Puerto San Antonio Este", "Punta Colorada", "Río Chico (Est. Cerro Mesa)", "Río Colorado", "Río Villegas", "Saco Viejo", "Salto Andersen", "San Antonio Oeste", "San Carlos de Bariloche", "San Javier", "Sargento Vidal", "Sierra Colorada", "Sierra Grande", "Sierra Pailemán", "Treneta", "Valcheta", "Valle Azul", "Viedma", "Villa Alberdi", "Villa Catedral", "Villa del Parque", "Villa Llanquín", "Villa Los Coihues", "Villa Manzano", "Villa Mascardi", "Villa Regina", "Villa San Isidro", "Yaminué"};
 
-        String salta[] = new String[]{"Acoyte", "Aguaray", "Aguas Blancas", "Alto de la Sierra", "Ampascachi", "Angastaco", "Animaná", "Antilla", "Apolinario Saravia", "Atocha", "Barrio Finca la Maroma", "Barrio la Rotonda", "Barrio Santa Teresita", "Cabra Corral", "Cachi", "Cafayate", "Campamento Vespucio", "Campichuelo", "Campo Durán", "Campo La Cruz", "Campo Quijano", "Campo Santo", "Capiazuti", "Capitán Juan Pagé", "Carboncito", "Ceibalito", "Centro 25 de Junio", "Cerrillos", "Chicoana", "Cobos", "Cobres", "Colonia Santa Rosa", "Copo Quile", "Coronel Cornejo", "Coronel Juan Solá", "Coronel Moldes", "Coronel Mollinedo", "Coronel Olleros", "Dragones", "El Barrial", "El Bordo", "El Carril", "El Galpón", "El Jardín", "El Naranjo", "El Potrero (Apeadero Cochabamba)", "El Quebrachal", "El Tabacal", "El Tala", "El Tunal", "Embarcación", "Gaona", "General Ballivián", "General Güemes", "General Mosconi", "General Pizarro", "Guachipas", "Hickman", "Hipólito Yrigoyen", "Hito 1", "Iruya", "Isla de Cañas", "Joaquín V. González", "La Caldera", "La Candelaria", "La Ciénaga y Barrio San Rafael", "La Merced", "La Merced del Encón", "La Poma", "La Puerta", "Las Costas", "La Silleta", "Las Lajitas", "La Unión", "La Viña", "Los Blancos", "Los Toldos", "Luis Burela", "Lumbreras", "Macapillo", "Metán Viejo", "Misión Chaqueña", "Misión El Cruce (- El Milagro - El Jardín de San Martín)", "Misión Kilómetro 6", "Molinos", "Nazareno", "Nuestra Señora de Talavera", "Olacapato", "Pacará", "Padre Lozano", "Payogasta", "Pichanal", "Piquete Cabado", "Piquirenda", "Pluma de Pato", "Poscaya", "Profesor Salvador Mazza", "Pueblo Viejo", "Río del Valle", "Río Piedras", "Rivadavia", "Rosario de la Frontera", "Rosario de Lerma", "Salta", "San Agustín", "San Antonio de los Cobres", "San Carlos", "San Felipe", "San José de Metán", "San José de Orquera", "San Marcos", "San Ramón de la Nueva Orán", "Santa María", "Santa Rosa", "Santa Rosa de los Pastos Grandes", "Santa Victoria", "Santa Victoria Este", "Seclantás", "Talapampa", "Tartagal", "Tobantirenda", "Tolar Grande", "Tolloche", "Tolombóm", "Tranquitas", "Urundel", "Vaqueros", "Villa Los Álamos (- El Congreso - Las Tunas)", "Villa San Lorenzo", "Yacuy"};
+        String salta[] = new String[]{"SELECCIONAR","Acoyte", "Aguaray", "Aguas Blancas", "Alto de la Sierra", "Ampascachi", "Angastaco", "Animaná", "Antilla", "Apolinario Saravia", "Atocha", "Barrio Finca la Maroma", "Barrio la Rotonda", "Barrio Santa Teresita", "Cabra Corral", "Cachi", "Cafayate", "Campamento Vespucio", "Campichuelo", "Campo Durán", "Campo La Cruz", "Campo Quijano", "Campo Santo", "Capiazuti", "Capitán Juan Pagé", "Carboncito", "Ceibalito", "Centro 25 de Junio", "Cerrillos", "Chicoana", "Cobos", "Cobres", "Colonia Santa Rosa", "Copo Quile", "Coronel Cornejo", "Coronel Juan Solá", "Coronel Moldes", "Coronel Mollinedo", "Coronel Olleros", "Dragones", "El Barrial", "El Bordo", "El Carril", "El Galpón", "El Jardín", "El Naranjo", "El Potrero (Apeadero Cochabamba)", "El Quebrachal", "El Tabacal", "El Tala", "El Tunal", "Embarcación", "Gaona", "General Ballivián", "General Güemes", "General Mosconi", "General Pizarro", "Guachipas", "Hickman", "Hipólito Yrigoyen", "Hito 1", "Iruya", "Isla de Cañas", "Joaquín V. González", "La Caldera", "La Candelaria", "La Ciénaga y Barrio San Rafael", "La Merced", "La Merced del Encón", "La Poma", "La Puerta", "Las Costas", "La Silleta", "Las Lajitas", "La Unión", "La Viña", "Los Blancos", "Los Toldos", "Luis Burela", "Lumbreras", "Macapillo", "Metán Viejo", "Misión Chaqueña", "Misión El Cruce (- El Milagro - El Jardín de San Martín)", "Misión Kilómetro 6", "Molinos", "Nazareno", "Nuestra Señora de Talavera", "Olacapato", "Pacará", "Padre Lozano", "Payogasta", "Pichanal", "Piquete Cabado", "Piquirenda", "Pluma de Pato", "Poscaya", "Profesor Salvador Mazza", "Pueblo Viejo", "Río del Valle", "Río Piedras", "Rivadavia", "Rosario de la Frontera", "Rosario de Lerma", "Salta", "San Agustín", "San Antonio de los Cobres", "San Carlos", "San Felipe", "San José de Metán", "San José de Orquera", "San Marcos", "San Ramón de la Nueva Orán", "Santa María", "Santa Rosa", "Santa Rosa de los Pastos Grandes", "Santa Victoria", "Santa Victoria Este", "Seclantás", "Talapampa", "Tartagal", "Tobantirenda", "Tolar Grande", "Tolloche", "Tolombóm", "Tranquitas", "Urundel", "Vaqueros", "Villa Los Álamos (- El Congreso - Las Tunas)", "Villa San Lorenzo", "Yacuy"};
 
-        String sanjuan[] = new String[]{"9 de Julio (Nueve de Julio)", "Alto de Sierra", "Angualasto", "Astica", "Balde del Rosario", "Barreal (- Villa Pituil)", "Barrio Justo P. Castro IV", "Barrio Municipal", "Barrio Ruta 40", "Barrio Sadop (- Bella Vista)", "Bella Vista", "Bermejo", "Calingasta", "Cañada Honda", "Carpintería", "Caucete", "Chimbas", "Chucuma", "Cienaguita", "Colonia Fiorito", "Colonia Fiscal", "Divisadero", "Dos Acequias (Est. Los Angacos)", "El Encón", "El Médano", "El Rincón", "El Rincón", "Gran China", "Guanacache", "Huaco", "Iglesia", "Las Chacritas", "Las Flores", "Las Lagunas", "Las Piedritas", "Las Talas - Los Médanos", "Las Tapias", "Los Baldecitos", "Los Berros", "Marayes", "Mogna", "Niquivil", "Pampa Vieja", "Pedernal", "Pie de Palo", "Pismanta", "Punta del Médano", "Quinto Cuartel", "Rawson (Villa Krause)", "Rivadavia", "Rodeo", "San Isidro", "San Isidro (Est. Los Angacos)", "San José de Jáchal", "San Juan", "Santa Lucía", "Tamberías", "Tamberías", "Tudcum", "Tupelí", "Usno", "Vallecito", "Villa Aberastain (- La Rinconada)", "Villa Barboza (- Villa Nacusi)", "Villa Basilio Nievas", "Villa Bolaños (Médano de Oro)", "Villa Borjas (- La Chimbera)", "Villa Centenario", "Villa del Salvador", "Villa Dominguito (Est. Puntilla Blanca)", "Villa Don Bosco (Est. Angaco Sud)", "Villa El Salvador (- Villa Sefair)", "Villa El Tango", "Villa General San Martín (- Campo Afuera)", "Villa Ibáñez", "Villa Independencia", "Villa Malvinas Argentinas", "Villa Media Agua", "Villa Mercedes", "Villa San Agustín", "Villa San Martín", "Villa Santa Rosa"};
+        String sanjuan[] = new String[]{"SELECCIONAR","9 de Julio (Nueve de Julio)", "Alto de Sierra", "Angualasto", "Astica", "Balde del Rosario", "Barreal (- Villa Pituil)", "Barrio Justo P. Castro IV", "Barrio Municipal", "Barrio Ruta 40", "Barrio Sadop (- Bella Vista)", "Bella Vista", "Bermejo", "Calingasta", "Cañada Honda", "Carpintería", "Caucete", "Chimbas", "Chucuma", "Cienaguita", "Colonia Fiorito", "Colonia Fiscal", "Divisadero", "Dos Acequias (Est. Los Angacos)", "El Encón", "El Médano", "El Rincón", "El Rincón", "Gran China", "Guanacache", "Huaco", "Iglesia", "Las Chacritas", "Las Flores", "Las Lagunas", "Las Piedritas", "Las Talas - Los Médanos", "Las Tapias", "Los Baldecitos", "Los Berros", "Marayes", "Mogna", "Niquivil", "Pampa Vieja", "Pedernal", "Pie de Palo", "Pismanta", "Punta del Médano", "Quinto Cuartel", "Rawson (Villa Krause)", "Rivadavia", "Rodeo", "San Isidro", "San Isidro (Est. Los Angacos)", "San José de Jáchal", "San Juan", "Santa Lucía", "Tamberías", "Tamberías", "Tudcum", "Tupelí", "Usno", "Vallecito", "Villa Aberastain (- La Rinconada)", "Villa Barboza (- Villa Nacusi)", "Villa Basilio Nievas", "Villa Bolaños (Médano de Oro)", "Villa Borjas (- La Chimbera)", "Villa Centenario", "Villa del Salvador", "Villa Dominguito (Est. Puntilla Blanca)", "Villa Don Bosco (Est. Angaco Sud)", "Villa El Salvador (- Villa Sefair)", "Villa El Tango", "Villa General San Martín (- Campo Afuera)", "Villa Ibáñez", "Villa Independencia", "Villa Malvinas Argentinas", "Villa Media Agua", "Villa Mercedes", "Villa San Agustín", "Villa San Martín", "Villa Santa Rosa"};
 
-        String sanluis[] = new String[]{"Alto Pencoso", "Anchorena", "Arizona", "Bagual", "Balde", "Batavia", "Beazley", "Buena Esperanza", "Candelaria", "Carolina", "Carpintería", "Cazador", "Cerro de Oro", "Chosmes", "Concarán", "Cortaderas", "Desaguadero", "El Trapiche", "El Volcán", "Estancia Grande", "Fortín El Patria", "Fortuna", "Fraga", "Jarilla", "Juana Koslay", "Juan Jorba", "Juan Llerena", "Justo Daract", "La Bajada", "La Calera", "Lafinur", "La Florida", "La Maroma", "La Punilla", "La Punta", "Las Aguadas", "Las Chacras", "Las Lagunas", "La Toma", "Lavaisse", "La Vertiente", "Leandro N. Alem", "Los Cajones", "Los Molles", "Los Overos", "Luján", "Martín de Loyola", "Merlo", "Mosmota", "Nación Ranquel", "Nahuel Mapá", "Naschel", "Navia", "Nogolí", "Nueva Galia", "Papagayos", "Paso Grande", "Potrerillo", "Potrero de los Funes", "Quines", "Renca", "Riocito", "Río Grande", "Saladillo", "Salinas del Bebedero", "San Francisco del Monte de Oro", "San Jerónimo", "San José del Morro", "San Luis", "San Martín", "San Pablo", "Santa Rosa del Conlara", "Talita", "Tilisarao", "Unión", "Villa de la Quebrada", "Villa del Carmen", "Villa de Praga", "Villa General Roca", "Villa Larca", "Villa Mercedes", "Villa Reynolds", "Villa Salles", "Zanjitas"};
+        String sanluis[] = new String[]{"SELECCIONAR","Alto Pencoso", "Anchorena", "Arizona", "Bagual", "Balde", "Batavia", "Beazley", "Buena Esperanza", "Candelaria", "Carolina", "Carpintería", "Cazador", "Cerro de Oro", "Chosmes", "Concarán", "Cortaderas", "Desaguadero", "El Trapiche", "El Volcán", "Estancia Grande", "Fortín El Patria", "Fortuna", "Fraga", "Jarilla", "Juana Koslay", "Juan Jorba", "Juan Llerena", "Justo Daract", "La Bajada", "La Calera", "Lafinur", "La Florida", "La Maroma", "La Punilla", "La Punta", "Las Aguadas", "Las Chacras", "Las Lagunas", "La Toma", "Lavaisse", "La Vertiente", "Leandro N. Alem", "Los Cajones", "Los Molles", "Los Overos", "Luján", "Martín de Loyola", "Merlo", "Mosmota", "Nación Ranquel", "Nahuel Mapá", "Naschel", "Navia", "Nogolí", "Nueva Galia", "Papagayos", "Paso Grande", "Potrerillo", "Potrero de los Funes", "Quines", "Renca", "Riocito", "Río Grande", "Saladillo", "Salinas del Bebedero", "San Francisco del Monte de Oro", "San Jerónimo", "San José del Morro", "San Luis", "San Martín", "San Pablo", "Santa Rosa del Conlara", "Talita", "Tilisarao", "Unión", "Villa de la Quebrada", "Villa del Carmen", "Villa de Praga", "Villa General Roca", "Villa Larca", "Villa Mercedes", "Villa Reynolds", "Villa Salles", "Zanjitas"};
 
-        String santacruz[] = new String[]{"28 de Noviembre (Veintiocho de Noviembre)", "Bajo Caracoles", "Caleta Olivia", "Cañadón Seco", "Comandante Luis Piedrabuena", "El Calafate", "El Chaltén", "El Turbio (Est. Gobernador Mayer)", "Fitz Roy", "Gobernador Gregores", "Hipólito Yrigoyen", "Jaramillo", "Julia Dufour", "Koluel Kaike", "Las Heras", "Los Antiguos", "Mina 3", "Perito Moreno", "Pico Truncado", "Puerto Deseado", "Puerto San Julián", "Puerto Santa Cruz", "Río Gallegos", "Rospentek", "Tellier", "Tres Lagos", "Yacimientos Río Turbio"};
+        String santacruz[] = new String[]{"SELECCIONAR","28 de Noviembre (Veintiocho de Noviembre)", "Bajo Caracoles", "Caleta Olivia", "Cañadón Seco", "Comandante Luis Piedrabuena", "El Calafate", "El Chaltén", "El Turbio (Est. Gobernador Mayer)", "Fitz Roy", "Gobernador Gregores", "Hipólito Yrigoyen", "Jaramillo", "Julia Dufour", "Koluel Kaike", "Las Heras", "Los Antiguos", "Mina 3", "Perito Moreno", "Pico Truncado", "Puerto Deseado", "Puerto San Julián", "Puerto Santa Cruz", "Río Gallegos", "Rospentek", "Tellier", "Tres Lagos", "Yacimientos Río Turbio"};
 
-        String santafe[] = new String[]{"Aarón Castellanos (Est. Castellanos)", "Acebal", "Aguará Grande", "Albarellos", "Alcorta", "Aldao (Est. Casablanca)", "Aldao", "Alejandra", "Álvarez", "Alvear", "Ambrosetti", "Amenábar", "Ángel Gallardo", "Angélica", "Angeloni", "Arbilla", "Arequito", "Arminda", "Armstrong", "Arocena", "Arroyo Aguiar", "Arroyo Ceibal", "Arroyo Leyes", "Arroyo Seco", "Arrufó", "Arteaga", "Ataliva", "Aurelia", "Avellaneda (Est. Ewald)", "Balneario La Verde", "Balneario Monje", "Barrancas", "Barrio Arroyo del Medio", "Barrio Caima", "Barrio Cicarelli", "Barrio El Pacaá - Barrio Comipini", "Barrio Mitre", "Barrios Acapulco y Veracruz", "Bauer y Sigel", "Bella Italia", "Berabevú", "Berna", "Bernardo de Irigoyen (Est. Irigoyen)", "Bigand", "Bombal", "Bouquet", "Bustinza", "Cabal", "Cacique Ariacaiquín", "Cafferata", "Calchaquí", "Campo Andino", "Cañada de Gómez", "Cañada del Ucle", "Cañada Ombú", "Cañada Rica", "Cañada Rosquín", "Candioti", "Capitán Bermúdez", "Capivara", "Carcarañá", "Carlos Pellegrini", "Carmen", "Carmen del Sauce", "Carreras", "Carrizales (Est. Clarke)", "Casalegno", "Casas", "Casilda", "Castelar", "Castellanos", "Cavour", "Cayastá", "Cayastacito", "Centeno", "Cepeda", "Ceres", "Chabás", "Chañar Ladeado", "Chapuy", "Chovet", "Christophersen", "Classon", "Colmena", "Colonia Ana", "Colonia Belgrano", "Colonia Bicha", "Colonia Bossi", "Colonia Cello", "Colonia Dolores", "Colonia Durán", "Colonia Margarita", "Colonia Médici", "Colonia Raquel", "Colonia Rosa", "Constanza", "Coronda", "Coronel Arnold", "Coronel Bogado", "Coronel Fraga", "Coronel Rodolfo S. Domínguez", "Correa", "Crispi", "Cuatro Esquinas", "Cululú", "Curupaytí", "Desvío Arijón", "Díaz", "Diego de Alvear", "Egusquiza", "El Arazá", "El Caramelo", "Elisa", "Elortondo", "El Rabón", "El Trébol", "Emilia", "Empalme San Carlos", "Empalme Villa Constitución", "Esmeralda", "Esperanza", "Estación Clucellas", "Estación Saguier", "Esteban Rams", "Esther", "Eusebia y Carolina", "Eustolia", "Felicia", "Fighiera", "Firmat", "Firmat", "Florencia", "Fortín Olmos", "Franck", "Fray Luis Beltrán", "Frontera", "Fuentes", "Funes", "Gaboto", "Gálvez", "Garabato", "Garibaldi", "Gato Colorado", "General Gelly", "General Lagos", "Gessler", "Gobernador Crespo", "Gödeken", "Godoy", "Golondrina", "Granadero Baigorria", "Gregoria Pérez de Denis (Est. El Nochero)", "Grutly", "Guadalupe Norte", "Helvecia", "Hersilia", "Hipatia", "Huanqueros", "Hughes", "Humberto Primo", "Humboldt", "Ibarlucea", "Ibarlucea", "Ingeniero Chanourdie", "Intiyaco", "Irigoyen", "Jacinto L. Aráuz", "Josefina", "Juan Bernabé Molina", "Juncal", "Kilómetro 101", "Kilómetro 115", "Labordeboy", "La Brava", "La Cabral", "La Chispa", "La Criolla (Est. Cañadita)", "La Gallareta", "Laguna Paiva", "La Isleta", "La Lucila", "Landeta", "Lanteri", "La Pelada", "La Penca y Caraguatá", "Larguía", "Larrechea", "La Rubia", "La Sarita", "Las Avispas", "Las Bandurrias", "Las Garzas", "Las Palmeras", "Las Parejas", "Las Petacas", "Las Rosas", "Las Toscas", "Las Tunas", "La Vanguardia", "Lazzarino", "Lehmann", "Llambi Campbell", "Logroño", "Loma Alta", "López (Est. San Martín de Tours)", "Los Amores", "Los Cardos", "Los Laureles", "Los Molinos", "Los Muchachos - La Alborada", "Los Nogales", "Los Quirquinchos", "Los Zapallos", "Lucio V. López", "Luis Palacios (Est. La Salada)", "Maciel", "Maggiolo", "Malabrigo", "Marcelino Escalada", "Margarita", "María Juana", "María Luisa", "María Susana", "María Teresa", "Matilde", "Máximo Paz (Est. Paz)", "Melincué (Est. San Urbano)", "Miguel Torres", "Moisés Ville", "Monigotes", "Monje", "Montefiore", "Monte Flores", "Montes de Oca", "Monte Vera", "Murphy", "Ñanducita", "Naré", "Nelson", "Nueva Lehmann", "Nuevo Torino", "Oliveros", "Palacios", "Paraje 29", "Paraje Chaco Chico", "Paraje La Costa", "Paraje San Manuel", "Pavón", "Pavón Arriba", "Pedro Gómez Cello", "Pérez", "Peyrano", "Piamonte", "Pilar", "Piñero (Est. Erasto)", "Plaza Clucellas", "Plaza Matilde", "Plaza Saguier", "Pozo Borrado", "Pozo de los Indios", "Presidente Roca", "Progreso", "Providencia", "Pueblo Andino", "Pueblo Esther", "Pueblo Marini", "Pueblo Muñoz (Est. Bernard)", "Pueblo Santa Lucía", "Pueblo Uranga", "Puerto Aragón", "Puerto Arroyo Seco", "Puerto General San Martín", "Puerto Reconquista", "Pujato", "Rafaela", "Ramayón", "Ramona", "Reconquista", "Recreo", "Ricardone", "Rincón Potrero", "Roldán", "Romang", "Rosario", "Rueda", "Rufino", "Saladero Mariano Cabal", "Salto Grande", "San Agustín", "San Antonio", "San Antonio de Obligado", "San Bernardo", "San Bernardo", "San Carlos Centro", "San Carlos Norte", "San Carlos Sud", "San Cristóbal", "Sancti Spiritu", "San Eduardo", "San Eugenio", "San Fabián", "Sanford", "San Francisco de Santa Fe", "San Genaro", "San Genaro Norte", "San Gregorio", "San Guillermo", "San Javier", "San Jerónimo del Sauce", "San Jerónimo Norte", "San Jerónimo Sud", "San Jorge", "San José de la Esquina", "San José del Rincón", "San Justo", "San Lorenzo", "San Mariano", "San Martín de las Escobas", "San Martín Norte", "Santa Clara de Buena Vista", "Santa Clara de Saguier", "Santa Fe", "Santa Isabel", "Santa Margarita", "Santa Rosa de Calchines", "Santa Teresa", "Santo Domingo", "Santo Tomé", "Santurce", "San Vicente", "Sa Pereira", "Sargento Cabral", "Sarmiento", "Sastre", "Sauce Viejo", "Serodino", "Silva (Est. Abipones)", "Soldini", "Soledad", "Stephenson", "Suardi", "Sunchales", "Susana", "Tacuarendí (Emb. Kilómetro 421)", "Tacural", "Tartagal (Est. El Tajamar)", "Teodelina", "Theobald", "Timbúes", "Toba", "Tortugas", "Tostado", "Totoras", "Traill", "Venado Tuerto", "Vera (Est. Gobernador Vera)", "Vera y Pintado (Est. Guaraníes)", "Videla", "Vila", "Villa Amelia", "Villa Ana", "Villa Cañás", "Villa Constitución", "Villada", "Villa del Plata", "Villa Eloísa", "Villa Elvira", "Villa Gobernador Gálvez", "Villa Guillermina", "Villa Josefina", "Villa la Rivera (Comuna Oliveros) (Villa La Ribera)", "Villa la Rivera (Comuna Pueblo Andino) (Villa La Ribera)", "Villa Laura (Est. Constituyentes)", "Villa Minetti", "Villa Mugueta", "Villa Ocampo", "Villa San José", "Villa Saralegui", "Villa Trinidad", "Virginia", "Wheelwright", "Wildermuth (Est. Granadero B. Bustos)", "Zavalla", "Zenón Pereyra"};
+        String santafe[] = new String[]{"SELECCIONAR","Aarón Castellanos (Est. Castellanos)", "Acebal", "Aguará Grande", "Albarellos", "Alcorta", "Aldao (Est. Casablanca)", "Aldao", "Alejandra", "Álvarez", "Alvear", "Ambrosetti", "Amenábar", "Ángel Gallardo", "Angélica", "Angeloni", "Arbilla", "Arequito", "Arminda", "Armstrong", "Arocena", "Arroyo Aguiar", "Arroyo Ceibal", "Arroyo Leyes", "Arroyo Seco", "Arrufó", "Arteaga", "Ataliva", "Aurelia", "Avellaneda (Est. Ewald)", "Balneario La Verde", "Balneario Monje", "Barrancas", "Barrio Arroyo del Medio", "Barrio Caima", "Barrio Cicarelli", "Barrio El Pacaá - Barrio Comipini", "Barrio Mitre", "Barrios Acapulco y Veracruz", "Bauer y Sigel", "Bella Italia", "Berabevú", "Berna", "Bernardo de Irigoyen (Est. Irigoyen)", "Bigand", "Bombal", "Bouquet", "Bustinza", "Cabal", "Cacique Ariacaiquín", "Cafferata", "Calchaquí", "Campo Andino", "Cañada de Gómez", "Cañada del Ucle", "Cañada Ombú", "Cañada Rica", "Cañada Rosquín", "Candioti", "Capitán Bermúdez", "Capivara", "Carcarañá", "Carlos Pellegrini", "Carmen", "Carmen del Sauce", "Carreras", "Carrizales (Est. Clarke)", "Casalegno", "Casas", "Casilda", "Castelar", "Castellanos", "Cavour", "Cayastá", "Cayastacito", "Centeno", "Cepeda", "Ceres", "Chabás", "Chañar Ladeado", "Chapuy", "Chovet", "Christophersen", "Classon", "Colmena", "Colonia Ana", "Colonia Belgrano", "Colonia Bicha", "Colonia Bossi", "Colonia Cello", "Colonia Dolores", "Colonia Durán", "Colonia Margarita", "Colonia Médici", "Colonia Raquel", "Colonia Rosa", "Constanza", "Coronda", "Coronel Arnold", "Coronel Bogado", "Coronel Fraga", "Coronel Rodolfo S. Domínguez", "Correa", "Crispi", "Cuatro Esquinas", "Cululú", "Curupaytí", "Desvío Arijón", "Díaz", "Diego de Alvear", "Egusquiza", "El Arazá", "El Caramelo", "Elisa", "Elortondo", "El Rabón", "El Trébol", "Emilia", "Empalme San Carlos", "Empalme Villa Constitución", "Esmeralda", "Esperanza", "Estación Clucellas", "Estación Saguier", "Esteban Rams", "Esther", "Eusebia y Carolina", "Eustolia", "Felicia", "Fighiera", "Firmat", "Firmat", "Florencia", "Fortín Olmos", "Franck", "Fray Luis Beltrán", "Frontera", "Fuentes", "Funes", "Gaboto", "Gálvez", "Garabato", "Garibaldi", "Gato Colorado", "General Gelly", "General Lagos", "Gessler", "Gobernador Crespo", "Gödeken", "Godoy", "Golondrina", "Granadero Baigorria", "Gregoria Pérez de Denis (Est. El Nochero)", "Grutly", "Guadalupe Norte", "Helvecia", "Hersilia", "Hipatia", "Huanqueros", "Hughes", "Humberto Primo", "Humboldt", "Ibarlucea", "Ibarlucea", "Ingeniero Chanourdie", "Intiyaco", "Irigoyen", "Jacinto L. Aráuz", "Josefina", "Juan Bernabé Molina", "Juncal", "Kilómetro 101", "Kilómetro 115", "Labordeboy", "La Brava", "La Cabral", "La Chispa", "La Criolla (Est. Cañadita)", "La Gallareta", "Laguna Paiva", "La Isleta", "La Lucila", "Landeta", "Lanteri", "La Pelada", "La Penca y Caraguatá", "Larguía", "Larrechea", "La Rubia", "La Sarita", "Las Avispas", "Las Bandurrias", "Las Garzas", "Las Palmeras", "Las Parejas", "Las Petacas", "Las Rosas", "Las Toscas", "Las Tunas", "La Vanguardia", "Lazzarino", "Lehmann", "Llambi Campbell", "Logroño", "Loma Alta", "López (Est. San Martín de Tours)", "Los Amores", "Los Cardos", "Los Laureles", "Los Molinos", "Los Muchachos - La Alborada", "Los Nogales", "Los Quirquinchos", "Los Zapallos", "Lucio V. López", "Luis Palacios (Est. La Salada)", "Maciel", "Maggiolo", "Malabrigo", "Marcelino Escalada", "Margarita", "María Juana", "María Luisa", "María Susana", "María Teresa", "Matilde", "Máximo Paz (Est. Paz)", "Melincué (Est. San Urbano)", "Miguel Torres", "Moisés Ville", "Monigotes", "Monje", "Montefiore", "Monte Flores", "Montes de Oca", "Monte Vera", "Murphy", "Ñanducita", "Naré", "Nelson", "Nueva Lehmann", "Nuevo Torino", "Oliveros", "Palacios", "Paraje 29", "Paraje Chaco Chico", "Paraje La Costa", "Paraje San Manuel", "Pavón", "Pavón Arriba", "Pedro Gómez Cello", "Pérez", "Peyrano", "Piamonte", "Pilar", "Piñero (Est. Erasto)", "Plaza Clucellas", "Plaza Matilde", "Plaza Saguier", "Pozo Borrado", "Pozo de los Indios", "Presidente Roca", "Progreso", "Providencia", "Pueblo Andino", "Pueblo Esther", "Pueblo Marini", "Pueblo Muñoz (Est. Bernard)", "Pueblo Santa Lucía", "Pueblo Uranga", "Puerto Aragón", "Puerto Arroyo Seco", "Puerto General San Martín", "Puerto Reconquista", "Pujato", "Rafaela", "Ramayón", "Ramona", "Reconquista", "Recreo", "Ricardone", "Rincón Potrero", "Roldán", "Romang", "Rosario", "Rueda", "Rufino", "Saladero Mariano Cabal", "Salto Grande", "San Agustín", "San Antonio", "San Antonio de Obligado", "San Bernardo", "San Bernardo", "San Carlos Centro", "San Carlos Norte", "San Carlos Sud", "San Cristóbal", "Sancti Spiritu", "San Eduardo", "San Eugenio", "San Fabián", "Sanford", "San Francisco de Santa Fe", "San Genaro", "San Genaro Norte", "San Gregorio", "San Guillermo", "San Javier", "San Jerónimo del Sauce", "San Jerónimo Norte", "San Jerónimo Sud", "San Jorge", "San José de la Esquina", "San José del Rincón", "San Justo", "San Lorenzo", "San Mariano", "San Martín de las Escobas", "San Martín Norte", "Santa Clara de Buena Vista", "Santa Clara de Saguier", "Santa Fe", "Santa Isabel", "Santa Margarita", "Santa Rosa de Calchines", "Santa Teresa", "Santo Domingo", "Santo Tomé", "Santurce", "San Vicente", "Sa Pereira", "Sargento Cabral", "Sarmiento", "Sastre", "Sauce Viejo", "Serodino", "Silva (Est. Abipones)", "Soldini", "Soledad", "Stephenson", "Suardi", "Sunchales", "Susana", "Tacuarendí (Emb. Kilómetro 421)", "Tacural", "Tartagal (Est. El Tajamar)", "Teodelina", "Theobald", "Timbúes", "Toba", "Tortugas", "Tostado", "Totoras", "Traill", "Venado Tuerto", "Vera (Est. Gobernador Vera)", "Vera y Pintado (Est. Guaraníes)", "Videla", "Vila", "Villa Amelia", "Villa Ana", "Villa Cañás", "Villa Constitución", "Villada", "Villa del Plata", "Villa Eloísa", "Villa Elvira", "Villa Gobernador Gálvez", "Villa Guillermina", "Villa Josefina", "Villa la Rivera (Comuna Oliveros) (Villa La Ribera)", "Villa la Rivera (Comuna Pueblo Andino) (Villa La Ribera)", "Villa Laura (Est. Constituyentes)", "Villa Minetti", "Villa Mugueta", "Villa Ocampo", "Villa San José", "Villa Saralegui", "Villa Trinidad", "Virginia", "Wheelwright", "Wildermuth (Est. Granadero B. Bustos)", "Zavalla", "Zenón Pereyra"};
 
-        String santiagodelestero[] = new String[]{"Abra Grande", "Aerolito", "Alhuampa", "Añatuya", "Ancaján", "Antajé", "Ardiles", "Argentina", "Árraga", "Averías", "Bandera", "Bandera Bajada", "Beltrán", "Brea Pozo", "Campo Gallo", "Cañada Escobar", "Casares", "Caspi Corral", "Chañar Pozo de Abajo", "Chauchillas", "Chaupi Pozo", "Chilca Juliana", "Choya", "Clodomira", "Colonia Alpina", "Colonia Dora", "Colonia El Simbolar", "Colonia San Juan", "Colonia Tinco", "Coronel Manuel L. Rico", "Cuatro Bocas", "Donadeu", "El 49", "El Arenal", "El Bobadal", "El Caburé", "El Charco", "El Charco", "El Colorado", "El Crucero", "El Cuadrado", "El Deán", "El Mojón", "El Mojón", "El Rincón", "El Sauzal", "El Zanjón", "Estación Atamisqui", "Estación La Punta", "Estación Robles", "Estación Taboada", "Estación Tacañitas", "Fernández", "Fortín Inca", "Frías", "Garza", "Gramilla", "Gramilla", "Guardia Escolta", "Hasse", "Hernán Mejía Miraval", "Herrera", "Huyamampa", "Icaño", "Ingeniero Forres (Est. Chaguar Punco)", "Isca Yacu", "Isca Yacu Semaul", "Kilómetro 30", "La Aurora", "La Banda", "La Cañada", "La Dársena", "La Firmeza", "La Invernada", "La Nena", "La Nueva Donosa", "Laprida", "Las Delicias", "Las Tinajas", "Lavalle", "Libertad", "Lilo Viejo", "Los Cardozos", "Los Juríes", "Los Miranda", "Los Núñez", "Los Pirpintos", "Los Quiroga", "Los Soria", "Los Telares", "Los Tigres", "Lugones", "Maco", "Malbrán", "Mansupa", "Maquito", "Matará", "Medellín", "Minerva", "Monte Quemado", "Morales", "Nueva Esperanza", "Nueva Esperanza", "Nueva Francia", "Palo Negro", "Pampa de los Guanacos", "Patay", "Pozo Betbeder", "Pozo Hondo", "Pozuelos", "Pueblo Pablo Torelo (Est. Otumpa)", "Puesto de San Antonio", "Quimilí", "Ramírez de Velazco", "Rapelli", "Real Sayana", "Rodeo de Valdez", "Roversi", "Sacháyoj", "San José del Boquerón", "San Pedro", "San Pedro", "San Pedro", "San Pedro", "Santa María", "Santiago del Estero", "Santo Domingo", "Santos Lugares", "Selva", "Simbol", "Simbolar", "Sol de Julio", "Sumamao", "Sumampa", "Sumampa Viejo", "Suncho Corral", "Tapso", "Termas de Río Hondo", "Tintina", "Tomás Young", "Tramo 16", "Tramo 20", "Urutaú", "Vaca Huañuna", "Vilelas", "Villa Atamisqui", "Villa Figueroa", "Villa General Mitre (Est. Pinto)", "Villa Giménez", "Villa La Punta", "Villa Mailín", "Villa Nueva", "Villa Ojo de Agua", "Villa Río Hondo", "Villa Salavina", "Villa San Martín (Est. Loreto)", "Villa Silípica", "Villa Turística del Embalse", "Villa Unión", "Vilmer", "Vinará", "Vuelta de la Barranca", "Weisburd", "Yanda", "Yuchán"};
+        String santiagodelestero[] = new String[]{"SELECCIONAR","Abra Grande", "Aerolito", "Alhuampa", "Añatuya", "Ancaján", "Antajé", "Ardiles", "Argentina", "Árraga", "Averías", "Bandera", "Bandera Bajada", "Beltrán", "Brea Pozo", "Campo Gallo", "Cañada Escobar", "Casares", "Caspi Corral", "Chañar Pozo de Abajo", "Chauchillas", "Chaupi Pozo", "Chilca Juliana", "Choya", "Clodomira", "Colonia Alpina", "Colonia Dora", "Colonia El Simbolar", "Colonia San Juan", "Colonia Tinco", "Coronel Manuel L. Rico", "Cuatro Bocas", "Donadeu", "El 49", "El Arenal", "El Bobadal", "El Caburé", "El Charco", "El Charco", "El Colorado", "El Crucero", "El Cuadrado", "El Deán", "El Mojón", "El Mojón", "El Rincón", "El Sauzal", "El Zanjón", "Estación Atamisqui", "Estación La Punta", "Estación Robles", "Estación Taboada", "Estación Tacañitas", "Fernández", "Fortín Inca", "Frías", "Garza", "Gramilla", "Gramilla", "Guardia Escolta", "Hasse", "Hernán Mejía Miraval", "Herrera", "Huyamampa", "Icaño", "Ingeniero Forres (Est. Chaguar Punco)", "Isca Yacu", "Isca Yacu Semaul", "Kilómetro 30", "La Aurora", "La Banda", "La Cañada", "La Dársena", "La Firmeza", "La Invernada", "La Nena", "La Nueva Donosa", "Laprida", "Las Delicias", "Las Tinajas", "Lavalle", "Libertad", "Lilo Viejo", "Los Cardozos", "Los Juríes", "Los Miranda", "Los Núñez", "Los Pirpintos", "Los Quiroga", "Los Soria", "Los Telares", "Los Tigres", "Lugones", "Maco", "Malbrán", "Mansupa", "Maquito", "Matará", "Medellín", "Minerva", "Monte Quemado", "Morales", "Nueva Esperanza", "Nueva Esperanza", "Nueva Francia", "Palo Negro", "Pampa de los Guanacos", "Patay", "Pozo Betbeder", "Pozo Hondo", "Pozuelos", "Pueblo Pablo Torelo (Est. Otumpa)", "Puesto de San Antonio", "Quimilí", "Ramírez de Velazco", "Rapelli", "Real Sayana", "Rodeo de Valdez", "Roversi", "Sacháyoj", "San José del Boquerón", "San Pedro", "San Pedro", "San Pedro", "San Pedro", "Santa María", "Santiago del Estero", "Santo Domingo", "Santos Lugares", "Selva", "Simbol", "Simbolar", "Sol de Julio", "Sumamao", "Sumampa", "Sumampa Viejo", "Suncho Corral", "Tapso", "Termas de Río Hondo", "Tintina", "Tomás Young", "Tramo 16", "Tramo 20", "Urutaú", "Vaca Huañuna", "Vilelas", "Villa Atamisqui", "Villa Figueroa", "Villa General Mitre (Est. Pinto)", "Villa Giménez", "Villa La Punta", "Villa Mailín", "Villa Nueva", "Villa Ojo de Agua", "Villa Río Hondo", "Villa Salavina", "Villa San Martín (Est. Loreto)", "Villa Silípica", "Villa Turística del Embalse", "Villa Unión", "Vilmer", "Vinará", "Vuelta de la Barranca", "Weisburd", "Yanda", "Yuchán"};
 
-        String tierradelfuego[] = new String[]{"Laguna Escondida", "Río Grande", "Tolhuin", "Ushuaia"};
+        String tierradelfuego[] = new String[]{"SELECCIONAR","Laguna Escondida", "Río Grande", "Tolhuin", "Ushuaia"};
 
-        String tucuman[] = new String[]{"7 de Abril (Siete de Abril)", "Acheral", "Aguilares", "Alderetes", "Alpachiri", "Alto Verde", "Amaicha del Valle", "Arcadia", "Atahona", "Banda del Río Salí", "Barrio Casa Rosada", "Barrio El Cruce", "Barrio Lomas de Tafí", "Barrio Mutual San Martín", "Barrio Parada 14", "Barrio San Felipe", "Barrio San Jorge", "Barrio San José III", "Barrio San Roque", "Barrio U.T.A. II", "Bella Vista", "Campo de Herrera", "Capitán Cáceres", "Choromoro", "Colalao del Valle", "Colombres", "Colonia Mayo - Barrio La Milagrosa", "Concepción", "Delfín Gallo", "Diagonal Norte (- Luz y Fuerza - Los Pocitos - Villa Nueva Italia)", "El Bracho", "El Cadillal", "El Chañar", "El Manantial", "El Mollar", "El Naranjo", "Estación Aráoz", "Famaillá", "Garmendia", "Graneros", "Iltico", "Ingenio Fronterita", "Ingenio San Pablo", "Juan Bautista Alberdi", "La Cocha", "La Florida", "Lamadrid", "La Ramada", "La Reducción", "Las Cejas", "La Trinidad", "Los Puestos", "Los Ralos", "Los Sarmientos", "Lules", "Macomitas", "Manuel García Fernández", "Medinas", "Monteagudo", "Monteros", "Nueva Trinidad", "Pacará", "Pala Pala", "Piedrabuena", "Pueblo Independencia (Santa Rosa y Los Rojo)", "Ranchillos", "Río Chico", "Río Colorado", "Río Seco", "San Andrés", "San José de La Cocha", "San Miguel de Tucumán (Est. Tucumán)", "San Pedro de Colalao", "Santa Ana", "Santa Cruz", "Santa Lucía", "Santa Rosa de Leales", "Sargento Moya", "Simoca", "Soldado Maldonado", "Taco Ralo", "Tafí del Valle", "Tafí Viejo", "Teniente Berdina", "Villa Belgrano", "Villa Benjamín Aráoz", "Villa Burruyacú", "Villa Carmela (Cebil Redondo)", "Villa Chicligasta", "Villa Clodomiro Hileret", "Villa de Leales", "Villa de Trancas", "Villa Fiad (- Ingenio Leales)", "Villa Las Flores", "Villa Mariano Moreno (- El Colmenar)", "Villa Padre Monti", "Villa Quinteros", "Yerba Buena (- Marcos Paz)"};
+        String tucuman[] = new String[]{"SELECCIONAR","7 de Abril (Siete de Abril)", "Acheral", "Aguilares", "Alderetes", "Alpachiri", "Alto Verde", "Amaicha del Valle", "Arcadia", "Atahona", "Banda del Río Salí", "Barrio Casa Rosada", "Barrio El Cruce", "Barrio Lomas de Tafí", "Barrio Mutual San Martín", "Barrio Parada 14", "Barrio San Felipe", "Barrio San Jorge", "Barrio San José III", "Barrio San Roque", "Barrio U.T.A. II", "Bella Vista", "Campo de Herrera", "Capitán Cáceres", "Choromoro", "Colalao del Valle", "Colombres", "Colonia Mayo - Barrio La Milagrosa", "Concepción", "Delfín Gallo", "Diagonal Norte (- Luz y Fuerza - Los Pocitos - Villa Nueva Italia)", "El Bracho", "El Cadillal", "El Chañar", "El Manantial", "El Mollar", "El Naranjo", "Estación Aráoz", "Famaillá", "Garmendia", "Graneros", "Iltico", "Ingenio Fronterita", "Ingenio San Pablo", "Juan Bautista Alberdi", "La Cocha", "La Florida", "Lamadrid", "La Ramada", "La Reducción", "Las Cejas", "La Trinidad", "Los Puestos", "Los Ralos", "Los Sarmientos", "Lules", "Macomitas", "Manuel García Fernández", "Medinas", "Monteagudo", "Monteros", "Nueva Trinidad", "Pacará", "Pala Pala", "Piedrabuena", "Pueblo Independencia (Santa Rosa y Los Rojo)", "Ranchillos", "Río Chico", "Río Colorado", "Río Seco", "San Andrés", "San José de La Cocha", "San Miguel de Tucumán (Est. Tucumán)", "San Pedro de Colalao", "Santa Ana", "Santa Cruz", "Santa Lucía", "Santa Rosa de Leales", "Sargento Moya", "Simoca", "Soldado Maldonado", "Taco Ralo", "Tafí del Valle", "Tafí Viejo", "Teniente Berdina", "Villa Belgrano", "Villa Benjamín Aráoz", "Villa Burruyacú", "Villa Carmela (Cebil Redondo)", "Villa Chicligasta", "Villa Clodomiro Hileret", "Villa de Leales", "Villa de Trancas", "Villa Fiad (- Ingenio Leales)", "Villa Las Flores", "Villa Mariano Moreno (- El Colmenar)", "Villa Padre Monti", "Villa Quinteros", "Yerba Buena (- Marcos Paz)"};
 
         String seleccion = String.valueOf(cbEstadoProvincia.getSelectedItem());
-
+        
         if (seleccion == "BUENOS AIRES") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String buenosaire : buenosaires) {
+                
                 cbLocalidad.addItem(buenosaire);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "CATAMARCA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String catamarc : catamarca) {
+                
                 cbLocalidad.addItem(catamarc);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "CHACO") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String chac : chaco) {
+                
                 cbLocalidad.addItem(chac);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "CHUBUT") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String chubu : chubut) {
+                
                 cbLocalidad.addItem(chubu);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "CORDOBA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String cordob : cordoba) {
+                
                 cbLocalidad.addItem(cordob);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "CORRIENTES") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String corriente : corrientes) {
+                
                 cbLocalidad.addItem(corriente);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "ENTRE RIOS") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String entrerio : entrerios) {
+                
                 cbLocalidad.addItem(entrerio);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "FORMOSA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String formos : formosa) {
+                
                 cbLocalidad.addItem(formos);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "JUJUY") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String juju : jujuy) {
+                
                 cbLocalidad.addItem(juju);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "LA PAMPA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String lapamp : lapampa) {
+                
                 cbLocalidad.addItem(lapamp);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
+        
         if (seleccion == "LA RIOJA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String larioj : larioja) {
+                
                 cbLocalidad.addItem(larioj);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "MENDOZA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String mendoz : mendoza) {
+                
                 cbLocalidad.addItem(mendoz);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "MISIONES") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String misione : misiones) {
+                
                 cbLocalidad.addItem(misione);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "NEUQUEN") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String neuque : neuquen) {
+                
                 cbLocalidad.addItem(neuque);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "RIO NEGRO") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String rionegr : rionegro) {
+                
                 cbLocalidad.addItem(rionegr);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "SALTA") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String salt : salta) {
+                
                 cbLocalidad.addItem(salt);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "SAN JUAN") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String sanjua : sanjuan) {
+                
                 cbLocalidad.addItem(sanjua);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
+        
         if (seleccion == "SAN LUIS") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String sanlui : sanluis) {
+                
                 cbLocalidad.addItem(sanlui);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "SANTA CRUZ") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String santacru : santacruz) {
+                
                 cbLocalidad.addItem(santacru);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
+        
         if (seleccion == "SANTA FE") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String santaf : santafe) {
+                
                 cbLocalidad.addItem(santaf);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "SANTIAGO DEL ESTERO") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String santiago : santiagodelestero) {
+                
                 cbLocalidad.addItem(santiago);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "TIERRA DEL FUEGO") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String tierra : tierradelfuego) {
+                
                 cbLocalidad.addItem(tierra);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "TUCUMAN") {
+            
             cbLocalidad.setEnabled(true);
             cbLocalidad.removeAllItems();
+            
             for (String tucuma : tucuman) {
+                
                 cbLocalidad.addItem(tucuma);
+                
             }
+            
+            cbLocalidad.setSelectedIndex(0);
+            
         }
 
         if (seleccion == "SELECCIONAR") {
-            cbLocalidad.setEnabled(false);
+            
             cbLocalidad.removeAllItems();
-            cbLocalidad.addItem("SELECCIONAR");
+            cbLocalidad.setEnabled(false);
+            
         }
+        
     }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
-
-    private void cbNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNacionalidadActionPerformed
-
-        String argentina[] = new String[]{"BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN"};
-
-        //TERMINAR DE CARGAR TODAS LAS PROVINCIAS, DISTRITOS O ESTADOS PARA CADA PAIS
-
-        String bolivia[] = new String[]{"BENI CAPITAL TRINIDAD", "CHUQUISACA CAPTAL SUCRE", "COCHABAMBA CAPITAL COCHABAMBA"};
-
-        String brasil[] = new String[]{"ALAGOAS", "AMAZONAS", "BAHIA"};
-
-        String chile[] = new String[]{"ARICA", "PARINACOTA", "IQUIQUE"};
-
-        String colombia[] = new String[]{"ANTIOQUIA", "ATLANTICO", "BOLIVAR"};
-
-        String ecuador[] = new String[]{"AZUAY", "BOLIVAR", "CAÑAR"};
-
-        String paraguay[] = new String[]{"ALTO PARAGUAY", "ALTO PARANA", "AMAMBAY   "};
-
-        String peru[] = new String[]{"AMAZONAS", "ANCASH", "APURIMAC"};
-
-        String uruguay[] = new String[]{"ARTIGAS", "CANELONES", "CERRO LARGO"};
-
-        String venezuela[] = new String[]{"AMAZONAS", "APURE", "ARAGUA"};
-
-        String seleccion = String.valueOf(cbNacionalidad.getSelectedItem());
-
-        if (seleccion == "ARGENTINA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String arg : argentina) {
-                cbEstadoProvincia.addItem(arg);
-            }
-        }
-
-        if (seleccion == "BOLIVIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bol : bolivia) {
-                cbEstadoProvincia.addItem(bol);
-            }
-        }
-
-        if (seleccion == "BRASIL") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String bra : brasil) {
-                cbEstadoProvincia.addItem(bra);
-            }
-        }
-
-        if (seleccion == "CHILE") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String chil : chile) {
-                cbEstadoProvincia.addItem(chil);
-            }
-        }
-
-        if (seleccion == "COLOMBIA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String col : colombia) {
-                cbEstadoProvincia.addItem(col);
-            }
-        }
-
-        if (seleccion == "ECUADOR") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ecu : ecuador) {
-                cbEstadoProvincia.addItem(ecu);
-            }
-        }
-
-        if (seleccion == "PARAGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String par : paraguay) {
-                cbEstadoProvincia.addItem(par);
-            }
-        }
-
-        if (seleccion == "PERU") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String per : peru) {
-                cbEstadoProvincia.addItem(per);
-            }
-        }
-
-        if (seleccion == "URUGUAY") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String uru : uruguay) {
-                cbEstadoProvincia.addItem(uru);
-            }
-        }
-
-        if (seleccion == "VENEZUELA") {
-            cbEstadoProvincia.setEnabled(true);
-            cbEstadoProvincia.removeAllItems();
-            for (String ven : venezuela) {
-                cbEstadoProvincia.addItem(ven);
-            }
-        }
-
-        if (seleccion == "SELECCIONAR") {
-            cbEstadoProvincia.setEnabled(false);
-            cbEstadoProvincia.removeAllItems();
-            cbEstadoProvincia.addItem("SELECCIONAR");
-            cbLocalidad.setEnabled(false);
-            cbLocalidad.removeAllItems();
-            cbLocalidad.addItem("SELECCIONAR");
-        }
-    }//GEN-LAST:event_cbNacionalidadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1368,7 +1387,6 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> cbFloracion;
     public javax.swing.JComboBox<String> cbLocalidad;
     public javax.swing.JComboBox<String> cbMesVentaMiel;
-    public javax.swing.JComboBox<String> cbNacionalidad;
     public javax.swing.JComboBox<String> cbPeriodoVentaMiel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1395,7 +1413,6 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
