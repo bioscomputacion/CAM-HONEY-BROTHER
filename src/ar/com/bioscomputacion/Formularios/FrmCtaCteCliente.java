@@ -689,7 +689,7 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
         
         FrmRegistroPagoDeCliente form = new FrmRegistroPagoDeCliente();
         //asigno valores que debera mostrar el formulario de pago al productor
-        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Cliente N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDCliente.getText()+": "+tfNombreCliente.getText());
+        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / CLIENTE N° "+tfIDCliente.getText()+": "+tfNombreCliente.getText());
         form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 7)));
         form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 9)));
         form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 9)));

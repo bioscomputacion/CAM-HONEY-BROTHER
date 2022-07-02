@@ -34,10 +34,11 @@ public class CtaCteProductor {
     private String observacion;
     
     ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
+    Connection cn= mysql.getConexionBD();
 
 
     public CtaCteProductor(int codigoProductor, int codigoMovimiento, Date fechaMovimiento, String descripcionMovimiento, int comprobanteAsociado, String numeroComprobante, Double cantidadMiel, Double debe, Double haber, Double saldo, String estadoMovimiento, String observacion) {
+        
         this.codigoProductor = codigoProductor;
         this.codigoMovimiento = codigoMovimiento;
         this.fechaMovimiento = fechaMovimiento;
@@ -50,6 +51,7 @@ public class CtaCteProductor {
         this.saldo = saldo;
         this.estadoMovimiento = estadoMovimiento;
         this.observacion = observacion;
+        
     }
 
     public CtaCteProductor() {
@@ -187,6 +189,7 @@ public class CtaCteProductor {
         }catch(Exception e){
             
             return codigoMovimiento;
+            
         } 
 
     }
@@ -227,28 +230,136 @@ public class CtaCteProductor {
             
         } catch (Exception e) {
             
+            e.printStackTrace(System.out);
+
         }
         
         return false;
     }
     
+    public boolean cancelarCompraConsignacion(int codigoMovimiento, int codigoProductor){
+
+        try {
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE cta_cte_productor SET estado_movimiento = ? WHERE codigo_productor = '"+ codigoProductor +"' and codigo_movimiento = '"+ codigoMovimiento +"'");
+
+            pst.setString(1, "CANCELADO");
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                return false;
+                
+            }
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+        
+    }
+    
+    public boolean modificarMovimientoCtaCteProductor(CtaCteProductor ctacteProductor, int codigoMovimiento) {
+
+        try {
+
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE cta_cte_productor SET fecha_movimiento = ?, descripcion_movimiento = ?, comprobante_asociado = ?, numero_comprobante = ?, cantidad_miel = ?, debe = ?, haber = ?, saldo = ?, estado_movimiento = ?, observacion = ? WHERE codigo_productor = '"+ codigoProductor +"'codigo_movimiento = '"+ codigoMovimiento +"'");
+
+            pst.setDate(1, ctacteProductor.getFechaMovimiento());
+            pst.setString(2, ctacteProductor.getDescripcionMovimiento());
+            pst.setInt(3, ctacteProductor.getComprobanteAsociado());
+            pst.setString(4, ctacteProductor.getNumeroComprobante());
+            pst.setDouble(5, ctacteProductor.getCantidadMiel());
+            pst.setDouble(6, ctacteProductor.getDebe());
+            pst.setDouble(7, ctacteProductor.getHaber());
+            pst.setDouble(8, ctacteProductor.getSaldo());
+            pst.setString(9, ctacteProductor.getEstadoMovimiento());
+            pst.setString(10, ctacteProductor.getObservacion());
+
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                //ConexionBD.close(cn);
+                //ConexionBD.close(pst);
+                return false;
+                
+            }
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
+    
+    public String obtenerEstadoComprobanteCtaCteProductor(int codigoProductor, int codigoMovimiento){
+        
+        String estadoComprobante = "";
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT estado_movimiento FROM cta_cte_productor WHERE codigo_productor='" + codigoProductor + "' and codigo_movimiento='"+ codigoMovimiento+"'");
+            
+            while (rs.next()) {
+
+                estadoComprobante = rs.getString("estado_movimiento");
+                
+            }
+            
+            return estadoComprobante;
+
+        }
+        catch(Exception e){
+            
+            //JOptionPane.showMessageDialog(null, e);
+            return estadoComprobante;
+            
+        } 
+        
+    }
 
     public DefaultTableModel listarMovimientosCtaCteProductor(int codigoProductor){
         
         DefaultTableModel modelo;
         
-        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "KGS. MIEL", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
+        String[] titulos = {"ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "KGS. MIEL COMPRADOS", "KGS. MIEL IMPAGOS", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
 
-        String[] registros = new String[12];
+        String[] registros = new String[13];
 
         modelo = new DefaultTableModel(null, titulos) {
             
             @Override
             public boolean isCellEditable(int filas, int columnas) {
-                if (columnas == 11) {
+                
+                if (columnas == 13) {
+                    
                     return true;
+                    
                 } else {
+                    
                     return false;
+                    
                 }
 
             }
@@ -269,12 +380,57 @@ public class CtaCteProductor {
                 registros[4] = rs.getString("comprobante_asociado");
                 registros[5] = rs.getString("numero_comprobante");
                 registros[6] = rs.getString("cantidad_miel");
-                registros[7] = rs.getString("debe");
-                registros[8] = rs.getString("haber");
-                registros[9] = rs.getString("saldo");
-                registros[10] = rs.getString("estado_movimiento");
-                registros[11] = rs.getString("observacion");
+                registros[8] = rs.getString("debe");
+                registros[9] = rs.getString("haber");
+                registros[10] = rs.getString("saldo");
+                registros[11] = rs.getString("estado_movimiento");
+                registros[12] = rs.getString("observacion");
+                
+                String comprobante = rs.getString("descripcion_movimiento");
+                int codigoMovimiento = 0;
+                codigoMovimiento = Integer.valueOf(rs.getString("codigo_movimiento").toString());
+                int codigoComprobante = 0;
+                codigoComprobante = Integer.valueOf(rs.getString("comprobante_asociado").toString());
+                String estado = "";
+                estado = obtenerEstadoComprobanteCtaCteProductor(codigoComprobante, codigoMovimiento);
+                
+                if (comprobante.equals("CONSIGNACION")){
+                    
+                    if (estado.equals("CANCELADO")){
+                            
+                        registros[7] = "0.00";
+                            
+                    }
+                    else{
 
+                        registros[7] = String.valueOf(rs.getDouble("cantidad_miel") - obtenerDetalleMielDescontadaCompraConsignacion(codigoComprobante));
+                    
+                    }
+                }
+                else{
+                    
+                    if (comprobante.equals("FACTURA A") || comprobante.equals("FACTURA C") || comprobante.equals("PRESUPUESTO")){
+                        
+                        estado = obtenerEstadoComprobanteCtaCteProductor(rs.getInt("codigo_productor"), rs.getInt("codigo_movimiento"));
+                        if (estado.equals("CANCELADO")){
+                            
+                            registros[7] = "0.00";
+                            
+                        }
+                        else{
+                            
+                            registros[7] = String.valueOf(rs.getDouble("cantidad_miel"));
+                            
+                        }
+                        
+                    }
+                    else{
+
+                        registros[7] = "0.00";
+
+                    }
+                }
+                
                 modelo.addRow(registros);
                 
             }
@@ -291,6 +447,7 @@ public class CtaCteProductor {
         
     }
     
+    //ESTE METODO ESTA PERFECTO
     public Double mostrarSaldoCtaCteProductor(int codigoProductor) {
 
         Double saldo = 0.00;
@@ -317,31 +474,68 @@ public class CtaCteProductor {
         
     }
     
+    //ESTE METODO ESTA PERFECTO
     public Double mostrarSaldoMielImpagaAProductor(int codigoProductor) {
 
-        Double saldo = 0.00;
-        String comprobante = "CREDITO";
-        String estadoComprobante = "PENDIENTE";
-        
+        //almacena toda la miel financiada en el total de compras en consignacion realizadas
+        Double totalMielFinanciada = 0.00;
+        Double totalMielDescontada = 0.00;
+        Double saldoMielImpaga = 0.00;
+       
         try {
 
             Statement st = cn.createStatement();
-            Statement st2 = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM cta_cte_productor WHERE codigo_productor='" +codigoProductor+ "' and descripcion_movimiento='" +comprobante+ "' and estado_movimiento='"+estadoComprobante+"'");
+                ResultSet rs = st.executeQuery("SELECT cantidad_miel, comprobante_asociado FROM cta_cte_productor WHERE codigo_productor='" +codigoProductor+ "' and descripcion_movimiento='CONSIGNACION' and estado_movimiento='PENDIENTE'");
 
             while (rs.next()) {
                 
-                saldo = saldo + rs.getDouble("cantidad_miel");
+                //voy obteniendo el total de miel financiado
+                totalMielFinanciada = totalMielFinanciada + rs.getDouble("cantidad_miel");
+                //voy consultando para cada compra el total de miel devuelta y / o facturada
+                totalMielDescontada = totalMielDescontada + obtenerDetalleMielDescontadaCompraConsignacion(rs.getInt("comprobante_asociado"));
+                
+            }
+            //una vez hecho este recorrido ya tengo el total de miel financiada por el productor consultado
+            //a este total hay que restarle el total de miel facturada y/o devuelta al mismo productor
+            
+            saldoMielImpaga = totalMielFinanciada - totalMielDescontada;
+            return saldoMielImpaga;
+
+        } catch (Exception e) {
+            
+            JOptionPane.showConfirmDialog(null, e);
+            
+        }
+
+        return saldoMielImpaga;
+        
+    }
+
+    //ESTE METODO ESTA PERFECTO
+    public Double obtenerDetalleMielDescontadaCompraConsignacion(int codigoComprobante){
+        
+        Double mielDescontada = 0.00;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel_afectada) as cantidad_miel_afectada FROM comprobantes_relacionados_compra_credito WHERE codigo_compra_consignacion='" + codigoComprobante + "'");
+            
+            while (rs.next()) {
+
+                mielDescontada = mielDescontada+rs.getDouble("cantidad_miel_afectada");
                 
             }
             
-            return saldo;
+            return mielDescontada;
 
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
         }
-
-        return saldo;
+        catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielDescontada;
+            
+        } 
         
     }
 
@@ -435,6 +629,7 @@ public class CtaCteProductor {
         }
 
         return false;
+        
     }
     
 }

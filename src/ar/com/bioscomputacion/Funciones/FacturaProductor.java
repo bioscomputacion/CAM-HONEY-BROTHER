@@ -30,13 +30,13 @@ public class FacturaProductor {
     private Date fecha_factura;
     private Date fecha_vencimiento;
     private Double importe_total_factura;
-    private Double cantidad_miel;
+    private Double cantidad_miel_facturada;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
     
 
-    public FacturaProductor(String numero_comprobante, String tipo_factura, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento, Double importe_total_factura, Double cantidad_miel) {
+    public FacturaProductor(String numero_comprobante, String tipo_factura, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento, Double importe_total_factura, Double cantidad_miel_facturada) {
         
         this.numero_comprobante = numero_comprobante;
         this.tipoFactura = tipo_factura;
@@ -45,7 +45,7 @@ public class FacturaProductor {
         this.fecha_factura = fecha_factura;
         this.fecha_vencimiento = fecha_vencimiento;
         this.importe_total_factura = importe_total_factura;
-        this.cantidad_miel = cantidad_miel;
+        this.cantidad_miel_facturada = cantidad_miel_facturada;
         
     }
 
@@ -117,11 +117,11 @@ public class FacturaProductor {
     }
 
     public Double getCantidad_miel() {
-        return cantidad_miel;
+        return cantidad_miel_facturada;
     }
 
     public void setCantidad_miel(Double cantidad_miel) {
-        this.cantidad_miel = cantidad_miel;
+        this.cantidad_miel_facturada = cantidad_miel;
     }
 
     public int mostrarIdFacturaProductor() {
@@ -178,12 +178,12 @@ public class FacturaProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (numero_comprobante, tipo_factura, codigo_movimiento_ctacte, codigo_productor, fecha_factura, fecha_vencimiento, importe_total_factura, cantidad_miel) "
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (tipo_factura, numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_factura, fecha_vencimiento, importe_total_factura, cantidad_miel_facturada) "
                     + "VALUES (?,?,?,?,?,?,?,?)");
             
             
-            pst.setString(1, facturaProductor.getNumero_comprobante());
-            pst.setString(2, facturaProductor.getTipoFactura());
+            pst.setString(1, facturaProductor.getTipoFactura());
+            pst.setString(2, facturaProductor.getNumero_comprobante());
             pst.setInt(3, facturaProductor.getCodigo_movimiento_ctacte());
             pst.setInt(4, facturaProductor.getCodigo_productor());
             pst.setDate(5, facturaProductor.getFecha_factura());
@@ -213,7 +213,7 @@ public class FacturaProductor {
         try {
 
 
-            PreparedStatement pst = cn.prepareStatement("UPDATE factura_productor SET tipo_factura = ?,numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ?,cantidad_miel = ? WHERE codigo_factura = '"+ codigoFactura +"'");
+            PreparedStatement pst = cn.prepareStatement("UPDATE factura_productor SET tipo_factura = ?,numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ?,cantidad_miel_facturada = ? WHERE codigo_factura = '"+ codigoFactura +"'");
 
             pst.setString(1, facturaProductor.getNumero_comprobante());
             pst.setString(2, facturaProductor.getTipoFactura());

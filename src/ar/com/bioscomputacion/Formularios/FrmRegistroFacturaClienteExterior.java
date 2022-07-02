@@ -46,11 +46,10 @@ import javax.swing.table.TableModel;
 
 public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFrame {
 
-    //cargo todas las locaciones disponibles para trasladar miel al exportador interno
-    //las cuales serian solo las que pertenecen a las categorias: "deposito de acopio propio"
-    //y "deposito de productor"
-    //de ahi voy a cargar en el combo el nombre de las mismas
-    public List<Locacion> listaLocacionesOrigen = new ArrayList<>();
+    public int codigoCliente, codigoFactura, codigoItemFacturado, codigoMovimientoCtaCte;
+    public Double totalMielFacturada;
+    public List<ItemFacturadoFacturaCliente> itemsAFacturar = new ArrayList<>();
+    public List<Locacion> listaLocacionesDisponibles = new ArrayList<>();
     
     //aca cargo todos los productores registrados en el sistema (tengan o no miel despoitada en su locacion)
     //de ahi voy a cargar en el combo el nombre de los mismos
@@ -62,11 +61,6 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     //para luego usarlos a la hora de registrar el traslado
     int codigoLocacionOrigen, codigoProductor;
 
-    public int codigoCliente, codigoFactura, codigoItemFacturado, codigoMovimientoCtaCte;
-    public Double totalMielFacturada;
-    public List<ItemFacturadoFacturaCliente> itemsAFacturar = new ArrayList<>();
-    public List<Locacion> listaLocaciones = new ArrayList<>();
-    
     //a medida que se seleccionan locaciones en los combos en estas variables se almacenan sus codigos
     //para luego usarlos a la hora de registrar el traslado
     int codigoLocacion;
@@ -128,15 +122,15 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
 
-        FacturaProductor facturaProductor = new FacturaProductor("FACTURA", "-", 0, 4, new Date(a, m, d), new Date(a, m, d), 0.00, 0.00);
-        facturaProductor.registrarFacturaProductor(facturaProductor);
+        FacturaCliente facturaCliente = new FacturaCliente("FACTURA", "-", 0, 13, new Date(a, m, d), new Date(a, m, d), 0.00, 0.00);
+        facturaCliente.registrarFacturaCliente(facturaCliente);
         //almaceno en la variable global codigoFactura el codigo de la nueva factura a registrar
         
         //aca almaceno el codigo de la factura recien cargada para utilizar el mismo para los items
         //y para ubicarla en caso de tener que eliminarla
-        codigoFactura = facturaProductor.mostrarIdFacturaProductor();
+        codigoFactura = facturaCliente.mostrarIdFacturaCliente();
         
-        codigoItemFacturado = facturaProductor.mostrarIdItemAFacturar(codigoFactura)+1;
+        codigoItemFacturado = facturaCliente.mostrarIdItemAFacturar(codigoFactura)+1;
         
         //inicializo variable que almacena la cantidad de miel facturada en la factura que se va a registrar
         totalMielFacturada = 0.00;
@@ -144,29 +138,23 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         tfImporteTotalFactura.setText("0.00");
         tfImporteTotalFactura.setEditable(false);
         
-        tfNombreProductor.setEditable(false);
-        tfDocumentoProductor.setEditable(false);
-        tfProvinciaProductor.setEditable(false);
-        tfLocalidadProductor.setEditable(false);
-        
-        saldoMielOrigen = 0.00;
-        saldoMielDepositoProductorSeleccionado = 0.00;
+        tfNombreCliente.setEditable(false);
+        tfDocumentoCliente.setEditable(false);
+        tfNacionalidadCliente.setEditable(false);
         
         //carga del combo de las locaciones disponibles y almacena en la lista las mismas, con codigo y nombre
         //para tener acceso facilmente al codigo de la locacion, segun el nombre seleccionado en el combo
         //para eso, vamos a usar la lista "locaciones", que es un arreglo de objetos del tipo locacion
         
-        listaLocaciones = cargarListaLocaciones();
+        listaLocacionesDisponibles = cargarListaLocaciones();
         
-        for (int i = 0; i<listaLocaciones.size(); i++){
+        for (int i = 0; i<listaLocacionesDisponibles.size(); i++){
             
-            cbLocacionesDisponibles.addItem(listaLocaciones.get(i).getNombre_locacion());
+            cbLocacionesDisponibles.addItem(listaLocacionesDisponibles.get(i).getNombre_locacion());
             
         }
         
-        cbLocacionesDisponibles.setSelectedIndex(0);
-        
-        //se selecciona por defecto el tipo de factura A, ya que es un cliente en el interior del pais
+        //se selecciona por defecto el tipo de factura E, ya que es un cliente en el exterior del pais
         //y se deshabilita el combo
         cbTipoFactura.setSelectedIndex(2);
         cbTipoFactura.setEnabled(false);
@@ -396,16 +384,14 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
                 return false; //Disallow the editing of any cell
             }
         };
-        tfIDProductor = new javax.swing.JTextField();
+        tfIDCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        tfNombreProductor = new javax.swing.JTextField();
+        tfNombreCliente = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        tfDocumentoProductor = new javax.swing.JTextField();
+        tfDocumentoCliente = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        tfProvinciaProductor = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        tfLocalidadProductor = new javax.swing.JTextField();
+        tfNacionalidadCliente = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
@@ -503,9 +489,9 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         });
         jScrollPane4.setViewportView(tClientes);
 
-        tfIDProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfIDProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfIDProductor.setForeground(new java.awt.Color(255, 255, 255));
+        tfIDCliente.setBackground(new java.awt.Color(0, 0, 0));
+        tfIDCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfIDCliente.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -515,33 +501,25 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("NOMBRE:");
 
-        tfNombreProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfNombreProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfNombreProductor.setForeground(new java.awt.Color(255, 255, 255));
+        tfNombreCliente.setBackground(new java.awt.Color(0, 0, 0));
+        tfNombreCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("N° DOCUMENTO:");
 
-        tfDocumentoProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfDocumentoProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfDocumentoProductor.setForeground(new java.awt.Color(255, 255, 255));
+        tfDocumentoCliente.setBackground(new java.awt.Color(0, 0, 0));
+        tfDocumentoCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfDocumentoCliente.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("PROVINCIA:");
+        jLabel13.setText("NACIONALIDAD:");
 
-        tfProvinciaProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfProvinciaProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfProvinciaProductor.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("LOCALIDAD:");
-
-        tfLocalidadProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfLocalidadProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfLocalidadProductor.setForeground(new java.awt.Color(255, 255, 255));
+        tfNacionalidadCliente.setBackground(new java.awt.Color(0, 0, 0));
+        tfNacionalidadCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfNacionalidadCliente.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -562,32 +540,27 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfIDProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(tfNombreProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumentoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(tfProvinciaProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfLocalidadProductor)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(tfNacionalidadCliente)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(tfNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel13))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,28 +580,22 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(23, 23, 23)
-                            .addComponent(tfIDProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel11)
                                 .addComponent(jLabel8))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfNombreProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDocumentoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfProvinciaProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNacionalidadCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del cliente en el exterior", jPanel2);
@@ -1077,7 +1044,7 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
         Boolean informacionFactura = (cbTipoFactura.getSelectedItem() == "SELECCIONAR" || tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0 || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
 
-        if (tfIDProductor.getText().length() == 0){
+        if (tfIDCliente.getText().length() == 0){
             
             JOptionPane.showMessageDialog(null, "Debe seleccionar el cliente al cual se le realizo la venta de miel.", "REGISTRO DE FACTURA A CLIENTE EN EL EXTERIOR", JOptionPane.ERROR_MESSAGE);
             totalMielFacturada = 0.00;
@@ -1208,8 +1175,8 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
         JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        FacturaProductor factura = new FacturaProductor();
-        factura.eliminarFacturaProductor(codigoFactura);
+        FacturaCliente factura = new FacturaCliente();
+        factura.eliminarFacturaCliente(codigoFactura);
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
@@ -1350,10 +1317,10 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
         }
 
-        ItemFacturadoFacturaProductor itemFacturado = new ItemFacturadoFacturaProductor(codigoItemFacturado, codigoFactura, descripcionItemFacturado, cantidadItemFacturado, importeItemFacturado, totalItemFacturado);
+        ItemFacturadoFacturaCliente itemFacturado = new ItemFacturadoFacturaCliente(codigoItemFacturado, codigoFactura, descripcionItemFacturado, cantidadItemFacturado, importeItemFacturado, totalItemFacturado);
 
         //lo agrego a la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
-//        itemsAFacturar.add(itemFacturado);
+        itemsAFacturar.add(itemFacturado);
 
         //se suma la cantidad de kgs. de miel a la variable totalMielFinanciada
         totalMielFacturada = totalMielFacturada+cantidadItemFacturado;
@@ -1389,11 +1356,10 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo lso datos del productor
         //correspondiente a la fila de la grilla cliqueada
-        tfIDProductor.setText(tClientes.getValueAt(fila, 0).toString());
-        tfNombreProductor.setText(tClientes.getValueAt(fila, 1).toString());
-        tfDocumentoProductor.setText(tClientes.getValueAt(fila, 2).toString());
-        tfProvinciaProductor.setText(tClientes.getValueAt(fila, 4).toString());
-        tfLocalidadProductor.setText(tClientes.getValueAt(fila, 5).toString());
+        tfIDCliente.setText(tClientes.getValueAt(fila, 0).toString());
+        tfNombreCliente.setText(tClientes.getValueAt(fila, 1).toString());
+        tfDocumentoCliente.setText(tClientes.getValueAt(fila, 2).toString());
+        tfNacionalidadCliente.setText(tClientes.getValueAt(fila, 4).toString());
 
         //tamb, al hacer click en un productor, cancela los datos que se hayan insertado y aun no se hayan guardado
         //en la solapa de la factura
@@ -1430,10 +1396,10 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
             //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
             //caso contrario busco el codigo asociado al nombre seleccionado
-//            codigoLocacionOrigen = listaLocacionesDisponibles.get(cbLocacionesDisponibles.getSelectedIndex()).getCodigo_locacion();
+            codigoLocacionOrigen = listaLocacionesDisponibles.get(cbLocacionesDisponibles.getSelectedIndex()).getCodigo_locacion();
             //ademas muestro el stock fisico discponible en cada una de las locaciones
             //sirviendo tambien dicho dato para no permitir mover mas de lo que hay desde la locacion origen
- //           saldoMiel = calcularTotalStockLocacion(codigoLocacionOrigen);
+            saldoMiel = calcularTotalStockLocacion(codigoLocacionOrigen);
             saldoMielOrigen = saldoMiel;
             lStockOrigen.setText(String.valueOf(saldoMiel));
 
@@ -1452,11 +1418,11 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         
         for (int i = 0; i<itemsAFacturar.size(); i++ ){
             
-//            ItemFacturadoFacturaProductor item = itemsAFacturar.get(i);
-//            modeloDatos.setValueAt(item.getDescripcionItemFacturado(), i, 0);
-    //        modeloDatos.setValueAt(item.getCantidadItemFacturado(), i, 1);
-  //          modeloDatos.setValueAt(item.getImporteItemFacturado(), i, 2);
-      //          modeloDatos.setValueAt(item.getTotalItemFacturado(), i, 3);
+            ItemFacturadoFacturaCliente item = itemsAFacturar.get(i);
+            modeloDatos.setValueAt(item.getDescripcionItemFacturado(), i, 0);
+            modeloDatos.setValueAt(item.getCantidadItemFacturado(), i, 1);
+            modeloDatos.setValueAt(item.getImporteItemFacturado(), i, 2);
+            modeloDatos.setValueAt(item.getTotalItemFacturado(), i, 3);
             
         }
         
@@ -1476,6 +1442,22 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         tfImporteTotalFactura.setText(formateador.format(saldo));
     }
     
+    public double calcularTotalStockLocacion(int codigoLocacion) {
+
+        double mielComprada, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
+
+        StockRealMiel stock = new StockRealMiel();
+            
+        mielComprada = stock.obtenerDetalleMielComprada(codigoLocacion);
+        mielVendida = stock.obtenerDetalleMielVendida(codigoLocacion);
+        mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(codigoLocacion);
+        mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(codigoLocacion);
+        
+        saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
+        
+        return saldoMiel;
+        
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1495,7 +1477,6 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -1527,14 +1508,13 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     public javax.swing.JTable tItemsFacturados;
     public javax.swing.JTextField tfBusquedaPorNombre;
     public javax.swing.JTextField tfCantidadItemFacturado;
-    public javax.swing.JTextField tfDocumentoProductor;
-    public javax.swing.JTextField tfIDProductor;
+    public javax.swing.JTextField tfDocumentoCliente;
+    public javax.swing.JTextField tfIDCliente;
     public javax.swing.JTextField tfImporteItemFacturado;
     public javax.swing.JTextField tfImporteTotalFactura;
-    public javax.swing.JTextField tfLocalidadProductor;
-    public javax.swing.JTextField tfNombreProductor;
+    private javax.swing.JTextField tfNacionalidadCliente;
+    public javax.swing.JTextField tfNombreCliente;
     public javax.swing.JTextField tfNumeroComprobante;
-    public javax.swing.JTextField tfProvinciaProductor;
     private javax.swing.JTabbedPane tpFactura;
     // End of variables declaration//GEN-END:variables
 }

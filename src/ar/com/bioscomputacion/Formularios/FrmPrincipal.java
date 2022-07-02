@@ -315,7 +315,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem5.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem5.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
-        jMenuItem5.setText("REGISTRO DE COMPRA A CREDITO A PRODUCTOR");
+        jMenuItem5.setText("REGISTRO DE COMPRA A CONSIGNACION A PRODUCTOR");
         jMenuItem5.setOpaque(true);
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

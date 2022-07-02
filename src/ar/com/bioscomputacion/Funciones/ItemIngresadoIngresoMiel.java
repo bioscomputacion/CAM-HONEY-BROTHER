@@ -100,7 +100,7 @@ public class ItemIngresadoIngresoMiel {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO items_ingresados_inrgeso_miel_propia (codigo_item_ingresado, codigo_ingreso, descripcion_item_ingresado, cantidad_item_ingresado) "
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO items_ingresados_ingreso_miel_propia (codigo_item_ingresado, codigo_ingreso, descripcion_item_ingresado, cantidad_item_ingresado) "
                     + "VALUES (?,?,?,?)");
             
             pst.setInt(1, itemIngresado.getCodigoItemIngresado());

@@ -42,8 +42,7 @@ import javax.swing.table.TableModel;
  */
 public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame {
 
-    public int codigoProductor, codigoPresupuesto, codigoItemPresupuestado, codigoMovimientoCtaCte;
-    public Double totalMielPresupuestada;
+    public int codigoProductor, codigoPresupuesto, codigoMovimientoCtaCte;
     public List<ItemFacturadoPresupuestoProductor> itemsAPresupuestar = new ArrayList<>();
     public List<Locacion> listaLocaciones = new ArrayList<>();
     
@@ -64,37 +63,19 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         initComponents();
         mostrarProductores("");
         ocultarColumnasProductores();
-        listarItemsPresupuestados();
-        ocultarColumnasItemsPresupuestados();
         inicializar();
         
     }
 
-    public void limpiarCampos(){
-
-        //tfNumeroComprobante.setText("");
-        Calendar cal = new GregorianCalendar();
-        dcFechaPresupuesto.setCalendar(cal);
-        dcFechaVencimiento.setCalendar(cal);
-        cbDescripcionItem.setSelectedIndex(0);
-        tfCantidadItemPresupuestado.setText("");
-        tfImporteItemPresupuestado.setText("");
-        tfImporteTotalPresupuesto.setText("0.00");
-        cbLocacionesDisponibles.setSelectedIndex(0);
-        mostrarProductores("");
-        ocultarColumnasProductores();
-        
-        itemsAPresupuestar.clear();
-        listarItemsPresupuestados();
-        tpFactura.setSelectedIndex(0);
-        tProductoresRegistrados.requestFocus();
-        
-        
-
-    }
-    
     public void inicializar() throws SQLException{
         
+        //ahora se guarda el movimiento correspondiente al presupuesto, en la cta. cte. de la empresa con el productor
+        PresupuestoProductor presupuesto = new PresupuestoProductor();
+        //Ver la forma de averiguar cual es el realmente el numero de presupuesto que se cargara
+        //sin tener que insertar un presupuesto de antemano!
+        codigoPresupuesto = presupuesto.mostrarIdPresupuestoProductor()+1;
+
+        //preparo las fechas de carga y de vencimiento del presupuesto
         Calendar cal = new GregorianCalendar();
         dcFechaPresupuesto.setCalendar(cal);
         dcFechaVencimiento.setCalendar(cal);
@@ -106,22 +87,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
 
-        PresupuestoProductor presupuestoProductor = new PresupuestoProductor("-", 0, 22, new Date(a, m, d), new Date(a, m, d), 0.00, 0.00);
-        presupuestoProductor.registrarPresupuestoProductor(presupuestoProductor);
-        //almaceno en la variable global codigoFactura el codigo de la nueva factura a registrar
-        
-        //aca almaceno el codigo de la factura recien cargada para utilizar el mismo para los items
-        //y para ubicarla en caso de tener que eliminarla
-        codigoPresupuesto = presupuestoProductor.mostrarIdPresupuestoProductor();
-        
-        codigoItemPresupuestado = presupuestoProductor.mostrarIdItemAPresupuestar(codigoPresupuesto)+1;
-        
-        //inicializo variable que almacena la cantidad de miel presupuestada en el presupuesto que se va a registrar
-        totalMielPresupuestada = 0.00;
-
-        tfImporteTotalPresupuesto.setText("0.00");
-        tfImporteTotalPresupuesto.setEditable(false);
-        
         tfNombreProductor.setEditable(false);
         tfDocumentoProductor.setEditable(false);
         tfProvinciaProductor.setEditable(false);
@@ -134,7 +99,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         //carga del combo de las locaciones disponibles y almacena en la lista las mismas, con codigo y nombre
         //para tener acceso facilmente al codigo de la locacion, segun el nombre seleccionado en el combo
         //para eso, vamos a usar la lista "locaciones", que es un arreglo de objetos del tipo locacion
-        
         listaLocaciones = cargarListaLocaciones();
         
         for (int i = 0; i<listaLocaciones.size(); i++){
@@ -142,6 +106,11 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             cbLocacionesDisponibles.addItem(listaLocaciones.get(i).getNombre_locacion());
             
         }
+        
+        //inicializo campos
+        tfCantidadKilos.setText("0.00");
+        tfPrecioUnitario.setText("0.00");
+        tfImporteTotalPresupuesto.setText("$ 0.00");
         
         tProductoresRegistrados.requestFocus();
         
@@ -279,27 +248,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         ((DefaultTableCellRenderer) tProductoresRegistrados.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
     
-
-    public void ocultarColumnasItemsPresupuestados() {
-
-        DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer cellRender4 = new DefaultTableCellRenderer();
-        
-        cellRender1.setHorizontalAlignment(SwingConstants.LEFT);
-        tItemsPresupuestados.getColumnModel().getColumn(0).setCellRenderer(cellRender1);   
-        cellRender2.setHorizontalAlignment(SwingConstants.RIGHT);
-        tItemsPresupuestados.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
-        cellRender3.setHorizontalAlignment(SwingConstants.RIGHT);
-        tItemsPresupuestados.getColumnModel().getColumn(2).setCellRenderer(cellRender3);   
-        cellRender4.setHorizontalAlignment(SwingConstants.RIGHT);
-        tItemsPresupuestados.getColumnModel().getColumn(3).setCellRenderer(cellRender4);   
-        
-        ((DefaultTableCellRenderer) tItemsPresupuestados.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-        
-    }
-
     public ArrayList<Locacion> cargarListaLocaciones() throws SQLException{
         
         ArrayList<Locacion> locaciones = new ArrayList<Locacion>();
@@ -309,7 +257,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         locaciones.add(loc0);
         
         Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
+        ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion where categoria = 'DEPOSITO DE ACOPIO PROPIO' or categoria = 'HOMOGENEIZACION' or categoria = 'DEPOSITO DE PRODUCTOR' order by codigo_locacion asc");
         
         try{
             
@@ -323,7 +271,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                 loc.setNombre_locacion(nombreLocacion);
                 locaciones.add(loc);
                 i++;
-
                 
             }
             
@@ -405,31 +352,26 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
+        tfNumeroComprobante = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         dcFechaPresupuesto = new com.toedter.calendar.JDateChooser();
-        jLabel17 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        dcFechaVencimiento = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
+        tfDescripcion = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        tfNumeroComprobante = new javax.swing.JTextField();
-        tfCantidadItemPresupuestado = new javax.swing.JTextField();
+        tfCantidadKilos = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        tfImporteItemPresupuestado = new javax.swing.JTextField();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tItemsPresupuestados = tItemsPresupuestados = tItemsPresupuestados = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false; //Disallow the editing of any cell
-            }
-        };
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        tfPrecioUnitario = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
         tfImporteTotalPresupuesto = new javax.swing.JTextField();
-        rdbrPresupuestar = new rojeru_san.RSButtonRiple();
-        rdbrQuitar = new rojeru_san.RSButtonRiple();
-        jLabel9 = new javax.swing.JLabel();
-        dcFechaVencimiento = new com.toedter.calendar.JDateChooser();
-        cbDescripcionItem = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        tfTambores = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        tfLotes = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         cbLocacionesDisponibles = new javax.swing.JComboBox<>();
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
@@ -480,6 +422,9 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         tProductoresRegistrados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tProductoresRegistradosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tProductoresRegistradosMouseEntered(evt);
             }
         });
         jScrollPane4.setViewportView(tProductoresRegistrados);
@@ -609,7 +554,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -621,114 +566,21 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("INGRESE LA INFORMACION DEL PRESUPUESTO:");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("FECHA DEL PRESUPUESTO:");
-
-        dcFechaPresupuesto.setBackground(new java.awt.Color(36, 33, 33));
-        dcFechaPresupuesto.setForeground(new java.awt.Color(207, 207, 207));
-        dcFechaPresupuesto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("PRESUPUESTO N°:");
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("ITEMS PRESUPUESTADOS:");
-
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("DESCRIPCION:");
-
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("CANTIDAD:");
 
         tfNumeroComprobante.setBackground(new java.awt.Color(51, 84, 111));
         tfNumeroComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNumeroComprobante.setForeground(new java.awt.Color(255, 255, 255));
 
-        tfCantidadItemPresupuestado.setBackground(new java.awt.Color(51, 84, 111));
-        tfCantidadItemPresupuestado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfCantidadItemPresupuestado.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("FECHA DE LA FACTURA:");
 
-        jLabel19.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("IMPORTE:");
-
-        tfImporteItemPresupuestado.setBackground(new java.awt.Color(51, 84, 111));
-        tfImporteItemPresupuestado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfImporteItemPresupuestado.setForeground(new java.awt.Color(255, 255, 255));
-
-        tItemsPresupuestados.setBackground(new java.awt.Color(153, 255, 255));
-        tItemsPresupuestados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "DESCRIPCION", "CANTIDAD", "IMPORTE", "SUB TOTAL"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tItemsPresupuestados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tItemsPresupuestadostItemsFacturadosFacturaMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(tItemsPresupuestados);
-
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("TOTAL:");
-
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("$");
-
-        tfImporteTotalPresupuesto.setBackground(new java.awt.Color(255, 0, 51));
-        tfImporteTotalPresupuesto.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfImporteTotalPresupuesto.setForeground(new java.awt.Color(255, 255, 255));
-        tfImporteTotalPresupuesto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
-        tfImporteTotalPresupuesto.setCaretColor(new java.awt.Color(255, 255, 255));
-        tfImporteTotalPresupuesto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-
-        rdbrPresupuestar.setBackground(new java.awt.Color(0, 0, 0));
-        rdbrPresupuestar.setForeground(new java.awt.Color(0, 0, 0));
-        rdbrPresupuestar.setText("PRESUPUESTAR");
-        rdbrPresupuestar.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
-        rdbrPresupuestar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbrPresupuestarActionPerformed(evt);
-            }
-        });
-
-        rdbrQuitar.setBackground(new java.awt.Color(0, 0, 0));
-        rdbrQuitar.setForeground(new java.awt.Color(0, 0, 0));
-        rdbrQuitar.setText("QUITAR");
-        rdbrQuitar.setToolTipText("");
-        rdbrQuitar.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
-        rdbrQuitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbrQuitarActionPerformed(evt);
-            }
-        });
+        dcFechaPresupuesto.setBackground(new java.awt.Color(36, 33, 33));
+        dcFechaPresupuesto.setForeground(new java.awt.Color(207, 207, 207));
+        dcFechaPresupuesto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -738,20 +590,85 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         dcFechaVencimiento.setForeground(new java.awt.Color(207, 207, 207));
         dcFechaVencimiento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        cbDescripcionItem.setBackground(new java.awt.Color(36, 33, 33));
-        cbDescripcionItem.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbDescripcionItem.setForeground(new java.awt.Color(207, 207, 207));
-        cbDescripcionItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "KG. DE MIEL", "TAMBOR DE MIEL X 300 KGS.", "LOTE DE MIEL X 70 TAMBORES", "LOTE DE MIEL X 71 TAMBORES", " " }));
-        cbDescripcionItem.setPreferredSize(new java.awt.Dimension(136, 19));
-        cbDescripcionItem.addActionListener(new java.awt.event.ActionListener() {
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("MIEL A PRESUPUESTAR:");
+
+        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("ITEM A PRESUPUESTAR:");
+
+        tfDescripcion.setEditable(false);
+        tfDescripcion.setBackground(new java.awt.Color(204, 255, 255));
+        tfDescripcion.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        tfDescripcion.setText(" KGS. DE MIEL");
+
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("CANTIDAD KGS.:");
+
+        tfCantidadKilos.setBackground(new java.awt.Color(51, 84, 111));
+        tfCantidadKilos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfCantidadKilos.setForeground(new java.awt.Color(255, 255, 255));
+        tfCantidadKilos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDescripcionItemActionPerformed(evt);
+                tfCantidadKilosActionPerformed(evt);
+            }
+        });
+        tfCantidadKilos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfCantidadKilosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCantidadKilosKeyTyped(evt);
             }
         });
 
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("PRECIO UNITARIO:");
+
+        tfPrecioUnitario.setBackground(new java.awt.Color(51, 84, 111));
+        tfPrecioUnitario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfPrecioUnitario.setForeground(new java.awt.Color(255, 255, 255));
+        tfPrecioUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPrecioUnitarioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfPrecioUnitarioKeyTyped(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("IMPORTE TOTAL:");
+
+        tfImporteTotalPresupuesto.setEditable(false);
+        tfImporteTotalPresupuesto.setBackground(new java.awt.Color(255, 255, 255));
+        tfImporteTotalPresupuesto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("CONVERSION A TAMBORES:");
+
+        tfTambores.setEditable(false);
+        tfTambores.setBackground(new java.awt.Color(204, 255, 255));
+        tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("CONVERSION A LOTES:");
+
+        tfLotes.setEditable(false);
+        tfLotes.setBackground(new java.awt.Color(204, 255, 255));
+        tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
         jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("SELECCIONE LA LOCACION DONDE SERA ACOPIADA LA MIEL ADQUIRIDA:");
+        jLabel21.setText("SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA:");
 
         cbLocacionesDisponibles.setBackground(new java.awt.Color(36, 33, 33));
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -771,126 +688,108 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(cbLocacionesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(tfNumeroComprobante))
-                                .addGap(18, 18, 18)
+                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSeparator4)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbDescripcionItem, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator4)
+                            .addComponent(jLabel7)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tfCantidadItemPresupuestado))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(tfImporteItemPresupuestado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane7)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(rdbrPresupuestar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
-                                .addComponent(rdbrQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfImporteTotalPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(158, 158, 158))
-                            .addComponent(cbLocacionesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel16)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tfPrecioUnitario)
+                                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tfImporteTotalPresupuesto)
+                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel21))
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9))
-                        .addGap(7, 7, 7)
-                        .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(7, 7, 7)
-                                .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1))
-                            .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfImporteItemPresupuestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCantidadItemPresupuestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbDescripcionItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel19)
+                                .addComponent(jLabel23)
+                                .addComponent(jLabel18))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfImporteTotalPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbrPresupuestar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdbrQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfImporteTotalPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Datos del presupuesto", jPanel3);
@@ -929,8 +828,8 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -953,9 +852,9 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
     private void tfBusquedaPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBusquedaPorNombreKeyReleased
 
-        //mostrarProductores(tfBusquedaPorNombre.getText());
-        //ocultarColumnasProductores();
-
+        mostrarProductores(tfBusquedaPorNombre.getText());
+        ocultarColumnasProductores();
+        
     }//GEN-LAST:event_tfBusquedaPorNombreKeyReleased
 
     private void tProductoresRegistradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresRegistradosMouseClicked
@@ -973,227 +872,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         tfProvinciaProductor.setText(tProductoresRegistrados.getValueAt(fila, 4).toString());
         tfLocalidadProductor.setText(tProductoresRegistrados.getValueAt(fila, 5).toString());
 
-        //tamb, al hacer click en un productor, cancela los datos que se hayan insertado y aun no se hayan guardado
-        //en la solapa de la factura
-        limpiarCampos();
-        
-        itemsAPresupuestar.clear();
-        listarItemsPresupuestados();
-        
     }//GEN-LAST:event_tProductoresRegistradosMouseClicked
-
-    private void tItemsPresupuestadostItemsFacturadosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tItemsPresupuestadostItemsFacturadosFacturaMouseClicked
-
-        filaItemsPresupuestados = tItemsPresupuestados.rowAtPoint(evt.getPoint());
-
-    }//GEN-LAST:event_tItemsPresupuestadostItemsFacturadosFacturaMouseClicked
-
-    private void rdbrPresupuestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrPresupuestarActionPerformed
-
-        //chequeo de datos completos
-        if (String.valueOf(cbDescripcionItem.getSelectedItem()) == "SELECCIONAR"){
-
-            JOptionPane.showMessageDialog(null, "Se debe seleccionar la descripcion del item a presupuestar.", "PRESUPUESTO DE ITEMS", JOptionPane.ERROR_MESSAGE);
-            cbDescripcionItem.requestFocus();
-            return;
-
-        }
-
-        if (tfCantidadItemPresupuestado.getText().length() == 0) {
-
-            JOptionPane.showMessageDialog(null, "Se debe ingresar la cantidad correspondiente a presupuestar.", "PRESUPUESTO DE ITEMS", JOptionPane.ERROR_MESSAGE);
-            tfCantidadItemPresupuestado.requestFocus();
-            return;
-
-        }
-
-        if (Integer.parseInt(tfCantidadItemPresupuestado.getText().toString()) == 0) {
-
-            JOptionPane.showMessageDialog(null, "No se puede presupuestar un item con cantidad menor a una unidad.", "PRESUPUESTO DE ITEMS", JOptionPane.ERROR_MESSAGE);
-            tfCantidadItemPresupuestado.requestFocus();
-            return;
-
-        }
-
-        if (tfImporteItemPresupuestado.getText().length() == 0) {
-
-            JOptionPane.showMessageDialog(null, "Se debe ingresar el importe correspondiente al item seleccionado.", "PRESUPUESTO DE ITEMS", JOptionPane.ERROR_MESSAGE);
-            tfImporteItemPresupuestado.requestFocus();
-            return;
-
-        }
-
-        if (Double.parseDouble(tfImporteItemPresupuestado.getText().toString()) == 0.00) {
-
-            JOptionPane.showMessageDialog(null, "No se puede presupuestar un item con importe igual a $ 0.00.", "PRESUPUESTO DE ITEMS", JOptionPane.ERROR_MESSAGE);
-            tfImporteItemPresupuestado.requestFocus();
-            return;
-
-        }
-
-        String descripcionItemPresupuestado = String.valueOf(cbDescripcionItem.getSelectedItem());
-        double importeItemPresupuestado = Double.parseDouble(tfImporteItemPresupuestado.getText());
-        double totalItemPresupuestado = 0.00;
-
-        Double cantidadItemPresupuestado = 0.00;
-
-        switch (descripcionItemPresupuestado){
-
-            case "KG. DE MIEL":
-            //se suman los kilos sin convertirlos
-            cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString());
-            //System.out.println(cantidadItemFacturado);
-            totalItemPresupuestado = cantidadItemPresupuestado * importeItemPresupuestado;
-            break;
-
-            case "TAMBOR DE MIEL X 300 KGS.":
-            //se suman los kilos sin convertirlos
-            cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString())*300.00;
-            //System.out.println(cantidadItemFacturado);
-            totalItemPresupuestado = cantidadItemPresupuestado * importeItemPresupuestado;
-            break;
-
-            case "LOTE DE MIEL X 70 TAMBORES":
-            //se suman los kilos sin convertirlos
-            cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString())*21000.00;
-            //System.out.println(cantidadItemFacturado);
-            totalItemPresupuestado = cantidadItemPresupuestado * importeItemPresupuestado;
-            break;
-
-            case "LOTE DE MIEL X 71 TAMBORES":
-            //se suman los kilos sin convertirlos
-            cantidadItemPresupuestado = Double.parseDouble(tfCantidadItemPresupuestado.getText().toString())*21300.00;
-            //System.out.println(cantidadItemFacturado);
-            totalItemPresupuestado = cantidadItemPresupuestado * importeItemPresupuestado;
-            break;
-
-        }
-
-        ItemFacturadoPresupuestoProductor itemPresupuestado = new ItemFacturadoPresupuestoProductor(codigoItemPresupuestado, codigoPresupuesto, descripcionItemPresupuestado, cantidadItemPresupuestado, importeItemPresupuestado, totalItemPresupuestado);
-
-        //lo agrego a la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
-        itemsAPresupuestar.add(itemPresupuestado);
-
-        //se suma la cantidad de kgs. de miel a la variable totalMielFinanciada
-        totalMielPresupuestada = totalMielPresupuestada+cantidadItemPresupuestado;
-        System.out.println(totalMielPresupuestada);
-
-        //lo agrego a la tabla
-
-        listarItemsPresupuestados();
-        ocultarColumnasItemsPresupuestados();
-        calcularImporteTotalPresupuesto();
-
-        //limpio los campos
-        cbDescripcionItem.setSelectedIndex(0);
-        tfCantidadItemPresupuestado.setText("");
-        tfImporteItemPresupuestado.setText("");
-        cbDescripcionItem.requestFocus();
-
-        //incremento el codigo de item facturado para un potencial proximo item facturado
-        codigoItemPresupuestado = codigoItemPresupuestado+1;
-
-    }//GEN-LAST:event_rdbrPresupuestarActionPerformed
-
-    private void listarItemsPresupuestados() {
-
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"DESCRIPCION","CANTIDAD","IMPORTE","SUB TOTAL"},itemsAPresupuestar.size());
-        tItemsPresupuestados.setModel(modelo);
-        TableModel modeloDatos = tItemsPresupuestados.getModel();
-        
-        for (int i = 0; i<itemsAPresupuestar.size(); i++ ){
-            
-            ItemFacturadoPresupuestoProductor item = itemsAPresupuestar.get(i);
-            modeloDatos.setValueAt(item.getDescripcionItemPresupuestado(), i, 0);
-            modeloDatos.setValueAt(item.getCantidadItemPresupuestado(), i, 1);
-            modeloDatos.setValueAt(item.getImporteItemPresupuestado(), i, 2);
-            modeloDatos.setValueAt(item.getTotalItemPresupuestado(), i, 3);
-            
-        }
-        
-    }
-
-    public void calcularImporteTotalPresupuesto() {
-        
-        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
-        simbolos.setDecimalSeparator('.');
-        DecimalFormat formateador = new DecimalFormat("0.00", simbolos);
-        Double saldo = 0.00;
-        
-        for (int i = 0; i < tItemsPresupuestados.getRowCount(); i++) {
-            saldo = saldo + Double.valueOf(tItemsPresupuestados.getValueAt(i, 3).toString());
-        }
-        
-        tfImporteTotalPresupuesto.setText(formateador.format(saldo));
-        
-    }
-    
-    private void rdbrQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrQuitarActionPerformed
-
-        //tengo que quitar le item presupuestado de la lista de items a presupuestar
-        //los cuales aun no se han dado de alta en la BD sino que aguardan
-        //en dicha lista para luego ser recorridos y dados todos de alta
-        //hay que eliminar el item de la lista de items a presupuestar y de la grilla que los muestra
-        //mientras tanto
-        
-
-        if (filaItemsPresupuestados == -1){
-            
-            JOptionPane.showMessageDialog(null, "Por favor seleccione el item desvincular del presupuesto.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
-            
-        }
-        else{
-            
-            if (itemsAPresupuestar.size()>0){
-                
-                //primero obtengo la cantidad de miel del item a punto de desvincularse del credito
-                ItemFacturadoPresupuestoProductor item = itemsAPresupuestar.get(filaItemsPresupuestados);
-                Double cantidadItemPresupuestado = item.getCantidadItemPresupuestado();
-
-                //lo elimino de la lista que luego sera recorrida para almacenar uno por uno los items facturados en la bd
-                itemsAPresupuestar.remove(filaItemsPresupuestados);
-
-                //se resta la cantidad de kgs. de miel del item removido a la variable totalMielFinanciada
-                totalMielPresupuestada = totalMielPresupuestada-cantidadItemPresupuestado;
-
-                //lo quito de la tabla
-
-                listarItemsPresupuestados();
-                ocultarColumnasItemsPresupuestados();
-                calcularImporteTotalPresupuesto();
-                JOptionPane.showMessageDialog(null, "El item presupuestado ha sido desvinculado con exito del presupuesto.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
-                
-            }
-            else{
-                
-                JOptionPane.showMessageDialog(null, "No existen items presupuestados para poder desvincular.", "DESVINCULACION DE ITEM PRESUPUESTADO", JOptionPane.INFORMATION_MESSAGE);
-                
-            }
-            
-            cbDescripcionItem.requestFocus();
-            
-        }
-        
-    }//GEN-LAST:event_rdbrQuitarActionPerformed
-
-    private void cbDescripcionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDescripcionItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDescripcionItemActionPerformed
-
-    private void cbLocacionesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocacionesDisponiblesActionPerformed
-
-        // cada vez que selecciona un nombre de locacion, se busca su codigo de locacion en la lista de locaciones
-        // y se almacena dicho codigo en la variable correspondiente
-
-        if (cbLocacionesDisponibles.getSelectedIndex() != 0){
-
-            //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
-            //caso contrario busco el codigo asociado al nombre seleccionado
-            codigoLocacion = listaLocaciones.get(cbLocacionesDisponibles.getSelectedIndex()).getCodigo_locacion();
-
-        }
-        
-    }//GEN-LAST:event_cbLocacionesDisponiblesActionPerformed
 
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
@@ -1201,13 +880,11 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         //Tambien son obligatorios todos los campos referidos a la factura: numero de factura, fecha
         //items facturados y monto total de la factura
 
-        Boolean informacionFactura = (tfImporteTotalPresupuesto.getText().length() == 0 || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
+        Boolean informacionFactura = (tfImporteTotalPresupuesto.getText().length() == 0 || tfImporteTotalPresupuesto.getText().equals("$ 0.0") || tfImporteTotalPresupuesto.getText().equals("$ 0.00") || cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR");
 
         if (tfIDProductor.getText().length() == 0){
 
             JOptionPane.showMessageDialog(null, "Debe seleccionar el productor al cual se le realizo la compra de miel.", "REGISTRO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            totalMielPresupuestada = 0.00;
-            itemsAPresupuestar.clear();
             tpFactura.setSelectedIndex(0);
             tProductoresRegistrados.requestFocus();
             return;
@@ -1223,8 +900,12 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             return;
             
         }
-
-        //obtengo las fechas de factura y de vencimiento del pago de la misma
+        
+        //se procede al registro del presupuesto correspondiente a la compra de miel al productor seleccionado
+        
+        //obtengo las fechas de presupuesto y de vencimiento del pago del mismo
+        //ver como puedo comparar las fechas del presupuesto y de vencimiento de la misma para que sean 
+        //correcatmente almacenadas en la BD
         Calendar cal1, cal2;
         int d1, d2, m1, m2, a1, a2;
         cal1 = dcFechaPresupuesto.getCalendar();
@@ -1238,33 +919,21 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         m2 = cal2.get(Calendar.MONTH);
         a2 = cal2.get(Calendar.YEAR) - 1900;
 
-        //ver como puedo comparar las fechas de la factura y de vencimiento de la misma para que sean
-        //correcatmente almacenadas en la BD
+        Double importePresupuesto = Double.parseDouble(tfCantidadKilos.getText()) * Double.parseDouble(tfPrecioUnitario.getText());
+        Double cantidadMielPresupuestada = Double.parseDouble(tfCantidadKilos.getText());
+        String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
 
-        Double importeFactura = Double.parseDouble(tfImporteTotalPresupuesto.getText());
-
-        //se procede al registro de la factura correspondiente a la compra de miel al productor seleccionado
-        //que en realidad es un update de la factura ya ingresada al inicializarse este formulario!
-        PresupuestoProductor presupuesto = new PresupuestoProductor(tfNumeroComprobante.getText(), codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeFactura, totalMielPresupuestada);
+        PresupuestoProductor presupuesto = new PresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importePresupuesto, cantidadMielPresupuestada);
         
-        if (presupuesto.modificarPresupuestoProductor(presupuesto, codigoPresupuesto)){
-
-            //ahora, se guardan todos los items facturados en dicha factura (crar el metodo)
-
-            for (int i = 0; i<itemsAPresupuestar.size(); i++ ){
-
-                ItemFacturadoPresupuestoProductor item = itemsAPresupuestar.get(i);
-                item.presupuestarItem(item);
-
-            }
-
-            //ahora se guarda el movimiento correspondiente a la factura, en la cta. cte. de la empresa con el productor
-            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "PRESUPUESTO", codigoPresupuesto, tfNumeroComprobante.getText(), totalMielPresupuestada, importeFactura, 0.00, importeFactura, "PENDIENTE", "");
+        if (presupuesto.registrarPresupuestoProductor(presupuesto)){
+            
+            //Se guarda el movimiento correspondiente al presupuesto, en la cta. cte. de la empresa con el productor
+            codigoPresupuesto = presupuesto.mostrarIdPresupuestoProductor();
+            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "PRESUPUESTO", codigoPresupuesto, numeroComprobante, cantidadMielPresupuestada, importePresupuesto, 0.00, importePresupuesto, "PENDIENTE", "");
             ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
 
             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, SUMANDO LA CANTIDAD DE KGS. COMPRADA EN ESTA FACTURA
             // A DICHO STOCK, APUNTANDO ADEMAS EL ESTADO DE ESTA CANTIDAD: PAGOS, IMPAGOS, ETC.
-
             StockRealMiel stockMiel = new StockRealMiel();
             stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
             stockMiel.setTipo_movimiento("COMPRA");
@@ -1275,7 +944,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             //en una variable deberia sumar todos los kilos de miel comprados, los cuales se pueden sacar
             //de las descripciones y cantidades de los items facturados (en la lista esta esa informacion!)
             //esa cantidad obtenida se almacenara en cantidad_miel
-            stockMiel.setCantidad_miel(totalMielPresupuestada);
+            stockMiel.setCantidad_miel(cantidadMielPresupuestada);
             //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
             //no se almacenara nada!
             //debo obtener el codigo de la locacion a partir del nombre de la misma
@@ -1330,15 +999,112 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
         JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        PresupuestoProductor factura = new PresupuestoProductor();
-        factura.eliminarPresupuestoProductor(codigoPresupuesto);
         this.dispose();
         
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
+    private void tfCantidadKilosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCantidadKilosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCantidadKilosActionPerformed
+
+    private void tfCantidadKilosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCantidadKilosKeyReleased
+
+        //VER COMO PUEDO REDONDEAR!
+        if (tfCantidadKilos.getText().length() != 0){
+
+            Double kilos = Double.parseDouble(tfCantidadKilos.getText());
+            Double tambores = kilos / 300;
+            tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
+            Double lotes = kilos / 21000;
+            tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+            Double precioUnitario = Double.parseDouble(tfPrecioUnitario.getText());
+            Double importeFactura = kilos*precioUnitario;
+            tfImporteTotalPresupuesto.setText("$ "+String.valueOf(Math.round(importeFactura*100.0)/100.0));
+
+        }
+        else{
+
+            tfTambores.setText("0 TAMBORES");
+            tfLotes.setText("0 LOTES");
+            tfCantidadKilos.setText("0.00");
+            tfImporteTotalPresupuesto.setText("$ 0.00");
+
+        }
+        
+    }//GEN-LAST:event_tfCantidadKilosKeyReleased
+
+    private void tfCantidadKilosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCantidadKilosKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (tfCantidadKilos.getText().contains(".") && c == '.') {
+            getToolkit().beep();
+            evt.consume();
+        } else if (!Character.isDigit(c)) {
+            if (c != '.') {
+                getToolkit().beep();
+                evt.consume();
+            }
+
+        }
+
+    }//GEN-LAST:event_tfCantidadKilosKeyTyped
+
+    private void tfPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrecioUnitarioKeyReleased
+
+        if (tfPrecioUnitario.getText().length() != 0){
+
+            Double kilos = Double.parseDouble(tfCantidadKilos.getText());
+            Double precioUnitario = Double.parseDouble(tfPrecioUnitario.getText());
+            Double importeFactura = kilos*precioUnitario;
+            tfImporteTotalPresupuesto.setText("$ "+String.valueOf(Math.round(importeFactura*100.0)/100.0));
+
+        }
+        else{
+
+            tfPrecioUnitario.setText("0.00");
+            tfImporteTotalPresupuesto.setText("$ 0.00");
+
+        }
+    }//GEN-LAST:event_tfPrecioUnitarioKeyReleased
+
+    private void tfPrecioUnitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrecioUnitarioKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (tfPrecioUnitario.getText().contains(".") && c == '.') {
+            getToolkit().beep();
+            evt.consume();
+        } else if (!Character.isDigit(c)) {
+            if (c != '.') {
+                getToolkit().beep();
+                evt.consume();
+            }
+
+        }
+
+    }//GEN-LAST:event_tfPrecioUnitarioKeyTyped
+
+    private void cbLocacionesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocacionesDisponiblesActionPerformed
+
+        // cada vez que selecciona un nombre de locacion, se busca su codigo de locacion en la lista de locaciones
+        // y se almacena dicho codigo en la variable correspondiente
+
+        if (cbLocacionesDisponibles.getSelectedIndex() != 0){
+
+            //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
+            //caso contrario busco el codigo asociado al nombre seleccionado
+            codigoLocacion = listaLocaciones.get(cbLocacionesDisponibles.getSelectedIndex()).getCodigo_locacion();
+
+        }
+    }//GEN-LAST:event_cbLocacionesDisponiblesActionPerformed
+
+    private void tProductoresRegistradosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresRegistradosMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tProductoresRegistradosMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> cbDescripcionItem;
     public javax.swing.JComboBox<String> cbLocacionesDisponibles;
     public com.toedter.calendar.JDateChooser dcFechaPresupuesto;
     public com.toedter.calendar.JDateChooser dcFechaVencimiento;
@@ -1355,6 +1121,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1364,27 +1131,26 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
-    private rojeru_san.RSButtonRiple rdbrPresupuestar;
-    private rojeru_san.RSButtonRiple rdbrQuitar;
     private rojeru_san.RSButtonRiple rdbrRegistrar;
     private rojeru_san.RSButtonRiple rsbrCancelar;
-    public javax.swing.JTable tItemsPresupuestados;
     public javax.swing.JTable tProductoresRegistrados;
     public javax.swing.JTextField tfBusquedaPorNombre;
-    public javax.swing.JTextField tfCantidadItemPresupuestado;
+    public javax.swing.JTextField tfCantidadKilos;
+    public javax.swing.JTextField tfDescripcion;
     public javax.swing.JTextField tfDocumentoProductor;
     public javax.swing.JTextField tfIDProductor;
-    public javax.swing.JTextField tfImporteItemPresupuestado;
     public javax.swing.JTextField tfImporteTotalPresupuesto;
     public javax.swing.JTextField tfLocalidadProductor;
+    public javax.swing.JTextField tfLotes;
     public javax.swing.JTextField tfNombreProductor;
     public javax.swing.JTextField tfNumeroComprobante;
+    public javax.swing.JTextField tfPrecioUnitario;
     public javax.swing.JTextField tfProvinciaProductor;
+    public javax.swing.JTextField tfTambores;
     private javax.swing.JTabbedPane tpFactura;
     // End of variables declaration//GEN-END:variables
 }

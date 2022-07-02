@@ -422,14 +422,23 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         //2) se registra el movimiento asociado al pago en la cta. cte. con el productor 
         
         String comprobanteAsociadoPago = "";
-        if (tipoComprobanteAfectadoPago.equals("FACTURA")){
+        if (tipoComprobanteAfectadoPago.equals("FACTURA A")){
             
-            comprobanteAsociadoPago = "FACT. N° "+numeroComprobanteAfectadoPago;
+            comprobanteAsociadoPago = "FACT. A N° "+numeroComprobanteAfectadoPago;
         
         }
         else{
             
-            comprobanteAsociadoPago = "PRES. N° "+numeroComprobanteAfectadoPago;
+            if (tipoComprobanteAfectadoPago.equals("FACTURA B")){
+                
+                comprobanteAsociadoPago = "FACT. B N° "+numeroComprobanteAfectadoPago;
+                
+            }
+            else{
+                
+                comprobanteAsociadoPago = "PRES. N° "+numeroComprobanteAfectadoPago;
+                
+            }
         
         }
         

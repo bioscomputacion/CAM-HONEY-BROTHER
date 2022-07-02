@@ -22,6 +22,7 @@ public class IngresoMielPropia {
     private String numeroComprobante; 
     private Date fechaIngreso;
     private Double cantidadMiel;
+    private String observacion;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -58,11 +59,20 @@ public class IngresoMielPropia {
         this.cantidadMiel = cantidadMiel;
     }
 
-    public IngresoMielPropia(String numeroComprobante, Date fechaIngreso, Double cantidadMiel) {
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+    
+    public IngresoMielPropia(String numeroComprobante, Date fechaIngreso, Double cantidadMiel, String observacion) {
         
         this.numeroComprobante = numeroComprobante;
         this.fechaIngreso = fechaIngreso;
         this.cantidadMiel = cantidadMiel;
+        this.observacion = observacion;
         
     }
 
@@ -93,30 +103,6 @@ public class IngresoMielPropia {
 
     }
 
-    public int mostrarIdItemAIngresar(int codigoIngreso) {
-
-        int codigoItemAIngresar = 0;
-        
-        try{
- 
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_item_ingresado FROM items_ingresados_ingreso_miel where codigo_ingreso='"+ codigoIngreso +"'");
-            
-            while (rs.next()) {
-
-                codigoItemAIngresar = rs.getInt("codigo_item_ingresado");
-
-            }
-            
-            return codigoItemAIngresar;
-
-        }catch(Exception e){
-            
-            return codigoItemAIngresar;
-        } 
-
-    }
-
     public boolean registrarIngresoMielPropia(IngresoMielPropia ingresoMiel){
         
         try {
@@ -124,13 +110,14 @@ public class IngresoMielPropia {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO ingreso_miel_propia (numero_comprobante, fecha_ingreso, cantidad_miel) "
-                    + "VALUES (?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO ingreso_miel_propia (numero_comprobante, fecha_ingreso, cantidad_miel, observacion) "
+                    + "VALUES (?,?,?,?)");
             
             
             pst.setString(1, ingresoMiel.getNumeroComprobante());
             pst.setDate(2, ingresoMiel.getFechaIngreso());
             pst.setDouble(3, ingresoMiel.getCantidadMiel());
+            pst.setString(4, ingresoMiel.getObservacion());
             
             
             int N = pst.executeUpdate();
@@ -151,6 +138,7 @@ public class IngresoMielPropia {
         }
         
         return false;
+        
     }
 
     public boolean modificarIngresoMielPropia(IngresoMielPropia ingresoMiel, int codigoIngreso) {
@@ -158,11 +146,12 @@ public class IngresoMielPropia {
         try {
 
 
-            PreparedStatement pst = cn.prepareStatement("UPDATE ingreso_miel_propia SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ? WHERE codigo_ingreso = '"+ codigoIngreso +"'");
+            PreparedStatement pst = cn.prepareStatement("UPDATE ingreso_miel_propia SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ?,observacion = ? WHERE codigo_ingreso = '"+ codigoIngreso +"'");
 
             pst.setString(1, ingresoMiel.getNumeroComprobante());
             pst.setDate(2, ingresoMiel.getFechaIngreso());
             pst.setDouble(3, ingresoMiel.getCantidadMiel());
+            pst.setString(3, ingresoMiel.getObservacion());
 
             int N = pst.executeUpdate();
 
