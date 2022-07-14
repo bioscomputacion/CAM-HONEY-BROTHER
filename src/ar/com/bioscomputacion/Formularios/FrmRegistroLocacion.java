@@ -44,7 +44,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         rSPanelShadow1 = new rojeru_san.RSPanelShadow();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tpLocacion = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -62,7 +62,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        tfBusquedaPorNombre = new javax.swing.JTextField();
+        tfBuscarLocacion = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tLocaciones = tLocaciones = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -74,6 +74,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         rdbrDetalle = new rojeru_san.RSButtonRiple();
         rsbrSalir = new rojeru_san.RSButtonRiple();
         jSeparator4 = new javax.swing.JSeparator();
+        rsbrActualizar = new rojeru_san.RSButtonRiple();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE LOCACION - CAM HONEY BROTHERS");
@@ -81,8 +82,8 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
-        jTabbedPane1.setBackground(new java.awt.Color(51, 84, 111));
-        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tpLocacion.setBackground(new java.awt.Color(51, 84, 111));
+        tpLocacion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -93,7 +94,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("NOMBRE DE LA LOCACION:");
+        jLabel4.setText("* NOMBRE DE LA LOCACION:");
 
         tfNombreLocacion.setBackground(new java.awt.Color(51, 84, 111));
         tfNombreLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -101,7 +102,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("UBICACION DE LA LOCACION:");
+        jLabel5.setText("* UBICACION DE LA LOCACION:");
 
         tfUbicacionLocacion.setBackground(new java.awt.Color(51, 84, 111));
         tfUbicacionLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -136,11 +137,10 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("CATEGORIA DE LA LOCACION:");
+        jLabel14.setText("* CATEGORIA DE LA LOCACION:");
 
-        cbCategoriaLocacion.setBackground(new java.awt.Color(36, 33, 33));
+        cbCategoriaLocacion.setBackground(new java.awt.Color(255, 255, 0));
         cbCategoriaLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCategoriaLocacion.setForeground(new java.awt.Color(207, 207, 207));
         cbCategoriaLocacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "DEPOSITO DE PRODUCTOR", "DEPOSITO DE ACOPIO PROPIO", "HOMOGENEIZACION", "FISCALIZACION", "EMBARQUE" }));
         cbCategoriaLocacion.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCategoriaLocacion.addActionListener(new java.awt.event.ActionListener() {
@@ -203,19 +203,19 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCategoriaLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbCategoriaLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Informacion de la locacion", jPanel2);
+        tpLocacion.addTab("Informacion de la locacion", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -228,12 +228,12 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("BUSCAR POR NOMBRE:");
 
-        tfBusquedaPorNombre.setBackground(new java.awt.Color(51, 84, 111));
-        tfBusquedaPorNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfBusquedaPorNombre.setForeground(new java.awt.Color(255, 255, 255));
-        tfBusquedaPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfBuscarLocacion.setBackground(new java.awt.Color(51, 84, 111));
+        tfBuscarLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfBuscarLocacion.setForeground(new java.awt.Color(255, 255, 255));
+        tfBuscarLocacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBusquedaPorNombreKeyReleased(evt);
+                tfBuscarLocacionKeyReleased(evt);
             }
         });
 
@@ -288,11 +288,22 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         });
 
         rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 18)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
+            }
+        });
+
+        rsbrActualizar.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrActualizar.setText("ACTUALIZAR");
+        rsbrActualizar.setToolTipText("");
+        rsbrActualizar.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
+        rsbrActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rsbrActualizarActionPerformed(evt);
             }
         });
 
@@ -326,9 +337,13 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBuscarLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,10 +355,12 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfBuscarLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -355,17 +372,17 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Listado de locaciones registradas", jPanel3);
+        tpLocacion.addTab("Listado de locaciones registradas", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tpLocacion)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tpLocacion)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -456,12 +473,12 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         ((DefaultTableCellRenderer) tLocaciones.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    private void tfBusquedaPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBusquedaPorNombreKeyReleased
+    private void tfBuscarLocacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarLocacionKeyReleased
 
-        mostrarLocaciones(tfBusquedaPorNombre.getText());
+        mostrarLocaciones(tfBuscarLocacion.getText());
         ocultarColumnas();
 
-    }//GEN-LAST:event_tfBusquedaPorNombreKeyReleased
+    }//GEN-LAST:event_tfBuscarLocacionKeyReleased
 
     private void tLocacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tLocacionesMouseClicked
 
@@ -480,10 +497,16 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
         
-        Boolean informacionPersonal = (tfNombreLocacion.getText().length() == 0 || tfUbicacionLocacion.getText().length() == 0 || cbCategoriaLocacion.getSelectedItem()=="SELECCIONAR");
+        Boolean informacionCompleta = (tfNombreLocacion.getText().length() == 0 || tfUbicacionLocacion.getText().length() == 0 || cbCategoriaLocacion.getSelectedItem()=="SELECCIONAR");
+        Boolean informacionOpcional = false;
+        if (tfObservacion.getText().length() == 0){
+            
+            informacionOpcional = true;
+                    
+        }
         
-        //el ingreso del nombre del productor es obligatorio para el registro del mismo
-        if (informacionPersonal) {
+        //chequeo datos obligatorios
+        if (informacionCompleta) {
 
             JOptionPane.showMessageDialog(null, "La informacion de la locacion se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE LOCACION", JOptionPane.ERROR_MESSAGE);
             tfNombreLocacion.requestFocus();
@@ -491,21 +514,50 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         }
 
-        Locacion locacion = new Locacion(tfNombreLocacion.getText().toUpperCase(), tfUbicacionLocacion.getText().toUpperCase(), tfObservacion.getText().toUpperCase(), cbCategoriaLocacion.getSelectedItem().toString());
+        //Si se llego aca es porque se completaron todos los datos o se completaron los datos obligatorios
+        //a) si se completaron todos los datos se procede al registro de la locacion
+        //b) si se completaron solo los datos obligatorios el sistema advierte tal situacion y da la opcion al usuario
+        // de registrar la locacion solo con los datos obligatorios o bien volver al registro para ingresar
+        //mas o todos los datos faltantes
+        int respuesta = 0;
+        
+        if (informacionOpcional) {
 
-        if (locacion.registrarLocacion(locacion)) {
+            respuesta = JOptionPane.showConfirmDialog(null, "No se ha ingresado toda la informacion requerida. ¿Desea registrar la locacion sin los datos faltantes?", "REGISTRO DE LOCACION", JOptionPane.YES_NO_OPTION);
+            
+        }
 
-            JOptionPane.showMessageDialog(null, "La locacion ha sido registrada exitosamente.");
-            limpiarCampos();
-            //esto es para que en la otra pestaña ya se vea la nueva locacion cargada
-            mostrarLocaciones("");
-            ocultarColumnas();
+        //el usuario confirma el registro sin los datos (o bien no habia info faltante y respuesta quedo inicializada en 0)
+        if(respuesta == 0){
+            
+            //se procede al registro de la locacion
+            Locacion locacion = new Locacion(tfNombreLocacion.getText().toUpperCase(), tfUbicacionLocacion.getText().toUpperCase(), tfObservacion.getText().toUpperCase(), cbCategoriaLocacion.getSelectedItem().toString());
 
-        } else {
+            if (locacion.registrarLocacion(locacion)) {
 
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar la locacion.");
+                JOptionPane.showMessageDialog(null, "La locacion ha sido registrada exitosamente.");
+                limpiarCampos();
+                //esto es para que en la otra pestaña ya se vea la nueva locacion cargada
+                mostrarLocaciones("");
+                ocultarColumnas();
+
+            }
+            else{
+
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar la locacion.");
+
+            }
 
         }
+        //el usuario cancela la insercion del cliente sin los datos
+        else{
+
+            tpLocacion.setSelectedIndex(0);
+            tfObservacion.requestFocus();
+            return;
+
+        }
+
         
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
@@ -538,8 +590,8 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
             form.codigoLocacion = Integer.parseInt(tLocaciones.getValueAt(fila, 0).toString());
             form.tfNombreLocacion.setText(tLocaciones.getValueAt(fila, 1).toString());
             form.tfUbicacionLocacion.setText(tLocaciones.getValueAt(fila, 2).toString());
-            form.cbCategoriaLocacion.setSelectedItem(tLocaciones.getValueAt(fila, 4));
             form.tfObservacion.setText(tLocaciones.getValueAt(fila, 3).toString());
+            form.cbCategoriaLocacion.setSelectedItem(tLocaciones.getValueAt(fila, 4));
             
         }
         
@@ -591,7 +643,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
 
-        // CONSULTA DETALLADA DE PRODUCTOR
+        // CONSULTA DETALLADA DE LOCACION
         JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE LOCACION - EN CONSTRUCCION");
 
     }//GEN-LAST:event_rdbrDetalleActionPerformed
@@ -601,6 +653,14 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_rsbrSalirActionPerformed
+
+    private void rsbrActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrActualizarActionPerformed
+
+        tfBuscarLocacion.setText("");
+        mostrarLocaciones("");
+        ocultarColumnas();
+
+    }//GEN-LAST:event_rsbrActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -619,18 +679,19 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSButtonRiple rdbrDetalle;
     private rojeru_san.RSButtonRiple rdbrEliminar;
     private rojeru_san.RSButtonRiple rdbrModificar;
     private rojeru_san.RSButtonRiple rdbrRegistrar;
+    private rojeru_san.RSButtonRiple rsbrActualizar;
     private rojeru_san.RSButtonRiple rsbrCancelar;
     private rojeru_san.RSButtonRiple rsbrSalir;
     public static javax.swing.JTable tLocaciones;
-    public javax.swing.JTextField tfBusquedaPorNombre;
+    public javax.swing.JTextField tfBuscarLocacion;
     public javax.swing.JTextField tfNombreLocacion;
     public javax.swing.JTextField tfObservacion;
     public javax.swing.JTextField tfUbicacionLocacion;
+    private javax.swing.JTabbedPane tpLocacion;
     // End of variables declaration//GEN-END:variables
 }

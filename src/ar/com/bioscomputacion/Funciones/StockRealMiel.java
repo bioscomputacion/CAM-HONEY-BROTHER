@@ -194,7 +194,7 @@ public class StockRealMiel {
     
     //SIRVE!!!
     //Devuelve toda la miel que ha ingresado en la locacion indicada (ya sea por compras, ingresos de miel propia
-    //o traslados a otra locacion)
+    //o traslados desde otra locacion)
     public Double obtenerDetalleIngresoMiel(int codigoLocacion){
         
         Double ingresoMiel = 0.00;
@@ -223,7 +223,8 @@ public class StockRealMiel {
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel que ha egresado en la locacion indicada (ya sea por ventas o traslados desde otra locacion)
+    //Devuelve toda la miel que ha egresado en la locacion indicada
+    //(ya sea por ventas, devoluciones o traslados desde otra locacion)
     public Double obtenerDetalleEgresoMiel(int codigoLocacion){
         
         Double egresoMiel = 0.00;
@@ -370,169 +371,178 @@ public class StockRealMiel {
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel comprada y depositada en la locacion del productor ingresado
-    public Double obtenerDetalleMielCompradaDepositadaLocacionProductor(int codigoProductor){
+    //Devuelve toda la miel que ha ingresado en la locacion indicada
+    //(ya sea por compras, ingresos o traslados desde otra locacion)
+    public Double obtenerDetalleIngresoMielLocacionProductor(int codigoProductor){
         
-        Double mielComprada = 0.00;
+        Double ingresoMiel = 0.00;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='COMPRA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO')");
             
             while (rs.next()) {
 
-                mielComprada = rs.getDouble("cantidad_miel");
+                ingresoMiel = rs.getDouble("cantidad_miel");
                 
             }
             
-            return mielComprada;
+            return ingresoMiel;
 
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
+            return ingresoMiel;
             
         } 
         
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel trasladada desde la locacion del productor ingresado hacia otra locacion
-    public Double obtenerDetalleMielTrasladadaDesdeLocacionProductor(int codigoProductor){
+    //Devuelve toda la miel que ha egresado en la locacion indicada
+    //(ya sea por ventas, devoluciones o traslados desde otra locacion)
+    public Double obtenerDetalleEgresoMielLocacionProductor(int codigoProductor){
         
-        Double mielComprada = 0.00;
-        String tipoMovimiento = "TRASLADO - ORIGEN";
+        Double egresoMiel = 0.00;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='TRASLADO - ORIGEN'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION')");
             
             while (rs.next()) {
 
-                mielComprada = rs.getDouble("cantidad_miel");
+                egresoMiel = rs.getDouble("cantidad_miel");
                 
             }
             
-            return mielComprada;
+            return egresoMiel;
 
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
+            return egresoMiel;
+            
+        } 
+        
+    }
+    
+    //SEGUIR ARREGLANDO DESDE ACAAAAAAAAAAAAAAAA
+
+    //SIRVE!!!
+    //Devuelve toda la miel PAGA que ha ingresado en la locacion indicada (ya sea por compras, ingresos de miel propia
+    //o traslados a otra locacion) 
+    public Double obtenerDetalleIngresoMielPagaLocacionProductor(int codigoProductor){
+        
+        Double ingresoMiel = 0.00;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO') and estado_compra='FACTURADA'");
+            
+            while (rs.next()) {
+
+                ingresoMiel = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return ingresoMiel;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return ingresoMiel;
             
         } 
         
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel comprada y depositada en la locacion del productor ingresado, Y QUE ESTA PAGA
-    public Double obtenerDetalleMielPagaCompradaDepositadaLocacionProductor(int codigoProductor){
+    //Devuelve toda la miel PAGA que ha egresado en la locacion indicada (ya sea por ventas
+    //o traslados a otra locacion) 
+    public Double obtenerDetalleEgresoMielPagaLocacionProductor(int codigoProductor){
         
-        Double mielComprada = 0.00;
+        Double egresoMiel = 0.00;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='COMPRA' and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN') and estado_compra='FACTURADA'");
             
             while (rs.next()) {
 
-                mielComprada = rs.getDouble("cantidad_miel");
+                egresoMiel = rs.getDouble("cantidad_miel");
                 
             }
             
-            return mielComprada;
+            return egresoMiel;
 
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
+            return egresoMiel;
             
         } 
         
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel trasladada desde la locacion del productor ingresado hacia otra locacion, Y QUE ESTA PAGA
-    public Double obtenerDetalleMielPagaTrasladadaDesdeLocacionProductor(int codigoProductor){
+    //Devuelve toda la miel IMPAGA que ha ingresado en la locacion indicada (ya sea por compras
+    //o traslados desde otra locacion) 
+    public Double obtenerDetalleIngresoMielImpagaLocacionProductor(int codigoProductor){
         
-        Double mielComprada = 0.00;
+        Double ingresoMiel = 0.00;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='TRASLADO - ORIGEN' and estado_compra='FACTURADA'");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO') and estado_compra='SIN FACTURAR'");
             
             while (rs.next()) {
 
-                mielComprada = rs.getDouble("cantidad_miel");
+                ingresoMiel = rs.getDouble("cantidad_miel");
                 
             }
             
-            return mielComprada;
+            return ingresoMiel;
 
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
+            return ingresoMiel;
             
         } 
         
     }
 
     //SIRVE!!!
-    //Devuelve toda la miel comprada y depositada en la locacion del productor ingresado, Y QUE ESTA IMPAGA
-    public Double obtenerDetalleMielImpagaCompradaDepositadaLocacionProductor(int codigoProductor){
+    //Devuelve toda la miel IMPAGA que ha egresado en la locacion indicada (ya sea por ventas
+    //o traslados a otra locacion) 
+    public Double obtenerDetalleEgresoMielImpagaLocacionProductor(int codigoProductor){
         
-        Double mielComprada = 0.00;
-        
-        try{
- 
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='COMPRA' and estado_compra='SIN FACTURAR'");
-            
-            while (rs.next()) {
-
-                mielComprada = rs.getDouble("cantidad_miel");
-                
-            }
-            
-            return mielComprada;
-
-        }catch(Exception e){
-            
-            JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
-            
-        } 
-        
-    }
-
-    //SIRVE!!!
-    //Devuelve toda la miel trasladada desde la locacion del productor ingresado hacia otra locacion, Y QUE ESTA IMPAGA
-    public Double obtenerDetalleMielImpagaTrasladadaDesdeLocacionProductor(int codigoProductor){
-        
-        Double mielComprada = 0.00;
+        Double egresoMiel = 0.00;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento='TRASLADO - ORIGEN' and estado_compra='SIN FACTURAR'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento = 'DEVOLUCION') and estado_compra='SIN FACTURAR'");
             
             while (rs.next()) {
 
-                mielComprada = rs.getDouble("cantidad_miel");
+                egresoMiel = rs.getDouble("cantidad_miel");
                 
             }
             
-            return mielComprada;
+            return egresoMiel;
 
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null, e);
-            return mielComprada;
+            return egresoMiel;
             
         } 
         
@@ -581,7 +591,6 @@ public class StockRealMiel {
                 egresoMielPaga = stock.obtenerDetalleEgresoMielPaga(locacion);
                 ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpaga(locacion);
                 egresoMielImpaga = stock.obtenerDetalleEgresoMielImpaga(locacion);
-                //saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
                 saldoMiel = ingresoMiel - egresoMiel;
                 saldoMielPaga = ingresoMielPaga - egresoMielPaga;
                 saldoMielImpaga = ingresoMielImpaga - egresoMielImpaga;
@@ -665,6 +674,7 @@ public class StockRealMiel {
         
     }
     
+    //Sirve??????????
     //metodos para devolver miel comprada: el primero devuelve la miel comprada que esta paga - el segundo la miel comprada impaga
     public Double obtenerDetalleMielCompradaPaga(int codigoLocacion){
         
@@ -676,7 +686,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoLocacion +"' and tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' and estado_compra='FACTURADA'");
             
             while (rs.next()) {
 
@@ -695,6 +705,7 @@ public class StockRealMiel {
         
     }
 
+    //Sirve??????????
     public Double obtenerDetalleMielCompradaCredito(int codigoLocacion){
         
         Double mielComprada = 0.00;
@@ -723,6 +734,7 @@ public class StockRealMiel {
         
     }
 
+    //Sirve??????????
     public Double obtenerDetalleMielVendida(int codigoLocacion){
         
         Double mielVendida = 0.00;
@@ -750,6 +762,7 @@ public class StockRealMiel {
         
     }
 
+    //Sirve??????????
     public Double obtenerDetalleMielRecibidaTraslado(int codigoLocacion){
         
         Double mielRecibida = 0.00;
@@ -777,6 +790,7 @@ public class StockRealMiel {
         
     }
     
+    //Sirve??????????
     public Double obtenerDetalleMielEnviadaTraslado(int codigoLocacion){
         
         Double mielComprada = 0.00;
@@ -804,7 +818,6 @@ public class StockRealMiel {
         
     }
 
-
     public Double calcularTotalStockGlobal() {
 
         Double totalStockGlobal = 0.00;
@@ -812,7 +825,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> 'EMBARQUE' order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where (categoria <> 'EMBARQUE' and categoria <> 'DEPOSITO DE EXPORTADOR INTERNO') order by codigo_locacion asc");
 
             double ingresoMiel, egresoMiel, saldoMiel = 0.00;
             int locacion = 0;

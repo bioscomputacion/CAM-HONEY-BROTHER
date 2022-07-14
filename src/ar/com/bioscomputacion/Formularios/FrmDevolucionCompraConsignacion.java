@@ -22,6 +22,7 @@ import ar.com.bioscomputacion.Funciones.ItemFacturadoFacturaCliente;
 import ar.com.bioscomputacion.Funciones.ItemFacturadoPresupuestoProductor;
 import ar.com.bioscomputacion.Funciones.Locacion;
 import ar.com.bioscomputacion.Funciones.PresupuestoProductor;
+import ar.com.bioscomputacion.Reportes.VistaBoleta;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -34,6 +35,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -44,6 +48,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -650,6 +660,24 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         stockMiel.registrarMovimientoStock(stockMiel);
 
         JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        
+        java.util.Locale locale = new Locale("es", "CL");
+        try {
+            JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("reporteDevolucion.jasper"));
+
+            Map parametro = new HashMap<String, Integer>();
+
+            parametro.put("codigo_devolucion", codigoDevolucion);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
+            parametro.put(JRParameter.REPORT_LOCALE, locale);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.show();
+
+            // JasperPrintManager.printReport( jp, true);
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();

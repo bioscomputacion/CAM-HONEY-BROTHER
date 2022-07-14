@@ -5,12 +5,14 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.Locacion;
 import ar.com.bioscomputacion.Funciones.Persona;
 import ar.com.bioscomputacion.Funciones.Productor;
 import ar.com.bioscomputacion.Funciones.StockRealMiel;
 import ar.com.bioscomputacion.Funciones.Traslado;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -43,7 +45,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     
     //a medida que se seleccionan locaciones en los combos en estas variables se almacenan sus codigos
     //para luego usarlos a la hora de registrar el traslado
-    int codigoLocacionOrigen, codigoLocacionDestino, codigoProductor, codigoTraslado;
+    int codigoProductor, codigoTraslado;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -75,8 +77,9 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         tfKilosDisponiblesPagos.setText("0.00");
         tfKilosDisponiblesImpagos.setText("0.00");
         tfTotalKilosTraslado.setText("0.00");
-        
+
         lMielDisponibleTraslado.setText("KGS. DE MIEL DISPONIBLES PARA REALIZAR EL TRASLADO: 0.00 KGS.");
+
         rbMielPagaDisponible.setSelected(true);
         rbMielImpagaDisponible.setSelected(false);
         rbMielPagaDisponible.setEnabled(false);
@@ -99,6 +102,42 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion where categoria = '"+ categoria +"' order by codigo_locacion asc");
+        
+        try{
+            
+            while(rs.next()){
+                
+                int codigoLocacion = rs.getInt("codigo_locacion");
+                String nombreLocacion = rs.getString("nombre_locacion");
+                Locacion loc = new Locacion();
+                loc.setCodigo_locacion(codigoLocacion);
+                loc.setNombre_locacion(nombreLocacion);
+                locaciones.add(loc);
+                
+            }
+            
+        }
+        catch (Exception e) {
+            
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+            
+        }
+        
+        return locaciones;
+        
+    }
+    
+    public ArrayList<Locacion> cargarListaLocacionesExportadorInterno() throws SQLException{
+        
+        ArrayList<Locacion> locaciones = new ArrayList<Locacion>();
+        Locacion loc0 = new Locacion();
+        loc0.setCodigo_locacion(-1);
+        loc0.setNombre_locacion("SELECCIONAR");
+        locaciones.add(loc0);
+        
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion where (categoria = 'DEPOSITO DE ACOPIO PROPIO' or categoria = 'HOMOGENEIZACION')order by codigo_locacion asc");
         
         try{
             
@@ -253,46 +292,46 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     
     public double calcularStocktTotalMielLocacionDepositoProductor(int codigoProductor) {
 
-        double mielCompradaEnDepositoProductor, mielTrasladadaDesdeLocacionProductor, saldoMielLocacionProductor = 0.00;
+        double ingresoMiel, egresoMiel, saldoTotalMiel = 0.00;
 
         StockRealMiel stock = new StockRealMiel();
             
-        mielCompradaEnDepositoProductor = stock.obtenerDetalleMielCompradaDepositadaLocacionProductor(codigoProductor);
-        mielTrasladadaDesdeLocacionProductor = stock.obtenerDetalleMielTrasladadaDesdeLocacionProductor(codigoProductor);
+        ingresoMiel = stock.obtenerDetalleIngresoMielLocacionProductor(codigoProductor);
+        egresoMiel = stock.obtenerDetalleEgresoMielLocacionProductor(codigoProductor);
         
-        saldoMielLocacionProductor = mielCompradaEnDepositoProductor - mielTrasladadaDesdeLocacionProductor;
+        saldoTotalMiel = ingresoMiel - egresoMiel;
         
-        return saldoMielLocacionProductor;
+        return saldoTotalMiel;
         
     }
     
     public double calcularStocktTotalMielPagaLocacionDepositoProductor(int codigoProductor) {
 
-        double mielCompradaEnDepositoProductor, mielTrasladadaDesdeLocacionProductor, saldoMielLocacionProductor = 0.00;
+        double ingresoMielPaga, egresoMielPaga, saldoTotalMielPaga = 0.00;
 
         StockRealMiel stock = new StockRealMiel();
             
-        mielCompradaEnDepositoProductor = stock.obtenerDetalleMielPagaCompradaDepositadaLocacionProductor(codigoProductor);
-        mielTrasladadaDesdeLocacionProductor = stock.obtenerDetalleMielPagaTrasladadaDesdeLocacionProductor(codigoProductor);
+        ingresoMielPaga = stock.obtenerDetalleIngresoMielPagaLocacionProductor(codigoProductor);
+        egresoMielPaga = stock.obtenerDetalleEgresoMielPagaLocacionProductor(codigoProductor);
         
-        saldoMielLocacionProductor = mielCompradaEnDepositoProductor - mielTrasladadaDesdeLocacionProductor;
+        saldoTotalMielPaga = ingresoMielPaga - egresoMielPaga;
         
-        return saldoMielLocacionProductor;
+        return saldoTotalMielPaga;
         
     }
     
     public double calcularStocktTotalMielImpagaLocacionDepositoProductor(int codigoProductor) {
 
-        double mielCompradaEnDepositoProductor, mielTrasladadaDesdeLocacionProductor, saldoMielLocacionProductor = 0.00;
+        double ingresoMielImpaga, egresoMielImpaga, saldoTotalMielImpaga = 0.00;
 
         StockRealMiel stock = new StockRealMiel();
             
-        mielCompradaEnDepositoProductor = stock.obtenerDetalleMielImpagaCompradaDepositadaLocacionProductor(codigoProductor);
-        mielTrasladadaDesdeLocacionProductor = stock.obtenerDetalleMielImpagaTrasladadaDesdeLocacionProductor(codigoProductor);
+        ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpagaLocacionProductor(codigoProductor);
+        egresoMielImpaga = stock.obtenerDetalleEgresoMielImpagaLocacionProductor(codigoProductor);
         
-        saldoMielLocacionProductor = mielCompradaEnDepositoProductor - mielTrasladadaDesdeLocacionProductor;
+        saldoTotalMielImpaga = ingresoMielImpaga - egresoMielImpaga;
         
-        return saldoMielLocacionProductor;
+        return saldoTotalMielImpaga;
         
     }
     
@@ -310,7 +349,6 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         rSPanelShadow2 = new rojeru_san.RSPanelShadow();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         dcFechaTraslado = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
@@ -345,6 +383,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         rbMielPagaDisponible = new javax.swing.JRadioButton();
         rbMielImpagaDisponible = new javax.swing.JRadioButton();
         lMielDisponibleTraslado = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE TRASLADO DE MIEL - CAM HONEY BROTHERS");
@@ -377,7 +417,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         cbMotivoTraslado.setBackground(new java.awt.Color(255, 51, 51));
         cbMotivoTraslado.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         cbMotivoTraslado.setForeground(new java.awt.Color(207, 207, 207));
-        cbMotivoTraslado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "TRASLADO DE MIEL ENTRE LOCACIONES PROPIAS", "TRASLADO DE MIEL DESDE LOCACION DEL PRODUCTOR A LOCACION PROPIA", "TRASLADO DESDE LOCACION PROPIA A HOMOGENEIZACION", "TRASLADO DESDE LOCACION DEL PRODUCTOR A HOMOGENEIZACION", "TRASLADO DESDE HOMOGENEIZACION A LOCACION PROPIA", "TRASLADO DESDE HOMOGENEIZACION A FISCALIZACION", "TRASLADO DESDE FISCALIZACION A EMBARQUE (VENTA)", "TRASLADO DESDE EMBARQUE A FISCALIZACION", "TRASLADO DESDE EMBARQUE AL EXTERIOR (EXPORTACION)" }));
+        cbMotivoTraslado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "TRASLADO DE MIEL ENTRE LOCACIONES PROPIAS", "TRASLADO DE MIEL DESDE LOCACION DEL PRODUCTOR A LOCACION PROPIA", "TRASLADO DESDE LOCACION PROPIA A HOMOGENEIZACION", "TRASLADO DESDE LOCACION DEL PRODUCTOR A HOMOGENEIZACION", "TRASLADO DESDE HOMOGENEIZACION A LOCACION PROPIA", "TRASLADO DESDE HOMOGENEIZACION A FISCALIZACION", "TRASLADO DESDE FISCALIZACION A EMBARQUE (VENTA)", "TRASLADO DESDE EMBARQUE A FISCALIZACION (DEVOLUCION)", "TRASLADO DESDE EMBARQUE AL EXTERIOR (EXPORTACION)", "TRASLADO A LOCACION DE EXPORTADOR INTERNO (VENTA)", "TRASLADO DESDE LOCACION DE EXPORTADOR INTERNO (DEVOLUCION)" }));
         cbMotivoTraslado.setPreferredSize(new java.awt.Dimension(136, 19));
         cbMotivoTraslado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,6 +530,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         cbProductores.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         cbProductores.setForeground(new java.awt.Color(207, 207, 207));
         cbProductores.setPreferredSize(new java.awt.Dimension(136, 19));
+        cbProductores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbProductoresMouseClicked(evt);
+            }
+        });
         cbProductores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProductoresActionPerformed(evt);
@@ -645,22 +690,56 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         lMielDisponibleTraslado.setForeground(new java.awt.Color(255, 255, 255));
         lMielDisponibleTraslado.setText("KGS. DE MIEL DISPONIBLES PARA REALIZAR EL TRASLADO:");
 
+        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
+
+        jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
         rSPanelShadow2Layout.setHorizontalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(lMielDisponibleTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(250, 250, 250))
+                        .addComponent(jSeparator4)
+                        .addContainerGap())
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator4)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addComponent(jLabel25)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lStockOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lStockOrigen1))
+                                    .addComponent(cbLocacionOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel15))
+                                .addGap(18, 18, 18)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addComponent(jLabel27)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lStockDepositoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lStockProductor))
+                                    .addComponent(cbProductores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel28))
+                                .addGap(18, 18, 18)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbLocacionDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel16)
+                                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                                .addComponent(jLabel26)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lStockDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lStockOrigen2)))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -675,41 +754,24 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                                     .addComponent(dcFechaTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbMotivoTraslado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                         .addComponent(jLabel21)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockOrigen1))
-                                    .addComponent(cbLocacionOrigen, 0, 206, Short.MAX_VALUE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel27)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockDepositoProductor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockProductor))
-                                    .addComponent(cbProductores, 0, 206, Short.MAX_VALUE)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel26)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lStockOrigen2))
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                                    .addComponent(cbLocacionDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cbMotivoTraslado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jSeparator6)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addGap(330, 330, 330)
+                        .addComponent(jSeparator5)
+                        .addContainerGap())
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jSeparator7)
+                        .addContainerGap())
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lMielDisponibleTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                        .addGap(240, 240, 240))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -732,33 +794,35 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel1)
+                .addGap(7, 7, 7)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel21))
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel21))
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dcFechaTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(cbMotivoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dcFechaTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel8)
-                        .addGap(8, 8, 8)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                                .addComponent(cbMotivoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel8)
+                .addGap(11, 11, 11)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel15))
@@ -766,14 +830,15 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         .addComponent(cbLocacionOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26)
+                            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel26)
+                                .addComponent(lStockDestino)
+                                .addComponent(lStockOrigen2))
                             .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel25)
-                                .addComponent(lStockDestino)
-                                .addComponent(lStockOrigen2)
                                 .addComponent(lStockProductor)
                                 .addComponent(lStockDepositoProductor))))
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                             .addGap(23, 23, 23)
                             .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -807,7 +872,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                             .addComponent(rbMielImpagaDisponible)
                             .addComponent(tfTotalKilosTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(rbMielPagaDisponible))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1069,7 +1134,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                     cbProductores.enable(false);
                     break;
                     
-                case "TRASLADO DESDE EMBARQUE A FISCALIZACION":
+                case "TRASLADO DESDE EMBARQUE A FISCALIZACION (DEVOLUCION)":
                     
                     //combo origen solo locaciones de embarque y combo destino solo locaciones de fiscalizacion
 
@@ -1128,6 +1193,52 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                     cbProductores.enable(false);
                     break;
 
+                case "TRASLADO A LOCACION DE EXPORTADOR INTERNO (VENTA)":
+                    
+                    //combo origen solo locaciones de acopio propias y homogeneizacion y combo destino solo la locacion deposito de exportador
+
+                    listaLocacionesOrigen = cargarListaLocacionesExportadorInterno();
+                    listaLocacionesDestino = cargarListaLocaciones("DEPOSITO DE EXPORTADOR INTERNO");
+                    
+                    for (int i = 0; i<listaLocacionesOrigen.size(); i++){
+                        
+                        cbLocacionOrigen.addItem(listaLocacionesOrigen.get(i).getNombre_locacion());
+                        
+                    }
+                    
+                    for (int i = 0; i<listaLocacionesDestino.size(); i++){
+                        
+                        cbLocacionDestino.addItem(listaLocacionesDestino.get(i).getNombre_locacion());
+                        
+                    }
+                    
+                    cbLocacionOrigen.setSelectedIndex(0);
+                    cbLocacionDestino.setSelectedIndex(0);
+                    break;
+
+                case "TRASLADO DESDE LOCACION DE EXPORTADOR INTERNO (DEVOLUCION)":
+                    
+                    //combo origen solo la locacion deposito de exportador  y combo destino locacions de acopio propioo y homogeneizacion
+
+                    listaLocacionesOrigen = cargarListaLocaciones("DEPOSITO DE EXPORTADOR INTERNO");
+                    listaLocacionesDestino = cargarListaLocacionesExportadorInterno();;
+                    
+                    for (int i = 0; i<listaLocacionesOrigen.size(); i++){
+                        
+                        cbLocacionOrigen.addItem(listaLocacionesOrigen.get(i).getNombre_locacion());
+                        
+                    }
+                    
+                    for (int i = 0; i<listaLocacionesDestino.size(); i++){
+                        
+                        cbLocacionDestino.addItem(listaLocacionesDestino.get(i).getNombre_locacion());
+                        
+                    }
+                    
+                    cbLocacionOrigen.setSelectedIndex(0);
+                    cbLocacionDestino.setSelectedIndex(0);
+                    break;
+
                 default :
                     
                     //ninguno de los casos
@@ -1147,6 +1258,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbLocacionOrigenActionPerformed
 
     private void cbLocacionDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocacionDestinoActionPerformed
+
     }//GEN-LAST:event_cbLocacionDestinoActionPerformed
 
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
@@ -1164,19 +1276,21 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         m1 = cal1.get(Calendar.MONTH);
         a1 = cal1.get(Calendar.YEAR) - 1900;
 
-        int origenTraslado = codigoLocacionOrigen;
-        int destinoTraslado = codigoLocacionDestino;
+        int origenTraslado = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
+        int destinoTraslado = listaLocacionesDestino.get(cbLocacionDestino.getSelectedIndex()).getCodigo_locacion();
         Date fechaTraslado = new Date(a1, m1, d1);
+        System.out.println(origenTraslado);
+        System.out.println(destinoTraslado);
 
 
         Boolean informacionTraslado = (cbMotivoTraslado.getSelectedItem() == "SELECCIONAR" || cbLocacionOrigen.getSelectedItem() == "SELECCIONAR" || cbLocacionDestino.getSelectedItem() == "SELECCIONAR");
         String numeroComprobante = tfNumeroComprobante.getText();
         String descripcionItemtraslado= "KGS. DE MIEL";
         Double cantidadTraslado = Double.valueOf(tfTotalKilosTraslado.getText().toString());
-        String origenSeleccionado= "";
         Locacion locacion = new Locacion();
+        String origenSeleccionado= "";
         String categoriaLocacionOrigen = "";
-        categoriaLocacionOrigen = locacion.mostrarCategoriaLocacion(codigoLocacionOrigen);
+        categoriaLocacionOrigen = locacion.mostrarCategoriaLocacion(origenTraslado);
         
         if (categoriaLocacionOrigen.equals("DEPOSITO DE PRODUCTOR")){
             
@@ -1206,7 +1320,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         }
         
         //2do chequeo: origen y destino del traslado duplicados
-        if (codigoLocacionOrigen == codigoLocacionDestino){
+        if (origenTraslado == destinoTraslado){
 
             JOptionPane.showMessageDialog(null, "La locacion origen debe ser distinta a la locacion destino. Por favor seleccione correctamente las mismas.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
             cbLocacionOrigen.requestFocus();
@@ -1223,191 +1337,354 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         }
         
-        //CASO A) TRASLADO NORMAL
-        //CASO B) TRASLADO DESDE FISCALIZACION A EMABARQUE, LO CUAL SIGNIFICA UNA VENTA QUE DEBE DESCONTAR EL STOCK GLOBAL DE LA
+        //CASO C) TRASLADO NORMAL
+        //CASO A) TRASLADO DESDE FISCALIZACION A EMBARQUE, LO CUAL SIGNIFICA UNA VENTA QUE DEBE DESCONTAR EL STOCK GLOBAL DE LA
         //EMPRESA, INCREMENTANDO EL STOCK QUE EXISTE EN LA LOCACION "EXTERIOR"
-        //CASO C) TRASLADO DESDE EMBARQUE A FISCALIZACION, LO CUAL SIGNIFICA UNA DEVOLUCION ((CANCELACION DE UNA VENTA)
+        //CASO B) TRASLADO DESDE EMBARQUE A FISCALIZACION, LO CUAL SIGNIFICA UNA DEVOLUCION ((CANCELACION DE UNA VENTA)
         //Y DEBE VOLVER A INCREMENTAR EL STOCK GLOBAL DE LA EMPRESA DECREMENTANDO EL STOCK ALMACENADO EN "EXTERIOR"
         
         //se almacena el motivo del traslado para ver como sigue la insercion del mismo
         String motivoTraslado = cbMotivoTraslado.getSelectedItem().toString();
         
-        //CASO B) TRASLADO DESDE FISCALIZACION A EMABARQUE, LO CUAL SIGNIFICA UNA VENTA QUE DEBE DESCONTAR EL STOCK GLOBAL DE LA
+        //CASO A) TRASLADO DESDE FISCALIZACION A EMABARQUE, LO CUAL SIGNIFICA UNA VENTA QUE DEBE DESCONTAR EL STOCK GLOBAL DE LA
         //EMPRESA, INCREMENTANDO EL STOCK QUE EXISTE EN LA LOCACION "EXTERIOR"
-        if (motivoTraslado.equals("TRASLADO DESDE FISCALIZACION A EMBARQUE (VENTA)")){
+        //Ademas: al ser una venta debe registrarse la misma con un comprobante de facturacion asociado, si o si?
+        
+        switch (motivoTraslado){
             
-            //caso B) TRASLADO NORMAL
-            respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la factura asociada a la venta de la miel a trasladar. ¿Desea realizar dicho registro?");
-            
-            if (respuesta == 0){
+            case "TRASLADO DESDE FISCALIZACION A EMBARQUE (VENTA)":
+
+                //en este tipo de traslados la miel deja de ser parte del stock de la empresa
+                //para pasar a formar parte del stock de la locacion embarque,
+                //ya que es una venta a un cliente en el exterior
                 
-                //se acepta el registro de la factura d venta al cliente en el exterior
-                
-                //Se deben registrar la factura de venta al cliente en el exterior
-                //y el traslado de la miel vendida desde fiscalacion a embarque
-                
-                
-                //se procede al registro del traslado
-                Traslado traslado = new Traslado(numeroComprobante, descripcionItemtraslado, cantidadTraslado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la factura asociada a la venta de la miel a trasladar. ¿Desea realizar dicho registro?");
 
-                if (traslado.registrarTrasladoMiel(traslado)){
+                if (respuesta == 0){
 
-                    //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
-                    //en la tabla stock real de miel
-                    int codigoTraslado = traslado.mostrarIdTraslado();
+                    //se acepta el registro de la factura d venta al cliente en el exterior
+                    //se deberia abrir el formulario de registro de una factura a un cliente en el exterior
+                    //y si se registra dicha factura se registra el traslado,
+                    //caso contrario se cancelan todos los cambios a registrarse.
+                    
+                    //registramos traslado y movimiento de stock de miel
+                    //y abrimos formulario de registro de la factura
+                    //en caso de cancelarse el registro de la factura
+                    //deben eliminarse el registro del traslado
+                    //y el registro de movimiento de stock de miel antes ingresados.
+                    
+                    if (saldoMielPagaIngresado != 0){
 
-                    //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
-                    //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
-                    //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
-                    //EN LA LOCACION DESTINO
-                    //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
-                    //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
-                    //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+                        //debe hacerse al menos el traslado de miel paga
+                        Traslado trasladoMielPaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielPagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielPaga.registrarTrasladoMiel(trasladoMielPaga)){
 
-                    //se registra el traslado para locacion origen
-                    StockRealMiel stockMiel = new StockRealMiel();
-                    stockMiel.setFecha_movimiento(fechaTraslado);
-                    //Cuando se trata de un traslado puede ser traslado origen o traslado destino
-                    stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
-                    stockMiel.setComprobante_asociado("TRASLADO");
-                    stockMiel.setId_comprobante_asociado(codigoTraslado);
-                    stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
-                    stockMiel.setCantidad_miel(cantidadTraslado);
-                    stockMiel.setLocacion_miel(origenTraslado);
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
 
-                    if (origenSeleccionado.equals("MIEL DEPOSITADA")){
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
 
-                        //se trata de un traslado de miel stockeada en la locacion de algun productor
-                        //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
-                        //y se debe descontar el stock de la locacion desde la que se traslada
-                        //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
-                        //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
-                        //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
-                        //que pueden tener miel comprada aun depositada en ellas
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielPagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
 
-                        //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
-                        //en el segundo combo
-                        //y como el tipo de movimiento sera TRASLADO - ORIGEN
-                        //la cantidad de miel sera descontada
-                        stockMiel.setMiel_deposito_productor(codigoProductor);
+                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
 
 
                     }
 
-                    stockMiel.registrarMovimientoStock(stockMiel);
-                    //se registra el traslado para locacion destino
-                    stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
-                    stockMiel.setLocacion_miel(destinoTraslado);
-                    stockMiel.registrarMovimientoStock(stockMiel);
+                    if (saldoMielImpagaIngresado != 0){
 
-                    JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                        //debe hacerse tambien el traslado de miel impaga
+                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga)){
 
-                }
-                else{
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
 
-                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
 
-                }
-                
-            }
-            else{
-                
-                if (respuesta == 1){
-                    
-                    //no se acepta el registro de la factura de venta al cliente, se cancelan todos los cambios
-                    JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                    
-                }
-                else{
-                    
-                    //se cancela la eleccion entre la facturacion y la no facturacion, el formulario debe permanecer abierto
-                    //mostrando todos los datos ingresados hasta el momento
-                    rdbrRegistrar.requestFocus();
-                    return;
-                
-                }
-                
-            }
-            
-        }
-        else{
-        //CASO C) TRASLADO DESDE EMBARQUE A FISCALIZACION, LO CUAL SIGNIFICA UNA DEVOLUCION ((CANCELACION DE UNA VENTA)
-        //Y DEBE VOLVER A INCREMENTAR EL STOCK GLOBAL DE LA EMPRESA DECREMENTANDO EL STOCK ALMACENADO EN "EXTERIOR"
-            if (motivoTraslado.equals("TRASLADO DESDE EMBARQUE A FISCALIZACION")){
-            
-                //caso C) TRASLADO DESDE EMBARQUE A FISCALIZACION
-                respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la nota de credito que se asociara a la factura correspondiente a la miel devuelta. ¿Desea realizar dicho registro?");
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielImpagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
 
-                if (respuesta == 0){
+                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
 
-                    //se acepta el registro de la nota de credito para el  cliente en el exterior
+                        }
+                        else{
 
-                    //Se deben registrar la nota de credito, asociarla a la factura
-                    //y el traslado de la miel devuelta desde embarque a fiscalizacion
-
-
-                    //se procede al registro del traslado
-                    Traslado traslado = new Traslado(numeroComprobante,descripcionItemtraslado, cantidadTraslado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
-
-                    if (traslado.registrarTrasladoMiel(traslado)){
-
-                        //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
-                        //en la tabla stock real de miel
-                        int codigoTraslado = traslado.mostrarIdTraslado();
-
-                        //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
-                        //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
-                        //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
-                        //EN LA LOCACION DESTINO
-                        //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
-                        //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
-                        //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
-
-                        //se registra el traslado para locacion origen
-                        StockRealMiel stockMiel = new StockRealMiel();
-                        stockMiel.setFecha_movimiento(fechaTraslado);
-                        //Cuando se trata de un traslado puede ser traslado origen o traslado destino
-                        stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
-                        stockMiel.setComprobante_asociado("TRASLADO");
-                        stockMiel.setId_comprobante_asociado(codigoTraslado);
-                        stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
-                        stockMiel.setCantidad_miel(cantidadTraslado);
-                        stockMiel.setLocacion_miel(origenTraslado);
-
-                        if (origenSeleccionado.equals("MIEL DEPOSITADA")){
-
-                            //se trata de un traslado de miel stockeada en la locacion de algun productor
-                            //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
-                            //y se debe descontar el stock de la locacion desde la que se traslada
-                            //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
-                            //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
-                            //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
-                            //que pueden tener miel comprada aun depositada en ellas
-
-                            //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
-                            //en el segundo combo
-                            //y como el tipo de movimiento sera TRASLADO - ORIGEN
-                            //la cantidad de miel sera descontada
-                            stockMiel.setMiel_deposito_productor(codigoProductor);
-
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
 
                         }
 
-                        stockMiel.registrarMovimientoStock(stockMiel);
-                        //se registra el traslado para locacion destino
-                        stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
-                        stockMiel.setLocacion_miel(destinoTraslado);
-                        stockMiel.registrarMovimientoStock(stockMiel);
+                    }
+                    
+                //deberia abrirse formulario de facturacion a clientes en el exterior
+                //de aca se llevarian:
+                //- cantidad de miel paga a trasladar (variable: saldoMielPagaIngresado)
+                //- cantidad de miel impaga a trasladar (variable: saldoMielImpagaIngresado)
+                //- cantidad total de miel a trasladar (variable: saldoMielPagaIngresado + saldoMielImpagaIngresado)
+                
+                //en el formulario de facturacion se seleccionaria el cliente a facturarle la cantidad de miel del traslado
+                //se ingresaria el precio por kilo de la miel
+                //no se tendria que seleccionar la locacion origen de la miel porque ya fue ingresada enm el registro del traslado
+                //y se registraria la factura, dando paso al registro del traslado
+                //en caso de que no se registre la factura por algun motivo, tamb se cancela el registro del traslado.
+                
+                JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente. RECUERDE QUE SI CANCELA EL REGISTRO DE LA FACTURA A UN CLIENTE EN EL EXTERIOR TAMBIEN SE CANCELARA EL REGISTRO DEL TRASLADADO RECIEN EFECTUADO.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                //apertura del formulario de facturacion
 
-                        JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    
+                    FrmRegistroFacturaClienteExterior form = new FrmRegistroFacturaClienteExterior();
+                    deskPrincipal.add(form);
+                    Dimension desktopSize = deskPrincipal.getSize();
+                    Dimension FrameSize = form.getSize();
+
+                    form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                    form.setVisible(true);
+
+                    form.setClosable(true);
+                    form.setIconifiable(false);
+
+                } catch (SQLException ex) {
+                    
+                    Logger.getLogger(FrmRegistroTraslado.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                }
+
+                }
+                else{
+
+                    if (respuesta == 1){
+
+                        //no se acepta el registro de la factura de venta al cliente, se cancelan todos los cambios
+                        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
 
                     }
                     else{
 
-                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+                        //se cancela la eleccion entre la facturacion y la no facturacion, el formulario debe permanecer abierto
+                        //mostrando todos los datos ingresados hasta el momento
+                        rdbrRegistrar.requestFocus();
+                        return;
+
+                    }
+
+                }
+
+                break;
+            
+            case "TRASLADO A LOCACION DE EXPORTADOR INTERNO (VENTA)":
+
+                //en este tipo de traslados la miel deja de ser parte del stock de la empresa
+                //para pasar a formar parte del stock de la locacion despoito de exportador interno,
+                //ya que es una venta a un cliente en el interior del pais (exportador interno)
+                
+                respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la factura asociada a la venta de la miel a trasladar. ¿Desea realizar dicho registro?");
+
+                if (respuesta == 0){
+
+                    //se acepta el registro de la factura d venta al cliente en el interior (exportador interno)
+                    //se deberia abrir el formulario de registro de una factura a un exportador interno
+                    //y si se registra dicha factura se registra el traslado,
+                    //caso contrario se cancelan todos los cambios a registrarse.
+                    
+                    //registramos traslado y movimiento de stock de miel
+                    //y abrimos formulario de registro de la factura
+                    //en caso de cancelarse el registro de la factura
+                    //deben eliminarse el registro del traslado
+                    //y el registro de movimiento de stock de miel antes ingresados.
+                    
+                    if (saldoMielPagaIngresado != 0){
+
+                        //debe hacerse al menos el traslado de miel paga
+                        Traslado trasladoMielPaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielPagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielPaga.registrarTrasladoMiel(trasladoMielPaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielPagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+
+                    }
+
+                    if (saldoMielImpagaIngresado != 0){
+
+                        //debe hacerse tambien el traslado de miel impaga
+                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielImpagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }
+
+                    //deberia abrirse formulario de facturacion a exportadores internos
+                    //de aca se llevarian:
+                    //- cantidad de miel paga a trasladar (variable: saldoMielPagaIngresado)
+                    //- cantidad de miel impaga a trasladar (variable: saldoMielImpagaIngresado)
+                    //- cantidad total de miel a trasladar (variable: saldoMielPagaIngresado + saldoMielImpagaIngresado)
+
+                    //en el formulario de facturacion se seleccionaria el exportador interno
+                    //a facturarle la cantidad de miel del traslado
+                    //se ingresaria el precio por kilo de la miel
+                    //no se tendria que seleccionar la locacion origen de la miel porque ya fue ingresada enm el registro del traslado
+                    //y se registraria la factura, dando paso al registro del traslado
+                    //en caso de que no se registre la factura por algun motivo, tamb se cancela el registro del traslado.
+
+                    JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente. RECUERDE QUE SI CANCELA EL REGISTRO DE LA FACTURA A UN EXPOTADOR INTERNO TAMBIEN SE CANCELARA EL REGISTRO DEL TRASLADADO RECIEN EFECTUADO.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                    //apertura del formulario de facturacion
+
+                    try {
+
+                        FrmRegistroFacturaExportadorInterno form = new FrmRegistroFacturaExportadorInterno();
+                        deskPrincipal.add(form);
+                        Dimension desktopSize = deskPrincipal.getSize();
+                        Dimension FrameSize = form.getSize();
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    } catch (SQLException ex) {
+
+                        Logger.getLogger(FrmRegistroTraslado.class.getName()).log(Level.SEVERE, null, ex);
 
                     }
 
@@ -1416,15 +1693,15 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                     if (respuesta == 1){
 
-                        //no se acepta el registro de la nota de credito al  cliente, se cancelan todos los cambios
+                        //no se acepta el registro de la factura de venta al cliente, se cancelan todos los cambios
                         JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
 
                     }
                     else{
 
-                        //se cancela la eleccion entre la realizacion o no de la nota de credito, el formulario debe permanecer 
-                        //abierto mostrando todos los datos ingresados hasta el momento
+                        //se cancela la eleccion entre la facturacion y la no facturacion, el formulario debe permanecer abierto
+                        //mostrando todos los datos ingresados hasta el momento
                         rdbrRegistrar.requestFocus();
                         return;
 
@@ -1432,11 +1709,324 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                 }
 
-            }
-            else{
-                System.out.println(numeroComprobante);
+                break;
+
+            case "TRASLADO DESDE EMBARQUE A FISCALIZACION (DEVOLUCION)":
+            
+                //caso B) TRASLADO DESDE EMBARQUE A FISCALIZACION
+                respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la nota de credito que se asociara a la factura correspondiente a la miel devuelta. ¿Desea realizar dicho registro?");
+
+                if (respuesta == 0){
+
+                    //se acepta el registro de la nota de credito para el  cliente en el exterior
+
+                    //Se deben registrar la nota de credito, asociarla a la factura
+                    //y el traslado de la miel devuelta desde embarque a fiscalizacion
+                    if (saldoMielPagaIngresado != 0){
+
+                        //debe hacerse al menos el traslado de miel paga
+                        Traslado trasladoMielPaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielPagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielPaga.registrarTrasladoMiel(trasladoMielPaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielPagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+
+                            //comentado porque en este tipo de traslado no haria falta este analisis
+                            //ya que la miel se mueve desde fiscalizacion y no de la locaicon de un productor
+                            /*if (origenSeleccionado.equals("MIEL DEPOSITADA")){
+
+                                //se trata de un traslado de miel stockeada en la locacion de algun productor
+                                //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
+                                //y se debe descontar el stock de la locacion desde la que se traslada
+                                //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
+                                //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
+                                //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
+                                //que pueden tener miel comprada aun depositada en ellas
+
+                                //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
+                                //en el segundo combo
+                                //y como el tipo de movimiento sera TRASLADO - ORIGEN
+                                //la cantidad de miel sera descontada
+                                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+
+                            }*/
+
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }
+
+                    if (saldoMielImpagaIngresado != 0){
+
+                        //debe hacerse tambien el traslado de miel impaga
+                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielImpagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+
+                            /*if (origenSeleccionado.equals("MIEL DEPOSITADA")){
+
+                                //se trata de un traslado de miel stockeada en la locacion de algun productor
+                                //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
+                                //y se debe descontar el stock de la locacion desde la que se traslada
+                                //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
+                                //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
+                                //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
+                                //que pueden tener miel comprada aun depositada en ellas
+
+                                //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
+                                //en el segundo combo
+                                //y como el tipo de movimiento sera TRASLADO - ORIGEN
+                                //la cantidad de miel sera descontada
+                                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+
+                            }*/
+
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }
+                    
+                }
+
+                break;
+            
+            case "TRASLADO DESDE LOCACION DE EXPORTADOR INTERNO (DEVOLUCION)":
+            
+                respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la nota de credito que se asociara a la factura correspondiente a la miel devuelta. ¿Desea realizar dicho registro?");
+
+                if (respuesta == 0){
+
+                    //se acepta el registro de la nota de credito para el EXPORTADOR INTERNO
+
+                    //Se deben registrar la nota de credito, asociarla a la factura
+                    //y el traslado de la miel devuelta desde embarque a fiscalizacion
+                    if (saldoMielPagaIngresado != 0){
+
+                        //debe hacerse al menos el traslado de miel paga
+                        Traslado trasladoMielPaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielPagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielPaga.registrarTrasladoMiel(trasladoMielPaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielPagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+
+                            //comentado porque en este tipo de traslado no haria falta este analisis
+                            //ya que la miel se mueve desde fiscalizacion y no de la locaicon de un productor
+                            /*if (origenSeleccionado.equals("MIEL DEPOSITADA")){
+
+                                //se trata de un traslado de miel stockeada en la locacion de algun productor
+                                //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
+                                //y se debe descontar el stock de la locacion desde la que se traslada
+                                //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
+                                //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
+                                //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
+                                //que pueden tener miel comprada aun depositada en ellas
+
+                                //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
+                                //en el segundo combo
+                                //y como el tipo de movimiento sera TRASLADO - ORIGEN
+                                //la cantidad de miel sera descontada
+                                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+
+                            }*/
+
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("FACTURADA");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }
+
+                    if (saldoMielImpagaIngresado != 0){
+
+                        //debe hacerse tambien el traslado de miel impaga
+                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        if (trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga)){
+
+                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
+                            //en la tabla stock real de miel
+                            int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+
+                            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
+                            //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
+                            //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
+                            //EN LA LOCACION DESTINO
+                            //EL STOCK GLOBAL VA A VARIAR CUANDO LA LOCACION ORIGEN SEA FISCALIZACION Y LA LOCACION DESTINO SEA EMBARQUE
+                            //(EN ESTE CASO SE DEBE DISMINUIR EL STOCK GLOBAL YA QUE ES MIEL VENDIDA)
+                            //CASO CONTRARIO, SE MUEVEN LOS STOCKS EN LAS LOCACIONES PERO SIN TOCARSE EL STOCK GLOBAL
+
+                            //se registra el traslado para locacion origen
+                            StockRealMiel stockMiel = new StockRealMiel();
+                            stockMiel.setFecha_movimiento(fechaTraslado);
+                            //Cuando se trata de un traslado puede ser traslado origen o traslado destino
+                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
+                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
+                            stockMiel.setCantidad_miel(saldoMielImpagaIngresado);
+                            stockMiel.setLocacion_miel(origenTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+
+                            /*if (origenSeleccionado.equals("MIEL DEPOSITADA")){
+
+                                //se trata de un traslado de miel stockeada en la locacion de algun productor
+                                //se debe descontar el stock global de la locacion "LOCACION DEL PRODUCTOR"
+                                //y se debe descontar el stock de la locacion desde la que se traslada
+                                //cuyo codigo lo obtenemos a partir del nombre seleccionado en el combo de las locaciones
+                                //que o bien: figuran con stock mayor a 0 o figura entre todas las locaciones
+                                //cuya categoria deberia llamarse "LOCACION DE PRODUCTORES" (ya que son las unicas locaciones
+                                //que pueden tener miel comprada aun depositada en ellas
+
+                                //cargo en el campo miel_deposito_productor el codigo de la locacion origen seleccionada
+                                //en el segundo combo
+                                //y como el tipo de movimiento sera TRASLADO - ORIGEN
+                                //la cantidad de miel sera descontada
+                                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+
+                            }*/
+
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+                            //se registra el traslado para locacion destino
+                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setLocacion_miel(destinoTraslado);
+                            stockMiel.setMiel_deposito_productor(0);
+                            stockMiel.setEstado_compra("SIN FACTURAR");
+                            stockMiel.registrarMovimientoStock(stockMiel);
+
+                            JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el traslado.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }
+                    
+                }
+
+                break;
+            
+            default:
+
                 //CASO A) TRASLADO NORMAL
-                
                 //informacion completa y correcta, se procede al registro del traslado
                 //debo ver si es necesario realizar dos traslados: uno para la miel paga y otro para la miel impaga
                 //o se trata de un traslado de o bien solo miel paga o solo miel impaga
@@ -1494,6 +2084,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         //se registra el traslado para locacion destino
                         stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
                         stockMiel.setLocacion_miel(destinoTraslado);
+                        stockMiel.setMiel_deposito_productor(0);
                         stockMiel.setEstado_compra("FACTURADA");
                         stockMiel.registrarMovimientoStock(stockMiel);
 
@@ -1563,6 +2154,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         //se registra el traslado para locacion destino
                         stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
                         stockMiel.setLocacion_miel(destinoTraslado);
+                        stockMiel.setMiel_deposito_productor(0);
                         stockMiel.setEstado_compra("SIN FACTURAR");
                         stockMiel.registrarMovimientoStock(stockMiel);
 
@@ -1577,10 +2169,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                     }
 
                 }
-            }
             
+            break;
+                
         }
-
+        
         this.dispose();
         
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
@@ -1630,8 +2223,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 //si es miel depositada en una locacion de productores se debe permitir
                 //ver al menos cuanta miel hay en depositos de productores pero si se debe seleccionar
                 //un productor y validar la miel en sus depositos apra poder cargar el traslado con cantidades
-                codigoLocacionOrigen = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
-                saldoMielOrigen = calcularStockTotalMielLocacion(codigoLocacionOrigen);
+                int origenTraslado = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
+                saldoMielOrigen = calcularStockTotalMielLocacion(origenTraslado);
                 lStockOrigen.setText(String.valueOf(saldoMielOrigen));
                 cbProductores.requestFocus();
                 
@@ -1641,14 +2234,14 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                 //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
                 //caso contrario busco el codigo asociado al nombre seleccionado
-                codigoLocacionOrigen = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
+                int origenTraslado = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
                 //ademas muestro el stock fisico discponible en cada una de las locaciones (pago e impago)
                 //sirviendo tambien dicho dato para no permitir mover mas de lo que hay desde la locacion origen
 
                 //valores reales y originales
-                saldoMielOrigen = calcularStockTotalMielLocacion(codigoLocacionOrigen);
-                saldoMielPaga = calcularStockMielPagaLocacion(codigoLocacionOrigen);
-                saldoMielImpaga = calcularStockMielImpagaLocacion(codigoLocacionOrigen);
+                saldoMielOrigen = calcularStockTotalMielLocacion(origenTraslado);
+                saldoMielPaga = calcularStockMielPagaLocacion(origenTraslado);
+                saldoMielImpaga = calcularStockMielImpagaLocacion(origenTraslado);
 
                 //valores que iran cambiando a medida que se tocan los numeros a trasladar
                 //sirven ademas para realizar controles y filtros
@@ -1704,10 +2297,10 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
             
             //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
             //caso contrario busco el codigo asociado al nombre seleccionado
-            codigoLocacionDestino = listaLocacionesDestino.get(cbLocacionDestino.getSelectedIndex()).getCodigo_locacion();
+            int destinoTraslado = listaLocacionesDestino.get(cbLocacionDestino.getSelectedIndex()).getCodigo_locacion();
             //ademas muestro el stock fisico discponible en cada una de las locaciones
             //sirviendo tambien dicho dato para no permitir mover mas de lo que hay desde la locacion origen
-            saldoMiel = calcularStockTotalMielLocacion(codigoLocacionDestino);
+            saldoMiel = calcularStockTotalMielLocacion(destinoTraslado);
             lStockDestino.setText(String.valueOf(saldoMiel));
             
         }
@@ -1727,11 +2320,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
             
             //si es cero no se debe hacer nada, ya que es el item "SELECCIONAR"
             //caso contrario busco el codigo asociado al nombre seleccionado
-            codigoLocacionOrigen = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
+            int origenTraslado = listaLocacionesOrigen.get(cbLocacionOrigen.getSelectedIndex()).getCodigo_locacion();
             
             //obtengo la categoria de la locacion origen
             Locacion locacion = new Locacion();
-            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacionOrigen);
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(origenTraslado);
 
             //si la categoria de la locacion origen es "DEPOSITO DE PRODUCTOR"
             //se habilita el combo productores y se muestran todos los productores cargados en el sistema
@@ -1851,7 +2444,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     private void tfKilosDisponiblesPagosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKilosDisponiblesPagosKeyReleased
 
         //chequeos a realizar con el valor ingresado
-        //1) que no se ingrese vaco (si 0 pero no vacio)
+        //1) que no se ingrese vacIo (si 0 pero no vacio)
         //2) que no se ingrese un valor superior a la miel paga disponible en la locacion origen
         //3) que no se ingrese un valor que sumado al segundo valor supera al total de miel disponible en la locacion origen
         
@@ -2065,6 +2658,12 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_rbMielPagaDisponibleActionPerformed
 
+    private void cbProductoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbProductoresMouseClicked
+
+        System.out.println(codigoProductor);
+
+    }//GEN-LAST:event_cbProductoresMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOpcionesMiel;
@@ -2087,9 +2686,10 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JLabel lMielDisponibleTraslado;
     private javax.swing.JLabel lStockDepositoProductor;
     private javax.swing.JLabel lStockDestino;

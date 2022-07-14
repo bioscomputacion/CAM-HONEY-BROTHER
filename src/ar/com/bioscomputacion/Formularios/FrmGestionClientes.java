@@ -74,6 +74,7 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
         rbTodosLosClientes = new javax.swing.JRadioButton();
         rbExportadoresInternos = new javax.swing.JRadioButton();
         rbClientesStandards = new javax.swing.JRadioButton();
+        rsbrActualizar = new rojeru_san.RSButtonRiple();
 
         rdbrRegistrar3.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -144,8 +145,9 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
         });
 
         rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 18)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
@@ -213,26 +215,29 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        rsbrActualizar.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrActualizar.setText("ACTUALIZAR");
+        rsbrActualizar.setToolTipText("");
+        rsbrActualizar.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
+        rsbrActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rsbrActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
         rSPanelShadow2Layout.setHorizontalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rsbrSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rsbrSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator2)
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -246,7 +251,17 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(rbClientesStandards)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbExportadoresInternos)))))
+                                .addComponent(rbExportadoresInternos))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         rSPanelShadow2Layout.setVerticalGroup(
@@ -265,22 +280,22 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(tfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbTodosLosClientes)
-                            .addComponent(rbExportadoresInternos)
-                            .addComponent(rbClientesStandards))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbTodosLosClientes)
+                        .addComponent(rbExportadoresInternos)
+                        .addComponent(rbClientesStandards)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbrModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -583,9 +598,9 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
 
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
 
-        // CONSULTA DETALLADA DE PRODUCTOR
-        JOptionPane.showMessageDialog(null, "EN DESARROLLO.","CONSULTA DE PRODUCTOR",JOptionPane.INFORMATION_MESSAGE);
-        
+        // CONSULTA DETALLADA DE CLIENTE
+        JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE CLIENTE - EN CONSTRUCCION");
+
     }//GEN-LAST:event_rdbrDetalleActionPerformed
 
     private void tfBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarClienteKeyReleased
@@ -691,6 +706,34 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_rbClientesStandardsActionPerformed
 
+    private void rsbrActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrActualizarActionPerformed
+
+
+        if (rbTodosLosClientes.isSelected()){
+
+            mostrarClientes("", "TODOS");
+
+        }
+        else{
+
+            if (rbClientesStandards.isSelected()){
+            
+                mostrarClientes("", "STANDARDS");
+    
+            }
+            else{
+            
+                mostrarClientes("", "EXPORTADORES");
+                
+            }
+
+        }
+
+        tfBuscarCliente.setText("");
+        ocultarColumnas();
+
+    }//GEN-LAST:event_rsbrActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgClientes;
@@ -703,8 +746,6 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lClientes;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSPanelShadow rSPanelShadow2;
-    private javax.swing.JRadioButton rbActivos;
-    private javax.swing.JRadioButton rbActivos1;
     public static javax.swing.JRadioButton rbClientesStandards;
     public static javax.swing.JRadioButton rbExportadoresInternos;
     public static javax.swing.JRadioButton rbTodosLosClientes;
@@ -712,6 +753,7 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
     private rojeru_san.RSButtonRiple rdbrEliminar;
     private rojeru_san.RSButtonRiple rdbrModificar;
     private rojeru_san.RSButtonRiple rdbrRegistrar3;
+    private rojeru_san.RSButtonRiple rsbrActualizar;
     private rojeru_san.RSButtonRiple rsbrSalir;
     public static javax.swing.JTable tClientes;
     public javax.swing.JTextField tfBuscarCliente;

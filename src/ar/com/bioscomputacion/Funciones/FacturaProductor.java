@@ -130,6 +130,9 @@ public class FacturaProductor {
         
         try{
  
+            //esta no cierra
+            /*ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();*/
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_productor order by codigo_factura asc");
             
@@ -140,6 +143,10 @@ public class FacturaProductor {
             }
             
             return codigoFacturaProductor;
+
+            /*ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);*/
 
         }catch(Exception e){
             
@@ -195,11 +202,17 @@ public class FacturaProductor {
             int N = pst.executeUpdate();
 
             if (N != 0) {
+                
                 return true;
+                
             } else {
+                
                 return false;
+                
             }
             
+            //ConexionBD.close(cn);
+            //ConexionBD.close(pst);
             
         } catch (Exception e) {
             

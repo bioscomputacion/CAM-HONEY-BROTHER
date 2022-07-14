@@ -143,14 +143,18 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         tfDocumento.setBackground(new java.awt.Color(51, 84, 111));
         tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        tfDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDocumentoKeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("PROVINCIA:");
 
-        cbEstadoProvincia.setBackground(new java.awt.Color(36, 33, 33));
+        cbEstadoProvincia.setBackground(new java.awt.Color(255, 255, 0));
         cbEstadoProvincia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbEstadoProvincia.setForeground(new java.awt.Color(207, 207, 207));
         cbEstadoProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "BUENOS AIRES", "CATAMARCA", "CHACO", "CHUBUT", "CORDOBA", "CORRIENTES", "ENTRE RIOS", "FORMOSA", "JUJUY", "LA PAMPA", "LA RIOJA", "MENDOZA", "MISIONES", "NEUQUEN", "RIO NEGRO", "SALTA", "SAN JUAN", "SAN LUIS", "SANTA CRUZ", "SANTA FE", "SANTIAGO DEL ESTERO", "TIERRA DEL FUEGO", "TUCUMAN" }));
         cbEstadoProvincia.setPreferredSize(new java.awt.Dimension(136, 19));
         cbEstadoProvincia.addActionListener(new java.awt.event.ActionListener() {
@@ -267,8 +271,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbEstadoProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(32, 32, 32)))
@@ -285,7 +289,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Informacion personal", jPanel2);
@@ -319,9 +323,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel15.setText("CONDICION FRENTE AL IVA:");
         jLabel15.setToolTipText("");
 
-        cbCondicionIVA.setBackground(new java.awt.Color(36, 33, 33));
+        cbCondicionIVA.setBackground(new java.awt.Color(255, 255, 0));
         cbCondicionIVA.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCondicionIVA.setForeground(new java.awt.Color(207, 207, 207));
         cbCondicionIVA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CONSUMIDOR FINAL", "IVA RESP. MONOTRIBUTO", "IVA RESP. INSCRIPTO", "IVA SUJETO EXENTO" }));
         cbCondicionIVA.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCondicionIVA.addActionListener(new java.awt.event.ActionListener() {
@@ -399,16 +402,16 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        tpProductor.addTab("Datos de facturacion", jPanel3);
+        tpProductor.addTab("Datos para la facturacion", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -422,9 +425,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("PERIODO:");
 
-        cbPeriodoVentaMiel.setBackground(new java.awt.Color(36, 33, 33));
+        cbPeriodoVentaMiel.setBackground(new java.awt.Color(255, 255, 0));
         cbPeriodoVentaMiel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbPeriodoVentaMiel.setForeground(new java.awt.Color(207, 207, 207));
         cbPeriodoVentaMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "1° SEMANA", "2° SEMANA", "3° SEMANA", "4° SEMANA", "1° QUINCENA", "2° QUINCENA" }));
         cbPeriodoVentaMiel.setPreferredSize(new java.awt.Dimension(136, 19));
         cbPeriodoVentaMiel.addActionListener(new java.awt.event.ActionListener() {
@@ -437,9 +439,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("MES:");
 
-        cbMesVentaMiel.setBackground(new java.awt.Color(36, 33, 33));
+        cbMesVentaMiel.setBackground(new java.awt.Color(255, 255, 0));
         cbMesVentaMiel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbMesVentaMiel.setForeground(new java.awt.Color(207, 207, 207));
         cbMesVentaMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" }));
         cbMesVentaMiel.setPreferredSize(new java.awt.Dimension(136, 19));
         cbMesVentaMiel.addActionListener(new java.awt.event.ActionListener() {
@@ -462,6 +463,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("1ER POSIBLE FECHA DE VENTA:");
 
+        tfFechaVentaMiel1.setEditable(false);
         tfFechaVentaMiel1.setBackground(new java.awt.Color(51, 84, 111));
         tfFechaVentaMiel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfFechaVentaMiel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -480,6 +482,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("2DA POSIBLE FECHA DE VENTA:");
 
+        tfFechaVentaMiel2.setEditable(false);
         tfFechaVentaMiel2.setBackground(new java.awt.Color(51, 84, 111));
         tfFechaVentaMiel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfFechaVentaMiel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -498,6 +501,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("3ER POSIBLE FECHA DE VENTA:");
 
+        tfFechaVentaMiel3.setEditable(false);
         tfFechaVentaMiel3.setBackground(new java.awt.Color(51, 84, 111));
         tfFechaVentaMiel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfFechaVentaMiel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -520,17 +524,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tfFechaVentaMiel1))
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator5)
@@ -539,7 +534,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel17)
-                                        .addGap(0, 181, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(cbPeriodoVentaMiel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,21 +542,32 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                                         .addComponent(cbMesVentaMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel20)))
+                                    .addComponent(jLabel20))))
+                        .addContainerGap())
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(tfFechaVentaMiel1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(rdbrRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfFechaVentaMiel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfFechaVentaMiel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rdbrRegistrar3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                                .addComponent(rdbrRegistrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,11 +583,11 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel17)
                             .addComponent(jLabel20))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbPeriodoVentaMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbPeriodoVentaMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbMesVentaMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbMesVentaMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(rdbrRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -603,7 +609,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFechaVentaMiel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Venta de miel", jPanel4);
@@ -632,9 +638,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel22.setText("FLORACION:");
         jLabel22.setToolTipText("");
 
-        cbFloracion.setBackground(new java.awt.Color(36, 33, 33));
+        cbFloracion.setBackground(new java.awt.Color(255, 255, 0));
         cbFloracion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbFloracion.setForeground(new java.awt.Color(207, 207, 207));
         cbFloracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "ALFALFA", "ALGARROBO", "CALDEN", "MELILOTO" }));
         cbFloracion.setPreferredSize(new java.awt.Dimension(136, 19));
         cbFloracion.addActionListener(new java.awt.event.ActionListener() {
@@ -654,9 +659,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jLabel27.setText("CURA DE LA MIEL:");
         jLabel27.setToolTipText("");
 
-        cbCuraMiel.setBackground(new java.awt.Color(36, 33, 33));
+        cbCuraMiel.setBackground(new java.awt.Color(255, 255, 0));
         cbCuraMiel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCuraMiel.setForeground(new java.awt.Color(207, 207, 207));
         cbCuraMiel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CUMAFOS", "AMITRAZ", "OXALICO", "FUMAGILINA", " " }));
         cbCuraMiel.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCuraMiel.addActionListener(new java.awt.event.ActionListener() {
@@ -673,7 +677,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,11 +690,18 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
-                            .addComponent(cbFloracion, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbFloracion, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbCuraMiel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel27)
-                            .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel21))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -708,18 +719,20 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfUbicacionColmenas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbFloracion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFloracion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
-        tpProductor.addTab("Caracteristicas de la miel", jPanel5);
+        tpProductor.addTab("Caracteristicas de la miel ofrecida", jPanel5);
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -755,8 +768,8 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(tpProductor)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -788,7 +801,16 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
         //Solo es obligatorio el ingreso del NOMBRE del productor
+        Boolean informacionOpcionalFaltante = false;
 
+        //chequea toda la informacion que no es obligatoria para advertir al usuario del soft de tal situacion
+        //de todas formas debe dejar realizar el registro del cliente sin estos datos
+        if (tfDocumento.getText().length() == 0 || cbEstadoProvincia.getSelectedItem().equals("SELECCIONAR") || cbLocalidad.getSelectedItem().equals("SELECCIONAR") || tfDomicilio.getText().length() == 0 || tfTelefono.getText().length() == 0 || tfCorreo.getText().length() == 0 || tfNombreFantasia.getText().length() == 0 || tfRazonSocial.getText().length() == 0 || cbCondicionIVA.getSelectedItem().equals("SELECCIONAR") || tfCuit.getText().length() == 0 || tfDomicilioFiscal.getText().length() == 0 || tfCantidadColmenas.getText().length() == 0 || tfUbicacionColmenas.getText().length() == 0 || cbFloracion.getSelectedItem().equals("SELECCIONAR") || cbCuraMiel.getSelectedItem().equals("SELECCIONAR") || tfFechaVentaMiel1.getText().length() == 0 || tfFechaVentaMiel2.getText().length() == 0 || tfFechaVentaMiel3.getText().length() == 0){
+            
+            informacionOpcionalFaltante = true;
+            
+        }
+        
         //para evitar errores al cargar pais, provincia y localidad seleccionados en los respectivos combos
         int cantidadColmenas;
 
@@ -844,30 +866,57 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         if (tfNombre.getText().length() == 0) {
 
             JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del productor.", "REGISTRO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tpProductor.setSelectedIndex(0);
             tfNombre.requestFocus();
             return;
 
         }
 
-        //se completaron todos los datos y/o se escogio registrar el cliente con sus demas datos incompletos
-        //se procede al registro del productor
+        //Si se llego aca es porque se completaron todos los datos o se completaron los datos obligatorios
+        //a) si se completaron todos los datos se procede al registro del productor
+        //b) si se completaron solo los datos obligatorios el sistema advierte tal situacion y da la opcion al usuario
+        // de registrar el productor solo con los datos obligatorios o bien volver al registro para ingresar
+        //mas o todos los datos faltantes
+        int respuesta = 0;
         
-        Productor productor = new Productor(tfFechaVentaMiel1.getText().toUpperCase(),tfFechaVentaMiel2.getText().toUpperCase(),tfFechaVentaMiel3.getText().toUpperCase(),tfNombreFantasia.getText().toUpperCase(),tfRazonSocial.getText().toUpperCase(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText().toUpperCase(),"ACTIVO", cantidadColmenas, tfUbicacionColmenas.getText().toUpperCase(), floracionMiel, curaMiel,
-            tfNombre.getText().toUpperCase(), tfDocumento.getText(),
-            //Pais, estado y localidad se cargan como valores vacios ya que la tabla
-            //en la base de datos lo permite
-            nacionalidad, estadoProvincia, localidad,
-            tfDomicilio.getText().toUpperCase(), tfTelefono.getText().toUpperCase(),
-            tfCorreo.getText().toUpperCase());
+        if (informacionOpcionalFaltante) {
 
-        if (productor.registrar(productor)) {
+            respuesta = JOptionPane.showConfirmDialog(null, "No se ha ingresado toda la informacion requerida. ¿Desea registrar el productor sin los datos faltantes?", "REGISTRO DE PRODUCTOR", JOptionPane.YES_NO_OPTION);
+            
+        }
 
-            JOptionPane.showMessageDialog(null, "El productor ha sido registrado exitosamente.","REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+        //el usuario confirma el registro sin los datos (o bien no habia info faltante y respuesta quedo inicializada en 0)
+        if(respuesta == 0){
 
-        } else {
+            //se procede al registro del productor
+            Productor productor = new Productor(tfFechaVentaMiel1.getText().toUpperCase(),tfFechaVentaMiel2.getText().toUpperCase(),tfFechaVentaMiel3.getText().toUpperCase(),tfNombreFantasia.getText().toUpperCase(),tfRazonSocial.getText().toUpperCase(),condicionIVA,tfCuit.getText(),tfDomicilioFiscal.getText().toUpperCase(),"ACTIVO", cantidadColmenas, tfUbicacionColmenas.getText().toUpperCase(), floracionMiel, curaMiel,
+                tfNombre.getText().toUpperCase(), tfDocumento.getText(),
+                //Pais, estado y localidad se cargan como valores vacios ya que la tabla
+                //en la base de datos lo permite
+                nacionalidad, estadoProvincia, localidad,
+                tfDomicilio.getText().toUpperCase(), tfTelefono.getText().toUpperCase(),
+                tfCorreo.getText().toUpperCase());
 
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el productor.","REGISTRO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            if (productor.registrar(productor)) {
+
+                JOptionPane.showMessageDialog(null, "El productor ha sido registrado exitosamente.","REGISTRO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                //FrmLogin form = new FrmLogin();
+                //form.setVisible(true);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar registrar el productor.","REGISTRO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        }
+        //el usuario cancela la insercion del cliente sin los datos
+        else{
+
+            tpProductor.setSelectedIndex(0);
+            tfNombre.requestFocus();
+            return;
 
         }
         
@@ -1378,6 +1427,23 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_cbEstadoProvinciaActionPerformed
+
+    private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        if (tfDocumento.getText().contains(".") && c == '.') {
+            getToolkit().beep();
+            evt.consume();
+        } else if (!Character.isDigit(c)) {
+            if (c != '.') {
+                getToolkit().beep();
+                evt.consume();
+            }
+
+        }
+        
+    }//GEN-LAST:event_tfDocumentoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

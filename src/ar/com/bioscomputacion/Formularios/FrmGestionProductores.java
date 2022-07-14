@@ -66,6 +66,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         rsbrSalir = new rojeru_san.RSButtonRiple();
         rdbrModificar = new rojeru_san.RSButtonRiple();
         rdbrDetalle = new rojeru_san.RSButtonRiple();
+        rsbrActualizar = new rojeru_san.RSButtonRiple();
 
         rdbrRegistrar3.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -135,8 +136,9 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         });
 
         rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 18)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
@@ -163,6 +165,16 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
             }
         });
 
+        rsbrActualizar.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrActualizar.setText("ACTUALIZAR");
+        rsbrActualizar.setToolTipText("");
+        rsbrActualizar.setFont(new java.awt.Font("Roboto Bold", 3, 12)); // NOI18N
+        rsbrActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rsbrActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
         rSPanelShadow2Layout.setHorizontalGroup(
@@ -185,7 +197,10 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                                 .addComponent(rdbrEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(rdbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         rSPanelShadow2Layout.setVerticalGroup(
@@ -200,8 +215,10 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBuscarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -660,8 +677,8 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private void rdbrDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrDetalleActionPerformed
 
         // CONSULTA DETALLADA DE PRODUCTOR
-        JOptionPane.showMessageDialog(null, "EN DESARROLLO.","CONSULTA DE PRODUCTOR",JOptionPane.INFORMATION_MESSAGE);
-        
+        JOptionPane.showMessageDialog(null, "CONSULTA DETALLADA DE PRODUCTOR - EN CONSTRUCCION");
+
     }//GEN-LAST:event_rdbrDetalleActionPerformed
 
     private void tfBuscarProductorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarProductorKeyReleased
@@ -670,6 +687,15 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
         ocultarColumnas();
         
     }//GEN-LAST:event_tfBuscarProductorKeyReleased
+
+    private void rsbrActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrActualizarActionPerformed
+
+        tfBuscarProductor.setText("");
+        ocultarColumnas();
+        mostrarProductores("");
+        ocultarColumnas();
+        
+    }//GEN-LAST:event_rsbrActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -685,6 +711,7 @@ public class FrmGestionProductores extends javax.swing.JInternalFrame {
     private rojeru_san.RSButtonRiple rdbrEliminar;
     private rojeru_san.RSButtonRiple rdbrModificar;
     private rojeru_san.RSButtonRiple rdbrRegistrar3;
+    private rojeru_san.RSButtonRiple rsbrActualizar;
     private rojeru_san.RSButtonRiple rsbrSalir;
     public static javax.swing.JTable tProductores;
     public javax.swing.JTextField tfBuscarProductor;
