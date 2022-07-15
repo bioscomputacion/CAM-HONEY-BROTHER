@@ -90,7 +90,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LA INFORMACION DE LA LOCACION:");
+        jLabel1.setText("INFORMACION DE LA LOCACION:");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,6 +128,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
         rsbrCancelar.setText("CANCELAR");
+        rsbrCancelar.setToolTipText("");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

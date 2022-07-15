@@ -90,9 +90,8 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("CATEGORIA DE LA LOCACION:");
 
-        cbCategoriaLocacion.setBackground(new java.awt.Color(36, 33, 33));
+        cbCategoriaLocacion.setBackground(new java.awt.Color(255, 255, 0));
         cbCategoriaLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCategoriaLocacion.setForeground(new java.awt.Color(207, 207, 207));
         cbCategoriaLocacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "DEPOSITO DE PRODUCTOR", "DEPOSITO DE ACOPIO PROPIO", "HOMOGENEIZACION", "FISCALIZACION", "EMBARQUE" }));
         cbCategoriaLocacion.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCategoriaLocacion.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +110,7 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrRegistrar.setText("MODIFICAR");
+        rdbrRegistrar.setText("MODIFICAR LOCACION");
         rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +119,7 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("SALIR");
+        rsbrCancelar.setText("CANCELAR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,13 +144,10 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
                             .addComponent(tfNombreLocacion, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbCategoriaLocacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfObservacion, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addGap(5, 5, 5))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,12 +173,12 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCategoriaLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbCategoriaLocacion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -236,10 +232,6 @@ public class FrmModificacionLocacion extends javax.swing.JInternalFrame {
         if (locacion.modificarLocacion(locacion, codigoLocacion)) {
 
             JOptionPane.showMessageDialog(null, "La informacion de la locacion ha sido modificada exitosamente.", "MODIFICACION DE LOCACION", JOptionPane.INFORMATION_MESSAGE);
-            //esto es para que en la otra pestaña ya se vean los cambios realizados en la locacion modificada
-            FrmRegistroLocacion.mostrarLocaciones("");
-            FrmRegistroLocacion.ocultarColumnas();
-            
             this.dispose();
 
         } else {

@@ -178,7 +178,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="INGRESE LA INFORMACION DE LA LOCACION:"/>
+                    <Property name="text" type="java.lang.String" value="INFORMACION DE LA LOCACION:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -287,6 +287,7 @@
                       <Color blue="a4" green="6e" red="2f" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CANCELAR"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Roboto Bold" size="14" style="3"/>
                     </Property>

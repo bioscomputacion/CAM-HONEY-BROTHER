@@ -350,16 +350,6 @@ public class Productor extends Persona {
 
         modelo = new DefaultTableModel(null, titulos) {
             
-            /*@Override
-            public boolean isCellEditable(int filas, int columnas) {
-                if (columnas == 21) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            }*/
-
         };
         
         try {
