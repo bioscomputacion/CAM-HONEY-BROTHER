@@ -353,6 +353,7 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
                     
             //en el objeto tProveedores del tipo jTtable almaceno el objeto del mismo tipo llamado "modelo"
             tClientes.setModel(modelo);
+            tClientes.getTableHeader().setReorderingAllowed(false);
 
         } catch (Exception e) {
             
@@ -366,7 +367,7 @@ public class FrmGestionClientes extends javax.swing.JInternalFrame {
 
         /*tClientes.getColumnModel().getColumn(0).setMaxWidth(0);
         tClientes.getColumnModel().getColumn(0).setMinWidth(0);
-        tClientes.getColumnModel().getColumn(0).setPreferredWidth(0);*/
+        tClientes.getColumnModel().getColumn(0).setPreferredWidth(200);*/
 
         /*tClientes.getColumnModel().getColumn(1).setMaxWidth(0);
         tClientes.getColumnModel().getColumn(1).setMinWidth(0);
