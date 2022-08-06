@@ -28,9 +28,6 @@ public class Cliente extends Persona {
     private String estado;
     private String categoria;
 
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     //metodos constructores
     
     public Cliente() {
@@ -157,6 +154,10 @@ public class Cliente extends Persona {
             int N = pst.executeUpdate();
             int N2 = pst2.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            ConexionBD.close(pst2);
+
             if (N != 0 || N2 != 0) {
                 
                 return true;
@@ -166,7 +167,6 @@ public class Cliente extends Persona {
                 return false;
                 
             }
-            
             
         } catch (Exception e) {
         }
@@ -178,21 +178,23 @@ public class Cliente extends Persona {
 
         try {
 
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             PreparedStatement pst;
             pst = cn.prepareStatement("DELETE FROM persona WHERE cod_persona = (SELECT cod_persona FROM cliente WHERE cod_cliente ='"+ codigoCliente +"')");
 
             int N = pst.executeUpdate();
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
 
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -210,6 +212,8 @@ public class Cliente extends Persona {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             PreparedStatement pst = cn.prepareStatement("UPDATE cliente SET nombre_fantasia = ?, razon_social = ?,"
                     + "condicion_iva = ?, cuit = ?, domicilio_fiscal = ?, estado = ?, categoria = ? WHERE cod_cliente = ?");
             
@@ -239,18 +243,15 @@ public class Cliente extends Persona {
             
             int N2 = pst2.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            ConexionBD.close(pst2);
             if (N != 0 || N2 != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
-                //ConexionBD.close(pst2);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
-                //ConexionBD.close(pst2);
                 return false;
                 
             }
@@ -288,6 +289,8 @@ public class Cliente extends Persona {
         
         try {
             
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = null;
             
@@ -295,17 +298,17 @@ public class Cliente extends Persona {
                 
                 case "TODOS":
                     
-                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '13' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
+                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '1' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
                     break;
                     
                 case "STANDARDS":
 
-                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '13' and c.categoria = 'CLIENTE STANDARD'  and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
+                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '1' and c.categoria = 'CLIENTE STANDARD'  and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
                     break;
                     
                 case "EXPORTADORES":
 
-                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '13' and c.categoria = 'EXPORTADOR INTERNO' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
+                    rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '1' and c.categoria = 'EXPORTADOR INTERNO' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
                     break;
                     
             }
@@ -370,8 +373,10 @@ public class Cliente extends Persona {
         
         try {
             
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '13    ' and c.categoria = 'EXPORTADOR INTERNO' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
+            ResultSet rs = st.executeQuery("SELECT c.cod_cliente, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, c.nombre_fantasia, c.razon_social, c.condicion_iva, c.cuit, c.domicilio_fiscal, c.estado, c.categoria FROM cliente c join persona q on c.cod_persona = q.cod_persona WHERE c.cod_cliente <> '1' and c.categoria = 'EXPORTADOR INTERNO' and q.nombre LIKE '%" + buscar + "%' ORDER BY c.cod_cliente ASC");
 
             while (rs.next()) {
                 

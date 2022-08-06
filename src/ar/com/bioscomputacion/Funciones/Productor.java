@@ -35,10 +35,6 @@ public class Productor extends Persona {
     private String floracion_miel;
     private String cura_miel;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
-
     //metodos constructores
     
     public Productor() {
@@ -225,6 +221,10 @@ public class Productor extends Persona {
             int N = pst.executeUpdate();
             int N2 = pst2.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            ConexionBD.close(pst2);
+
             if (N != 0 || N2 != 0) {
                 
                 return true;
@@ -247,21 +247,22 @@ public class Productor extends Persona {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             PreparedStatement pst;
             pst = cn.prepareStatement("DELETE FROM persona WHERE cod_persona = (SELECT cod_persona FROM productor WHERE cod_productor ='"+ codigoProductor +"')");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -279,6 +280,8 @@ public class Productor extends Persona {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             PreparedStatement pst = cn.prepareStatement("UPDATE productor SET fecha_venta_miel_1 = ?, fecha_venta_miel_2 = ?, fecha_venta_miel_3 = ?, nombre_fantasia = ?,razon_social = ?,"
                     + "condicion_iva = ?, cuit = ?, domicilio_fiscal = ?, estado = ?, cantidad_colmenas = ?, ubicacion_colmenas = ?, floracion_miel = ?,"
                     + "cura_miel = ? WHERE cod_productor = ?");
@@ -315,18 +318,16 @@ public class Productor extends Persona {
             
             int N2 = pst2.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            ConexionBD.close(pst2);
+
             if (N != 0 || N2 != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
-                //ConexionBD.close(pst2);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
-                //ConexionBD.close(pst2);
                 return false;
                 
             }
@@ -354,8 +355,10 @@ public class Productor extends Persona {
         
         try {
             
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE p.cod_productor <> '22' and q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
+            ResultSet rs = st.executeQuery("SELECT p.cod_productor, q.nombre, q.documento, q.pais, q.estado_provincia, q.localidad, q.domicilio, q.telefono, q.correo, p.fecha_venta_miel_1, p.fecha_venta_miel_2, p.fecha_venta_miel_3, p.nombre_fantasia, p.razon_social, p.condicion_iva, p.cuit, p.domicilio_fiscal, p.estado, p.cantidad_colmenas, p.ubicacion_colmenas, p.floracion_miel, p.cura_miel FROM productor p join persona q on p.cod_persona = q.cod_persona WHERE p.cod_productor <> '1' and q.nombre LIKE '%" + buscar + "%' ORDER BY p.cod_productor ASC");
 
             while (rs.next()) {
                 
@@ -413,6 +416,8 @@ public class Productor extends Persona {
         
         try {
             
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.tipo_factura, f.numero_comprobante, f.fecha_factura, f.importe_total_factura, f.cantidad_miel_facturada, c.saldo, c.estado_movimiento FROM factura_productor f JOIN cta_cte_productor c ON f.codigo_factura = c.comprobante_asociado AND f.tipo_factura = c.descripcion_movimiento WHERE f.codigo_productor = '"+codigoProductor+"' ORDER BY f.fecha_factura ASC");
 
@@ -433,9 +438,9 @@ public class Productor extends Persona {
                 
             }
             
-            //ConexionBD.close(cn);
-            //ConexionBD.close(st);
-            //ConexionBD.close(rs);
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
         } catch (Exception e) {
             
