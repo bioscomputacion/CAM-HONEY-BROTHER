@@ -63,16 +63,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuCompraMiel = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        menuVentaMiel = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
         menuTraslados = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         menuCtasCtes = new javax.swing.JMenu();
@@ -149,7 +146,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         deskPrincipalLayout.setVerticalGroup(
             deskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deskPrincipalLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(124, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addGroup(deskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -235,20 +232,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem4);
 
-        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
-        jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
-        jMenuItem12.setText("GESTION Y REGISTRO DE LOCACIONES");
-        jMenuItem12.setOpaque(true);
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        menuGestion.add(jMenuItem12);
-
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
@@ -262,6 +245,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuGestion.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem12.setText("GESTION Y REGISTRO DE LOCACIONES");
+        jMenuItem12.setOpaque(true);
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem12);
 
         menuPrincipal.add(menuGestion);
 
@@ -328,42 +325,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuPrincipal.add(menuCompraMiel);
 
-        menuVentaMiel.setForeground(new java.awt.Color(255, 255, 255));
-        menuVentaMiel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/venta.png"))); // NOI18N
-        menuVentaMiel.setText("VENTAS Y EXPORTACION");
-        menuVentaMiel.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-
-        jMenuItem7.setBackground(new java.awt.Color(51, 84, 111));
-        jMenuItem7.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jMenuItem7.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
-        jMenuItem7.setText("REGISTRO DE VENTA A EXPORTADOR INTERNO");
-        jMenuItem7.setOpaque(true);
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        menuVentaMiel.add(jMenuItem7);
-
-        jMenuItem15.setBackground(new java.awt.Color(51, 84, 111));
-        jMenuItem15.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jMenuItem15.setForeground(new java.awt.Color(255, 255, 255));
-        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/historial_venta.png"))); // NOI18N
-        jMenuItem15.setText("REGISTRO DE VENTA A CLIENTE EN EL EXTERIOR");
-        jMenuItem15.setOpaque(true);
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
-            }
-        });
-        menuVentaMiel.add(jMenuItem15);
-
-        menuPrincipal.add(menuVentaMiel);
-
         menuTraslados.setForeground(new java.awt.Color(255, 255, 255));
-        menuTraslados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
-        menuTraslados.setText("TRASLADOS");
+        menuTraslados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/camión3.png"))); // NOI18N
+        menuTraslados.setText("TRASLADOS, VENTAS Y EXPORTACION");
         menuTraslados.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem16.setBackground(new java.awt.Color(51, 84, 111));
@@ -440,7 +404,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(deskPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
         );
 
         deskPrincipal.getAccessibleContext().setAccessibleName("");
@@ -655,54 +619,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
-        try {
-            
-            FrmRegistroFacturaExportadorInterno form = new FrmRegistroFacturaExportadorInterno();
-            
-            deskPrincipal.add(form);
-            Dimension desktopSize = deskPrincipal.getSize();
-            Dimension FrameSize = form.getSize();
-            
-            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            form.setVisible(true);
-            
-            form.setClosable(true);
-            form.setIconifiable(false);
-            
-        } catch (SQLException ex) {
-            
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-                            
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-
-        try {
-            
-            FrmRegistroFacturaClienteExterior form = new FrmRegistroFacturaClienteExterior();
-            
-            deskPrincipal.add(form);
-            Dimension desktopSize = deskPrincipal.getSize();
-            Dimension FrameSize = form.getSize();
-            
-            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            form.setVisible(true);
-            
-            form.setClosable(true);
-            form.setIconifiable(false);
-            
-        } catch (SQLException ex) {
-            
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-                            
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
-
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
 
         try {
@@ -728,11 +644,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        // TODO add your handling code here:
+
+        FrmCtaCteCliente form = new FrmCtaCteCliente();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        // TODO add your handling code here:
+
+        FrmCtaCteConProductor form = new FrmCtaCteConProductor();
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     /**
@@ -780,7 +720,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
@@ -788,7 +727,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JLabel lbNombre;
@@ -800,7 +738,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JMenu menuSalir;
     private javax.swing.JMenu menuTraslados;
-    private javax.swing.JMenu menuVentaMiel;
     private rojeru_san.RSLabelHora rSLabelHora1;
     public javax.swing.JTextField txtCod_usuario;
     // End of variables declaration//GEN-END:variables

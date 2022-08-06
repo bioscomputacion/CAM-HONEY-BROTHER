@@ -358,8 +358,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         dcFechaPresupuesto = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         dcFechaVencimiento = new com.toedter.calendar.JDateChooser();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
         tfDescripcion = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -393,7 +391,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("SELECCIONE EL PRODUCTOR CORRESPONDIENTE:");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("BUSCAR POR NOMBRE:");
 
@@ -554,7 +552,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -568,7 +566,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("PRESUPUESTO N°:");
+        jLabel17.setText("* PRESUPUESTO N°:");
 
         tfNumeroComprobante.setBackground(new java.awt.Color(51, 84, 111));
         tfNumeroComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -576,7 +574,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("FECHA DE LA FACTURA:");
+        jLabel6.setText("* FECHA:");
 
         dcFechaPresupuesto.setBackground(new java.awt.Color(36, 33, 33));
         dcFechaPresupuesto.setForeground(new java.awt.Color(207, 207, 207));
@@ -584,30 +582,26 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("VENCIMIENTO:");
+        jLabel9.setText("* VENCIMIENTO:");
 
         dcFechaVencimiento.setBackground(new java.awt.Color(255, 51, 102));
         dcFechaVencimiento.setForeground(new java.awt.Color(207, 207, 207));
         dcFechaVencimiento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("MIEL A PRESUPUESTAR:");
-
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("ITEM A PRESUPUESTAR:");
 
         tfDescripcion.setEditable(false);
-        tfDescripcion.setBackground(new java.awt.Color(204, 255, 255));
+        tfDescripcion.setBackground(new java.awt.Color(0, 0, 0));
         tfDescripcion.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        tfDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        tfDescripcion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfDescripcion.setText(" KGS. DE MIEL");
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("CANTIDAD KGS.:");
+        jLabel18.setText("* KGS.:");
 
         tfCantidadKilos.setBackground(new java.awt.Color(51, 84, 111));
         tfCantidadKilos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -628,7 +622,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("PRECIO UNITARIO:");
+        jLabel19.setText("* PRECIO UNITARIO:");
 
         tfPrecioUnitario.setBackground(new java.awt.Color(51, 84, 111));
         tfPrecioUnitario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -647,32 +641,36 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jLabel23.setText("IMPORTE TOTAL:");
 
         tfImporteTotalPresupuesto.setEditable(false);
-        tfImporteTotalPresupuesto.setBackground(new java.awt.Color(255, 255, 255));
+        tfImporteTotalPresupuesto.setBackground(new java.awt.Color(255, 0, 0));
         tfImporteTotalPresupuesto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfImporteTotalPresupuesto.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("CONVERSION A TAMBORES:");
 
         tfTambores.setEditable(false);
-        tfTambores.setBackground(new java.awt.Color(204, 255, 255));
+        tfTambores.setBackground(new java.awt.Color(0, 0, 0));
         tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTambores.setForeground(new java.awt.Color(255, 255, 255));
+        tfTambores.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("CONVERSION A LOTES:");
 
         tfLotes.setEditable(false);
-        tfLotes.setBackground(new java.awt.Color(204, 255, 255));
+        tfLotes.setBackground(new java.awt.Color(0, 0, 0));
         tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfLotes.setForeground(new java.awt.Color(255, 255, 255));
+        tfLotes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA:");
+        jLabel21.setText("* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA:");
 
-        cbLocacionesDisponibles.setBackground(new java.awt.Color(36, 33, 33));
+        cbLocacionesDisponibles.setBackground(new java.awt.Color(255, 255, 0));
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbLocacionesDisponibles.setForeground(new java.awt.Color(207, 207, 207));
         cbLocacionesDisponibles.setPreferredSize(new java.awt.Dimension(136, 19));
         cbLocacionesDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,9 +686,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(cbLocacionesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -698,45 +693,48 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator4)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel16)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfPrecioUnitario)
-                                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfImporteTotalPresupuesto)
-                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel21))
+                                .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbLocacionesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel15)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel16)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(tfPrecioUnitario)
+                                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(tfImporteTotalPresupuesto)
+                                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel21)))
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
@@ -756,10 +754,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                     .addComponent(dcFechaPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
@@ -789,10 +783,10 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
-        tpFactura.addTab("Datos del presupuesto", jPanel3);
+        tpFactura.addTab("Datos para el presupuesto", jPanel3);
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -805,7 +799,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("SALIR");
+        rsbrCancelar.setText("CANCELAR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -828,8 +822,8 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -896,7 +890,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
             JOptionPane.showMessageDialog(null, "La informacion correspondiente al presupuesto se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tpFactura.setSelectedIndex(1);
-            dcFechaPresupuesto.requestFocus();
+            tfCantidadKilos.requestFocus();
             return;
             
         }
@@ -1124,7 +1118,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1133,7 +1126,6 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSButtonRiple rdbrRegistrar;
     private rojeru_san.RSButtonRiple rsbrCancelar;

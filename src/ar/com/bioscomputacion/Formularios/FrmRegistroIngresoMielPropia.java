@@ -96,7 +96,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         }
         
         //inicializo campos
-        tfKilosAIngresar.setText("0.00");
+        tfCantidadKilos.setText("0.00");
 
         dcFechaIngreso.requestFocus();
         
@@ -184,8 +184,6 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         tfNumeroComprobante = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         jLabel21 = new javax.swing.JLabel();
         cbLocacionesDisponibles = new javax.swing.JComboBox<>();
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
@@ -193,11 +191,16 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         tfDescripcion = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        tfKilosAIngresar = new javax.swing.JTextField();
+        tfCantidadKilos = new javax.swing.JTextField();
         tfObservacion = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        tfTambores = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        tfLotes = new javax.swing.JTextField();
 
         setTitle("REGISTRO DE INGRESO DE MIEL PROPIA - CAM HONEY BROTHERS");
+        setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -225,20 +228,12 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         dcFechaIngreso.setForeground(new java.awt.Color(207, 207, 207));
         dcFechaIngreso.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("ITEM INGRESADO:");
-        jLabel7.setToolTipText("");
-
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-
         jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("SELECCIONE EL DESTINO DE LA MIEL INGRESADA:");
 
-        cbLocacionesDisponibles.setBackground(new java.awt.Color(36, 33, 33));
+        cbLocacionesDisponibles.setBackground(new java.awt.Color(255, 255, 0));
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbLocacionesDisponibles.setForeground(new java.awt.Color(207, 207, 207));
         cbLocacionesDisponibles.setPreferredSize(new java.awt.Dimension(136, 19));
         cbLocacionesDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +243,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrRegistrar.setText("REGISTRAR INGRESO");
+        rdbrRegistrar.setText("REGISTRAR INGRESO DE MIEL");
         rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +252,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("SALIR");
+        rsbrCancelar.setText("CANCELAR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,28 +265,30 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         jLabel14.setText("DESCRIPCION:");
 
         tfDescripcion.setEditable(false);
-        tfDescripcion.setBackground(new java.awt.Color(204, 255, 255));
+        tfDescripcion.setBackground(new java.awt.Color(0, 0, 0));
         tfDescripcion.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        tfDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        tfDescripcion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfDescripcion.setText(" KGS. DE MIEL");
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("KGS. A INGRESAR:");
 
-        tfKilosAIngresar.setBackground(new java.awt.Color(51, 84, 111));
-        tfKilosAIngresar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tfKilosAIngresar.setForeground(new java.awt.Color(255, 255, 255));
-        tfKilosAIngresar.addActionListener(new java.awt.event.ActionListener() {
+        tfCantidadKilos.setBackground(new java.awt.Color(51, 84, 111));
+        tfCantidadKilos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfCantidadKilos.setForeground(new java.awt.Color(255, 255, 255));
+        tfCantidadKilos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfKilosAIngresarActionPerformed(evt);
+                tfCantidadKilosActionPerformed(evt);
             }
         });
-        tfKilosAIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfCantidadKilos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfKilosAIngresarKeyReleased(evt);
+                tfCantidadKilosKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfKilosAIngresarKeyTyped(evt);
+                tfCantidadKilosKeyTyped(evt);
             }
         });
 
@@ -316,40 +313,48 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("INGRESE AQUI UNA OBSERVACION RELACIONADA AL INGRESO:");
 
+        tfTambores.setEditable(false);
+        tfTambores.setBackground(new java.awt.Color(0, 0, 0));
+        tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTambores.setForeground(new java.awt.Color(255, 255, 255));
+        tfTambores.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("CONVERSION A TAMBORES:");
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("CONVERSION A LOTES:");
+
+        tfLotes.setEditable(false);
+        tfLotes.setBackground(new java.awt.Color(0, 0, 0));
+        tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfLotes.setForeground(new java.awt.Color(255, 255, 255));
+        tfLotes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
         rSPanelShadow2Layout.setHorizontalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                                .addGap(122, 122, 122))
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator4)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(tfKilosAIngresar))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING)))
                             .addComponent(tfObservacion)
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                            .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfLotes))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
@@ -359,11 +364,22 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel7))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                                            .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addGap(135, 135, 135)
+                                        .addComponent(jLabel16))
+                                    .addComponent(jLabel21))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         rSPanelShadow2Layout.setVerticalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +387,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
@@ -382,30 +398,34 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
                         .addComponent(jLabel6)
                         .addGap(7, 7, 7)
                         .addComponent(dcFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, 19)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                            .addComponent(jLabel18)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfKilosAIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
+                        .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(24, 24, 24)
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(29, 29, 29)))
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -457,13 +477,13 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         //Tambien son obligatorios todos los campos referidos al ingresoa: numero de ingreso, fecha
         //items ingresados y locacion de deposito de la miel
 
-        Boolean informacionIngreso = (cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR" || tfKilosAIngresar.getText().equals("0.00") || tfKilosAIngresar.getText().equals("0.0"));
+        Boolean informacionIngreso = (cbLocacionesDisponibles.getSelectedItem() == "SELECCIONAR" || tfCantidadKilos.getText().equals("0.00") || tfCantidadKilos.getText().equals("0.0"));
 
         //chequea informacion del ingreso, la cual es obligatoria para poder registrar el mismo
         if (informacionIngreso) {
 
             JOptionPane.showMessageDialog(null, "La informacion correspondiente al ingreso se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE INGRESO DE MIEL PROPIA", JOptionPane.ERROR_MESSAGE);
-            dcFechaIngreso.requestFocus();
+            tfCantidadKilos.requestFocus();
             return;
 
         }
@@ -479,13 +499,14 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
 
         //se procede al registro del ingresode miel
         //que en realidad es un update del ingreso ya ingresado al inicializarse este formulario!
+        totalMielIngresada = Double.parseDouble(tfCantidadKilos.getText());
         IngresoMielPropia ingreso = new IngresoMielPropia(tfNumeroComprobante.getText(), new Date(a1, m1, d1), totalMielIngresada,tfObservacion.getText());
 
         if (ingreso.registrarIngresoMielPropia(ingreso)){
 
             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, SUMANDO LA CANTIDAD DE KGS. COMPRADA EN ESTE INGRESO
             // A DICHO STOCK, APUNTANDO ADEMAS EL ESTADO DE ESTA CANTIDAD, son kilos de miel propios (facturados)
-
+            
             StockRealMiel stockMiel = new StockRealMiel();
             stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
             stockMiel.setTipo_movimiento("INGRESO");
@@ -532,48 +553,37 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
 
-    private void tfKilosAIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfKilosAIngresarActionPerformed
+    private void tfCantidadKilosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCantidadKilosActionPerformed
 
-    }//GEN-LAST:event_tfKilosAIngresarActionPerformed
+    }//GEN-LAST:event_tfCantidadKilosActionPerformed
 
-    private void tfKilosAIngresarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKilosAIngresarKeyReleased
-        
-        //se ha ingresado una cantidad incorrecta o eliminado la misma
-        if (tfKilosAIngresar.getText().length() == 0){
-            
-            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE INGRESO DE MIEL PROPIA",JOptionPane.ERROR_MESSAGE);
-            tfKilosAIngresar.setText(String.valueOf("0.00"));
-            tfKilosAIngresar.requestFocus();
-            
+    private void tfCantidadKilosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCantidadKilosKeyReleased
+
+        //VER COMO PUEDO REDONDEAR!
+        if (tfCantidadKilos.getText().length() != 0){
+
+            Double kilos = Double.parseDouble(tfCantidadKilos.getText());
+            Double tambores = kilos / 300;
+            tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
+            Double lotes = kilos / 21000;
+            tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+
         }
         else{
-            
-            Double kilosAIngresar = Double.valueOf(tfKilosAIngresar.getText());
-            //se ha ingresado una cantidad incorrecta, igual a 0
-            if (kilosAIngresar == 0.00 || kilosAIngresar == 0.0){
 
-                JOptionPane.showMessageDialog(null, "ICantidad ingresada incorrecta.","REGISTRO DE INGRESO DE MIEL PROPIA",JOptionPane.ERROR_MESSAGE);
-                tfKilosAIngresar.setText(String.valueOf("0.00"));
-                tfKilosAIngresar.requestFocus();
+            tfTambores.setText("0 TAMBORES");
+            tfLotes.setText("0 LOTES");
+            tfCantidadKilos.setText("0.00");
 
-            }
-            //se ha ingresado una cantidad correcta, o sea,  mayor a 0
-            else{
-
-                //voy guardando aca lo que se ingresa como cantidad a trasladar
-                totalMielIngresada = kilosAIngresar;
-
-            }
-            
         }
 
-    }//GEN-LAST:event_tfKilosAIngresarKeyReleased
+    }//GEN-LAST:event_tfCantidadKilosKeyReleased
 
-    private void tfKilosAIngresarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKilosAIngresarKeyTyped
+    private void tfCantidadKilosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCantidadKilosKeyTyped
 
         char c = evt.getKeyChar();
 
-        if (tfKilosAIngresar.getText().contains(".") && c == '.') {
+        if (tfCantidadKilos.getText().contains(".") && c == '.') {
             getToolkit().beep();
             evt.consume();
         } else if (!Character.isDigit(c)) {
@@ -583,7 +593,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
             }
 
         }
-    }//GEN-LAST:event_tfKilosAIngresarKeyTyped
+    }//GEN-LAST:event_tfCantidadKilosKeyTyped
 
     private void tfObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObservacionActionPerformed
         // TODO add your handling code here:
@@ -594,7 +604,14 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfObservacionKeyReleased
 
     private void tfObservacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfObservacionKeyTyped
-        // TODO add your handling code here:
+
+        //limita la entrada de caracteres a 200 en este campo Observacion
+        if (tfObservacion.getText().length() >= 200){
+            
+            evt.consume();
+            
+        }
+        
     }//GEN-LAST:event_tfObservacionKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -602,22 +619,24 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
     public com.toedter.calendar.JDateChooser dcFechaIngreso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator4;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSPanelShadow rSPanelShadow2;
     private rojeru_san.RSButtonRiple rdbrRegistrar;
     private rojeru_san.RSButtonRiple rsbrCancelar;
+    public static javax.swing.JTextField tfCantidadKilos;
     public static javax.swing.JTextField tfDescripcion;
-    public static javax.swing.JTextField tfKilosAIngresar;
+    public javax.swing.JTextField tfLotes;
     public javax.swing.JTextField tfNumeroComprobante;
     public static javax.swing.JTextField tfObservacion;
+    public javax.swing.JTextField tfTambores;
     // End of variables declaration//GEN-END:variables
 }

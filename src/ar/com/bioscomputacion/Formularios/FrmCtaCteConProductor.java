@@ -57,8 +57,6 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
         tfNombreProductor.setEditable(false);
         tfDocumentoProductor.setEditable(false);
-        tfProvinciaProductor.setEditable(false);
-        tfLocalidadProductor.setEditable(false);
         
         tProductores.requestFocus();
         
@@ -352,20 +350,20 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tfNombreProductor = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         tfDocumentoProductor = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        tfProvinciaProductor = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        tfLocalidadProductor = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         lSaldoDineroImpago = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tMovimientos = new javax.swing.JTable();
-        bPagoComprobante = new javax.swing.JButton();
         lSaldoMielImpago = new javax.swing.JLabel();
-        bFacturacionCredito = new javax.swing.JButton();
-        bDevolucionCredito = new javax.swing.JButton();
+        tbOpciones = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         rsbrSalir = new rojeru_san.RSButtonRiple();
 
         jCheckBox1.setText("jCheckBox1");
@@ -373,7 +371,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(51, 84, 111));
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("CUENTA CORRIENTE CON PRODUCTORES - CAM HONEY BROTHERS");
-        setPreferredSize(new java.awt.Dimension(700, 550));
+        setPreferredSize(new java.awt.Dimension(800, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
 
@@ -392,9 +390,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("SELECCIONE EL PRODUCTOR CORRESPONDIENTE:");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("BUSCAR POR NOMBRE:");
+        jLabel4.setText("BUSCAR PRODUCTOR POR NOMBRE:");
 
         tfBusquedaPorNombre.setBackground(new java.awt.Color(51, 84, 111));
         tfBusquedaPorNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -425,8 +423,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(tProductores);
 
-        tfIDProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfIDProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfIDProductor.setEditable(false);
+        tfIDProductor.setBackground(new java.awt.Color(51, 84, 111));
+        tfIDProductor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfIDProductor.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -437,33 +436,23 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("NOMBRE:");
 
-        tfNombreProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfNombreProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfNombreProductor.setEditable(false);
+        tfNombreProductor.setBackground(new java.awt.Color(51, 84, 111));
+        tfNombreProductor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNombreProductor.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("N° DOCUMENTO:");
 
-        tfDocumentoProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfDocumentoProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfDocumentoProductor.setEditable(false);
+        tfDocumentoProductor.setBackground(new java.awt.Color(51, 84, 111));
+        tfDocumentoProductor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumentoProductor.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("PROVINCIA:");
-
-        tfProvinciaProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfProvinciaProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfProvinciaProductor.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("LOCALIDAD:");
-
-        tfLocalidadProductor.setBackground(new java.awt.Color(0, 0, 0));
-        tfLocalidadProductor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        tfLocalidadProductor.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("A SELECCIONADO EL PRODUCTOR:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -473,7 +462,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,27 +478,21 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(tfNombreProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tfNombreProductor))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumentoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(tfProvinciaProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfLocalidadProductor)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                                .addComponent(tfDocumentoProductor)
+                                .addContainerGap())))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel14))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,34 +506,23 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addComponent(tfIDProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel8))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfNombreProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDocumentoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tfDocumentoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel11)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfProvinciaProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfLocalidadProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfIDProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNombreProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         tpFactura.addTab("Informacion del productor", jPanel2);
@@ -563,11 +535,12 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jLabel3.setText("MOVIMIENTOS EN LA CTA. CTE. DEL PRODUCTOR SELECCIONADO:");
 
         lSaldoDineroImpago.setFont(new java.awt.Font("Calibri", 3, 20)); // NOI18N
-        lSaldoDineroImpago.setForeground(new java.awt.Color(255, 255, 255));
+        lSaldoDineroImpago.setForeground(new java.awt.Color(0, 255, 0));
         lSaldoDineroImpago.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lSaldoDineroImpago.setText("TOTAL");
 
         tMovimientos.setBackground(new java.awt.Color(36, 33, 33));
+        tMovimientos.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         tMovimientos.setForeground(new java.awt.Color(207, 207, 207));
         tMovimientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -592,43 +565,90 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tMovimientos);
 
-        bPagoComprobante.setBackground(new java.awt.Color(36, 33, 33));
-        bPagoComprobante.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        bPagoComprobante.setForeground(new java.awt.Color(224, 224, 224));
-        bPagoComprobante.setText("PAGAR");
-        bPagoComprobante.setPreferredSize(new java.awt.Dimension(159, 33));
-        bPagoComprobante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bPagoComprobanteActionPerformed(evt);
-            }
-        });
-
         lSaldoMielImpago.setFont(new java.awt.Font("Calibri", 3, 20)); // NOI18N
-        lSaldoMielImpago.setForeground(new java.awt.Color(153, 255, 255));
+        lSaldoMielImpago.setForeground(new java.awt.Color(255, 255, 0));
         lSaldoMielImpago.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lSaldoMielImpago.setText("TOTAL");
 
-        bFacturacionCredito.setBackground(new java.awt.Color(36, 33, 33));
-        bFacturacionCredito.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        bFacturacionCredito.setForeground(new java.awt.Color(224, 224, 224));
-        bFacturacionCredito.setText("FACTURAR");
-        bFacturacionCredito.setPreferredSize(new java.awt.Dimension(159, 33));
-        bFacturacionCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bFacturacionCreditoActionPerformed(evt);
-            }
-        });
+        tbOpciones.setBackground(new java.awt.Color(0, 0, 0));
+        tbOpciones.setBorder(null);
+        tbOpciones.setFloatable(false);
+        tbOpciones.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
 
-        bDevolucionCredito.setBackground(new java.awt.Color(36, 33, 33));
-        bDevolucionCredito.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        bDevolucionCredito.setForeground(new java.awt.Color(224, 224, 224));
-        bDevolucionCredito.setText("DEVOLVER");
-        bDevolucionCredito.setPreferredSize(new java.awt.Dimension(159, 33));
-        bDevolucionCredito.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("  ABONAR COMPROBANTE  ");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDevolucionCreditoActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+        tbOpciones.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("  FACTURAR COMPRA  ");
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton2);
+
+        jButton3.setBackground(new java.awt.Color(0, 0, 0));
+        jButton3.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("  DEVOLVER MIEL  ");
+        jButton3.setBorderPainted(false);
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton3);
+
+        jButton4.setBackground(new java.awt.Color(0, 0, 0));
+        jButton4.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("  REGISTRAR NOTA DE CREDITO  ");
+        jButton4.setBorderPainted(false);
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton4);
+
+        jButton5.setBackground(new java.awt.Color(0, 0, 0));
+        jButton5.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("  ANULAR PRESUPUESTO  ");
+        jButton5.setBorderPainted(false);
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton5);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -638,20 +658,14 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lSaldoMielImpago, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lSaldoDineroImpago, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(bFacturacionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bDevolucionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bPagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(tbOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -662,19 +676,16 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bFacturacionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bPagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bDevolucionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(tbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lSaldoDineroImpago)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lSaldoMielImpago))
         );
 
-        tpFactura.addTab("Cuenta corriente con el productor", jPanel3);
+        tpFactura.addTab("Cuenta corriente con el productor seleccionado", jPanel3);
 
         rsbrSalir.setBackground(new java.awt.Color(47, 110, 164));
         rsbrSalir.setText("SALIR");
@@ -698,8 +709,8 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(tpFactura)
+                .addGap(18, 18, 18)
                 .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -737,8 +748,6 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tfIDProductor.setText(tProductores.getValueAt(fila, 0).toString());
         tfNombreProductor.setText(tProductores.getValueAt(fila, 1).toString());
         tfDocumentoProductor.setText(tProductores.getValueAt(fila, 2).toString());
-        tfProvinciaProductor.setText(tProductores.getValueAt(fila, 4).toString());
-        tfLocalidadProductor.setText(tProductores.getValueAt(fila, 5).toString());
 
         //cada vez que se selecciona un productor en la otra pestaña se muestra la corriente con el, tenga movimientos o no
         mostrarCtaCteProductor(codigoProductor);
@@ -750,7 +759,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
         fila2 = tMovimientos.rowAtPoint(evt.getPoint());
         //almacena el codigo interno del movimiento seleccionado, todo el tiempo
-        codigoComprobante = Integer.valueOf(tMovimientos.getValueAt(fila2, 4).toString());
+        codigoComprobante = Integer.valueOf(tMovimientos.getValueAt(fila2, 1).toString());
         
     }//GEN-LAST:event_tMovimientosMouseClicked
 
@@ -761,73 +770,6 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private void tMovimientosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tMovimientosKeyReleased
     }//GEN-LAST:event_tMovimientosKeyReleased
 
-    private void bPagoComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagoComprobanteActionPerformed
-
-        //1er chequeo: se debe seleccionar una fila de la grilla
-        if (fila2 == -1) {
-            
-            JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente al comprobante que desea abonar.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
-        //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
-            
-            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //3er chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no un credito (el cual debe facturarse)
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("CONSIGNACION")) {
-            
-            JOptionPane.showMessageDialog(null, "No se puede abonar una compra a consignacion. la misma debe ser antes facturada o presupuestada.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
-        if (tMovimientos.getValueAt(fila2, 10).toString().equals("CANCELADO")) {
-            
-            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
-        //asigno valores que debera mostrar el formulario de pago al productor
-        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
-        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
-        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
-        FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
-        FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
-        FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
-        FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
-        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
-        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
-        
-        deskPrincipal.add(form);
-        Dimension desktopSize = deskPrincipal.getSize();
-        Dimension FrameSize = form.getSize();
-
-        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        form.setVisible(true);
-
-        form.setClosable(true);
-        form.setIconifiable(false);
-        
-        form.inicializar();
-
-    }//GEN-LAST:event_bPagoComprobanteActionPerformed
-
     private void tpFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpFacturaMouseClicked
     }//GEN-LAST:event_tpFacturaMouseClicked
 
@@ -837,7 +779,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_rsbrSalirActionPerformed
 
-    private void bFacturacionCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFacturacionCreditoActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         try {
             
@@ -920,9 +862,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             
         }
                             
-    }//GEN-LAST:event_bFacturacionCreditoActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void bDevolucionCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDevolucionCreditoActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         try {
             
@@ -1004,7 +946,198 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             
         }
                             
-    }//GEN-LAST:event_bDevolucionCreditoActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        //1er chequeo: se debe seleccionar una fila de la grilla
+        if (fila2 == -1) {
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente al comprobante que desea abonar.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
+        //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
+        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //3er chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no un credito (el cual debe facturarse)
+        if (tMovimientos.getValueAt(fila2, 3).toString().equals("CONSIGNACION")) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede abonar una compra a consignacion. La misma debe ser antes facturada o presupuestada.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
+        if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
+            
+            System.out.println("Entra bien!");
+            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
+        //asigno valores que debera mostrar el formulario de pago al productor
+        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+        FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
+        FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
+        FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
+        FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
+        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
+        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+        
+        form.inicializar();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        //1er chequeo: se debe seleccionar una fila de la grilla
+        if (fila2 == -1) {
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente al comprobante que desea anular.", "ANULACION DE COMPROBANTE", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
+        //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
+        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //3er chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no un credito (el cual debe facturarse)
+        if (tMovimientos.getValueAt(fila2, 3).toString().equals("CONSIGNACION")) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede abonar una compra a consignacion. la misma debe ser antes facturada o presupuestada.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
+        if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
+            
+            System.out.println("Entra bien!");
+            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
+        //asigno valores que debera mostrar el formulario de pago al productor
+        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+        FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
+        FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
+        FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
+        FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
+        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
+        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
+        
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+
+        form.setClosable(true);
+        form.setIconifiable(false);
+        
+        form.inicializar();
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        //Abre un formulario que muestra todas las facturas del productor seleccionado
+        //para poder asociar alguna factura NO CANCELADA a la nota de credito que se esta por registrar
+        //en otra pestaña de la misma ventana se ingresaran los datos puntuales de la nota de credito
+
+        //el unico chequeo a realizar es que se este trabajando en la cta. cte. de un productor (que se haya seleccionado el mismo)
+        //implementar el chequeo!
+        if (tfIDProductor.getText().length() == 0){
+            
+            //no se esta visualizando la cta. cte de ningun productor!
+            
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un productor para visualizar su cta. cte..", "REGISTRO NOTA DE CREDITO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //se abre el formulario de asociacion de nota de credito (el mismo muestra todas las facturas del productor)
+        try {
+            
+            FrmRegistroNotaCreditoProductor form = new FrmRegistroNotaCreditoProductor();
+            //recordar chequear si este campo no esta vacio, ya que si lo esta, es porque no se esta visualizando
+            //ninguna cta. cte.
+            form.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+            //asigno valores que debera mostrar el formulario de pago al productor
+            /*form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+            form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+            form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+            form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+            FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+            FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
+            FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
+            FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
+            FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
+            FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
+            FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());*/
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+
+            form.setClosable(true);
+            form.setIconifiable(false);
+
+            form.inicializar();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCtaCteConProductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void actualizarImporteTotalPago() {
 
@@ -1023,15 +1156,16 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bDevolucionCredito;
-    private javax.swing.JButton bFacturacionCredito;
-    private javax.swing.JButton bPagoComprobante;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
@@ -1048,12 +1182,11 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private rojeru_san.RSButtonRiple rsbrSalir;
     public static javax.swing.JTable tMovimientos;
     public javax.swing.JTable tProductores;
+    private javax.swing.JToolBar tbOpciones;
     public javax.swing.JTextField tfBusquedaPorNombre;
     public javax.swing.JTextField tfDocumentoProductor;
     public javax.swing.JTextField tfIDProductor;
-    public javax.swing.JTextField tfLocalidadProductor;
     public javax.swing.JTextField tfNombreProductor;
-    public javax.swing.JTextField tfProvinciaProductor;
     private javax.swing.JTabbedPane tpFactura;
     // End of variables declaration//GEN-END:variables
 }

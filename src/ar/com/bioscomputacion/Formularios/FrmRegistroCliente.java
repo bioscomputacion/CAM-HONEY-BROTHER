@@ -6,6 +6,7 @@
 package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.Cliente;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,6 +94,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 cbCategoriaClienteActionPerformed(evt);
             }
         });
+        cbCategoriaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbCategoriaClienteKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,6 +117,9 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDocumento.setForeground(new java.awt.Color(255, 255, 255));
         tfDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfDocumentoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfDocumentoKeyTyped(evt);
             }
@@ -125,6 +134,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 cbNacionalidadActionPerformed(evt);
             }
         });
+        cbNacionalidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbNacionalidadKeyPressed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,10 +147,25 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfDomicilio.setBackground(new java.awt.Color(51, 84, 111));
         tfDomicilio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDomicilio.setForeground(new java.awt.Color(255, 255, 255));
+        tfDomicilio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfDomicilioKeyPressed(evt);
+            }
+        });
 
         tfTelefono.setBackground(new java.awt.Color(51, 84, 111));
         tfTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfTelefono.setForeground(new java.awt.Color(255, 255, 255));
+        tfTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTelefonoActionPerformed(evt);
+            }
+        });
+        tfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfTelefonoKeyPressed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,6 +174,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfCorreo.setBackground(new java.awt.Color(51, 84, 111));
         tfCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        tfCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCorreoKeyPressed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,6 +187,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfNombre.setBackground(new java.awt.Color(51, 84, 111));
         tfNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNombre.setForeground(new java.awt.Color(255, 255, 255));
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNombreKeyPressed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -266,6 +305,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfNombreFantasia.setBackground(new java.awt.Color(51, 84, 111));
         tfNombreFantasia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNombreFantasia.setForeground(new java.awt.Color(255, 255, 255));
+        tfNombreFantasia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNombreFantasiaKeyPressed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -274,6 +318,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfRazonSocial.setBackground(new java.awt.Color(51, 84, 111));
         tfRazonSocial.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfRazonSocial.setForeground(new java.awt.Color(255, 255, 255));
+        tfRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfRazonSocialKeyPressed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -290,6 +339,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 cbCondicionIVAActionPerformed(evt);
             }
         });
+        cbCondicionIVA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbCondicionIVAKeyPressed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -299,6 +353,9 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfCuit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfCuit.setForeground(new java.awt.Color(255, 255, 255));
         tfCuit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCuitKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfCuitKeyTyped(evt);
             }
@@ -311,6 +368,11 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         tfDomicilioFiscal.setBackground(new java.awt.Color(51, 84, 111));
         tfDomicilioFiscal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfDomicilioFiscal.setForeground(new java.awt.Color(255, 255, 255));
+        tfDomicilioFiscal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfDomicilioFiscalKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -374,7 +436,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Datos para la facturacion", jPanel3);
@@ -594,6 +656,131 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_tfCuitKeyTyped
+
+    private void cbCategoriaClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbCategoriaClienteKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfNombre.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_cbCategoriaClienteKeyPressed
+
+    private void tfNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfDocumento.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfNombreKeyPressed
+
+    private void tfDocumentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            cbNacionalidad.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfDocumentoKeyPressed
+
+    private void cbNacionalidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbNacionalidadKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfDomicilio.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_cbNacionalidadKeyPressed
+
+    private void tfDomicilioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDomicilioKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfTelefono.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfDomicilioKeyPressed
+
+    private void tfTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTelefonoActionPerformed
+
+    private void tfTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfCorreo.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfTelefonoKeyPressed
+
+    private void tfCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tpCliente.setSelectedIndex(1);
+            tfNombreFantasia.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfCorreoKeyPressed
+
+    private void tfNombreFantasiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreFantasiaKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfRazonSocial.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfNombreFantasiaKeyPressed
+
+    private void tfRazonSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfRazonSocialKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            cbCondicionIVA.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfRazonSocialKeyPressed
+
+    private void cbCondicionIVAKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbCondicionIVAKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfCuit.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_cbCondicionIVAKeyPressed
+
+    private void tfCuitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCuitKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            tfDomicilioFiscal.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfCuitKeyPressed
+
+    private void tfDomicilioFiscalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDomicilioFiscalKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        
+            rdbrRegistrar.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_tfDomicilioFiscalKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

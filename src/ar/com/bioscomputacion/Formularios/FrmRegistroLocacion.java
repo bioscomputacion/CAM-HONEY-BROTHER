@@ -115,6 +115,11 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         tfObservacion.setBackground(new java.awt.Color(51, 84, 111));
         tfObservacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfObservacion.setForeground(new java.awt.Color(255, 255, 255));
+        tfObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfObservacionKeyTyped(evt);
+            }
+        });
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -178,13 +183,13 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbCategoriaLocacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfObservacion, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(346, 346, 346)))
-                        .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addContainerGap(545, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(tfObservacion)
+                            .addContainerGap()))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -662,6 +667,17 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
         ocultarColumnas();
 
     }//GEN-LAST:event_rsbrActualizarActionPerformed
+
+    private void tfObservacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfObservacionKeyTyped
+
+        //limita la entrada de caracteres a 200 en este campo Observacion
+        if (tfObservacion.getText().length() >= 200){
+            
+            evt.consume();
+            
+        }
+        
+    }//GEN-LAST:event_tfObservacionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -398,5 +398,51 @@ public class Productor extends Persona {
         
     }
     
+    //ver como pasarle un periodo de fechas!
+    public DefaultTableModel listarFacturasProductor(int codigoProductor) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID", "TIPO", "N° COMPROBANTE", "FECHA", "IMPORTE", "SALDO","KGS. MIEL FACTURADOS", "PRECIO KG.", "ESTADO"};
+
+        String[] registros = new String[9];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.tipo_factura, f.numero_comprobante, f.fecha_factura, f.importe_total_factura, f.cantidad_miel_facturada, c.saldo, c.estado_movimiento FROM factura_productor f JOIN cta_cte_productor c ON f.codigo_factura = c.comprobante_asociado AND f.tipo_factura = c.descripcion_movimiento WHERE f.codigo_productor = '"+codigoProductor+"' ORDER BY f.fecha_factura ASC");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_factura");
+                registros[1] = rs.getString("tipo_factura");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("fecha_factura");
+                registros[4] = rs.getString("importe_total_factura");
+                registros[5] = rs.getString("saldo");
+                registros[6] = rs.getString("cantidad_miel_facturada");
+                Double precioKilo = rs.getDouble("importe_total_factura")/rs.getDouble("cantidad_miel_facturada");
+                registros[7] = String.valueOf(precioKilo);
+                registros[8] = rs.getString("estado_movimiento");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            //ConexionBD.close(cn);
+            //ConexionBD.close(st);
+            //ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
     
 }

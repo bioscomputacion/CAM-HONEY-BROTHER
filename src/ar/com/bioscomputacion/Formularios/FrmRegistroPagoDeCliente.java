@@ -103,7 +103,7 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("FECHA DE PAGO:");
+        jLabel9.setText("* FECHA DE PAGO:");
 
         dcFechaPago.setBackground(new java.awt.Color(255, 51, 102));
         dcFechaPago.setForeground(new java.awt.Color(207, 207, 207));
@@ -111,7 +111,7 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("SE ESTA registrando UN PAGO CORRESPONDIENTE A:");
+        jLabel17.setText("SE ESTA REGISTRANDO UN PAGO CORRESPONDIENTE A:");
 
         tfCliente.setEditable(false);
         tfCliente.setBackground(new java.awt.Color(0, 0, 0));
@@ -120,11 +120,10 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("METODO DE PAGO:");
+        jLabel14.setText("* METODO DE PAGO:");
 
-        cbMetodosPago.setBackground(new java.awt.Color(36, 33, 33));
+        cbMetodosPago.setBackground(new java.awt.Color(255, 255, 0));
         cbMetodosPago.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbMetodosPago.setForeground(new java.awt.Color(207, 207, 207));
         cbMetodosPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CHEQUE", "DEBITO", "EFECTIVO", "TRANSFERENCIA" }));
         cbMetodosPago.setPreferredSize(new java.awt.Dimension(136, 19));
         cbMetodosPago.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +134,7 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("OBSERVACIONES:");
+        jLabel18.setText("* OBSERVACION:");
 
         tfObservaciones.setBackground(new java.awt.Color(51, 84, 111));
         tfObservaciones.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -146,7 +145,7 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
         jLabel20.setText("IMPORTE DEL COMPROBANTE A PAGAR:                                                    $ ");
 
         tfImporteTotalComprobante.setEditable(false);
-        tfImporteTotalComprobante.setBackground(new java.awt.Color(255, 255, 204));
+        tfImporteTotalComprobante.setBackground(new java.awt.Color(255, 255, 0));
         tfImporteTotalComprobante.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -175,19 +174,19 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("MONTO DEL PAGO A EFECTUAR:                                                                  $");
+        jLabel21.setText("* MONTO DEL PAGO A EFECTUAR:                                                                $");
 
         jLabel22.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("SALDO IMPAGO DEL COMPROBANTE:                                                          $");
 
         tfSaldoImpagoComprobante.setEditable(false);
-        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(255, 0, 51));
+        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(0, 255, 0));
         tfSaldoImpagoComprobante.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         tfSaldoImpagoComprobante.setForeground(new java.awt.Color(255, 255, 255));
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("SALIR");
+        rsbrCancelar.setText("CANCELAR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,17 +242,10 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jSeparator4)
-                    .addComponent(jSeparator5)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
@@ -263,7 +255,14 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfMontoPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator5)
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         rSPanelShadow2Layout.setVerticalGroup(
@@ -284,18 +283,18 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(dcFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dcFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbMetodosPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel9)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,7 +314,7 @@ public class FrmRegistroPagoDeCliente extends javax.swing.JInternalFrame {
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

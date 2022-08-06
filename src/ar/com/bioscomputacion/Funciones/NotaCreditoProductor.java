@@ -20,52 +20,50 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Caco
  */
-public class FacturaProductor {
+public class NotaCreditoProductor {
     
-    private int codigo_factura;
-    private String tipoFactura;
+    private int codigo_nota_credito;
+    private String tipo_nota_Credito;
     private String numero_comprobante; 
     private int codigo_movimiento_ctacte;
     private int codigo_productor;
-    private Date fecha_factura;
-    private Date fecha_vencimiento;
-    private Double importe_total_factura;
-    private Double cantidad_miel_facturada;
+    private Date fecha_nota_credito;
+    private Double importe_total_nota_credito;
+    private Double cantidad_miel_devuelta;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
     
 
-    public FacturaProductor(String tipo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento, Double importe_total_factura, Double cantidad_miel_facturada) {
+    public NotaCreditoProductor(String numero_comprobante, String tipo_nota_credito, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_nota_credito, Double importe_total_nota_credito, Double cantidad_miel_devuelta) {
         
-        this.tipoFactura = tipo_factura;
         this.numero_comprobante = numero_comprobante;
+        this.tipo_nota_Credito = tipo_nota_credito;
         this.codigo_movimiento_ctacte = codigo_movimiento_ctacte;
         this.codigo_productor = codigo_productor;
-        this.fecha_factura = fecha_factura;
-        this.fecha_vencimiento = fecha_vencimiento;
-        this.importe_total_factura = importe_total_factura;
-        this.cantidad_miel_facturada = cantidad_miel_facturada;
+        this.fecha_nota_credito = fecha_nota_credito;
+        this.importe_total_nota_credito = importe_total_nota_credito;
+        this.cantidad_miel_devuelta = cantidad_miel_devuelta;
         
     }
 
-    public String getTipoFactura() {
-        return tipoFactura;
+    public NotaCreditoProductor() {
     }
 
-    public void setTipoFactura(String tipoFactura) {
-        this.tipoFactura = tipoFactura;
+    public String getTipoNotaCredito() {
+        return tipo_nota_Credito;
     }
 
-    public FacturaProductor() {
+    public void tipo_nota_Credito(String tipoNotaCredito) {
+        this.tipo_nota_Credito = tipoNotaCredito;
     }
 
-    public int getCodigo_factura() {
-        return codigo_factura;
+    public int getCodigo_nota_credito() {
+        return codigo_nota_credito;
     }
 
-    public void setCodigo_factura(int codigo_factura) {
-        this.codigo_factura = codigo_factura;
+    public void setCodigo_nota_credito(int codigoNotaCredito) {
+        this.codigo_nota_credito = codigoNotaCredito;
     }
 
     public String getNumero_comprobante() {
@@ -92,41 +90,33 @@ public class FacturaProductor {
         this.codigo_productor = codigo_productor;
     }
 
-    public Date getFecha_factura() {
-        return fecha_factura;
+    public Date getFecha_nota_credito() {
+        return fecha_nota_credito;
     }
 
-    public void setFecha_factura(Date fecha_factura) {
-        this.fecha_factura = fecha_factura;
+    public void setFecha_nota_credito(Date fecha_nota_credito) {
+        this.fecha_nota_credito = fecha_nota_credito;
     }
 
-    public Date getFecha_vencimiento() {
-        return fecha_vencimiento;
+    public Double getImporte_total_nota_credito(){
+        return importe_total_nota_credito;
     }
 
-    public void setFecha_vencimiento(Date fecha_vencimiento) {
-        this.fecha_vencimiento = fecha_vencimiento;
-    }
-
-    public Double getImporte_total_factura() {
-        return importe_total_factura;
-    }
-
-    public void setImporte_total_factura(Double importe_total_factura) {
-        this.importe_total_factura = importe_total_factura;
+    public void setImporte_total_nota_credito(Double importe_total_nota_credito) {
+        this.importe_total_nota_credito = importe_total_nota_credito;
     }
 
     public Double getCantidad_miel() {
-        return cantidad_miel_facturada;
+        return cantidad_miel_devuelta;
     }
 
     public void setCantidad_miel(Double cantidad_miel) {
-        this.cantidad_miel_facturada = cantidad_miel;
+        this.cantidad_miel_devuelta = cantidad_miel;
     }
 
-    public int mostrarIdFacturaProductor() {
+    public int mostrarIdNotaCreditoProductor() {
 
-        int codigoFacturaProductor = 0;
+        int codigoNoptaCreditoProductor = 0;
         
         try{
  
@@ -134,15 +124,15 @@ public class FacturaProductor {
             /*ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();*/
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_productor order by codigo_factura asc");
+            ResultSet rs = st.executeQuery("SELECT codigo_nota_credito FROM nota_credito_productor order by codigo_nota_credito asc");
             
             while (rs.next()) {
 
-                codigoFacturaProductor = rs.getInt("codigo_factura");
+                codigoNoptaCreditoProductor = rs.getInt("codigo_nota_credito");
                 
             }
             
-            return codigoFacturaProductor;
+            return codigoNoptaCreditoProductor;
 
             /*ConexionBD.close(cn);
             ConexionBD.close(st);
@@ -150,53 +140,29 @@ public class FacturaProductor {
 
         }catch(Exception e){
             
-            return codigoFacturaProductor;
+            return codigoNoptaCreditoProductor;
         } 
 
     }
 
-    public int mostrarIdItemAFacturar(int codigoFactura) {
-
-        int codigoItemAFacturar = 0;
-        
-        try{
- 
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+ codigoFactura +"'");
-            
-            while (rs.next()) {
-
-                codigoItemAFacturar = rs.getInt("codigo_item_facturado");
-            }
-            
-            return codigoItemAFacturar;
-
-        }catch(Exception e){
-            
-            return codigoItemAFacturar;
-        } 
-
-    }
-
-    public boolean registrarFacturaProductor(FacturaProductor facturaProductor){
+    public boolean registrarNotaCreditoProductor(NotaCreditoProductor notaCreditoProductor){
         
         try {
             
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (tipo_factura, numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_factura, fecha_vencimiento, importe_total_factura, cantidad_miel_facturada) "
-                    + "VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO nota_credito_productor (tipo_nota_credito, numero_comprobante, codigo_movimiento_cta_cte, codigo_productor, fecha_nota_credito, importe_total_nota_credito, cantidad_miel_afectada) "
+                    + "VALUES (?,?,?,?,?,?,?)");
             
             
-            pst.setString(1, facturaProductor.getTipoFactura());
-            pst.setString(2, facturaProductor.getNumero_comprobante());
-            pst.setInt(3, facturaProductor.getCodigo_movimiento_ctacte());
-            pst.setInt(4, facturaProductor.getCodigo_productor());
-            pst.setDate(5, facturaProductor.getFecha_factura());
-            pst.setDate(6, facturaProductor.getFecha_vencimiento());
-            pst.setDouble(7, facturaProductor.getImporte_total_factura());
-            pst.setDouble(8, facturaProductor.getCantidad_miel());
+            pst.setString(1, notaCreditoProductor.getTipoNotaCredito());
+            pst.setString(2, notaCreditoProductor.getNumero_comprobante());
+            pst.setInt(3, notaCreditoProductor.getCodigo_movimiento_ctacte());
+            pst.setInt(4, notaCreditoProductor.getCodigo_productor());
+            pst.setDate(5, notaCreditoProductor.getFecha_nota_credito());
+            pst.setDouble(6, notaCreditoProductor.getImporte_total_nota_credito());
+            pst.setDouble(7, notaCreditoProductor.getCantidad_miel());
             
             
             int N = pst.executeUpdate();
@@ -221,10 +187,9 @@ public class FacturaProductor {
         return false;
     }
 
-    public boolean modificarFacturaProductor(FacturaProductor facturaProductor, int codigoFactura) {
+    public boolean modificarFacturaProductor(NotaCreditoProductor facturaProductor, int codigoFactura) {
 
-        try {
-
+        /*try {
 
             PreparedStatement pst = cn.prepareStatement("UPDATE factura_productor SET tipo_factura = ?,numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ?,cantidad_miel_facturada = ? WHERE codigo_factura = '"+ codigoFactura +"'");
 
@@ -233,7 +198,6 @@ public class FacturaProductor {
             pst.setInt(3, facturaProductor.getCodigo_movimiento_ctacte());
             pst.setInt(4, facturaProductor.getCodigo_productor());
             pst.setDate(5, facturaProductor.getFecha_factura());
-            pst.setDate(6, facturaProductor.getFecha_vencimiento());
             pst.setDouble(7, facturaProductor.getImporte_total_factura());
             pst.setDouble(8, facturaProductor.getCantidad_miel());
 
@@ -258,6 +222,7 @@ public class FacturaProductor {
             
         }
 
+        return false;*/
         return false;
     }
 
