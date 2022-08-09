@@ -1224,7 +1224,6 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
         //de nota de credito se habilita en el combo de notas de credito
         tipoComprobanteAfectadoNotaCredito = tFacturasProductor.getValueAt(fila, 1).toString();
-        System.out.println(tipoComprobanteAfectadoNotaCredito);
         //habilito notas de credito A o notas de credito C
         if (tipoComprobanteAfectadoNotaCredito.equals("FACTURA A")){
             

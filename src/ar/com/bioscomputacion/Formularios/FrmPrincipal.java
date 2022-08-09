@@ -238,7 +238,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem11.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
         jMenuItem11.setText("GESTION DEL STOCK DE MIEL");
-        jMenuItem11.setEnabled(false);
         jMenuItem11.setOpaque(true);
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +252,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
         jMenuItem12.setText("GESTION Y REGISTRO DE LOCACIONES");
-        jMenuItem12.setEnabled(false);
         jMenuItem12.setOpaque(true);
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +265,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCompraMiel.setForeground(new java.awt.Color(255, 255, 255));
         menuCompraMiel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/producto.png"))); // NOI18N
         menuCompraMiel.setText("COMPRAS E INGRESOS");
-        menuCompraMiel.setEnabled(false);
         menuCompraMiel.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
@@ -331,7 +328,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuTraslados.setForeground(new java.awt.Color(255, 255, 255));
         menuTraslados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/camión3.png"))); // NOI18N
         menuTraslados.setText("TRASLADOS, VENTAS Y EXPORTACION");
-        menuTraslados.setEnabled(false);
         menuTraslados.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem16.setBackground(new java.awt.Color(51, 84, 111));
@@ -352,7 +348,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCtasCtes.setForeground(new java.awt.Color(255, 255, 255));
         menuCtasCtes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuIcons/cuenta_corriente.png"))); // NOI18N
         menuCtasCtes.setText("CTAS. CTES.");
-        menuCtasCtes.setEnabled(false);
         menuCtasCtes.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
 
         jMenuItem18.setBackground(new java.awt.Color(51, 84, 111));

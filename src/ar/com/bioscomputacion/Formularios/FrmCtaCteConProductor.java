@@ -991,9 +991,32 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
         //asigno valores que debera mostrar el formulario de pago al productor
         form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+
+        //kilos facturados e importe del comprobante
+        form.tfKilosFacturados.setText(String.valueOf(tMovimientos.getValueAt(fila2, 6)));
+        //importe del comprobante
         form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        //precio unitario del kilo facturado en el comprobante
+        Double kilosFacturados = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString());
+        Double importeComprobante = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
+        Double precioUnitario = importeComprobante / kilosFacturados;
+        //precio unitario del kilo facturado en el comprobante
+        form.precioUnitario = importeComprobante / kilosFacturados;
+        form.tfPrecioUnitario.setText(String.valueOf(precioUnitario));
+        //saldo impago del comprobante
         form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        form.saldoImpago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
+        //saldo pendiente del comprobante, una vez efectuado el pago!
         form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+        Double saldoPendienteDePago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
+        Double kilosImpagos = saldoPendienteDePago / precioUnitario;
+        FrmRegistroPagoAProductor.totalKilosImpagos = kilosImpagos;
+        form.tfKilosImpagos.setText(String.valueOf(kilosImpagos));
+        //por defecto asumimos que se pagaran todos los kilos que corresponden al saldo del comprobante
+        //mas de eso no se podria pagar
+        form.tfKilosAPagar.setText(String.valueOf(kilosImpagos));
+        form.tfMontoPago.setText(String.valueOf(kilosImpagos * precioUnitario));
+
         FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
         FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
         FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();

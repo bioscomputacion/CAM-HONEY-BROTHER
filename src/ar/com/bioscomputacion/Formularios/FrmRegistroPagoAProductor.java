@@ -20,9 +20,9 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
     static int codigoMovimientoCtaCte, codigoProductor, codigoComprobanteAfectadoPago, codigoMovimientoCtaCteComprobanteAfectado;
     static String tipoComprobanteAfectadoPago, numeroComprobanteAfectadoPago;
-    static Double debeComprobante, haberComprobante;
+    static Double debeComprobante, haberComprobante, totalkilosFacturados, totalKilosImpagos, totalKilosIngresadosPago, precioUnitario;
     
-    Double saldoImpago, pagoIngresado, saldoPendiente;
+    Double importePago, saldoPendiente, saldoImpago;
     /**
      * Creates new form FrmGenerico
      */
@@ -35,13 +35,19 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
     
     public void inicializar(){
         
+        //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
+        //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
+        importePago = saldoImpago;
+        
+        //aca se guardan los kilos que falta facturar
+        //en las dos otras variables ya se guardaron kilos facturados y kilos
+        //totalKilosIngresadosPago = totalkilosFacturados - totalKilosImpagos;
+        
         //se almacena en la variable codigoMovimientoCtaCte
         //el numero de mov que tendra en el a cta. cte el pago a registrar
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
         
-        tfMontoPago.setText("0.00");
-
         cbMetodosPago.setSelectedIndex(0);
         Calendar cal = new GregorianCalendar();
         dcFechaPago.setCalendar(cal);
@@ -85,6 +91,14 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         jLabel23 = new javax.swing.JLabel();
         tfSaldoPendiente = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        tfKilosFacturados = new javax.swing.JTextField();
+        tfKilosAPagar = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        tfPrecioUnitario = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        tfKilosImpagos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE PAGO A PRODUCTOR - CAM HONEY BROTHERS");
@@ -141,10 +155,10 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         jLabel20.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("IMPORTE DEL COMPROBANTE A PAGAR:                                                    $ ");
+        jLabel20.setText("IMPORTE DEL COMPROBANTE:");
 
         tfImporteTotalComprobante.setEditable(false);
-        tfImporteTotalComprobante.setBackground(new java.awt.Color(255, 255, 0));
+        tfImporteTotalComprobante.setBackground(new java.awt.Color(255, 255, 204));
         tfImporteTotalComprobante.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -159,6 +173,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("IMPORTES Y SALDOS:");
 
+        tfMontoPago.setEditable(false);
         tfMontoPago.setBackground(new java.awt.Color(51, 84, 111));
         tfMontoPago.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         tfMontoPago.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,14 +188,14 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("* MONTO DEL PAGO A EFECTUAR:                                                                $");
+        jLabel21.setText("* MONTO DEL PAGO:");
 
         jLabel22.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("SALDO IMPAGO DEL COMPROBANTE:                                                          $");
+        jLabel22.setText("SALDO IMPAGO:");
 
         tfSaldoImpagoComprobante.setEditable(false);
-        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(0, 255, 0));
+        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(0, 0, 0));
         tfSaldoImpagoComprobante.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         tfSaldoImpagoComprobante.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -205,12 +220,55 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
         jLabel23.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("SALDO PENDIENTE DE PAGO:                                                                        $");
+        jLabel23.setText("SALDO PENDIENTE:");
 
         tfSaldoPendiente.setEditable(false);
         tfSaldoPendiente.setBackground(new java.awt.Color(255, 0, 51));
         tfSaldoPendiente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         tfSaldoPendiente.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel24.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel24.setText("KGS. FACTURADOS:");
+
+        tfKilosFacturados.setEditable(false);
+        tfKilosFacturados.setBackground(new java.awt.Color(255, 255, 204));
+        tfKilosFacturados.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        tfKilosAPagar.setBackground(new java.awt.Color(51, 84, 111));
+        tfKilosAPagar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tfKilosAPagar.setForeground(new java.awt.Color(255, 255, 255));
+        tfKilosAPagar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfKilosAPagarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfKilosAPagarKeyTyped(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel25.setText("PRECIO UNITARIO:");
+
+        tfPrecioUnitario.setEditable(false);
+        tfPrecioUnitario.setBackground(new java.awt.Color(255, 255, 204));
+        tfPrecioUnitario.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        jLabel27.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("* KGS. A PAGAR:");
+
+        jLabel28.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel28.setText("LIMITE KGS.:");
+
+        tfKilosImpagos.setEditable(false);
+        tfKilosImpagos.setBackground(new java.awt.Color(255, 255, 204));
+        tfKilosImpagos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
@@ -239,29 +297,53 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
                             .addComponent(tfObservaciones)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 41, Short.MAX_VALUE))))
                     .addComponent(jSeparator4)
+                    .addComponent(jSeparator5)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfKilosFacturados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMontoPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator5)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfMontoPago, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(tfKilosAPagar)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         rSPanelShadow2Layout.setVerticalGroup(
@@ -298,19 +380,30 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfKilosAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfMontoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
@@ -359,9 +452,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
     private void rdbrRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbrRegistrarActionPerformed
 
         //chequeo de datos correctos y completos
-        boolean informacionIncompleta = (cbMetodosPago.getSelectedItem().equals("SELECCIONAR") || tfObservaciones.getText().length() == 0 || tfMontoPago.getText().length() == 0);
-        Double pagoRealizado = Double.valueOf(tfMontoPago.getText().toString());
-        Double saldoPendiente = Double.valueOf(tfSaldoPendiente.getText().toString());
+        boolean informacionIncompleta = (cbMetodosPago.getSelectedItem().equals("SELECCIONAR") || tfObservaciones.getText().length() == 0);
         
         if (informacionIncompleta){
             
@@ -371,18 +462,10 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
             
         }
         
-        if (pagoRealizado <= 0){
+        //en importePago quedo almacenado el monto del pago a realizarse
+        if (importePago <= 0){
             
             JOptionPane.showMessageDialog(null, "No se puede registrar un pago con cantidad igual o menor a cero. Por favor ingrese el monto a pagar correctamente.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tfMontoPago.requestFocus();
-            return;
-            
-        }
-        
-        //se esta intentando dar de alta un pago mayor a la deuda
-        if (saldoPendiente < 0){
-            
-            JOptionPane.showMessageDialog(null, "No se puede registrar un pago con cantidad mayor al saldo adeudado del comprobante. Por favor ingrese el monto a pagar correctamente.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tfMontoPago.requestFocus();
             return;
             
@@ -410,7 +493,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         //codigo del comprobante afectado en este pago almacenado en la variable 
         
         //1) se registra el pago
-        PagoProductor pago = new PagoProductor(codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), metodoPago, observacion, pagoRealizado, codigoComprobanteAfectadoPago, tipoComprobanteAfectadoPago);
+        PagoProductor pago = new PagoProductor(codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), metodoPago, observacion, importePago, codigoComprobanteAfectadoPago, tipoComprobanteAfectadoPago);
         pago.registrarPagoProductor(pago);
         
 
@@ -442,11 +525,11 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         
         }
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, comprobanteAsociadoPago, 0.00, 0.00, pagoRealizado, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, comprobanteAsociadoPago, 0.00, 0.00, importePago, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago
-        ctacte.actualizarSaldoComprobanteProductor(codigoMovimientoCtaCteComprobanteAfectado, codigoProductor, debeComprobante, pagoRealizado, haberComprobante);
+        ctacte.actualizarSaldoComprobanteProductor(codigoMovimientoCtaCteComprobanteAfectado, codigoProductor, debeComprobante, importePago, haberComprobante);
         
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
@@ -456,27 +539,6 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
     private void tfMontoPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMontoPagoKeyReleased
-
-        /*if (txtPorcentajeGanancias.getText().length() != 0) {
-            calcularPrecio(Double.valueOf(txtPrecioCosto.getText()));
-        }*/
-        
-        //a medida que se ingresan numeros ir actualizando el saldo que quedaria impago una vez hecho el pago
-        //Double saldoImpago, pagoIngresado, saldoPendiente;
-        if (tfMontoPago.getText().length() != 0){
-
-            saldoImpago = Double.parseDouble(tfSaldoImpagoComprobante.getText());
-            pagoIngresado = Double.parseDouble(tfMontoPago.getText());
-            saldoPendiente = saldoImpago - pagoIngresado;
-            tfSaldoPendiente.setText(String.valueOf(saldoPendiente));
-
-        }
-        else{
-            
-            tfMontoPago.setText("0.00");
-            
-        }
-
     }//GEN-LAST:event_tfMontoPagoKeyReleased
 
     private void tfMontoPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMontoPagoKeyTyped
@@ -496,6 +558,101 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_tfMontoPagoKeyTyped
 
+    private void tfKilosAPagarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKilosAPagarKeyReleased
+
+        //CHEQUEOS A REALIZAR:
+        
+        //1) que no se ingrese vacio
+        //2) que no se ingrese una cantidad igual a 0 kgs. a pagar
+        //3) que no se ingrese una cantidad de kgs. a pagar superior a la cantidad de kgs. facturados
+        //(en realidad este ultimo chequeo debe hacerse de acuerdo al saldo edl comprobante y no al total del comprobante, 
+        //ya que podria darse el caso de que el comprobante se encontrara parcialmente cancelado, lo cual significa que no se
+        //adeudan todos los kilos en el facturados. Dicho dato lo tengo en la variable totalKilosImpagos).
+        
+        //cuando los datos sean bien ingresados quedaran almacenados en la variable "totalKilosIngresadosPago"
+        //y el control aca lo hago con la variable totalKilosImpagos
+        
+        Double kilosIngresadosPago = 0.00;
+        
+        if (tfKilosAPagar.getText().length() == 0){
+            
+            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE PAGO A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            tfKilosAPagar.setText(String.valueOf(totalKilosImpagos));
+            //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
+            totalKilosIngresadosPago = totalKilosImpagos;
+            importePago = totalKilosIngresadosPago * precioUnitario;
+            tfMontoPago.setText(String.valueOf(importePago));
+            tfKilosAPagar.requestFocus();
+            
+        }
+        else{
+            
+            kilosIngresadosPago = Double.valueOf(tfKilosAPagar.getText());
+            
+            if (kilosIngresadosPago <= 0.00){
+
+                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE PAGO A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                tfKilosAPagar.setText(String.valueOf(totalKilosImpagos));
+                //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
+                totalKilosIngresadosPago = totalKilosImpagos;
+                importePago = totalKilosIngresadosPago * precioUnitario;
+                tfMontoPago.setText(String.valueOf(importePago));
+                tfKilosAPagar.requestFocus();
+
+            }
+            else{
+
+                if (kilosIngresadosPago > totalKilosImpagos){
+
+                    JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE PAGO A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                    tfKilosAPagar.setText(String.valueOf(totalKilosImpagos));
+                    //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
+                    totalKilosIngresadosPago = totalKilosImpagos;
+                    importePago = totalKilosIngresadosPago * precioUnitario;
+                    tfMontoPago.setText(String.valueOf(importePago));
+                    tfKilosAPagar.requestFocus();
+
+                }
+                else{
+
+                    totalKilosIngresadosPago = kilosIngresadosPago;
+                    importePago = totalKilosIngresadosPago * precioUnitario;
+                    tfMontoPago.setText(String.valueOf(importePago));
+                    //y tamb modifico el campo que muestra el saldo que va a quedar desp del pago
+                    saldoPendiente = saldoImpago - importePago;
+                    tfSaldoPendiente.setText(String.valueOf(saldoPendiente));
+                    tfKilosAPagar.requestFocus();
+
+                }
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_tfKilosAPagarKeyReleased
+
+    private void tfKilosAPagarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKilosAPagarKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (tfKilosAPagar.getText().contains(".") && c == '.') {
+            
+            getToolkit().beep();
+            evt.consume();
+        } 
+        else
+            
+            if (!Character.isDigit(c)) {
+            
+                if (c != '.') {
+                    getToolkit().beep();
+                    evt.consume();
+                }
+            
+        }
+        
+    }//GEN-LAST:event_tfKilosAPagarKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> cbMetodosPago;
@@ -508,6 +665,10 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -521,8 +682,12 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
     private rojeru_san.RSButtonRiple rsbrCancelar;
     public javax.swing.JTextField tfCliente;
     public javax.swing.JTextField tfImporteTotalComprobante;
+    public javax.swing.JTextField tfKilosAPagar;
+    public javax.swing.JTextField tfKilosFacturados;
+    public javax.swing.JTextField tfKilosImpagos;
     public javax.swing.JTextField tfMontoPago;
     public javax.swing.JTextField tfObservaciones;
+    public javax.swing.JTextField tfPrecioUnitario;
     public javax.swing.JTextField tfSaldoImpagoComprobante;
     public javax.swing.JTextField tfSaldoPendiente;
     // End of variables declaration//GEN-END:variables
