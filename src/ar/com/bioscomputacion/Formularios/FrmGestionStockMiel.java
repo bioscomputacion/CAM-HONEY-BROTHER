@@ -47,6 +47,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         calcularTotalStockGlobalPago();
         calcularTotalStockGlobalCredito();
         calcularTotalStockEmbarque();
+        //faltaria el procedimiento calcularTotalStockExportacion!!!
         ocultarColumnas();
         inicializar();
         
@@ -330,24 +331,21 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     
     }
     
+    
+    ///este metodo seguro podria mejorarse (ver los metodos en el inicio de este form e imitar optimizacion)
     public void calcularTotalStockLocacion(int codigoLocacion) {
-
-        double mielComprada, mielCompradaPaga, mielCompradaImpaga, mielVendida, mielRecibida, mielEnviada, saldoMiel = 0.00;
 
         StockRealMiel stock = new StockRealMiel();
             
-        mielComprada = stock.obtenerDetalleMielComprada(codigoLocacion);
-        //hacer mtodos para obtener miel comprada Paga e Impaga
-        mielCompradaPaga = stock.obtenerDetalleMielCompradaPaga(codigoLocacion);
-        mielCompradaImpaga = stock.obtenerDetalleMielCompradaCredito(codigoLocacion);
-        mielVendida = stock.obtenerDetalleMielVendida(codigoLocacion);
-        mielRecibida = stock.obtenerDetalleMielRecibidaTraslado(codigoLocacion);
-        mielEnviada = stock.obtenerDetalleMielEnviadaTraslado(codigoLocacion);
+        Double ingresoMiel = stock.obtenerDetalleIngresoMiel(codigoLocacion);
+        Double egresoMiel = stock.obtenerDetalleEgresoMiel(codigoLocacion);
+        Double saldoMiel = ingresoMiel - egresoMiel;
+        Double totalStockLocacion = 0.00;
+        totalStockLocacion = totalStockLocacion + saldoMiel;
         
-        saldoMiel = mielComprada + mielRecibida - mielVendida - mielEnviada;
         lStockTotalLocacion.setText(String.valueOf(saldoMiel));
-        lStockPagoLocacion.setText(String.valueOf(mielCompradaPaga));
-        lStockCreditoLocacion.setText(String.valueOf(mielCompradaImpaga));
+        //lStockPagoLocacion.setText(String.valueOf(mielCompradaPaga));
+        //lStockCreditoLocacion.setText(String.valueOf(mielCompradaImpaga));
         
     }
 
@@ -1015,6 +1013,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     private void tDetalleStock1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDetalleStock1MouseClicked
 
         fila = tDetalleStock.rowAtPoint(evt.getPoint());
+        
     }//GEN-LAST:event_tDetalleStock1MouseClicked
 
     private void rsbrActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrActualizarActionPerformed

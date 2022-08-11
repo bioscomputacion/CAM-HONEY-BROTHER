@@ -990,7 +990,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
         FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
         //asigno valores que debera mostrar el formulario de pago al productor
-        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+        form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
 
         //kilos facturados e importe del comprobante
         form.tfKilosFacturados.setText(String.valueOf(tMovimientos.getValueAt(fila2, 6)));
@@ -999,23 +999,22 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         //precio unitario del kilo facturado en el comprobante
         Double kilosFacturados = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString());
         Double importeComprobante = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
-        Double precioUnitario = importeComprobante / kilosFacturados;
         //precio unitario del kilo facturado en el comprobante
         form.precioUnitario = importeComprobante / kilosFacturados;
-        form.tfPrecioUnitario.setText(String.valueOf(precioUnitario));
+        form.tfPrecioUnitario.setText(String.valueOf(form.precioUnitario));
         //saldo impago del comprobante
         form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
         form.saldoImpago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
         //saldo pendiente del comprobante, una vez efectuado el pago!
         form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
         Double saldoPendienteDePago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
-        Double kilosImpagos = saldoPendienteDePago / precioUnitario;
+        Double kilosImpagos = saldoPendienteDePago / form.precioUnitario;
         FrmRegistroPagoAProductor.totalKilosImpagos = kilosImpagos;
         form.tfKilosImpagos.setText(String.valueOf(kilosImpagos));
         //por defecto asumimos que se pagaran todos los kilos que corresponden al saldo del comprobante
         //mas de eso no se podria pagar
         form.tfKilosAPagar.setText(String.valueOf(kilosImpagos));
-        form.tfMontoPago.setText(String.valueOf(kilosImpagos * precioUnitario));
+        form.tfMontoPago.setText(String.valueOf(kilosImpagos * form.precioUnitario));
 
         FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
         FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
@@ -1081,7 +1080,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
         FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
         //asigno valores que debera mostrar el formulario de pago al productor
-        form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+        form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
         form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
         form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
         form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
@@ -1129,6 +1128,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         try {
             
             FrmRegistroNotaCreditoProductor form = new FrmRegistroNotaCreditoProductor();
+            //asigno valores que debera mostrar el formulario de pago al productor
+            //form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+            
             //recordar chequear si este campo no esta vacio, ya que si lo esta, es porque no se esta visualizando
             //ninguna cta. cte.
             form.codigoProductor = Integer.parseInt(tfIDProductor.getText());

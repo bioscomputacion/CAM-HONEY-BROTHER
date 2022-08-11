@@ -406,9 +406,9 @@ public class Productor extends Persona {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "TIPO", "N° COMPROBANTE", "FECHA", "IMPORTE", "SALDO","KGS. MIEL FACTURADOS", "PRECIO KG.", "ESTADO"};
+        String[] titulos = {"ID", "TIPO", "N° COMPROBANTE", "ID MOVIMIENTO EN CTA CTE","FECHA", "IMPORTE", "SALDO","KGS. MIEL FACTURADOS", "PRECIO KG.", "ESTADO"};
 
-        String[] registros = new String[9];
+        String[] registros = new String[10];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -419,20 +419,21 @@ public class Productor extends Persona {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.tipo_factura, f.numero_comprobante, f.fecha_factura, f.importe_total_factura, f.cantidad_miel_facturada, c.saldo, c.estado_movimiento FROM factura_productor f JOIN cta_cte_productor c ON f.codigo_factura = c.comprobante_asociado AND f.tipo_factura = c.descripcion_movimiento WHERE f.codigo_productor = '"+codigoProductor+"' ORDER BY f.fecha_factura ASC");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.tipo_factura, f.numero_comprobante, f.codigo_movimiento_ctacte, f.fecha_factura, f.importe_total_factura, f.cantidad_miel_facturada, c.saldo, c.estado_movimiento FROM factura_productor f JOIN cta_cte_productor c ON f.codigo_factura = c.comprobante_asociado AND f.tipo_factura = c.descripcion_movimiento WHERE f.codigo_productor = '"+codigoProductor+"' ORDER BY f.fecha_factura ASC");
 
             while (rs.next()) {
                 
                 registros[0] = rs.getString("codigo_factura");
                 registros[1] = rs.getString("tipo_factura");
                 registros[2] = rs.getString("numero_comprobante");
-                registros[3] = rs.getString("fecha_factura");
-                registros[4] = rs.getString("importe_total_factura");
-                registros[5] = rs.getString("saldo");
-                registros[6] = rs.getString("cantidad_miel_facturada");
+                registros[3] = rs.getString("codigo_movimiento_ctacte");
+                registros[4] = rs.getString("fecha_factura");
+                registros[5] = rs.getString("importe_total_factura");
+                registros[6] = rs.getString("saldo");
+                registros[7] = rs.getString("cantidad_miel_facturada");
                 Double precioKilo = rs.getDouble("importe_total_factura")/rs.getDouble("cantidad_miel_facturada");
-                registros[7] = String.valueOf(precioKilo);
-                registros[8] = rs.getString("estado_movimiento");
+                registros[8] = String.valueOf(precioKilo);
+                registros[9] = rs.getString("estado_movimiento");
 
                 modelo.addRow(registros);
                 

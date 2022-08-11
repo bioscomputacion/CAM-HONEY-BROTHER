@@ -153,8 +153,8 @@ public class StockRealMiel {
         
         try {
             
-            ConexionBD mysql = new ConexionBD();
-            Connection cn = mysql.getConexionBD();
+            //ConexionBD mysql = new ConexionBD();
+            //Connection cn = mysql.getConexionBD();
             
             PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor, estado_compra) "
                     + "VALUES (?,?,?,?,?,?,?,?,?)");
@@ -173,10 +173,12 @@ public class StockRealMiel {
 
             if (N != 0) {
                 
+                System.out.println("3");
                 return true;
                 
             } else {
                 
+                System.out.println("4");
                 return false;
                 
             }
@@ -292,7 +294,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN') and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION') and estado_compra='FACTURADA'");
             
             while (rs.next()) {
 
@@ -585,12 +587,16 @@ public class StockRealMiel {
             while (rs.next()) {
                 
                 locacion = rs.getInt("codigo_locacion");
+                //stock total de miel
                 ingresoMiel = stock.obtenerDetalleIngresoMiel(locacion);
                 egresoMiel = stock.obtenerDetalleEgresoMiel(locacion);
+                //stock total PAGO de miel
                 ingresoMielPaga = stock.obtenerDetalleIngresoMielPaga(locacion);
                 egresoMielPaga = stock.obtenerDetalleEgresoMielPaga(locacion);
+                //stock total IMPAGO (consignacion) de miel
                 ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpaga(locacion);
                 egresoMielImpaga = stock.obtenerDetalleEgresoMielImpaga(locacion);
+                //saldos!
                 saldoMiel = ingresoMiel - egresoMiel;
                 saldoMielPaga = ingresoMielPaga - egresoMielPaga;
                 saldoMielImpaga = ingresoMielImpaga - egresoMielImpaga;
@@ -643,6 +649,37 @@ public class StockRealMiel {
         } 
         
     }
+    
+    //SIRVE!!!
+    //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
+    public int obtenerLocacionMielADevolverEnNotaCredito(int codigoFactura){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where (comprobante_asociado = 'FACTURA A' or comprobante_asociado = 'FACTURA C') and id_comprobante_asociado = "+codigoFactura);
+            
+            while (rs.next()) {
+
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return locacionMiel;
+            
+        } 
+        
+    }
+
+
+
     
     //CHEQUEAAAR BIEEEEN: VER DESDE ACA QUE HAY QUE ACOMODAR, NO BORRAR NADA!
     public Double obtenerDetalleMielComprada(int codigoLocacion){
