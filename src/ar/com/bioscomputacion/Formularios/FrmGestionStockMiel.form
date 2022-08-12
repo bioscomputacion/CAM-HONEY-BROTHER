@@ -746,7 +746,7 @@
                                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                           <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lStockCreditoLocacion" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lStockImpagoLocacion" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -790,7 +790,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lStockCreditoLocacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lStockImpagoLocacion" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -977,7 +977,7 @@
                     <Property name="text" type="java.lang.String" value="EN CONSIGNACION:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lStockCreditoLocacion">
+                <Component class="javax.swing.JLabel" name="lStockImpagoLocacion">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>

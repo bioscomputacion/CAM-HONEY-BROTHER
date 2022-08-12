@@ -332,20 +332,24 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     }
     
     
-    ///este metodo seguro podria mejorarse (ver los metodos en el inicio de este form e imitar optimizacion)
+    ///sirveee
     public void calcularTotalStockLocacion(int codigoLocacion) {
 
         StockRealMiel stock = new StockRealMiel();
             
         Double ingresoMiel = stock.obtenerDetalleIngresoMiel(codigoLocacion);
         Double egresoMiel = stock.obtenerDetalleEgresoMiel(codigoLocacion);
-        Double saldoMiel = ingresoMiel - egresoMiel;
-        Double totalStockLocacion = 0.00;
-        totalStockLocacion = totalStockLocacion + saldoMiel;
+        Double ingresoMielPaga = stock.obtenerDetalleIngresoMielPaga(codigoLocacion);
+        Double egresoMielPaga = stock.obtenerDetalleEgresoMielPaga(codigoLocacion);
+        Double ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpaga(codigoLocacion);
+        Double egresoMielImpaga = stock.obtenerDetalleEgresoMielImpaga(codigoLocacion);
+        Double totalStockLocacion = ingresoMiel - egresoMiel;
+        Double totalStockPagoLocacion = ingresoMielPaga - egresoMielPaga;
+        Double totalStockImpagoLocacion = ingresoMielImpaga - egresoMielImpaga;
         
-        lStockTotalLocacion.setText(String.valueOf(saldoMiel));
-        //lStockPagoLocacion.setText(String.valueOf(mielCompradaPaga));
-        //lStockCreditoLocacion.setText(String.valueOf(mielCompradaImpaga));
+        lStockTotalLocacion.setText(String.valueOf(totalStockLocacion));
+        lStockPagoLocacion.setText(String.valueOf(totalStockPagoLocacion));
+        lStockImpagoLocacion.setText(String.valueOf(totalStockImpagoLocacion));
         
     }
 
@@ -427,7 +431,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel28 = new javax.swing.JLabel();
         lStockPagoLocacion = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        lStockCreditoLocacion = new javax.swing.JLabel();
+        lStockImpagoLocacion = new javax.swing.JLabel();
         rsbrAceptar = new rojeru_san.RSButtonRiple();
 
         tProductores.setBackground(new java.awt.Color(36, 33, 33));
@@ -822,10 +826,10 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("EN CONSIGNACION:");
 
-        lStockCreditoLocacion.setBackground(new java.awt.Color(255, 255, 255));
-        lStockCreditoLocacion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lStockCreditoLocacion.setForeground(new java.awt.Color(255, 255, 255));
-        lStockCreditoLocacion.setText("0.00");
+        lStockImpagoLocacion.setBackground(new java.awt.Color(255, 255, 255));
+        lStockImpagoLocacion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lStockImpagoLocacion.setForeground(new java.awt.Color(255, 255, 255));
+        lStockImpagoLocacion.setText("0.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -854,7 +858,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                                 .addGap(23, 23, 23)
                                 .addComponent(jLabel29)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockCreditoLocacion))))
+                                .addComponent(lStockImpagoLocacion))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -888,7 +892,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel29)
-                            .addComponent(lStockCreditoLocacion)))
+                            .addComponent(lStockImpagoLocacion)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rsbrDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1060,7 +1064,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lStockCreditoLocacion;
+    private javax.swing.JLabel lStockImpagoLocacion;
     private javax.swing.JLabel lStockMielEmbarcado;
     private javax.swing.JLabel lStockMielEmbarcado1;
     private javax.swing.JLabel lStockMielEmbarcadoImpago;
