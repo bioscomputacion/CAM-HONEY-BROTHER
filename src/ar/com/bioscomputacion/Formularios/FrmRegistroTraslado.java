@@ -352,7 +352,6 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         dcFechaTraslado = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         cbMotivoTraslado = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -385,6 +384,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         lMielDisponibleTraslado = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
+        jSeparator8 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("REGISTRO DE TRASLADO DE MIEL - CAM HONEY BROTHERS");
@@ -412,11 +412,9 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("ITEM Y CANTIDADES A TRASLADAR:");
 
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-
         cbMotivoTraslado.setBackground(new java.awt.Color(255, 51, 51));
         cbMotivoTraslado.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        cbMotivoTraslado.setForeground(new java.awt.Color(207, 207, 207));
+        cbMotivoTraslado.setForeground(new java.awt.Color(255, 255, 255));
         cbMotivoTraslado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "TRASLADO DE MIEL ENTRE LOCACIONES PROPIAS", "TRASLADO DE MIEL DESDE LOCACION DEL PRODUCTOR A LOCACION PROPIA", "TRASLADO DESDE LOCACION PROPIA A HOMOGENEIZACION", "TRASLADO DESDE LOCACION DEL PRODUCTOR A HOMOGENEIZACION", "TRASLADO DESDE HOMOGENEIZACION A LOCACION PROPIA", "TRASLADO DESDE HOMOGENEIZACION A FISCALIZACION", "TRASLADO DESDE FISCALIZACION A EMBARQUE (VENTA)", "TRASLADO DESDE EMBARQUE A FISCALIZACION (DEVOLUCION)", "TRASLADO DESDE EMBARQUE AL EXTERIOR (EXPORTACION)", "TRASLADO A LOCACION DE EXPORTADOR INTERNO (VENTA)", "TRASLADO DESDE LOCACION DE EXPORTADOR INTERNO (DEVOLUCION)" }));
         cbMotivoTraslado.setPreferredSize(new java.awt.Dimension(136, 19));
         cbMotivoTraslado.addActionListener(new java.awt.event.ActionListener() {
@@ -430,12 +428,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         jLabel21.setText("MOTIVO DEL TRASLADO:");
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(102, 255, 102));
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("ORIGEN DEL TRASLADO:");
 
-        cbLocacionOrigen.setBackground(new java.awt.Color(102, 255, 102));
+        cbLocacionOrigen.setBackground(new java.awt.Color(255, 255, 204));
         cbLocacionOrigen.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        cbLocacionOrigen.setForeground(new java.awt.Color(207, 207, 207));
         cbLocacionOrigen.setPreferredSize(new java.awt.Dimension(136, 19));
         cbLocacionOrigen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -449,12 +446,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         });
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 102));
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("DESTINO DEL TRASLADO:");
 
-        cbLocacionDestino.setBackground(new java.awt.Color(255, 255, 102));
+        cbLocacionDestino.setBackground(new java.awt.Color(255, 255, 204));
         cbLocacionDestino.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        cbLocacionDestino.setForeground(new java.awt.Color(207, 207, 207));
         cbLocacionDestino.setPreferredSize(new java.awt.Dimension(136, 19));
         cbLocacionDestino.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -484,8 +480,9 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         });
 
         rsbrCancelar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrCancelar.setText("SALIR");
+        rsbrCancelar.setText("CANCELAR");
         rsbrCancelar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrCancelar.setPreferredSize(new java.awt.Dimension(221, 40));
         rsbrCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrCancelarActionPerformed(evt);
@@ -494,13 +491,13 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         lStockOrigen.setBackground(new java.awt.Color(255, 255, 255));
         lStockOrigen.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockOrigen.setForeground(new java.awt.Color(102, 255, 102));
+        lStockOrigen.setForeground(new java.awt.Color(255, 255, 255));
         lStockOrigen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lStockOrigen.setText("0.00");
 
         jLabel25.setBackground(new java.awt.Color(255, 255, 255));
         jLabel25.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(102, 255, 102));
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("VALIDAR STOCK:");
         jLabel25.setToolTipText("");
         jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -511,7 +508,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         jLabel26.setBackground(new java.awt.Color(255, 255, 255));
         jLabel26.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 102));
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("VALIDAR STOCK:");
         jLabel26.setToolTipText("");
         jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -526,9 +523,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         lStockDestino.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lStockDestino.setText("0.00");
 
-        cbProductores.setBackground(new java.awt.Color(153, 255, 255));
+        cbProductores.setBackground(new java.awt.Color(255, 255, 204));
         cbProductores.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        cbProductores.setForeground(new java.awt.Color(207, 207, 207));
         cbProductores.setPreferredSize(new java.awt.Dimension(136, 19));
         cbProductores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -543,7 +539,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         jLabel27.setBackground(new java.awt.Color(255, 255, 255));
         jLabel27.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("VALIDAR STOCK:");
         jLabel27.setToolTipText("");
         jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -565,16 +561,16 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         lStockOrigen2.setBackground(new java.awt.Color(255, 255, 255));
         lStockOrigen2.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockOrigen2.setForeground(new java.awt.Color(255, 255, 102));
+        lStockOrigen2.setForeground(new java.awt.Color(255, 255, 255));
         lStockOrigen2.setText("KGS.");
 
         lStockProductor.setBackground(new java.awt.Color(255, 255, 255));
         lStockProductor.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockProductor.setForeground(new java.awt.Color(153, 255, 255));
+        lStockProductor.setForeground(new java.awt.Color(255, 255, 255));
         lStockProductor.setText("KGS.");
 
         jLabel28.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("MIEL EN DEPOSITO DE:");
         jLabel28.setToolTipText("");
         jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -694,6 +690,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
         jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
 
+        jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
         rSPanelShadow2Layout.setHorizontalGroup(
@@ -702,48 +700,18 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator4)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addGap(330, 330, 330)
+                        .addComponent(jSeparator5)
                         .addContainerGap())
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lMielDisponibleTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                        .addGap(240, 240, 240))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lStockOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockOrigen1))
-                                    .addComponent(cbLocacionOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel15))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel27)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lStockDepositoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lStockProductor))
-                                    .addComponent(cbProductores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel28))
-                                .addGap(18, 18, 18)
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbLocacionDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel16)
-                                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                                .addComponent(jLabel26)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lStockDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lStockOrigen2)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
                                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -756,22 +724,47 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                         .addComponent(jLabel21)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(cbMotivoTraslado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGap(142, 207, Short.MAX_VALUE))
+                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                        .addComponent(cbMotivoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, rSPanelShadow2Layout.createSequentialGroup()
+                                            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel25)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(lStockOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lStockOrigen1))
+                                                .addComponent(cbLocacionOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel15))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel27)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(lStockDepositoProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lStockProductor))
+                                                .addComponent(cbProductores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel28))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel26)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(lStockDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(lStockOrigen2))
+                                                .addComponent(cbLocacionDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator6)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addComponent(jSeparator5)
-                        .addContainerGap())
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator7)
-                        .addContainerGap())
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(lMielDisponibleTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                        .addGap(240, 240, 240))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -787,7 +780,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfTotalKilosTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(tfTotalKilosTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(161, 161, 161)
+                                .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         rSPanelShadow2Layout.setVerticalGroup(
@@ -816,9 +813,9 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addComponent(jLabel8)
-                .addGap(11, 11, 11)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -854,7 +851,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lMielDisponibleTraslado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2178,13 +2175,6 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_rdbrRegistrarActionPerformed
 
-    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
-
-        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-        
-    }//GEN-LAST:event_rsbrCancelarActionPerformed
-
     private void cbProductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductoresActionPerformed
     }//GEN-LAST:event_cbProductoresActionPerformed
 
@@ -2664,6 +2654,13 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbProductoresMouseClicked
 
+    private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
+
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
+    }//GEN-LAST:event_rsbrCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOpcionesMiel;
@@ -2686,10 +2683,10 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JLabel lMielDisponibleTraslado;
     private javax.swing.JLabel lStockDepositoProductor;
     private javax.swing.JLabel lStockDestino;

@@ -292,4 +292,106 @@ public class FacturaProductor {
         return false;
     }
 
+    //COPIAR DESDE ACA PARA ALGUNOS DE LOS DEMAS COMPROBANTES
+    
+    public Double mostrarImporteFactura(int codigoFactura) {
+        
+        Double importeFactura = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_factura from factura_productor WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importeFactura = rs.getDouble("importe_total_factura");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importeFactura;
+            
+        }
+        
+        return importeFactura;
+    
+    }
+    
+    public Double mostrarPrecioUnitarioFactura(int codigoFactura) {
+        
+        Double importeFactura = 0.00;
+        Double cantidadMielfacturada = 0.00;
+        Double precioUnitarioFacturado = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_factura, cantidad_miel_facturada from factura_productor WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importeFactura = rs.getDouble("importe_total_factura");
+                cantidadMielfacturada = rs.getDouble("cantidad_miel_facturada");
+                precioUnitarioFacturado = importeFactura / cantidadMielfacturada;
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return precioUnitarioFacturado;
+            
+        }
+        
+        return precioUnitarioFacturado;
+    
+    }
+    
+    public Double mostrarImportePagoFactura(String tipoFactura, int codigoFactura) {
+        
+        Double importePagoFactura = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT haber from cta_cte_productor WHERE descripcion_movimiento = '" + tipoFactura + "' and comprobante_asociado = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importePagoFactura = rs.getDouble("haber");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importePagoFactura;
+            
+        }
+        
+        return importePagoFactura;
+    
+    }
+    
 }

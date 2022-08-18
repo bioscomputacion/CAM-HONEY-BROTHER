@@ -451,4 +451,36 @@ public class Productor extends Persona {
         
     }
     
+    public String mostrarNombreProductor(int codigoProductor) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT p.nombre from productor r join persona p on r.cod_persona = p.cod_persona  WHERE r.cod_productor = '" + codigoProductor + "'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
+    
+    }
+    
 }

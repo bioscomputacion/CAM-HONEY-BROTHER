@@ -289,4 +289,34 @@ public class Locacion {
     
     }
     
+    public String mostrarNombreLocacion(int codigoLocacion) {
+        
+        String nombreLocacion = "";
+
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre_locacion from locacion WHERE codigo_locacion = '" + codigoLocacion + "'");
+
+            while (rs.next()){
+            
+                nombreLocacion = rs.getString("nombre_locacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreLocacion;
+            
+        }
+        
+        return nombreLocacion;
+    
+    }
+    
 }

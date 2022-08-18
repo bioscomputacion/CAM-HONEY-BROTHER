@@ -193,7 +193,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="rsbrAsociar" min="-2" pref="281" max="-2" attributes="0"/>
+                  <Component id="rsbrAsociar" min="-2" pref="250" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="rsbrCancelar" min="-2" pref="221" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -235,7 +235,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a4" green="6e" red="2f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ASOCIAR A NOTA DE CREDITO"/>
+            <Property name="text" type="java.lang.String" value="REGISTRAR NOTA DE CREDITO"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Bold" size="14" style="3"/>
             </Property>

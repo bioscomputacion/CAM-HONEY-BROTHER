@@ -354,7 +354,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         });
 
         rsbrAsociar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrAsociar.setText("ASOCIAR A NOTA DE CREDITO");
+        rsbrAsociar.setText("REGISTRAR NOTA DE CREDITO");
         rsbrAsociar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrAsociar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1069,7 +1069,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rsbrAsociar, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rsbrAsociar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

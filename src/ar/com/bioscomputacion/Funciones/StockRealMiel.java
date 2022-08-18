@@ -430,8 +430,6 @@ public class StockRealMiel {
         
     }
     
-    //SEGUIR ARREGLANDO DESDE ACAAAAAAAAAAAAAAAA
-
     //SIRVE!!!
     //Devuelve toda la miel PAGA que ha ingresado en la locacion indicada (ya sea por compras, ingresos de miel propia
     //o traslados a otra locacion) 
@@ -552,7 +550,7 @@ public class StockRealMiel {
 
     //SIRVE!!!
     //Devuelve: devuelve stock total, stock miel paga y stock miel impaga por locacion
-    public DefaultTableModel mostrarDetalleStock() {
+    public DefaultTableModel mostrarDetalleStockLocacion() {
 
         DefaultTableModel modelo;
 
@@ -622,6 +620,78 @@ public class StockRealMiel {
         
     }
     
+    //SIRVE!!!
+    //Devuelve: devuelve stock total, stock miel paga y stock miel impaga por locacion
+    public DefaultTableModel mostrarDetalleStockProductor() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID", "NOMBRE", "PROVINCIA", "STOCK TOTAL", "STOCK PAGO", "STOCK EN CONSIGNACION"};
+
+        String[] registros = new String[6];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 5) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        };
+        
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select p.cod_productor, s.nombre, s.estado_provincia from productor p join persona s on p.cod_persona = s.cod_persona  where p.cod_productor <> '1' order by p.cod_productor asc");
+
+            double ingresoMiel, egresoMiel, ingresoMielPaga, egresoMielPaga, ingresoMielImpaga, egresoMielImpaga, saldoMiel, saldoMielPaga, saldoMielImpaga = 0.00;
+            int productor = 0;
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                productor = rs.getInt("cod_productor");
+                //stock total de miel
+                ingresoMiel = stock.obtenerDetalleIngresoMielLocacionProductor(productor);
+                egresoMiel = stock.obtenerDetalleEgresoMielLocacionProductor(productor);
+                //stock total PAGO de miel
+                ingresoMielPaga = stock.obtenerDetalleIngresoMielPagaLocacionProductor(productor);
+                egresoMielPaga = stock.obtenerDetalleEgresoMielPagaLocacionProductor(productor);
+                //stock total IMPAGO (consignacion) de miel
+                ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpagaLocacionProductor(productor);
+                egresoMielImpaga = stock.obtenerDetalleEgresoMielImpagaLocacionProductor(productor);
+                //saldos!*/
+                saldoMiel = ingresoMiel - egresoMiel;
+                saldoMielPaga = ingresoMielPaga - egresoMielPaga;
+                saldoMielImpaga = ingresoMielImpaga - egresoMielImpaga;
+                registros[0] = rs.getString("cod_productor");
+                registros[1] = rs.getString("nombre");
+                registros[2] = rs.getString("estado_provincia");
+                registros[3] = String.valueOf(saldoMiel);
+                registros[4] = String.valueOf(saldoMielPaga);
+                registros[5] = String.valueOf(saldoMielImpaga);
+                
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+
     //SIRVE!!!
     //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
     public int obtenerLocacionMielADevolverOFacturar(int codigoConsignacion){
@@ -1011,9 +1081,9 @@ public class StockRealMiel {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"FECHA", "REFERENCIA", "COMPROBANTE", "N° COMPROBANTE", "KGS. MIEL"};
+        String[] titulos = {"FECHA", "REFERENCIA", "COMPROBANTE", "ID COMPROBANTE", "N° COMPROBANTE", "KGS. MIEL", "ID LOCACION", "LOCACION","ID PRODUCTOR", "PRODUCTOR"};
 
-        String[] registros = new String[5];
+        String[] registros = new String[10];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -1032,15 +1102,26 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, numero_comprobante_asociado, cantidad_miel from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
+            ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
+            Locacion locacion = new Locacion();
+            Productor productor = new Productor();
 
             while (rs.next()) {
                 
                 registros[0] = rs.getString("fecha_movimiento");
                 registros[1] = rs.getString("tipo_movimiento");
                 registros[2] = rs.getString("comprobante_asociado");
-                registros[3] = rs.getString("numero_comprobante_asociado");
-                registros[4] = rs.getString("cantidad_miel");
+                registros[3] = rs.getString("id_comprobante_asociado");
+                registros[4] = rs.getString("numero_comprobante_asociado");
+                registros[5] = rs.getString("cantidad_miel");
+                registros[6] = rs.getString("locacion_miel");
+                registros[7] = locacion.mostrarNombreLocacion(rs.getInt("locacion_miel"));
+                registros[8] = rs.getString("miel_deposito_productor");
+                if (rs.getInt("miel_deposito_productor") != 0){
+
+                    registros[9] = productor.mostrarNombreProductor(rs.getInt("miel_deposito_productor"));
+                    
+                }
                 
                 modelo.addRow(registros);
                 
