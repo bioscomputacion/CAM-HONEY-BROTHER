@@ -1354,6 +1354,14 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 //en este tipo de traslados la miel deja de ser parte del stock de la empresa
                 //para pasar a formar parte del stock de la locacion embarque,
                 //ya que es una venta a un cliente en el exterior
+                //entonces:
+                //se registra como venta y no como traslado, descontando el stock de la locacion FISCALIZACION
+                //y aumentando el stock de la locacion EMBARQUE
+                //Habria que pasar los datos al formulario de facturacion de la miel al cliente:
+                //cantidad de miel paga / cantidad de miel impaga
+                //el resto ya se sabe, la locacion origen sera FISCALIZACION, la locacion destino sera EMBARQUE
+                //y el precio unitario se ingresara en el formulario de facturacion al cliente, calculandose alli
+                //tambien, el importe total de la factura a registrarse
                 
                 respuesta = JOptionPane.showConfirmDialog(null, "Se debe registrar la factura asociada a la venta de la miel a trasladar. ¿Desea realizar dicho registro?");
 
@@ -1361,10 +1369,9 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                     //se acepta el registro de la factura d venta al cliente en el exterior
                     //se deberia abrir el formulario de registro de una factura a un cliente en el exterior
-                    //y si se registra dicha factura se registra el traslado,
-                    //caso contrario se cancelan todos los cambios a registrarse.
+                    //si se cancela el registro de la factura, obviamente no se guardaran los cambios del traslado
                     
-                    //registramos traslado y movimiento de stock de miel
+                    //registramos traslado (que en realidad se registra como venta) y movimiento de stock de miel
                     //y abrimos formulario de registro de la factura
                     //en caso de cancelarse el registro de la factura
                     //deben eliminarse el registro del traslado
@@ -1375,10 +1382,6 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         //debe hacerse al menos el traslado de miel paga
                         Traslado trasladoMielPaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielPagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
                         if (trasladoMielPaga.registrarTrasladoMiel(trasladoMielPaga)){
-
-                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
-                            //en la tabla stock real de miel
-                            int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
 
                             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                             //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -1392,9 +1395,11 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                             StockRealMiel stockMiel = new StockRealMiel();
                             stockMiel.setFecha_movimiento(fechaTraslado);
                             //Cuando se trata de un traslado puede ser traslado origen o traslado destino
-                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
-                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setTipo_movimiento("VENTA - ORIGEN");
+                            stockMiel.setComprobante_asociado("FACTURA E");
+                            //aca deberia ya conocerce el id de la factura de venta a registrarse
                             stockMiel.setId_comprobante_asociado(codigoTraslado);
+                            //aca deberia ya conocerce el numero de comprobante de la factura
                             stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
                             stockMiel.setCantidad_miel(saldoMielPagaIngresado);
                             stockMiel.setLocacion_miel(origenTraslado);
@@ -1402,13 +1407,14 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                             stockMiel.setEstado_compra("FACTURADA");
                             stockMiel.registrarMovimientoStock(stockMiel);
                             //se registra el traslado para locacion destino
-                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setTipo_movimiento("VENTA - DESTINO");
+                            //ACA DEBERIA IR EL CODIGO DE LOCACION DEL PUERTO SELECCIONADO
                             stockMiel.setLocacion_miel(destinoTraslado);
                             stockMiel.setMiel_deposito_productor(0);
                             stockMiel.setEstado_compra("FACTURADA");
                             stockMiel.registrarMovimientoStock(stockMiel);
 
-                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            //JOptionPane.showMessageDialog(null, "La venta de miel paga ha sido registrada exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
                             this.dispose();
 
                         }
@@ -1427,10 +1433,6 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                         Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
                         if (trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga)){
 
-                            //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
-                            //en la tabla stock real de miel
-                            int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
-
                             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                             //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
                             //DEBE DESCONTARSE EL STOCK TRASLADADO DE LA LOCACION ORIGEN Y DEBE INCREMENTARSE EL STOCK TRASLADADO
@@ -1443,8 +1445,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                             StockRealMiel stockMiel = new StockRealMiel();
                             stockMiel.setFecha_movimiento(fechaTraslado);
                             //Cuando se trata de un traslado puede ser traslado origen o traslado destino
-                            stockMiel.setTipo_movimiento("TRASLADO - ORIGEN");
-                            stockMiel.setComprobante_asociado("TRASLADO");
+                            stockMiel.setTipo_movimiento("VENTA - DESTINO");
+                            stockMiel.setComprobante_asociado("FACTURA E");
                             stockMiel.setId_comprobante_asociado(codigoTraslado);
                             stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoTraslado));
                             stockMiel.setCantidad_miel(saldoMielImpagaIngresado);
@@ -1453,13 +1455,14 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                             stockMiel.setEstado_compra("SIN FACTURAR");
                             stockMiel.registrarMovimientoStock(stockMiel);
                             //se registra el traslado para locacion destino
-                            stockMiel.setTipo_movimiento("TRASLADO - DESTINO");
+                            stockMiel.setTipo_movimiento("VENTA - DESTINO");
+                            //ACA DEBERIA IR EL CODIGO DE LOCACION DEL PUERTO SELECCIONADO
                             stockMiel.setLocacion_miel(destinoTraslado);
                             stockMiel.setMiel_deposito_productor(0);
                             stockMiel.setEstado_compra("SIN FACTURAR");
                             stockMiel.registrarMovimientoStock(stockMiel);
 
-                            //JOptionPane.showMessageDialog(null, "El traslado ha sido registrado exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
+                            //JOptionPane.showMessageDialog(null, "La venta de miel impaga ha sido registrada exitosamente.","REGISTRO DE TRASLADO DE MIEL", JOptionPane.INFORMATION_MESSAGE);
                             this.dispose();
 
                         }
@@ -1475,6 +1478,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 //de aca se llevarian:
                 //- cantidad de miel paga a trasladar (variable: saldoMielPagaIngresado)
                 //- cantidad de miel impaga a trasladar (variable: saldoMielImpagaIngresado)
+                //- en el formulario de registro de la factura solo importa el total de miel a facturar
                 //- cantidad total de miel a trasladar (variable: saldoMielPagaIngresado + saldoMielImpagaIngresado)
                 
                 //en el formulario de facturacion se seleccionaria el cliente a facturarle la cantidad de miel del traslado
@@ -1489,6 +1493,10 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 try {
                     
                     FrmRegistroFacturaClienteExterior form = new FrmRegistroFacturaClienteExterior();
+                    
+                    //llevo la cantidad de miel a facturarse!
+                    form.totalMielFacturada = saldoMielPagaIngresado + saldoMielImpagaIngresado;
+                    
                     deskPrincipal.add(form);
                     Dimension desktopSize = deskPrincipal.getSize();
                     Dimension FrameSize = form.getSize();
@@ -1498,6 +1506,8 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                     form.setClosable(true);
                     form.setIconifiable(false);
+                    
+                    form.inicializar();
 
                 } catch (SQLException ex) {
                     

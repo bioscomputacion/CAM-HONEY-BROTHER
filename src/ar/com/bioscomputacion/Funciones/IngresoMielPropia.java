@@ -24,9 +24,6 @@ public class IngresoMielPropia {
     private Double cantidadMiel;
     private String observacion;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public int getCodigoIngreso() {
         return codigoIngreso;
     }
@@ -85,6 +82,9 @@ public class IngresoMielPropia {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_ingreso FROM ingreso_miel_propia order by codigo_ingreso asc");
             
@@ -93,6 +93,10 @@ public class IngresoMielPropia {
                 codigoIngresoMielPropia = rs.getInt("codigo_ingreso");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoIngresoMielPropia;
 
@@ -122,6 +126,9 @@ public class IngresoMielPropia {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
                 return true;
@@ -146,6 +153,9 @@ public class IngresoMielPropia {
         try {
 
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE ingreso_miel_propia SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ?,observacion = ? WHERE codigo_ingreso = '"+ codigoIngreso +"'");
 
             pst.setString(1, ingresoMiel.getNumeroComprobante());
@@ -155,16 +165,15 @@ public class IngresoMielPropia {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return false;
                 
             }
@@ -181,20 +190,22 @@ public class IngresoMielPropia {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM ingreso_miel_propia WHERE codigo_ingreso = '"+ codigoIngreso +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }

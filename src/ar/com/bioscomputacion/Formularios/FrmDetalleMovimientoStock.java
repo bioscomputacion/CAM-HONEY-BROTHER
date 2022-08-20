@@ -7,6 +7,7 @@ package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.CreditoProductor;
 import ar.com.bioscomputacion.Funciones.DevolucionProductor;
+import ar.com.bioscomputacion.Funciones.FacturaCliente;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
 import ar.com.bioscomputacion.Funciones.IngresoMielPropia;
 import ar.com.bioscomputacion.Funciones.NotaCreditoProductor;
@@ -20,9 +21,9 @@ import java.sql.SQLException;
  */
 public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
 
-    static int codigoComprobanteConsultado;
+    static int codigoComprobanteConsultado, codigolocacionDeposito, codigolocacionDepositoOrigen, codigolocacionDepositoDestino;
     static Double cantidadMielAfectada;
-    static String referencia, comprobante;
+    static String referencia, comprobante, productorDeposito;
     /**
      * Creates new form FrmGenerico
      */
@@ -36,17 +37,18 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
     
     public void inicializar(){
         
-        //Tipos de movimientos: COMPRA, INGRESO, VENTA, TRASLADO-DESTINO, TRASLADO-ORIGEN
         //es necesario ver que tipo de movimiento es y de que referencia se trata tamb
-        
         referencia = lTipoMovimiento.getText();
         comprobante = lComprobanteAsociado.getText();
         
         FacturaProductor factura = new FacturaProductor();
         PresupuestoProductor presupuesto = new PresupuestoProductor();
-        CreditoProductor credito = new CreditoProductor();
-        IngresoMielPropia ingreso = new IngresoMielPropia();
+        //falta crear las clases correspondientes a la nota de credito a un cliente
+        //NotaCreditoCliente notaCreditoCliente = new NotaCreditoCliente();
+        //CreditoProductor credito = new CreditoProductor();
+        //IngresoMielPropia ingreso = new IngresoMielPropia();
         Traslado traslado = new Traslado();
+        FacturaCliente facturaCliente = new FacturaCliente();
         NotaCreditoProductor notaCredito = new NotaCreditoProductor();
         DevolucionProductor devolucion = new DevolucionProductor();
         
@@ -103,14 +105,12 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 
                     case "PRESUPUESTO":
                        
-                        //copiar los procedimientos mostrar de la clase factura en las demas clases!!!!
-                        
                         importeComprobante = presupuesto.mostrarImportePresupuesto(codigoComprobanteConsultado);
                         lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                        precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
+                        precioUnitarioFacturado = presupuesto.mostrarPrecioUnitarioPresupuesto(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                        importeAbonado = presupuesto.mostrarImportePagoPresupuesto(codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
                         lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
@@ -122,7 +122,15 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         break;
                 
                     case "CONSIGNACION":
-                        
+                       
+                        lImporteComprobante.setText("-");
+                        lPrecioUnitario.setText("-");
+                        lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lImporteAbonado.setText("-");
+                        lSaldoComprobante.setText("-");
+                        lImporteKgs.setText("");
+                        lSaldoKgs.setText("");
+
                         break;
                         
                     default:
@@ -135,24 +143,67 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 
                 //solo ingresos
                 
+                lImporteComprobante.setText("-");
+                lPrecioUnitario.setText("-");
+                lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                lImporteAbonado.setText("-");
+                lSaldoComprobante.setText("-");
+                lImporteKgs.setText("");
+                lSaldoKgs.setText("");
+
                 break;
                 
-            case "TRASLADO-DESTINO":
+            case "TRASLADO - DESTINO":
                 
                 //solo traslados destino
                 
+                lImporteComprobante.setText("-");
+                lPrecioUnitario.setText("-");
+                System.out.println(cantidadMielAfectada);
+                lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                lImporteAbonado.setText("-");
+                lSaldoComprobante.setText("-");
+                lImporteKgs.setText("");
+                lSaldoKgs.setText("");
+
                 break;
+                
+            /*case "NOTA DE CREDITO E":
+                
+                break;*/
                 
             case "VENTA":
                 
                 //solo facturas e
-                
+
+                importeComprobante = facturaCliente.mostrarImporteFactura(codigoComprobanteConsultado);
+                lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                precioUnitarioFacturado = facturaCliente.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
+                lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                importeAbonado = facturaCliente.mostrarImportePagoFactura(codigoComprobanteConsultado);
+                lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
+                saldoComprobante = importeComprobante - importeAbonado;
+                lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
+                importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
+                lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
+
                 break;
                 
-            case "TRASLADO-ORIGEN":
+            case "TRASLADO - ORIGEN":
                 
                 //solo traslados origen
                 
+                lImporteComprobante.setText("-");
+                lPrecioUnitario.setText("-");
+                lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                lImporteAbonado.setText("-");
+                lSaldoComprobante.setText("-");
+                lImporteKgs.setText("");
+                lSaldoKgs.setText("");
+
                 break;
                 
             case "DEVOLUCION":
@@ -162,15 +213,43 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                     //notas de credito y devoluciones
                     
                     case "NOTA DE CREDITO A":
-                        
+                       
+                        importeComprobante = notaCredito.mostrarImporteNotaCredito(codigoComprobanteConsultado);
+                        lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                        precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
+                        lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                        lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lImporteAbonado.setText("-");
+                        lSaldoComprobante.setText("-");
+                        lImporteKgs.setText("");
+                        lSaldoKgs.setText("");
+
                         break;
                 
                     case "NOTA DE CREDITO C":
-                        
+                       
+                        importeComprobante = notaCredito.mostrarImporteNotaCredito(codigoComprobanteConsultado);
+                        lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                        precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
+                        lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                        lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lImporteAbonado.setText("-");
+                        lSaldoComprobante.setText("-");
+                        lImporteKgs.setText("");
+                        lSaldoKgs.setText("");
+
                         break;
                 
                     case "DEVOLUCION":
-                        
+                
+                        lImporteComprobante.setText("-");
+                        lPrecioUnitario.setText("-");
+                        lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lImporteAbonado.setText("-");
+                        lSaldoComprobante.setText("-");
+                        lImporteKgs.setText("");
+                        lSaldoKgs.setText("");
+
                         break;
                 
                     default:

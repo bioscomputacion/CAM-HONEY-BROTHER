@@ -32,10 +32,6 @@ public class FacturaProductor {
     private Double importe_total_factura;
     private Double cantidad_miel_facturada;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-    
-
     public FacturaProductor(String tipo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_factura, Date fecha_vencimiento, Double importe_total_factura, Double cantidad_miel_facturada) {
         
         this.tipoFactura = tipo_factura;
@@ -130,9 +126,9 @@ public class FacturaProductor {
         
         try{
  
-            //esta no cierra
-            /*ConexionBD mysql = new ConexionBD();
-            Connection cn = mysql.getConexionBD();*/
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_productor order by codigo_factura asc");
             
@@ -142,11 +138,11 @@ public class FacturaProductor {
                 
             }
             
-            return codigoFacturaProductor;
-
-            /*ConexionBD.close(cn);
+            ConexionBD.close(cn);
             ConexionBD.close(st);
-            ConexionBD.close(rs);*/
+            ConexionBD.close(rs);
+
+            return codigoFacturaProductor;
 
         }catch(Exception e){
             
@@ -161,6 +157,9 @@ public class FacturaProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+ codigoFactura +"'");
             
@@ -169,6 +168,10 @@ public class FacturaProductor {
                 codigoItemAFacturar = rs.getInt("codigo_item_facturado");
             }
             
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+
             return codigoItemAFacturar;
 
         }catch(Exception e){
@@ -184,7 +187,7 @@ public class FacturaProductor {
             
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
-            
+
             PreparedStatement pst = cn.prepareStatement("INSERT INTO factura_productor (tipo_factura, numero_comprobante, codigo_movimiento_ctacte, codigo_productor, fecha_factura, fecha_vencimiento, importe_total_factura, cantidad_miel_facturada) "
                     + "VALUES (?,?,?,?,?,?,?,?)");
             
@@ -201,6 +204,9 @@ public class FacturaProductor {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+
             if (N != 0) {
                 
                 return true;
@@ -210,9 +216,6 @@ public class FacturaProductor {
                 return false;
                 
             }
-            
-            //ConexionBD.close(cn);
-            //ConexionBD.close(pst);
             
         } catch (Exception e) {
             
@@ -225,7 +228,9 @@ public class FacturaProductor {
 
         try {
 
-
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE factura_productor SET tipo_factura = ?,numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ?,cantidad_miel_facturada = ? WHERE codigo_factura = '"+ codigoFactura +"'");
 
             pst.setString(1, facturaProductor.getNumero_comprobante());
@@ -239,16 +244,15 @@ public class FacturaProductor {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -265,20 +269,22 @@ public class FacturaProductor {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM factura_productor WHERE codigo_factura = '"+ codigoFactura +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -391,6 +397,39 @@ public class FacturaProductor {
         }
         
         return importePagoFactura;
+    
+    }
+    
+    public String mostrarNombreProductorFactura(int codigoFactura) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoFactura + "' and descripcion_movimiento = 'FACTURA A' or 'FACTURA C'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
     
     }
     

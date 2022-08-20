@@ -27,9 +27,6 @@ public class PresupuestoProductor {
     private Double importeTotalPresupuesto;
     private Double cantidadMiel;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public PresupuestoProductor(String numeroComprobante, int codigoMovimientoCtacte, int codigoProductor, Date fechaPresupuesto, Date fechaVencimiento, Double importeTotalPresupuesto, Double cantidadMiel) {
         
         this.numeroComprobante = numeroComprobante;
@@ -101,22 +98,6 @@ public class PresupuestoProductor {
         this.importeTotalPresupuesto = importeTotalPresupuesto;
     }
 
-    public ConexionBD getMysql() {
-        return mysql;
-    }
-
-    public void setMysql(ConexionBD mysql) {
-        this.mysql = mysql;
-    }
-
-    public Connection getCn() {
-        return cn;
-    }
-
-    public void setCn(Connection cn) {
-        this.cn = cn;
-    }
-
     public Double getCantidadMiel() {
         return cantidadMiel;
     }
@@ -131,6 +112,9 @@ public class PresupuestoProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_presupuesto FROM presupuesto_productor order by codigo_presupuesto asc");
             
@@ -139,6 +123,10 @@ public class PresupuestoProductor {
                 codigoPresupuestoProductor = rs.getInt("codigo_presupuesto");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoPresupuestoProductor;
 
@@ -156,6 +144,9 @@ public class PresupuestoProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_item_presupuestado FROM items_presupuestados_presupuesto_productor where codigo_presupuesto='"+ codigoPresupuesto +"'");
             
@@ -163,6 +154,10 @@ public class PresupuestoProductor {
 
                 codigoItemAPresupuestar = rs.getInt("codigo_item_presupuestado");
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoItemAPresupuestar;
 
@@ -196,6 +191,9 @@ public class PresupuestoProductor {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 return true;
             } else {
@@ -214,7 +212,9 @@ public class PresupuestoProductor {
 
         try {
 
-
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE presupuesto_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_presupuesto = ?,fecha_vencimiento = ?,importe_total_presupuesto = ?,cantidad_miel = ? WHERE codigo_presupuesto = '"+ codigoPresupuesto +"'");
 
             pst.setString(1, presupuestoProductor.getNumeroComprobante());
@@ -227,16 +227,15 @@ public class PresupuestoProductor {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -253,20 +252,22 @@ public class PresupuestoProductor {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM presupuesto_productor WHERE codigo_presupuesto = '"+ codigoPresupuesto +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -280,4 +281,141 @@ public class PresupuestoProductor {
         return false;
     }
 
+    public Double mostrarImportePresupuesto(int codigoPresupuesto) {
+        
+        Double importePresupuesto = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_presupuesto from presupuesto_productor WHERE codigo_presupuesto = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                importePresupuesto = rs.getDouble("importe_total_presupuesto");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importePresupuesto;
+            
+        }
+        
+        return importePresupuesto;
+    
+    }
+    
+    public Double mostrarPrecioUnitarioPresupuesto(int codigoPresupuesto) {
+        
+        Double importePresupuesto = 0.00;
+        Double cantidadMielPresupuestada = 0.00;
+        Double precioUnitarioPresupuestado = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_presupuesto, cantidad_miel from presupuesto_productor WHERE codigo_presupuesto = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                importePresupuesto = rs.getDouble("importe_total_presupuesto");
+                cantidadMielPresupuestada = rs.getDouble("cantidad_miel");
+                precioUnitarioPresupuestado = importePresupuesto / cantidadMielPresupuestada;
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return precioUnitarioPresupuestado;
+            
+        }
+        
+        return precioUnitarioPresupuestado;
+    
+    }
+    
+    public Double mostrarImportePagoPresupuesto(int codigoPresupuesto) {
+        
+        Double importePagoPresupuesto = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT haber from cta_cte_productor WHERE descripcion_movimiento = 'PRESUPUESTO' and comprobante_asociado = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                importePagoPresupuesto = rs.getDouble("haber");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importePagoPresupuesto;
+            
+        }
+        
+        return importePagoPresupuesto;
+    
+    }
+    
+    public String mostrarNombreProductorPresupuesto(int codigoPresupuesto) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoPresupuesto + "' and descripcion_movimiento = 'PRESUPUESTO'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
+    
+    }
+    
 }

@@ -76,12 +76,8 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         importeNotaCredito = 0.00;
         
         rbRegistroNotaCreditoDevolucionMiel.setSelected(true);
-        //aca por defecto mostramos todos los kilos facturados en la factura y disponibles para la devolucion y nota de credito
-        /*tfKilosADevolver.setText(String.valueOf(totalMielFacturada));
-        tfKilosADevolver.setEnabled(true);
-        //aca aun no debo mostrar nada
-        tfImporteNotaCredito.setText("");
-        tfImporteNotaCredito.setEnabled(false);*/
+        rbRegistroNotaCreditoDevolucionMiel.setEnabled(false);
+        tfKilosADevolver.setEditable(false);
         
         tFacturasProductor.requestFocus();
         
@@ -1333,99 +1329,134 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         
         fila = tFacturasProductor.rowAtPoint(evt.getPoint());
         
-        //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos de la factura seleccionada
-        //correspondiente a la fila de la grilla cliqueada
-        tfTipoFactura.setText(tFacturasProductor.getValueAt(fila, 1).toString());
-        tfNumeroFactura.setText(tFacturasProductor.getValueAt(fila, 2).toString());
-        //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
-        tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 4).toString());
+        if (fila > -1){
+            
+            if (tFacturasProductor.getValueAt(fila, 9).toString().equals("CANCELADO")){
+                
+               JOptionPane.showMessageDialog(null, "Factura cancelada!");
+               //debo vaciar todos los campos de la segunda pestaña!
+                tfTipoFactura.setText("");
+                tfNumeroFactura.setText("");
+                tfImporteFactura.setText("");
+                cbTipoNotaCredito.setEnabled(true);
+                cbTipoNotaCredito.setSelectedIndex(0);
+                cbTipoNotaCredito.setEnabled(false);
+
+                //kilos facturados
+                tfKilosFacturados.setText("");
+                //importe del comprobante
+                tfImporteTotalComprobante.setText("");
+                //precio unitario del kilo facturado en el comprobante
+                tfPrecioUnitario.setText("");
+                //saldo impago del comprobante
+                tfSaldoImpagoComprobante.setText("");
+                //saldo pendiente del comprobante, una vez efectuado el pago!
+                tfSaldoPendiente.setText("");
+                tfKilosImpagos.setText("");
+                tfKilosADevolver.setText("");
+                tfImporteNotaCredito.setText("");
+                tfKilosFinalesNC.setText("");
+                tfPrecioUnitarioFinalNC.setText("");
+                tfImporteTotalNC.setText("");
+                tfTambores.setText("");
+                tfLotes.setText("");
+                
+            }
+            else{
+
+                //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos de la factura seleccionada
+                //correspondiente a la fila de la grilla cliqueada
+                tfTipoFactura.setText(tFacturasProductor.getValueAt(fila, 1).toString());
+                tfNumeroFactura.setText(tFacturasProductor.getValueAt(fila, 2).toString());
+                //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
+                tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 4).toString());
+
+                //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
+                //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
+                codigoFactura = Integer.parseInt(tFacturasProductor.getValueAt(fila, 0).toString());
+                StockRealMiel stock = new StockRealMiel();
+                //para ver si estoy pasando bien el codigo de la factura que se selecciona
+                codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoFactura);
+                //para ver si el valor de codigoLocacion esta bien devuelto por la funcion
+                //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene la factura en la cta. cte.
+                //VER COMO SE OBTIENEEEEE, ese dato esta en la tabla factura_productoooooooor!!!   
+                codigoComprobanteAfectadoNotaCredito = Integer.parseInt(tFacturasProductor.getValueAt(fila, 3).toString());
+                //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
+                //de nota de credito se habilita en el combo de notas de credito
+                tipoComprobanteAfectadoNotaCredito = tFacturasProductor.getValueAt(fila, 1).toString();
+                //habilito notas de credito A o notas de credito C
+                if (tipoComprobanteAfectadoNotaCredito.equals("FACTURA A")){
+
+                    cbTipoNotaCredito.setEnabled(true);
+                    cbTipoNotaCredito.setSelectedIndex(0);
+                    cbTipoNotaCredito.setEnabled(false);
+
+                }
+                else{
+
+                    cbTipoNotaCredito.setEnabled(true);
+                    cbTipoNotaCredito.setSelectedIndex(1);
+                    cbTipoNotaCredito.setEnabled(false);
+
+                }
+                //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
+                debeComprobanteAfectado = Double.parseDouble(tFacturasProductor.getValueAt(fila, 5).toString());
+                Double saldo = Double.parseDouble(tFacturasProductor.getValueAt(fila, 6).toString());
+                haberComprobanteAfectado = debeComprobanteAfectado - saldo;
+
+                //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
+                //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
+                importeNotaCredito = saldoImpago;
+
+                //kilos facturados
+                tfKilosFacturados.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 7)));
+                //importe del comprobante
+                tfImporteTotalComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 5)));
+                //precio unitario del kilo facturado en el comprobante
+                precioUnitario = Double.valueOf(tFacturasProductor.getValueAt(fila, 8).toString());
+                tfPrecioUnitario.setText(String.valueOf(precioUnitario));
+                //saldo impago del comprobante
+                tfSaldoImpagoComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
+                saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
+                //saldo pendiente del comprobante, una vez efectuado el pago!
+                tfSaldoPendiente.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
+                Double saldoPendienteDePago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
+                Double kilosImpagos = saldoPendienteDePago / precioUnitario;
+                totalKilosImpagos = kilosImpagos;
+                totalKilosIngresadosDevolucion = totalKilosImpagos;
+                tfKilosImpagos.setText(String.valueOf(kilosImpagos));
+                //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
+                //mas de eso no se podria devolver
+                tfKilosADevolver.setText(String.valueOf(kilosImpagos));
+                tfImporteNotaCredito.setText(String.valueOf(kilosImpagos * precioUnitario));
+
+                //esto es para inicializar los campos en la ultima pestaña!
+                tfKilosFinalesNC.setText(String.valueOf(totalKilosImpagos));
+                Double cantidadKilos = totalKilosImpagos;
+                tfPrecioUnitarioFinalNC.setText(tfPrecioUnitario.getText());
+                Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
+                tfImporteTotalNC.setText(String.valueOf(cantidadKilos * precioUnitario));
+
+                //para mostrar conversion de kilos a tambores y a lotes
+                //VER COMO PUEDO REDONDEAR!
+                if (tfKilosADevolver.getText().length() != 0){
+
+                    Double kilos = Double.parseDouble(tfKilosADevolver.getText());
+                    Double tambores = kilos / 300;
+                    tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
+                    Double lotes = kilos / 21000;
+                    tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+
+                }
+                else{
+
+                    tfTambores.setText("0 TAMBORES");
+                    tfLotes.setText("0 LOTES");
+
+                }
+
+            }
         
-        //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
-        //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
-        codigoFactura = Integer.parseInt(tFacturasProductor.getValueAt(fila, 0).toString());
-        StockRealMiel stock = new StockRealMiel();
-        //para ver si estoy pasando bien el codigo de la factura que se selecciona
-        System.out.println(codigoFactura);
-        codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoFactura);
-        //para ver si el valor de codigoLocacion esta bien devuelto por la funcion
-        System.out.println(codigoLocacion);
-        //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene la factura en la cta. cte.
-        //VER COMO SE OBTIENEEEEE, ese dato esta en la tabla factura_productoooooooor!!!   
-        codigoComprobanteAfectadoNotaCredito = Integer.parseInt(tFacturasProductor.getValueAt(fila, 3).toString());
-        //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
-        //de nota de credito se habilita en el combo de notas de credito
-        tipoComprobanteAfectadoNotaCredito = tFacturasProductor.getValueAt(fila, 1).toString();
-        //habilito notas de credito A o notas de credito C
-        if (tipoComprobanteAfectadoNotaCredito.equals("FACTURA A")){
-            
-            cbTipoNotaCredito.setEnabled(true);
-            cbTipoNotaCredito.setSelectedIndex(0);
-            cbTipoNotaCredito.setEnabled(false);
-            
-        }
-        else{
-            
-            cbTipoNotaCredito.setEnabled(true);
-            cbTipoNotaCredito.setSelectedIndex(1);
-            cbTipoNotaCredito.setEnabled(false);
-            
-        }
-        //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
-        debeComprobanteAfectado = Double.parseDouble(tFacturasProductor.getValueAt(fila, 5).toString());
-        Double saldo = Double.parseDouble(tFacturasProductor.getValueAt(fila, 6).toString());
-        haberComprobanteAfectado = debeComprobanteAfectado - saldo;
-        
-        //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
-        //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
-        importeNotaCredito = saldoImpago;
-        
-        //kilos facturados
-        tfKilosFacturados.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 7)));
-        //importe del comprobante
-        tfImporteTotalComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 5)));
-        //precio unitario del kilo facturado en el comprobante
-        precioUnitario = Double.valueOf(tFacturasProductor.getValueAt(fila, 8).toString());
-        tfPrecioUnitario.setText(String.valueOf(precioUnitario));
-        //saldo impago del comprobante
-        tfSaldoImpagoComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
-        saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
-        //saldo pendiente del comprobante, una vez efectuado el pago!
-        tfSaldoPendiente.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
-        Double saldoPendienteDePago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
-        Double kilosImpagos = saldoPendienteDePago / precioUnitario;
-        totalKilosImpagos = kilosImpagos;
-        totalKilosIngresadosDevolucion = totalKilosImpagos;
-        System.out.println(totalKilosImpagos);
-        System.out.println(totalKilosIngresadosDevolucion);
-        tfKilosImpagos.setText(String.valueOf(kilosImpagos));
-        //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
-        //mas de eso no se podria devolver
-        tfKilosADevolver.setText(String.valueOf(kilosImpagos));
-        tfImporteNotaCredito.setText(String.valueOf(kilosImpagos * precioUnitario));
-
-        //esto es para inicializar los campos en la ultima pestaña!
-        tfKilosFinalesNC.setText(String.valueOf(totalKilosImpagos));
-        Double cantidadKilos = totalKilosImpagos;
-        tfPrecioUnitarioFinalNC.setText(tfPrecioUnitario.getText());
-        Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
-        tfImporteTotalNC.setText(String.valueOf(cantidadKilos * precioUnitario));
-
-        //para mostrar conversion de kilos a tambores y a lotes
-        //VER COMO PUEDO REDONDEAR!
-        if (tfKilosADevolver.getText().length() != 0){
-
-            Double kilos = Double.parseDouble(tfKilosADevolver.getText());
-            Double tambores = kilos / 300;
-            tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
-            Double lotes = kilos / 21000;
-            tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
-
-        }
-        else{
-
-            tfTambores.setText("0 TAMBORES");
-            tfLotes.setText("0 LOTES");
-
         }
         
     }//GEN-LAST:event_tFacturasProductorMouseClicked

@@ -42,6 +42,7 @@ public class Productor extends Persona {
 
     public Productor(String fecha_venta_miel_1, String fecha_venta_miel_2, String fecha_venta_miel_3, String nombre_fantasia, String razon_social, String condicion_iva, String cuit, String domicilio_fiscal, String estado, Integer cantidad_colmenas, String ubicacion_colmenas, String floracion_miel, String cura_miel, String nombre, String documento, String pais, String estado_provincia, String localidad, String domicilio, String telefono, String correo) {
         super(nombre, documento, pais, estado_provincia, localidad, domicilio, telefono, correo);
+        
         this.fecha_venta_miel_1 = fecha_venta_miel_1;
         this.fecha_venta_miel_2 = fecha_venta_miel_2;
         this.fecha_venta_miel_3 = fecha_venta_miel_3;
@@ -55,6 +56,7 @@ public class Productor extends Persona {
         this.ubicacion_colmenas = ubicacion_colmenas;
         this.floracion_miel = floracion_miel;
         this.cura_miel = cura_miel;
+        
     }
     
     //getters y setters

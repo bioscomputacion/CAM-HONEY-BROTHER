@@ -28,9 +28,6 @@ public class FacturaCliente {
     private Double importe_total_factura;
     private Double cantidad_miel;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public FacturaCliente(String tipo_factura, String numero_comprobante, int codigo_movimiento_ctacte, int codigo_cliente, Date fecha_factura, Date fecha_vencimiento, Double importe_total_factura, Double cantidad_miel) {
         
         this.codigo_factura = codigo_factura;
@@ -126,6 +123,9 @@ public class FacturaCliente {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_factura FROM factura_cliente order by codigo_factura asc");
             
@@ -134,6 +134,10 @@ public class FacturaCliente {
                 codigoFacturaCliente = rs.getInt("codigo_factura");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoFacturaCliente;
 
@@ -152,6 +156,9 @@ public class FacturaCliente {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_cliente where codigo_factura='"+ codigoFactura +"'");
             
@@ -160,6 +167,10 @@ public class FacturaCliente {
                 codigoItemAFacturar = rs.getInt("codigo_item_facturado");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoItemAFacturar;
 
@@ -195,6 +206,9 @@ public class FacturaCliente {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
                 return true;
@@ -217,6 +231,9 @@ public class FacturaCliente {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE factura_cliente SET tipo_factura = ?,numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_cliente = ?,fecha_factura = ?,fecha_vencimiento = ?,importe_total_factura = ?,cantidad_miel = ? WHERE codigo_factura = '"+ codigoFactura +"'");
 
             pst.setString(1, facturaCliente.getTipo_factura());
@@ -230,16 +247,15 @@ public class FacturaCliente {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -257,20 +273,22 @@ public class FacturaCliente {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM factura_cliente WHERE codigo_factura = '"+ codigoFactura +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -284,5 +302,137 @@ public class FacturaCliente {
         return false;
     }
 
+    public Double mostrarImporteFactura(int codigoFactura) {
+        
+        Double importeFactura = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_factura from factura_cliente WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importeFactura = rs.getDouble("importe_total_factura");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importeFactura;
+            
+        }
+        
+        return importeFactura;
+    
+    }
+    
+    public Double mostrarPrecioUnitarioFactura(int codigoFactura) {
+        
+        Double importeFactura = 0.00;
+        Double cantidadMielfacturada = 0.00;
+        Double precioUnitarioFacturado = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT importe_total_factura, cantidad_miel from factura_cliente WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importeFactura = rs.getDouble("importe_total_factura");
+                cantidadMielfacturada = rs.getDouble("cantidad_miel");
+                precioUnitarioFacturado = importeFactura / cantidadMielfacturada;
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return precioUnitarioFacturado;
+            
+        }
+        
+        return precioUnitarioFacturado;
+    
+    }
+    
+    public Double mostrarImportePagoFactura(int codigoFactura) {
+        
+        Double importePagoFactura = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT haber from cta_cte_cliente WHERE descripcion_movimiento = 'FACTURA E' and comprobante_asociado = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                importePagoFactura = rs.getDouble("haber");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importePagoFactura;
+            
+        }
+        
+        return importePagoFactura;
+    
+    }
+    
+    public String mostrarNombreClienteFactura(int codigoFactura) {
+        
+        String nombreCliente = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_cliente c join cliente p on c.cod_cliente = p.cod_cliente JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoFactura + "' and descripcion_movimiento = 'FACTURA E'");
+
+            while (rs.next()){
+            
+                nombreCliente = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreCliente;
+            
+        }
+        
+        return nombreCliente;
+    
+    }
     
 }

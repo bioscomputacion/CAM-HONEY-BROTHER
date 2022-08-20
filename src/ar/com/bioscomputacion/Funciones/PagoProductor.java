@@ -31,9 +31,6 @@ public class PagoProductor {
     private int codigo_comprobante_pagado;
     private String tipo_comprobante_pagado;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public PagoProductor(int codigo_movimiento_ctacte, int codigo_productor, Date fecha_pago, String metodo_pago, String observacion, Double monto_pago, int codigo_comprobante_pagado, String tipo_comprobante_pagado) {
         
         this.codigo_movimiento_ctacte = codigo_movimiento_ctacte;
@@ -146,6 +143,9 @@ public class PagoProductor {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
                 return true;
@@ -170,6 +170,9 @@ public class PagoProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_pago FROM pago_productor order by codigo_pago asc");
             
@@ -178,6 +181,10 @@ public class PagoProductor {
                 codigoPagoAProductor = rs.getInt("codigo_pago");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoPagoAProductor;
 
@@ -188,6 +195,38 @@ public class PagoProductor {
 
     }
     
+    public String mostrarNombreProductorPago(int codigoPago) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoPago + "' and descripcion_movimiento = 'PAGO'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
     
+    }
     
 }

@@ -1278,7 +1278,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rsbrActualizar1ActionPerformed
 
     private void bConsultaMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsultaMovimientoActionPerformed
-
+        
         // CONSULTA DETALLADA DEL MOVIMIENTO DE STOCK SELECCIONADO
         
         if (fila2 == -1) {
@@ -1297,24 +1297,9 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
             form.lNumeroComprobante.setText(tDetalleMovimientosStock.getValueAt(fila2, 4).toString());
             form.codigoComprobanteConsultado = Integer.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 3).toString());
             form.cantidadMielAfectada = Double.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 5).toString());
+            //form.codigolocacionDeposito = Integer.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 6).toString());
             
             form.inicializar();
-            //desde aca tendria que ir en el inicializar del form detalle de movimiento de stock
-            /*codigoComprobante = Integer.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 3).toString());
-            importeComprobante = factura.mostrarImporteFactura(codigoComprobante);
-            form.lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-            precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobante);
-            form.lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-            cantidadMiel = Double.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 5).toString());
-            form.lKgsMiel.setText(String.valueOf(cantidadMiel)+" KGS.");
-            importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobante);
-            form.lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-            saldoComprobante = importeComprobante - importeAbonado;
-            form.lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-            importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-            form.lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-            saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-            form.lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");*/
 
             deskPrincipal.add(form);
             Dimension desktopSize = deskPrincipal.getSize();

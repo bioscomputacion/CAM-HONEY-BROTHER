@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-08-2022 a las 22:57:28
+-- Tiempo de generación: 20-08-2022 a las 22:26:08
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -30,7 +30,6 @@ USE `camhoneybrothers`;
 -- Estructura de tabla para la tabla `cliente`
 --
 
-DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `cod_cliente` int(11) NOT NULL,
   `cod_persona` int(11) NOT NULL,
@@ -49,7 +48,6 @@ CREATE TABLE `cliente` (
 -- Estructura de tabla para la tabla `comprobantes_relacionados_compra_credito`
 --
 
-DROP TABLE IF EXISTS `comprobantes_relacionados_compra_credito`;
 CREATE TABLE `comprobantes_relacionados_compra_credito` (
   `codigo_productor` int(11) NOT NULL,
   `codigo_compra_consignacion` int(11) NOT NULL,
@@ -64,7 +62,6 @@ CREATE TABLE `comprobantes_relacionados_compra_credito` (
 -- Estructura de tabla para la tabla `credito_productor`
 --
 
-DROP TABLE IF EXISTS `credito_productor`;
 CREATE TABLE `credito_productor` (
   `codigo_credito` int(11) NOT NULL,
   `numero_comprobante` varchar(60) NOT NULL,
@@ -81,7 +78,6 @@ CREATE TABLE `credito_productor` (
 -- Estructura de tabla para la tabla `cta_cte_cliente`
 --
 
-DROP TABLE IF EXISTS `cta_cte_cliente`;
 CREATE TABLE `cta_cte_cliente` (
   `codigo_cliente` int(11) NOT NULL,
   `codigo_movimiento` int(11) NOT NULL,
@@ -103,7 +99,6 @@ CREATE TABLE `cta_cte_cliente` (
 -- Estructura de tabla para la tabla `cta_cte_productor`
 --
 
-DROP TABLE IF EXISTS `cta_cte_productor`;
 CREATE TABLE `cta_cte_productor` (
   `codigo_productor` int(11) NOT NULL,
   `codigo_movimiento` int(11) NOT NULL,
@@ -125,7 +120,6 @@ CREATE TABLE `cta_cte_productor` (
 -- Estructura de tabla para la tabla `devolucion_productor`
 --
 
-DROP TABLE IF EXISTS `devolucion_productor`;
 CREATE TABLE `devolucion_productor` (
   `codigo_devolucion` int(11) NOT NULL,
   `numero_comprobante` varchar(100) NOT NULL,
@@ -141,7 +135,6 @@ CREATE TABLE `devolucion_productor` (
 -- Estructura de tabla para la tabla `factura_cliente`
 --
 
-DROP TABLE IF EXISTS `factura_cliente`;
 CREATE TABLE `factura_cliente` (
   `codigo_factura` int(11) NOT NULL,
   `tipo_factura` varchar(60) NOT NULL,
@@ -160,7 +153,6 @@ CREATE TABLE `factura_cliente` (
 -- Estructura de tabla para la tabla `factura_productor`
 --
 
-DROP TABLE IF EXISTS `factura_productor`;
 CREATE TABLE `factura_productor` (
   `codigo_factura` int(11) NOT NULL,
   `tipo_factura` varchar(60) NOT NULL,
@@ -179,7 +171,6 @@ CREATE TABLE `factura_productor` (
 -- Estructura de tabla para la tabla `ingreso_miel_propia`
 --
 
-DROP TABLE IF EXISTS `ingreso_miel_propia`;
 CREATE TABLE `ingreso_miel_propia` (
   `codigo_ingreso` int(11) NOT NULL,
   `numero_comprobante` varchar(60) NOT NULL,
@@ -194,7 +185,6 @@ CREATE TABLE `ingreso_miel_propia` (
 -- Estructura de tabla para la tabla `items_devueltos_devolucion_productor`
 --
 
-DROP TABLE IF EXISTS `items_devueltos_devolucion_productor`;
 CREATE TABLE `items_devueltos_devolucion_productor` (
   `codigo_item_devuelto` int(11) NOT NULL,
   `codigo_devolucion` int(11) NOT NULL,
@@ -208,7 +198,6 @@ CREATE TABLE `items_devueltos_devolucion_productor` (
 -- Estructura de tabla para la tabla `items_facturados_credito_productor`
 --
 
-DROP TABLE IF EXISTS `items_facturados_credito_productor`;
 CREATE TABLE `items_facturados_credito_productor` (
   `codigo_item_financiado` int(11) NOT NULL,
   `codigo_credito` int(11) NOT NULL,
@@ -222,7 +211,6 @@ CREATE TABLE `items_facturados_credito_productor` (
 -- Estructura de tabla para la tabla `items_facturados_factura_cliente`
 --
 
-DROP TABLE IF EXISTS `items_facturados_factura_cliente`;
 CREATE TABLE `items_facturados_factura_cliente` (
   `codigo_item_facturado` int(11) NOT NULL,
   `codigo_factura` int(11) NOT NULL,
@@ -238,7 +226,6 @@ CREATE TABLE `items_facturados_factura_cliente` (
 -- Estructura de tabla para la tabla `items_facturados_factura_productor`
 --
 
-DROP TABLE IF EXISTS `items_facturados_factura_productor`;
 CREATE TABLE `items_facturados_factura_productor` (
   `codigo_item_facturado` int(11) NOT NULL,
   `codigo_factura` int(11) NOT NULL,
@@ -254,7 +241,6 @@ CREATE TABLE `items_facturados_factura_productor` (
 -- Estructura de tabla para la tabla `items_facturados_presupuesto_productor`
 --
 
-DROP TABLE IF EXISTS `items_facturados_presupuesto_productor`;
 CREATE TABLE `items_facturados_presupuesto_productor` (
   `codigo_item_presupuestado` int(11) NOT NULL,
   `codigo_presupuesto` int(11) NOT NULL,
@@ -270,7 +256,6 @@ CREATE TABLE `items_facturados_presupuesto_productor` (
 -- Estructura de tabla para la tabla `items_ingresados_ingreso_miel_propia`
 --
 
-DROP TABLE IF EXISTS `items_ingresados_ingreso_miel_propia`;
 CREATE TABLE `items_ingresados_ingreso_miel_propia` (
   `codigo_item_ingresado` int(11) NOT NULL,
   `codigo_ingreso` int(11) NOT NULL,
@@ -284,7 +269,6 @@ CREATE TABLE `items_ingresados_ingreso_miel_propia` (
 -- Estructura de tabla para la tabla `locacion`
 --
 
-DROP TABLE IF EXISTS `locacion`;
 CREATE TABLE `locacion` (
   `codigo_locacion` int(11) NOT NULL,
   `nombre_locacion` varchar(60) NOT NULL,
@@ -299,7 +283,6 @@ CREATE TABLE `locacion` (
 -- Estructura de tabla para la tabla `nota_credito_productor`
 --
 
-DROP TABLE IF EXISTS `nota_credito_productor`;
 CREATE TABLE `nota_credito_productor` (
   `codigo_nota_credito` int(11) NOT NULL,
   `tipo_nota_credito` varchar(60) NOT NULL,
@@ -317,7 +300,6 @@ CREATE TABLE `nota_credito_productor` (
 -- Estructura de tabla para la tabla `pago_cliente`
 --
 
-DROP TABLE IF EXISTS `pago_cliente`;
 CREATE TABLE `pago_cliente` (
   `codigo_pago` int(11) NOT NULL,
   `codigo_movimiento_cta_cte` int(11) NOT NULL,
@@ -336,7 +318,6 @@ CREATE TABLE `pago_cliente` (
 -- Estructura de tabla para la tabla `pago_productor`
 --
 
-DROP TABLE IF EXISTS `pago_productor`;
 CREATE TABLE `pago_productor` (
   `codigo_pago` int(11) NOT NULL,
   `codigo_movimiento_ctacte` int(11) NOT NULL,
@@ -355,7 +336,6 @@ CREATE TABLE `pago_productor` (
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `cod_persona` int(11) NOT NULL,
   `nombre` varchar(60) NOT NULL,
@@ -374,7 +354,6 @@ CREATE TABLE `persona` (
 -- Estructura de tabla para la tabla `presupuesto_productor`
 --
 
-DROP TABLE IF EXISTS `presupuesto_productor`;
 CREATE TABLE `presupuesto_productor` (
   `codigo_presupuesto` int(11) NOT NULL,
   `numero_comprobante` varchar(60) NOT NULL,
@@ -392,7 +371,6 @@ CREATE TABLE `presupuesto_productor` (
 -- Estructura de tabla para la tabla `productor`
 --
 
-DROP TABLE IF EXISTS `productor`;
 CREATE TABLE `productor` (
   `cod_productor` int(11) NOT NULL,
   `cod_persona` int(11) NOT NULL,
@@ -417,7 +395,6 @@ CREATE TABLE `productor` (
 -- Estructura de tabla para la tabla `stock_real_miel`
 --
 
-DROP TABLE IF EXISTS `stock_real_miel`;
 CREATE TABLE `stock_real_miel` (
   `codigo_movimiento` int(11) NOT NULL,
   `fecha_movimiento` date NOT NULL,
@@ -437,7 +414,6 @@ CREATE TABLE `stock_real_miel` (
 -- Estructura de tabla para la tabla `traslado`
 --
 
-DROP TABLE IF EXISTS `traslado`;
 CREATE TABLE `traslado` (
   `codigo_traslado` int(11) NOT NULL,
   `numero_comprobante` varchar(60) NOT NULL,
@@ -455,7 +431,6 @@ CREATE TABLE `traslado` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `cod_usuario` int(11) NOT NULL,
   `cod_persona` int(11) NOT NULL,

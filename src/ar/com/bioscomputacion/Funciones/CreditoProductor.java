@@ -31,9 +31,6 @@ public class CreditoProductor {
     private Date fecha_vencimiento;
     private Double cantidad_miel;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public CreditoProductor(String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_credito, Date fecha_vencimiento, Double cantidad_miel) {
 
         this.numero_comprobante = numero_comprobante;
@@ -110,6 +107,8 @@ public class CreditoProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_credito FROM credito_productor order by codigo_credito asc");
             
@@ -118,6 +117,10 @@ public class CreditoProductor {
                 codigoCreditoProductor = rs.getInt("codigo_credito");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoCreditoProductor;
 
@@ -134,6 +137,8 @@ public class CreditoProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+ codigoCredito +"'");
             
@@ -142,6 +147,10 @@ public class CreditoProductor {
                 codigoItemAFacturarACredito = rs.getInt("codigo_item_facturado");
 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoItemAFacturarACredito;
 
@@ -173,6 +182,9 @@ public class CreditoProductor {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 return true;
             } else {
@@ -192,6 +204,9 @@ public class CreditoProductor {
         try {
 
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE credito_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_credito = ?,fecha_vencimiento = ?,cantidad_miel = ? WHERE codigo_credito = '"+ codigoCredito +"'");
 
             pst.setString(1, creditoProductor.getNumero_comprobante());
@@ -203,16 +218,15 @@ public class CreditoProductor {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+
             if (N != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return false;
                 
             }
@@ -229,20 +243,22 @@ public class CreditoProductor {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM credito_productor WHERE codigo_credito = '"+ codigoCredito +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }
@@ -256,4 +272,36 @@ public class CreditoProductor {
         return false;
     }
 
+    public String mostrarNombreProductorCredito(int codigoCredito) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoCredito + "' and descripcion_movimiento = 'CONSIGNACION'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
+    
+    }
+    
 }

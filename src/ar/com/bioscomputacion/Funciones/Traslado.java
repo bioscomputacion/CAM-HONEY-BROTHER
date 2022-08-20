@@ -27,9 +27,6 @@ public class Traslado {
     private int destino_traslado;
     private Date fecha_traslado;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public Traslado(String numero_comprobante, String descripcion_item_trasladado, Double cantidad_item_trasladado, String observacion_traslado, int origen_traslado, int destino_traslado, Date fecha_traslado) {
         
         this.numero_comprobante = numero_comprobante;
@@ -115,6 +112,9 @@ public class Traslado {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_traslado FROM traslado order by codigo_traslado asc");
             
@@ -123,6 +123,10 @@ public class Traslado {
                 codigoTraslado = rs.getInt("codigo_traslado");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoTraslado;
 
@@ -155,6 +159,9 @@ public class Traslado {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
                 return true;
@@ -179,6 +186,9 @@ public class Traslado {
         try {
 
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE traslado SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ?,observacion = ? WHERE codigo_traslado = '"+ codigoTraslado +"'");
 
             pst.setString(1, traslado.getNumero_comprobante());
@@ -191,16 +201,15 @@ public class Traslado {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return false;
                 
             }
@@ -217,20 +226,22 @@ public class Traslado {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM traslado WHERE codigo_traslado = '"+ codigoTraslado +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }

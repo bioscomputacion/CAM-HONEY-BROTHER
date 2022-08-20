@@ -25,9 +25,6 @@ public class DevolucionProductor {
     private Date fecha_devolucion;
     private Double cantidad_miel;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public DevolucionProductor(String numero_comprobante, int codigo_movimiento_ctacte, int codigo_productor, Date fecha_devolucion, Double cantidad_miel) {
 
         this.numero_comprobante = numero_comprobante;
@@ -95,6 +92,8 @@ public class DevolucionProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_devolucion FROM devolucion_productor order by codigo_devolucion asc");
             
@@ -103,6 +102,10 @@ public class DevolucionProductor {
                 codigoDevolucionProductor = rs.getInt("codigo_devolucion");
                 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoDevolucionProductor;
 
@@ -121,6 +124,8 @@ public class DevolucionProductor {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_item_facturado FROM items_facturados_factura_productor where codigo_factura='"+ codigoCredito +"'");
             
@@ -129,6 +134,10 @@ public class DevolucionProductor {
                 codigoItemAFacturarACredito = rs.getInt("codigo_item_facturado");
 
             }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
             
             return codigoItemAFacturarACredito;
 
@@ -159,6 +168,9 @@ public class DevolucionProductor {
             
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 return true;
             } else {
@@ -178,6 +190,9 @@ public class DevolucionProductor {
         try {
 
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("UPDATE credito_productor SET numero_comprobante = ?,codigo_movimiento_ctacte = ?,codigo_productor = ?,fecha_credito = ?,fecha_vencimiento = ?,cantidad_miel = ? WHERE codigo_credito = '"+ codigoCredito +"'");
 
             pst.setString(1, creditoProductor.getNumero_comprobante());
@@ -189,16 +204,15 @@ public class DevolucionProductor {
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                //ConexionBD.close(cn);
-                //ConexionBD.close(pst);
                 return false;
                 
             }
@@ -215,20 +229,22 @@ public class DevolucionProductor {
 
         try {
 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
             PreparedStatement pst = cn.prepareStatement("DELETE FROM credito_productor WHERE codigo_credito = '"+ codigoCredito +"'");
 
             int N = pst.executeUpdate();
 
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
             if (N != 0) {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return true;
                 
             } else {
                 
-                ConexionBD.close(cn);
-                ConexionBD.close(pst);
                 return false;
                 
             }

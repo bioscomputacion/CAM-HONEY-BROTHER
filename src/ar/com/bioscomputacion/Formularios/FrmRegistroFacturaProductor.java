@@ -1085,6 +1085,7 @@ public class FrmRegistroFacturaProductor extends javax.swing.JInternalFrame {
         tfDocumentoProductor.setText(tProductoresRegistrados.getValueAt(fila, 2).toString());
         tfProvinciaProductor.setText(tProductoresRegistrados.getValueAt(fila, 4).toString());
         tfLocalidadProductor.setText(tProductoresRegistrados.getValueAt(fila, 5).toString());
+        
     }//GEN-LAST:event_tProductoresRegistradosMouseClicked
 
     private void tfBusquedaPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBusquedaPorNombreKeyReleased

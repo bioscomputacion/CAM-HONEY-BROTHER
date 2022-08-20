@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.StockRealMiel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.sql.SQLException;
@@ -20,11 +21,20 @@ import javax.swing.plaf.basic.BasicMenuBarUI;
  * @author braya
  */
 public class FrmPrincipal extends javax.swing.JFrame {
+    
+    //en esta variable se llevara siempre el total de la miel consignada que se ha vendido
+    //para poder compensar el stock cuando se desea facturar una consignacion desde una cta. cte. con productor
+    //y esa miel consignada ya ha sido vendida, la cual al facturarse sumaria erroneamente el stock pago de miel
+    //CADA VEZ QUE SE REALIZA UNA VENTA QUE INVOLUCRA MIEL EN CONSIGNACION
+    //LA CANTIDAD CORRESPONDIENTE A LA MIEL EN CONSIGNACION EN DICHA VENTA, SE ALMACENARA EN LA VARIABLE
+    //mielConsignacionVendida para que dicho numero sirva luego para la compensacion del stock global de miel
+    Double mielConsignacionVendida = 0.00;
 
     /**
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/forms.png")).getImage());
@@ -35,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
         });
+        
         txtCod_usuario.setVisible(false);
     }
 

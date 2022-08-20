@@ -27,9 +27,6 @@ public class PagoCliente {
     private int codigo_comprobante_pagado;
     private String tipo_comprobante_pagado;
     
-    ConexionBD mysql = new ConexionBD();
-    Connection cn = mysql.getConexionBD();
-
     public PagoCliente(int codigo_movimiento_ctacte, int codigo_cliente, Date fecha_pago, String metodoPago, String observacion, Double monto_pago, int codigo_comprobante_pagado, String tipo_comprobante_pagado) {
         
         this.codigo_movimiento_ctacte = codigo_movimiento_ctacte;
@@ -166,6 +163,9 @@ public class PagoCliente {
         
         try{
  
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT codigo_pago FROM pago_cliente order by codigo_pago asc");
             
@@ -175,6 +175,10 @@ public class PagoCliente {
                 
             }
             
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
             return codigoPagoDeCliente;
 
         }catch(Exception e){
@@ -182,6 +186,39 @@ public class PagoCliente {
             return codigoPagoDeCliente;
         } 
 
+    }
+    
+    public String mostrarNombreClientePago(int codigoPago) {
+        
+        String nombreCliente = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_cliente c join cliente p on c.cod_cliente = p.cod_cliente JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoPago + "' and descripcion_movimiento = 'PAGO'");
+
+            while (rs.next()){
+            
+                nombreCliente = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreCliente;
+            
+        }
+        
+        return nombreCliente;
+    
     }
     
 }
