@@ -739,17 +739,17 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lStockMielGlobal1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lStockMielEnProductores" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lStockMielGlobalCredito1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lStockMielCreditoEnProductores" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lStockMielGlobalPago1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lStockMielPagoEnProductores" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -775,17 +775,17 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lStockMielGlobal1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lStockMielEnProductores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lStockMielGlobalPago1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lStockMielPagoEnProductores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lStockMielGlobalCredito1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lStockMielCreditoEnProductores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -878,7 +878,7 @@
                     <Property name="text" type="java.lang.String" value="STOCK DE LA EMPRESA ACOPIADO EN DEPOSITOS DE PRODUCTORES:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lStockMielGlobal1">
+                <Component class="javax.swing.JLabel" name="lStockMielEnProductores">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -907,7 +907,7 @@
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lStockMielGlobalPago1">
+                <Component class="javax.swing.JLabel" name="lStockMielPagoEnProductores">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -935,7 +935,7 @@
                     <Property name="text" type="java.lang.String" value="EN CONSIGNACION:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lStockMielGlobalCredito1">
+                <Component class="javax.swing.JLabel" name="lStockMielCreditoEnProductores">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>

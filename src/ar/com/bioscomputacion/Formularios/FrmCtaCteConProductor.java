@@ -786,7 +786,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //1er chequeo: se debe seleccionar una fila de la grilla
             if (fila2 == -1) {
                 
-                JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente a la compra a consignacion que desea facturar.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente a la compra en consignacion que desea facturar.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
                 return;
                 
@@ -805,7 +805,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //3er chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion ya facturada
             if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
                 
-                JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra a consignacion ya facturada. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra a consignacion ya facturada. Seleccione otro compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
                 return;
                 
@@ -843,7 +843,6 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //con esto obtengo todos los comprobantes que afectan a la compra en consignacion
             FrmFacturacionCompraConsignacion.obtenerComprobantesRelacionadosCompraConsignacion(FrmFacturacionCompraConsignacion.codigoCompra);
 
-            //FrmFacturacionCompraConsignacion.tfCantidadKilos.setText(String.valueOf(form));
             FrmFacturacionCompraConsignacion.inicializar();
             
             deskPrincipal.add(form);
@@ -1040,6 +1039,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
+        /*
         //1er chequeo: se debe seleccionar una fila de la grilla
         if (fila2 == -1) {
             
@@ -1049,7 +1049,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             
         }
         
-        //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
+        //2do chequeo: se debe corroborar que se esta intentando anular una factura o un presupuesto y no otro tipo
         //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
         if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
             
@@ -1103,6 +1103,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         form.setIconifiable(false);
         
         form.inicializar();
+        */
 
     }//GEN-LAST:event_jButton5ActionPerformed
 

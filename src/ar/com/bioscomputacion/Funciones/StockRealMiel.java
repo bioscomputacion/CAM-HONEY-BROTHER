@@ -925,6 +925,7 @@ public class StockRealMiel {
         
     }
 
+    //sirve!
     public Double calcularTotalStockGlobal() {
 
         Double totalStockGlobal = 0.00;
@@ -961,7 +962,7 @@ public class StockRealMiel {
         
     }
     
-    //SEGUIR DESDE ACA! Tengo que crear metodos que devuelvan la cantidad de miel que esta paga y la cantidad de miel que esta impaga
+    //sirve!
     
     public Double calcularTotalStockGlobalPago() {
 
@@ -1000,6 +1001,7 @@ public class StockRealMiel {
         
     }
     
+    //sirve!
     public Double calcularTotalStockGlobalCredito() {
 
         Double totalStockGlobalImpago = 0.00;
@@ -1034,6 +1036,118 @@ public class StockRealMiel {
         }
         
         return totalStockGlobalImpago;
+        
+    }
+
+    //sirve!
+    public Double calcularTotalStockEnProductores() {
+
+        Double totalStock = 0.00;
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria = 'DEPOSITO DE PRODUCTOR' order by codigo_locacion asc");
+
+            double ingresoMiel, egresoMiel, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                ingresoMiel = stock.obtenerDetalleIngresoMiel(locacion);
+                egresoMiel = stock.obtenerDetalleEgresoMiel(locacion);
+                saldoMiel = ingresoMiel - egresoMiel;
+                totalStock = totalStock + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStock;
+        
+    }
+    
+    public Double calcularTotalStockPagoEnProductores() {
+
+        Double totalStockPago = 0.00;
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria = 'DEPOSITO DE PRODUCTOR' order by codigo_locacion asc");
+
+            double ingresoMielPaga, egresoMielPaga, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                //deberia crear un metodo que devuelva la miel comprada pero facturada y/o presupuestada (que se toma como paga)
+                ingresoMielPaga = stock.obtenerDetalleIngresoMielPaga(locacion);
+                egresoMielPaga = stock.obtenerDetalleEgresoMielPaga(locacion);
+                saldoMiel = ingresoMielPaga - egresoMielPaga;
+                totalStockPago = totalStockPago + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockPago;
+        
+    }
+    
+    //sirve!
+    public Double calcularTotalStockCreditoEnProductores() {
+
+        Double totalStockImpago = 0.00;
+
+        try {
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria = 'DEPOSITO DE PRODUCTOR' order by codigo_locacion asc");
+
+            double ingresoMielImpaga, egresoMielImpaga, saldoMiel = 0.00;
+            int locacion = 0;
+            
+            StockRealMiel stock = new StockRealMiel();
+            
+            while (rs.next()) {
+                
+                locacion = rs.getInt("codigo_locacion");
+                //deberia crear un metodo que devuelva la miel comprada pero a credito / no facturada (que se toma como impaga)
+                ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpaga(locacion);
+                egresoMielImpaga = stock.obtenerDetalleEgresoMielImpaga(locacion);
+                saldoMiel = ingresoMielImpaga - egresoMielImpaga;
+                totalStockImpago = totalStockImpago + saldoMiel;
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return totalStockImpago;
         
     }
 

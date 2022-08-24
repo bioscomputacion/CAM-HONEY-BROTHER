@@ -45,7 +45,7 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
         PresupuestoProductor presupuesto = new PresupuestoProductor();
         //falta crear las clases correspondientes a la nota de credito a un cliente
         //NotaCreditoCliente notaCreditoCliente = new NotaCreditoCliente();
-        //CreditoProductor credito = new CreditoProductor();
+        CreditoProductor credito = new CreditoProductor();
         //IngresoMielPropia ingreso = new IngresoMielPropia();
         Traslado traslado = new Traslado();
         FacturaCliente facturaCliente = new FacturaCliente();
@@ -74,6 +74,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
                         importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -82,6 +84,11 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                         saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                         lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
+                        //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
+                        //extrae la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL FACTURADA POR:");
+                        lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
 
                         break;
                 
@@ -92,6 +99,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
                         importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -100,6 +109,11 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                         saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                         lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
+                        //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
+                        //extrae la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL FACTURADA POR:");
+                        lProductor.setText(factura.mostrarNombreProductorFacturaC(codigoComprobanteConsultado));
 
                         break;
                 
@@ -110,6 +124,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = presupuesto.mostrarPrecioUnitarioPresupuesto(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
                         importeAbonado = presupuesto.mostrarImportePagoPresupuesto(codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -118,18 +134,31 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                         saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                         lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
+                        //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
+                        //extrae la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL PRESUPUETADA POR:");
+                        lProductor.setText(presupuesto.mostrarNombreProductorPresupuesto(codigoComprobanteConsultado));
+
 
                         break;
                 
                     case "CONSIGNACION":
                        
-                        lImporteComprobante.setText("-");
-                        lPrecioUnitario.setText("-");
+                        lImporteComprobante.setText("$ 0.00");
+                        lPrecioUnitario.setText("$ 0.00");
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lImporteAbonado.setText("-");
-                        lSaldoComprobante.setText("-");
-                        lImporteKgs.setText("");
-                        lSaldoKgs.setText("");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lImporteAbonado.setText("$ 0.00");
+                        lSaldoComprobante.setText("$ 0.00");
+                        lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                        lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                        //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
+                        //extrae la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL CONSIGNADA POR:");
+                        lProductor.setText(credito.mostrarNombreProductorCredito(codigoComprobanteConsultado));
 
                         break;
                         
@@ -143,13 +172,16 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 
                 //solo ingresos
                 
-                lImporteComprobante.setText("-");
-                lPrecioUnitario.setText("-");
+                lImporteComprobante.setText("$ 0.00");
+                lPrecioUnitario.setText("$ 0.00");
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lImporteAbonado.setText("-");
-                lSaldoComprobante.setText("-");
-                lImporteKgs.setText("");
-                lSaldoKgs.setText("");
+                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lImporteAbonado.setText("$ 0.00");
+                lSaldoComprobante.setText("$ 0.00");
+                lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                lProductorImplicado.setVisible(false);
 
                 break;
                 
@@ -157,14 +189,18 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 
                 //solo traslados destino
                 
-                lImporteComprobante.setText("-");
-                lPrecioUnitario.setText("-");
+                lImporteComprobante.setText("$ 0.00");
+                lPrecioUnitario.setText("$ 0.00");
                 System.out.println(cantidadMielAfectada);
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lImporteAbonado.setText("-");
-                lSaldoComprobante.setText("-");
-                lImporteKgs.setText("");
-                lSaldoKgs.setText("");
+                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lImporteAbonado.setText("$ 0.00");
+                lSaldoComprobante.setText("$ 0.00");
+                lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                //deberia mostrar los nombres de las locaciones origen y destino???
+                lProductorImplicado.setVisible(false);
 
                 break;
                 
@@ -181,6 +217,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 precioUnitarioFacturado = facturaCliente.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                 lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
                 importeAbonado = facturaCliente.mostrarImportePagoFactura(codigoComprobanteConsultado);
                 lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                 saldoComprobante = importeComprobante - importeAbonado;
@@ -189,6 +227,11 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                 saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                 lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
+                lProductorImplicado.setVisible(true);
+                //falta traer el nombre del cliente implicado en la venta
+                lProductorImplicado.setVisible(true);
+                lProductorImplicado.setText("MIEL VENDIDA A:");
+                lProductor.setText(facturaCliente.mostrarNombreClienteFactura(codigoComprobanteConsultado));
 
                 break;
                 
@@ -196,13 +239,17 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 
                 //solo traslados origen
                 
-                lImporteComprobante.setText("-");
-                lPrecioUnitario.setText("-");
+                lImporteComprobante.setText("$ 0.00");
+                lPrecioUnitario.setText("$ 0.00");
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lImporteAbonado.setText("-");
-                lSaldoComprobante.setText("-");
-                lImporteKgs.setText("");
-                lSaldoKgs.setText("");
+                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lImporteAbonado.setText("$ 0.00");
+                lSaldoComprobante.setText("$ 0.00");
+                lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                //deberia mostrar los nombres de las locaciones origen y destino???
+                lProductorImplicado.setVisible(false);
 
                 break;
                 
@@ -219,10 +266,16 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lImporteAbonado.setText("-");
-                        lSaldoComprobante.setText("-");
-                        lImporteKgs.setText("");
-                        lSaldoKgs.setText("");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lImporteAbonado.setText("$ 0.00");
+                        lSaldoComprobante.setText("$ 0.00");
+                        lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                        lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                        //falta traer el nombre del productor implicado en la devolucion de la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL DEVUELTA A:");
+                        lProductor.setText(notaCredito.mostrarNombreProductorNotaCredito(codigoComprobanteConsultado));
 
                         break;
                 
@@ -233,22 +286,34 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lImporteAbonado.setText("-");
-                        lSaldoComprobante.setText("-");
-                        lImporteKgs.setText("");
-                        lSaldoKgs.setText("");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lImporteAbonado.setText("$ 0.00");
+                        lSaldoComprobante.setText("$ 0.00");
+                        lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                        lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                        //falta traer el nombre del productor implicado en la devolucion de la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL DEVUELTA A:");
+                        lProductor.setText(notaCredito.mostrarNombreProductorNotaCredito(codigoComprobanteConsultado));
 
                         break;
                 
                     case "DEVOLUCION":
                 
-                        lImporteComprobante.setText("-");
-                        lPrecioUnitario.setText("-");
+                        lImporteComprobante.setText("$ 0.00");
+                        lPrecioUnitario.setText("$ 0.00");
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lImporteAbonado.setText("-");
-                        lSaldoComprobante.setText("-");
-                        lImporteKgs.setText("");
-                        lSaldoKgs.setText("");
+                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
+                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lImporteAbonado.setText("$ 0.00");
+                        lSaldoComprobante.setText("$ 0.00");
+                        lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
+                        lSaldoKgs.setText("EQUIVALENTE A 0.00 KGS.");
+                        //falta traer el nombre del productor implicado en la devolucion de la miel
+                        lProductorImplicado.setVisible(true);
+                        lProductorImplicado.setText("MIEL DEVUELTA A:");
+                        lProductor.setText(devolucion.mostrarNombreProductorDevolucion(codigoComprobanteConsultado));
 
                         break;
                 
@@ -263,31 +328,6 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
             
         }
         
-        
-        
-        /*Double importeComprobante = 0.00;
-        Double precioUnitarioFacturado = 0.00;
-        Double importeAbonado = 0.00;
-        Double importeAbonadoEnKgs = 0.00;
-        Double saldoComprobante = 0.00;
-        Double saldoComprobanteEnKgs = 0.00;
-        FacturaProductor factura = new FacturaProductor();
-
-        //desde aca tendria que ir en el inicializar del form detalle de movimiento de stock
-        importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-        lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-        precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-        lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-        lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-        importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-        lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-        saldoComprobante = importeComprobante - importeAbonado;
-        lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-        importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-        lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-        saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-        lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");*/
-
     }
 
 
@@ -326,6 +366,13 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         lPrecioUnitario = new javax.swing.JLabel();
         lSaldoKgs = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        lProductorImplicado = new javax.swing.JLabel();
+        lProductor = new javax.swing.JLabel();
+        lTambores = new javax.swing.JLabel();
+        lLotes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DETALLE DE MOVIMIENTO DE STOCK - CAM HONEY BROTHERS");
@@ -391,48 +438,70 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
         lFechaMovimiento.setForeground(new java.awt.Color(255, 255, 255));
         lFechaMovimiento.setText("-");
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 204));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("IMPORTE DEL COMPROBANTE:");
+        jLabel7.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel7.setText("IMPORTE TOTAL:");
 
+        lImporteComprobante.setBackground(new java.awt.Color(255, 255, 204));
         lImporteComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteComprobante.setForeground(new java.awt.Color(255, 255, 255));
+        lImporteComprobante.setForeground(new java.awt.Color(255, 102, 102));
         lImporteComprobante.setText("-");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(255, 102, 102));
         jLabel9.setText("IMPORTE ABONADO:");
 
         lImporteAbonado.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteAbonado.setForeground(new java.awt.Color(255, 255, 255));
+        lImporteAbonado.setForeground(new java.awt.Color(255, 102, 102));
         lImporteAbonado.setText("-");
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel10.setForeground(new java.awt.Color(255, 102, 102));
         jLabel10.setText("SALDO DEL COMPROBANTE:");
 
         lSaldoComprobante.setBackground(new java.awt.Color(255, 255, 255));
         lSaldoComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lSaldoComprobante.setForeground(new java.awt.Color(255, 153, 153));
+        lSaldoComprobante.setForeground(new java.awt.Color(255, 102, 102));
         lSaldoComprobante.setText("-");
 
         lImporteKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteKgs.setForeground(new java.awt.Color(255, 255, 255));
+        lImporteKgs.setForeground(new java.awt.Color(255, 102, 102));
         lImporteKgs.setText("-");
 
+        jLabel11.setBackground(new java.awt.Color(255, 255, 204));
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("PRECIO UNITARIO:");
+        jLabel11.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel11.setText("PRECIO KG.:");
 
+        lPrecioUnitario.setBackground(new java.awt.Color(255, 255, 204));
         lPrecioUnitario.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lPrecioUnitario.setForeground(new java.awt.Color(255, 255, 255));
+        lPrecioUnitario.setForeground(new java.awt.Color(255, 102, 102));
         lPrecioUnitario.setText("-");
 
         lSaldoKgs.setBackground(new java.awt.Color(255, 255, 255));
         lSaldoKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lSaldoKgs.setForeground(new java.awt.Color(255, 153, 153));
+        lSaldoKgs.setForeground(new java.awt.Color(255, 102, 102));
         lSaldoKgs.setText("-");
+
+        lProductorImplicado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lProductorImplicado.setForeground(new java.awt.Color(255, 255, 255));
+        lProductorImplicado.setText("productorImplicado");
+
+        lProductor.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lProductor.setForeground(new java.awt.Color(255, 255, 255));
+        lProductor.setText("-");
+
+        lTambores.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lTambores.setForeground(new java.awt.Color(255, 255, 204));
+        lTambores.setText("-");
+        lTambores.setToolTipText("");
+
+        lLotes.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lLotes.setForeground(new java.awt.Color(255, 255, 204));
+        lLotes.setText("-");
+        lLotes.setToolTipText("");
 
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
@@ -442,43 +511,42 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
+                        .addComponent(jSeparator5)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(35, 35, 35))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lImporteAbonado)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lImporteKgs))
-                                    .addComponent(jLabel10))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lSaldoComprobante)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lSaldoKgs))
+                                .addComponent(lKgsMiel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lTambores)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lLotes))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lNumeroComprobante))
+                                .addComponent(lImporteAbonado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lImporteKgs))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lPrecioUnitario))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(lPrecioUnitario)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lKgsMiel)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lImporteComprobante))
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lSaldoComprobante)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lSaldoKgs)))
+                        .addGap(410, 410, Short.MAX_VALUE))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
@@ -486,27 +554,44 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lTipoMovimiento))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lComprobanteAsociado))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(ll)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lFechaMovimiento))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lImporteComprobante)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(lComprobanteAsociado)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lNumeroComprobante))
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addComponent(lProductorImplicado)
+                                .addGap(18, 18, 18)
+                                .addComponent(lProductor)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jSeparator4)
+                        .addContainerGap())
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addContainerGap())))
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addGap(227, 227, 227)
+                .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         rSPanelShadow2Layout.setVerticalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ll)
                     .addComponent(lFechaMovimiento))
@@ -517,38 +602,49 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(lComprobanteAsociado))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lComprobanteAsociado)
                     .addComponent(jLabel6)
                     .addComponent(lNumeroComprobante))
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lKgsMiel)
-                    .addComponent(jLabel8))
-                .addGap(19, 19, 19)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lPrecioUnitario))
+                    .addComponent(jLabel8)
+                    .addComponent(lTambores)
+                    .addComponent(lLotes))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(lPrecioUnitario)
                     .addComponent(jLabel7)
                     .addComponent(lImporteComprobante))
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lImporteAbonado)
-                        .addComponent(lImporteKgs)))
+                    .addComponent(lImporteAbonado)
+                    .addComponent(lImporteKgs))
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lSaldoComprobante)
+                    .addComponent(lSaldoKgs)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10)
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lSaldoComprobante)
-                        .addComponent(lSaldoKgs)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                    .addComponent(lProductorImplicado)
+                    .addComponent(lProductor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                    .addGap(49, 49, 49)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(451, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -596,16 +692,23 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     public javax.swing.JLabel lComprobanteAsociado;
     public javax.swing.JLabel lFechaMovimiento;
     public javax.swing.JLabel lImporteAbonado;
     public javax.swing.JLabel lImporteComprobante;
     public javax.swing.JLabel lImporteKgs;
     public javax.swing.JLabel lKgsMiel;
+    public javax.swing.JLabel lLotes;
     public javax.swing.JLabel lNumeroComprobante;
     public javax.swing.JLabel lPrecioUnitario;
+    public javax.swing.JLabel lProductor;
+    private javax.swing.JLabel lProductorImplicado;
     public static javax.swing.JLabel lSaldoComprobante;
     public javax.swing.JLabel lSaldoKgs;
+    public javax.swing.JLabel lTambores;
     public javax.swing.JLabel lTipoMovimiento;
     private javax.swing.JLabel ll;
     private rojeru_san.RSPanelShadow rSPanelShadow1;

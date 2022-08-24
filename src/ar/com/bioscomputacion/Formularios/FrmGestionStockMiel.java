@@ -54,11 +54,14 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         calcularTotalStockGlobal();
         calcularTotalStockGlobalPago();
         calcularTotalStockGlobalCredito();
+        ocultarColumnasDetalleLocaciones();
         //calcularTotalStockEmbarque();
         //calcularTotalStockExportacion!!!
-        ocultarColumnasDetalleLocaciones();
         //actualiza informacion en la pestaña 1
         mostrarDetalleStockProductores();
+        calcularTotalStockEnProductores();
+        calcularTotalStockPagoEnProductores();
+        calcularTotalStockCreditoEnProductores();
         ocultarColumnasDetalleProductores();
         inicializar();
         
@@ -242,6 +245,72 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     
     }
     
+    public void calcularTotalStockEnProductores(){
+        
+        try {
+            
+            Double totalStockProductores = 0.00;
+            
+            StockRealMiel stock = new StockRealMiel();
+            //en el onjeto jtabla "modelo" almaceno la tabla resultado de la funcion mostrarClientes del objeto "funcion" del tipo Fcliente
+            totalStockProductores = stock.calcularTotalStockEnProductores();
+            //en el objeto tProveedores del tipo jTtable almaceno el objeto del mismo tipo llamado "modelo"
+            lStockMielEnProductores.setText(String.valueOf(totalStockProductores));
+            
+        }
+
+        catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
+    }
+
+    public void calcularTotalStockPagoEnProductores(){
+        
+        try {
+            
+            Double totalStockPagoProductores = 0.00;
+            
+            StockRealMiel stock = new StockRealMiel();
+            //en el onjeto jtabla "modelo" almaceno la tabla resultado de la funcion mostrarClientes del objeto "funcion" del tipo Fcliente
+            totalStockPagoProductores = stock.calcularTotalStockPagoEnProductores();
+            //en el objeto tProveedores del tipo jTtable almaceno el objeto del mismo tipo llamado "modelo"
+            lStockMielPagoEnProductores.setText(String.valueOf(totalStockPagoProductores));
+            
+        }
+
+        catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
+    }
+    
+    public void calcularTotalStockCreditoEnProductores(){
+        
+        try {
+            
+            Double totalStockCreditoProductores = 0.00;
+            
+            StockRealMiel stock = new StockRealMiel();
+            //en el onjeto jtabla "modelo" almaceno la tabla resultado de la funcion mostrarClientes del objeto "funcion" del tipo Fcliente
+            totalStockCreditoProductores = stock.calcularTotalStockCreditoEnProductores();
+            //en el objeto tProveedores del tipo jTtable almaceno el objeto del mismo tipo llamado "modelo"
+            lStockMielCreditoEnProductores.setText(String.valueOf(totalStockCreditoProductores));
+            
+        }
+
+        catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
+    }
+    
     public void calcularTotalStockEmbarque(){
         
         try {
@@ -309,45 +378,48 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     
     public void ocultarColumnasDetalleProductores() {
 
-        /*tDetalleStock1.getColumnModel().getColumn(0).setMaxWidth(0);
-        tDetalleStock1().getColumn(0).setMinWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(0).setPreferredWidth(0);*/
+        /*tDetalleStockProductor.getColumnModel().getColumn(0).setMaxWidth(0);
+        tDetalleStockProductor().getColumn(0).setMinWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(0).setPreferredWidth(0);*/
 
-        /*tDetalleStock1.getColumnModel().getColumn(1).setMaxWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(1).setMinWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(1).setPreferredWidth(0);*/
+        /*tDetalleStockProductor.getColumnModel().getColumn(1).setMaxWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(1).setMinWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(1).setPreferredWidth(0);*/
 
-        /*v.getColumnModel().getColumn(2).setMaxWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(2).setMinWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(2).setPreferredWidth(0);*/
+        /*tDetalleStockProductor().getColumn(2).setMaxWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(2).setMinWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(2).setPreferredWidth(0);*/
 
         
-        /*tDetalleStock1.getColumnModel().getColumn(3).setMaxWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(3).setMinWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(3).setPreferredWidth(0);*/
+        /*tDetalleStockProductor.getColumnModel().getColumn(3).setMaxWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(3).setMinWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(3).setPreferredWidth(0);*/
         
-        /*tDetalleStock1.getColumnModel().getColumn(4).setMaxWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(4).setMinWidth(0);
-        tDetalleStock1.getColumnModel().getColumn(4).setPreferredWidth(0);*/
+        /*tDetalleStockProductor.getColumnModel().getColumn(4).setMaxWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(4).setMinWidth(0);
+        tDetalleStockProductor.getColumnModel().getColumn(4).setPreferredWidth(0);*/
         
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender4 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender5 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender6 = new DefaultTableCellRenderer();
         
         cellRender1.setHorizontalAlignment(SwingConstants.CENTER);
-        tDetalleStockLocacion.getColumnModel().getColumn(0).setCellRenderer(cellRender1);   
+        tDetalleStockProductor.getColumnModel().getColumn(0).setCellRenderer(cellRender1);   
         cellRender2.setHorizontalAlignment(SwingConstants.LEFT);
-        tDetalleStockLocacion.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
-        cellRender3.setHorizontalAlignment(SwingConstants.RIGHT);
-        tDetalleStockLocacion.getColumnModel().getColumn(2).setCellRenderer(cellRender3);   
+        tDetalleStockProductor.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
+        cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
+        tDetalleStockProductor.getColumnModel().getColumn(2).setCellRenderer(cellRender3);   
         cellRender4.setHorizontalAlignment(SwingConstants.RIGHT);
-        tDetalleStockLocacion.getColumnModel().getColumn(3).setCellRenderer(cellRender4);   
+        tDetalleStockProductor.getColumnModel().getColumn(3).setCellRenderer(cellRender4);   
         cellRender5.setHorizontalAlignment(SwingConstants.RIGHT);
-        tDetalleStockLocacion.getColumnModel().getColumn(4).setCellRenderer(cellRender5);
+        tDetalleStockProductor.getColumnModel().getColumn(4).setCellRenderer(cellRender5);
+        cellRender6.setHorizontalAlignment(SwingConstants.RIGHT);
+        tDetalleStockProductor.getColumnModel().getColumn(5).setCellRenderer(cellRender6);
         
-        ((DefaultTableCellRenderer) tDetalleStockLocacion.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        ((DefaultTableCellRenderer) tDetalleStockProductor.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
     
 
@@ -510,11 +582,11 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         rsbrActualizar1 = new rojeru_san.RSButtonRiple();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel36 = new javax.swing.JLabel();
-        lStockMielGlobal1 = new javax.swing.JLabel();
+        lStockMielEnProductores = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
-        lStockMielGlobalPago1 = new javax.swing.JLabel();
+        lStockMielPagoEnProductores = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        lStockMielGlobalCredito1 = new javax.swing.JLabel();
+        lStockMielCreditoEnProductores = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -895,10 +967,10 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("STOCK DE LA EMPRESA ACOPIADO EN DEPOSITOS DE PRODUCTORES:");
 
-        lStockMielGlobal1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobal1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lStockMielGlobal1.setForeground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobal1.setText("0.00");
+        lStockMielEnProductores.setBackground(new java.awt.Color(255, 255, 255));
+        lStockMielEnProductores.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lStockMielEnProductores.setForeground(new java.awt.Color(255, 255, 255));
+        lStockMielEnProductores.setText("0.00");
 
         jLabel37.setBackground(new java.awt.Color(255, 255, 255));
         jLabel37.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
@@ -906,20 +978,20 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel37.setText("PAGO:");
         jLabel37.setToolTipText("");
 
-        lStockMielGlobalPago1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobalPago1.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielGlobalPago1.setForeground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobalPago1.setText("0.00");
+        lStockMielPagoEnProductores.setBackground(new java.awt.Color(255, 255, 255));
+        lStockMielPagoEnProductores.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
+        lStockMielPagoEnProductores.setForeground(new java.awt.Color(255, 255, 255));
+        lStockMielPagoEnProductores.setText("0.00");
 
         jLabel38.setBackground(new java.awt.Color(255, 255, 255));
         jLabel38.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
         jLabel38.setText("EN CONSIGNACION:");
 
-        lStockMielGlobalCredito1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobalCredito1.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielGlobalCredito1.setForeground(new java.awt.Color(255, 255, 255));
-        lStockMielGlobalCredito1.setText("0.00");
+        lStockMielCreditoEnProductores.setBackground(new java.awt.Color(255, 255, 255));
+        lStockMielCreditoEnProductores.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
+        lStockMielCreditoEnProductores.setForeground(new java.awt.Color(255, 255, 255));
+        lStockMielCreditoEnProductores.setText("0.00");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -940,15 +1012,15 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel36)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielGlobal1))
+                                .addComponent(lStockMielEnProductores))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel38)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielGlobalCredito1))
+                                .addComponent(lStockMielCreditoEnProductores))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel37)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielGlobalPago1)))
+                                .addComponent(lStockMielPagoEnProductores)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -968,15 +1040,15 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
-                    .addComponent(lStockMielGlobal1))
+                    .addComponent(lStockMielEnProductores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel37)
-                    .addComponent(lStockMielGlobalPago1))
+                    .addComponent(lStockMielPagoEnProductores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
-                    .addComponent(lStockMielGlobalCredito1))
+                    .addComponent(lStockMielCreditoEnProductores))
                 .addContainerGap())
         );
 
@@ -1255,6 +1327,9 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         ocultarColumnasDetalleLocaciones();
         //actualiza informacion en la pestaña 1
         mostrarDetalleStockProductores();
+        calcularTotalStockEnProductores();
+        calcularTotalStockGlobalPago();
+        calcularTotalStockGlobalCredito();
         ocultarColumnasDetalleProductores();
         
     }//GEN-LAST:event_rsbrActualizarActionPerformed
@@ -1273,6 +1348,9 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         ocultarColumnasDetalleLocaciones();
         //actualiza informacion en la pestaña 1
         mostrarDetalleStockProductores();
+        calcularTotalStockEnProductores();
+        calcularTotalStockGlobalPago();
+        calcularTotalStockGlobalCredito();
         ocultarColumnasDetalleProductores();
         
     }//GEN-LAST:event_rsbrActualizar1ActionPerformed
@@ -1297,6 +1375,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
             form.lNumeroComprobante.setText(tDetalleMovimientosStock.getValueAt(fila2, 4).toString());
             form.codigoComprobanteConsultado = Integer.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 3).toString());
             form.cantidadMielAfectada = Double.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 5).toString());
+            
             //form.codigolocacionDeposito = Integer.valueOf(tDetalleMovimientosStock.getValueAt(fila2, 6).toString());
             
             form.inicializar();
@@ -1357,18 +1436,18 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lStockImpagoLocacion;
+    private javax.swing.JLabel lStockMielCreditoEnProductores;
     private javax.swing.JLabel lStockMielEmbarcado;
     private javax.swing.JLabel lStockMielEmbarcado1;
     private javax.swing.JLabel lStockMielEmbarcadoImpago;
     private javax.swing.JLabel lStockMielEmbarcadoImpago1;
     private javax.swing.JLabel lStockMielEmbarcadoPago;
     private javax.swing.JLabel lStockMielEmbarcadoPago1;
+    private javax.swing.JLabel lStockMielEnProductores;
     private javax.swing.JLabel lStockMielGlobal;
-    private javax.swing.JLabel lStockMielGlobal1;
     private javax.swing.JLabel lStockMielGlobalCredito;
-    private javax.swing.JLabel lStockMielGlobalCredito1;
     private javax.swing.JLabel lStockMielGlobalPago;
-    private javax.swing.JLabel lStockMielGlobalPago1;
+    private javax.swing.JLabel lStockMielPagoEnProductores;
     private javax.swing.JLabel lStockPagoLocacion;
     private javax.swing.JLabel lStockTotalLocacion;
     private rojeru_san.RSPanelShadow rSPanelShadow1;

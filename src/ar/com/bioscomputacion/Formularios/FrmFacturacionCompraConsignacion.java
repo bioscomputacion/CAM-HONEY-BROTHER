@@ -61,7 +61,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
     //y cuanta miel se facturara en realidad (quedando un saldo de miel sin facturar el cual debe ser devuelto al productor
     //o mantenido en stock siendo siguiendo con su estado de miel impaga)
     //public static Double totalMielFinanciadaCompra, totalMielDescontadaCompra, totalMielFinanciada, totalMielFacturada;
-    public static Double totalMielFinanciadaCompra, totalMielMantenidaEnConsignacion, totalMielYaDescontadaCompra, totalMielFacturada, importeComprobante;
+    public static Double totalMielFinanciadaCompra, totalMielMantenidaEnConsignacion, totalMielYaDescontadaCompra, totalMielAFacturar, importeComprobante;
 
     public static int codigoFactura, codigoPresupuesto, codigoItemFacturado, codigoItemPresupuestado, codigoMovimientoCtaCte, codigoLocacion; 
     
@@ -115,8 +115,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
 
-        //inicializo el campo cantidad de kilos a facturar con lo que queda sin facturar aun de la compra
-        
+        //inicializo la variable cantidad de kilos a facturarse con lo que queda sin facturar aun de la compra
         if (totalMielMantenidaEnConsignacion != null){
             
             tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
@@ -143,26 +142,20 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         tpCompraConsignacion.setSelectedIndex(0);
         
-        //esto deberia no hacerlooO!!!! ver como puedo dejar de hacer esto
+        //por si la facturacion se realiza mediante el comprobante PRESUPUESTO
         PresupuestoProductor presupuestoProductor = new PresupuestoProductor();
         //almaceno en la variable global codigoPresupuesto el codigo del nuevo presupuesto (en caso de facturarse
         //la consignacion usando presupuestos)
         codigoPresupuesto = presupuestoProductor.mostrarIdPresupuestoProductor()+1;
         
         //inicializo variable que almacena la cantidad de miel facturada en el comprobante que se va a registrar
-        totalMielFacturada = totalMielMantenidaEnConsignacion;
+        totalMielAFacturar = totalMielMantenidaEnConsignacion;
         importeComprobante = 0.00;
         
         //inicializo el contador del total de miel que no se facturara de la compra a consignacion que se esta facturando
         //el mismo empieza con la cantidad de miel sin facturar en la compra en consignacion
         //???????????????????????
         //totalMielMantenidaEnConsignacion = totalMielYaDescontadaCompra;
-        
-        //carga del combo de las locaciones disponibles y almacena en la lista las mismas, con codigo y nombre
-        //para tener acceso facilmente al codigo de la locacion, segun el nombre seleccionado en el combo
-        //para eso, vamos a usar la lista "locaciones", que es un arreglo de objetos del tipo locacion
-        
-        tfCantidadKilos.requestFocus();
         
         //tengo que obtener la locacion donde se encuentra la miel que se va a devolver
         //ademas: es necesario realizar una distincion entre la miel depositada en una locacion
@@ -171,6 +164,8 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //detallada en el mismo
         StockRealMiel stock = new StockRealMiel();
         codigoLocacion = stock.obtenerLocacionMielADevolverOFacturar(codigoCompra);
+        
+        tfCantidadKilos.requestFocus();
         
     }
 
@@ -693,8 +688,8 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //c) fechas de la factura y vencimiento de pago de la misma
         //d) importe total del comprobante
         
-        totalMielMantenidaEnConsignacion = totalMielMantenidaEnConsignacion - totalMielFacturada;
-        System.out.println(totalMielFacturada);
+        totalMielMantenidaEnConsignacion = totalMielMantenidaEnConsignacion - totalMielAFacturar;
+        System.out.println(totalMielAFacturar);
         System.out.println(totalMielMantenidaEnConsignacion);
         
         Boolean informacionFactura = (cbTipoComprobante.getSelectedItem() == "SELECCIONAR" || tfNumeroComprobante.getText().length() == 0 || importeComprobante == 0.00);
@@ -750,7 +745,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 System.out.println("factura a");
                 //se escogio como tipo de comprobante la "FACTURA A"
                 //se registra la factura
-                FacturaProductor facturaA = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielFacturada);
+                FacturaProductor facturaA = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
                 if (facturaA.registrarFacturaProductor(facturaA)){
 
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
@@ -765,7 +760,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 System.out.println("factura c");
                 //se escogio como tipo de comprobante la "FACTURA B"
                 //se registra la factura
-                FacturaProductor facturaB = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielFacturada);
+                FacturaProductor facturaB = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
                 if (facturaB.registrarFacturaProductor(facturaB)){
                     
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
@@ -780,7 +775,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 System.out.println("presupuesto");
                 //se escogio como tipo de comprobante el "PRESUPUESTO"
                 //se registra el presupuesto
-                PresupuestoProductor presupuesto = new PresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielFacturada);
+                PresupuestoProductor presupuesto = new PresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
                 if (presupuesto.registrarPresupuestoProductor(presupuesto)){
                     
                     //obtengo codigo de presupuesto para utilizarlo en el almacenamiento de las relaciones
@@ -802,7 +797,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         comprobanteRelacionado.setCodigoCompra(codigoCompra);
         comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoFactura);
         comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
-        comprobanteRelacionado.setCantidadMielAfectada(totalMielFacturada);
+        comprobanteRelacionado.setCantidadMielAfectada(totalMielAFacturar);
         comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
 
         //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. de la empresa con el productor
@@ -812,7 +807,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         ctacteProductor.setDescripcionMovimiento(tipoComprobante);
         ctacteProductor.setComprobanteAsociado(codigoFactura);
         ctacteProductor.setNumeroComprobante(numeroComprobante);
-        ctacteProductor.setCantidadMiel(totalMielFacturada);
+        ctacteProductor.setCantidadMiel(totalMielAFacturar);
         ctacteProductor.setDebe(importeComprobante);
         ctacteProductor.setHaber(0.00);
         ctacteProductor.setSaldo(importeComprobante);
@@ -829,13 +824,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         if (totalMielMantenidaEnConsignacion != 0.00){
             
             //significa que no se facturo toda la miel comprada en consignacion
-            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielFacturada+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             
         }
         else{
 
             //Significa que se facturo toda la miel comprada en consignacion, se debe CANCELAR la compra en consignacion
-            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielFacturada+" kgs. de miel. La compra en consignacion ha sido cancelada.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. La compra en consignacion ha sido cancelada.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             
             //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
             //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
@@ -858,7 +853,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         stockMiel.setId_comprobante_asociado(codigoFactura);
         
         stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-        stockMiel.setCantidad_miel(totalMielFacturada);
+        stockMiel.setCantidad_miel(totalMielAFacturar);
         //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
         //no se almacenara nada!
         //debo obtener el codigo de la locacion a partir del nombre de la misma
@@ -968,6 +963,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         Double kilosAFacturar = 0.00;
         Double kilosDisponibles = totalMielMantenidaEnConsignacion;
         
+        //la cantidad de kilos ingresada para ser facturada es correcta
         if (tfCantidadKilos.getText().length() != 0){
 
             kilosAFacturar = Double.parseDouble(tfCantidadKilos.getText().toString());
@@ -977,9 +973,9 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //no se debe permitir facturar mas kilos de los financiados en la compra en consignacion
         if (kilosAFacturar > kilosDisponibles){
             
-            JOptionPane.showMessageDialog(null, "LA CANTIDAD INGRESADA ES MAYOR A LA CANTIDAD DISPONIBLE","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La cantidad de miel ingrersada para facturar es mayor a la cantidad de miel disponible.","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
             tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
-            totalMielFacturada = 0.00;
+            totalMielAFacturar = 0.00;
             
         }
         else{
@@ -987,7 +983,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             //no se debe permitir facturar cero kilos
             if (kilosAFacturar == 0){
 
-                JOptionPane.showMessageDialog(null, "CANTIDAD INGRESADA INCORRECTA","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
                 tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
                 Double kilos = Double.parseDouble(tfCantidadKilos.getText());
                 Double tambores = kilos / 300;
@@ -999,7 +995,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 tfSubTotal.setText(" $ "+String.valueOf(Math.round(importeFactura*100.0)/100.0));
                 tfImporteTotalFactura.setText(" $ "+String.valueOf(Math.round(importeFactura*100.0)/100.0));
                 importeComprobante = importeFactura;
-                totalMielFacturada = 0.00;
+                totalMielAFacturar = 0.00;
 
             }
             //se ha ingresado una cantidad correcta, mayor a 0, igual o menor a la cantidad disponible para facturar
@@ -1017,7 +1013,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 //voy guardando aca el importe final de la factura
                 importeComprobante = importeFactura;
                 //voy guardando aca lo que se ingresa como cantidad a facturar
-                totalMielFacturada = kilos;
+                totalMielAFacturar = kilos;
                 //esto no habria que tocarlo???
                 //totalMielMantenidaEnConsignacion = totalMielFinanciadaCompra - totalMielFacturada;
 

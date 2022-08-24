@@ -400,7 +400,7 @@ public class FacturaProductor {
     
     }
     
-    public String mostrarNombreProductorFactura(int codigoFactura) {
+    public String mostrarNombreProductorFacturaA(int codigoFactura) {
         
         String nombreProductor = "";
 
@@ -411,7 +411,40 @@ public class FacturaProductor {
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
             //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
-            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoFactura + "' and descripcion_movimiento = 'FACTURA A' or 'FACTURA C'");
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoFactura + "' and descripcion_movimiento = 'FACTURA A'");
+
+            while (rs.next()){
+            
+                nombreProductor = rs.getString("nombre");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreProductor;
+            
+        }
+        
+        return nombreProductor;
+    
+    }
+    
+    public String mostrarNombreProductorFacturaC(int codigoFactura) {
+        
+        String nombreProductor = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoFactura + "' and descripcion_movimiento = 'FACTURA C'");
 
             while (rs.next()){
             
