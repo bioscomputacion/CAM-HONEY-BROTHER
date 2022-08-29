@@ -6,6 +6,7 @@
 package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.Cliente;
+import ar.com.bioscomputacion.Funciones.CompensacionStock;
 import ar.com.bioscomputacion.Funciones.ComprobantesRelacionadosCompraConsignacion;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
@@ -63,7 +64,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
     //public static Double totalMielFinanciadaCompra, totalMielDescontadaCompra, totalMielFinanciada, totalMielFacturada;
     public static Double totalMielFinanciadaCompra, totalMielMantenidaEnConsignacion, totalMielYaDescontadaCompra, totalMielAFacturar, importeComprobante;
 
-    public static int codigoFactura, codigoPresupuesto, codigoItemFacturado, codigoItemPresupuestado, codigoMovimientoCtaCte, codigoLocacion; 
+    public static int codigoComprobante, codigoPresupuesto, codigoItemFacturado, codigoItemPresupuestado, codigoMovimientoCtaCte, codigoLocacion; 
     
     //comprobantes relacionados a la compra en consignacion (facturas, presupuestos y devoluciones)
     public static List<ComprobantesRelacionadosCompraConsignacion> comprobantesRelacionados = new ArrayList<>();
@@ -152,11 +153,6 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         totalMielAFacturar = totalMielMantenidaEnConsignacion;
         importeComprobante = 0.00;
         
-        //inicializo el contador del total de miel que no se facturara de la compra a consignacion que se esta facturando
-        //el mismo empieza con la cantidad de miel sin facturar en la compra en consignacion
-        //???????????????????????
-        //totalMielMantenidaEnConsignacion = totalMielYaDescontadaCompra;
-        
         //tengo que obtener la locacion donde se encuentra la miel que se va a devolver
         //ademas: es necesario realizar una distincion entre la miel depositada en una locacion
         //y la miel depositada en una locacion de productor
@@ -166,6 +162,11 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         codigoLocacion = stock.obtenerLocacionMielADevolverOFacturar(codigoCompra);
         
         tfCantidadKilos.requestFocus();
+        
+        //System.out.println(codigoProductor);
+        //System.out.println(totalMielFinanciadaCompra);
+        //System.out.println(totalMielYaDescontadaCompra);
+        //System.out.println(totalMielMantenidaEnConsignacion);
         
     }
 
@@ -717,18 +718,17 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         m2 = cal2.get(Calendar.MONTH);
         a2 = cal2.get(Calendar.YEAR) - 1900;
         
-        //tengo que obtener la cantidad que se factura tambien
-
         //OBTENGO: que tipo de comprobante se escogio para la facturacion de la compra en consignacion
         //el numero de comprobante del mismo
         //y el importe de facturacion total del mismo
+        //el total de la factura se auto calcula al ingresar la cantidad de kgs. a facturar
         String tipoComprobante = String.valueOf(cbTipoComprobante.getSelectedItem());
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
 
-        //Se procede al registro del comprobante correspondiente a la facturacion de la compra a consignacion
+        //1) 
+        //a) Se procede al registro del comprobante correspondiente a la facturacion de la compra a consignacion
         //que puede ser: factura a, factura c o presupuesto
-        
-        //Se obtiene el numero de movimiento que tendra el comprobante de facturacion en la cuenta corriente con el productor
+        //b) Se obtiene el numero de movimiento que tendra el comprobante de facturacion en la cuenta corriente con el productor
         //ademas en la variable codigoMovimientoCtaCteCompra ya tenemos almacenado el numero de movimiento correspndiente
         //a la compra en consignacion, ya que a la misma se le debe editar el estado en algunos casos (pasandolo a CANCELADO)   
         CtaCteProductor ctacteProductor = new CtaCteProductor();
@@ -742,14 +742,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             
             case "FACTURA A":
 
-                System.out.println("factura a");
                 //se escogio como tipo de comprobante la "FACTURA A"
                 //se registra la factura
-                FacturaProductor facturaA = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
+                FacturaProductor facturaA = new FacturaProductor(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
                 if (facturaA.registrarFacturaProductor(facturaA)){
 
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoFactura = facturaA.mostrarIdFacturaProductor();
+                    codigoComprobante = facturaA.mostrarIdFacturaProductor();
 
                 }
                 
@@ -757,14 +756,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
             case "FACTURA C":
 
-                System.out.println("factura c");
-                //se escogio como tipo de comprobante la "FACTURA B"
+                //se escogio como tipo de comprobante la "FACTURA C"
                 //se registra la factura
-                FacturaProductor facturaB = new FacturaProductor(numeroComprobante, tipoComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
-                if (facturaB.registrarFacturaProductor(facturaB)){
+                FacturaProductor facturaC = new FacturaProductor(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
+                if (facturaC.registrarFacturaProductor(facturaC)){
                     
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoFactura = facturaB.mostrarIdFacturaProductor();
+                    codigoComprobante = facturaC.mostrarIdFacturaProductor();
 
                 }
                 
@@ -772,14 +770,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
             case "PRESUPUESTO":
                 
-                System.out.println("presupuesto");
                 //se escogio como tipo de comprobante el "PRESUPUESTO"
                 //se registra el presupuesto
                 PresupuestoProductor presupuesto = new PresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeComprobante, totalMielAFacturar);
                 if (presupuesto.registrarPresupuestoProductor(presupuesto)){
                     
                     //obtengo codigo de presupuesto para utilizarlo en el almacenamiento de las relaciones
-                    codigoFactura = presupuesto.mostrarIdPresupuestoProductor();
+                    codigoComprobante = presupuesto.mostrarIdPresupuestoProductor();
 
                 }
                 
@@ -791,21 +788,23 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         }
 
-        //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION (para saber que cantidad de kgs.
-        //se abonaron con este comprobante: factura a, b o presupuesto)
-        comprobanteRelacionado.setCodigoCompra(codigoProductor);
+        //2)
+        //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION
+        //(para saber que cantidad de kgs. se abonaron con este comprobante, ya sea: factura a, b o presupuesto
+        comprobanteRelacionado.setCodigoProductor(codigoProductor);
         comprobanteRelacionado.setCodigoCompra(codigoCompra);
-        comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoFactura);
+        comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoComprobante);
         comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
         comprobanteRelacionado.setCantidadMielAfectada(totalMielAFacturar);
         comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
 
+        //3)
         //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. de la empresa con el productor
         ctacteProductor.setCodigoProductor(codigoProductor);
         ctacteProductor.setCodigoMovimiento(codigoMovimientoCtaCte);
         ctacteProductor.setFechaMovimiento(new Date(a1, m1, d1));
         ctacteProductor.setDescripcionMovimiento(tipoComprobante);
-        ctacteProductor.setComprobanteAsociado(codigoFactura);
+        ctacteProductor.setComprobanteAsociado(codigoComprobante);
         ctacteProductor.setNumeroComprobante(numeroComprobante);
         ctacteProductor.setCantidadMiel(totalMielAFacturar);
         ctacteProductor.setDebe(importeComprobante);
@@ -825,7 +824,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             
             //significa que no se facturo toda la miel comprada en consignacion
             JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-            
+
         }
         else{
 
@@ -834,62 +833,166 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             
             //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
             //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
-            ctacteProductor.cancelarCompraConsignacion(codigoMovimientoCtaCteCompra, codigoProductor);
+            ctacteProductor.cancelarCompraConsignacionCtaCte(codigoMovimientoCtaCteCompra, codigoProductor);
 
         }
         
         //ULTIMO PASO A REALIZAR:
-        //El stock global de la empresa debe alterarse y reflejar el cambio realizado
-        //ya que ahora se cuenta con menos miel "impaga" y mas miel "paga" debido a la facturacion de la misma
-        //(las facturaciones de mil impaga restan el stock globlal de miel impaga de la empresa, y el stock de miel impaga
-        //de la locacion en la que se encuentre la miel devuelta), y suman la miel paga de la misma locacion
-        //SE DEBE RESTAR LA MISMA CANTIDAD DEL STOCK DE MIEL "IMPAGO", YA QUE LA MIEL
-        //EN CONSIGNACION FACTURADA YA NO ES PARTE DEL STOCK DE MIEL "IMPAGO" DE LA EMPRESA
-
-        StockRealMiel stockMiel = new StockRealMiel();
-        stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
-        stockMiel.setTipo_movimiento("COMPRA");
-        stockMiel.setComprobante_asociado(tipoComprobante);
-        stockMiel.setId_comprobante_asociado(codigoFactura);
         
-        stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-        stockMiel.setCantidad_miel(totalMielAFacturar);
-        //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
-        //no se almacenara nada!
-        //debo obtener el codigo de la locacion a partir del nombre de la misma
-        //escogido en el combo de locaciones disponibles
-
-        stockMiel.setLocacion_miel(codigoLocacion);
-
-        //chequeo si la miel a devolver se encuentra en la locacion de un productor
+        //A) se guarda el movimiento de stock correspondiente a la nueva miel que ingresa como paga
+        //dicho ingreso de MIEL PAGA AL STOCK DE LA EMPRESA dependera de la compensacion aplicada
+        //si existe MIEL IMPAGA YA VENDIDA se realizara dicha compensacion, descontando la cantidad de miel que se acaba de 
+        //facturar de la cantidad de miel impaga vendida y ajustando los valores de miel impaga y miel impaga vendida
+        //sino existe MIEL IMPAGA YA VENDIDA la miel facturada se descuenta del stock impago y ademas se suma al stock pago
+        
+        CompensacionStock compensacion = new CompensacionStock();
+        //para controlar cuantos kgs. de miel impaga (credito o consignacion) se han vendido sin ser facturados
+        //y con este dato compensar el stock a la hora de facturar la cantidad indicada de la consignacion
+        Double cantidadMielImpagaVendida = compensacion.consultarCantidadMielImpagaVendida();
+        Double saldoMielASumarStockPago = 0.00;
+        Double saldoMielARestarStockImpago = 0.00;
+        Double nuevoSaldoMielImpagaVendida = 0.00;
+        StockRealMiel stockMiel = new StockRealMiel();
         Locacion locacion = new Locacion();
-        String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
 
-        if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
+        //si esta variable es mayor a cero significa que existen kilos de miel comprada en consignacion
+        //que han sido ya vendidos, entonces debe realizarse una compensacion interna del stock de miel.
+        if (cantidadMielImpagaVendida > 0){
+        
+            //Posibles casos a darse:
+            
+            //1) que la cantidad de miel impaga a facturarse sea mayor que la cantidad de miel impaga ya vendida
+            if (totalMielAFacturar > cantidadMielImpagaVendida) {
+                
+                saldoMielASumarStockPago = totalMielAFacturar - cantidadMielImpagaVendida;
+                saldoMielARestarStockImpago = saldoMielASumarStockPago;
+                nuevoSaldoMielImpagaVendida = 0.00;
 
-            //se trata de una facturacion en la cual la miel facturada se encuentra en la locacion
-            //de un productor
-            //cargo en el campo correspondiente el codigo del productor vendedor en esta compra
-            stockMiel.setMiel_deposito_productor(codigoProductor);
+            }
+            else{
+                
+                //2) que la cantidad de miel impaga a facturarse sea igual a la cantidad de miel impaga ya vendida
+                if (totalMielAFacturar == cantidadMielImpagaVendida){
+                    
+                    saldoMielASumarStockPago = totalMielAFacturar;
+                    saldoMielARestarStockImpago = totalMielAFacturar;
+                    nuevoSaldoMielImpagaVendida = 0.00;
+                            
+                
+                }
+                else{
+                    
+                    //3) que la cantidad de miel impaga a facturarse sea menor que la cantidad de miel impaga ya vendida
+                    saldoMielASumarStockPago = 0.00;
+                    saldoMielARestarStockImpago = 0.00;
+                    nuevoSaldoMielImpagaVendida = cantidadMielImpagaVendida - totalMielAFacturar;
 
-            //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
-            //viendola de manera global como "miel acopiada en locacion del productor"
-            //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
-            //comprada y depositada en cada uno de los productores correspondientes
+                }
+                
+            }
+        
+        }
+        
+        //PARA VER SI TODA ESTA PARTE DE AJUSTE Y COMPENSACION DE LA MIEL FUNCIONA PRIMERO TENGO QUE IMPLEMENTAR
+        //LA PARTE DE LA VENTA AL EXTERIOR Y LA VENTA A UN EXPORTADOR DE MIEL INTERNO
+        
+        //se actualiza la cantidad miel impaga vendida por la empresa, ya que los movimientos a continuacion ajustaran el stock real
+        compensacion.actualizarCantidadMielImpagaVendida(nuevoSaldoMielImpagaVendida);
+        
+        //si existe saldo de miel para facturada para ser cargada en el stock de miel pago se hace en el siguiente paso
+        //caso contrario no se sumara la miel que se esta facturando al stock de miel pago, ya que se estaria realizando
+        //el ajuste y compensacion de stock
+        if (saldoMielASumarStockPago > 0.00){
+        
+            stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
+            stockMiel.setTipo_movimiento("COMPRA");
+            stockMiel.setComprobante_asociado(tipoComprobante);
+            stockMiel.setId_comprobante_asociado(codigoComprobante);
 
-            //cuando realice un traslado desde la locacion "locacion del productor"
-            //voy a tener que descontar el stock global de dicha locacion
-            //y discriminar y descontar consecuentemente la miel depositada
-            //en la locacion del productor desde el cual se va a trasladar dicha miel
+            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
+            stockMiel.setCantidad_miel(totalMielAFacturar);
+            //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
+            //no se almacenara nada!
+            //debo obtener el codigo de la locacion a partir del nombre de la misma
+            //escogido en el combo de locaciones disponibles
+
+            stockMiel.setLocacion_miel(codigoLocacion);
+
+            //chequeo si la miel a devolver se encuentra en la locacion de un productor
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
+
+            if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
+
+                //se trata de una facturacion en la cual la miel facturada se encuentra en la locacion
+                //de un productor
+                //cargo en el campo correspondiente el codigo del productor vendedor en esta compra
+                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+                //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
+                //viendola de manera global como "miel acopiada en locacion del productor"
+                //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
+                //comprada y depositada en cada uno de los productores correspondientes
+
+                //cuando realice un traslado desde la locacion "locacion del productor"
+                //voy a tener que descontar el stock global de dicha locacion
+                //y discriminar y descontar consecuentemente la miel depositada
+                //en la locacion del productor desde el cual se va a trasladar dicha miel
+
+            }
+
+            //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
+            stockMiel.setEstado_compra("FACTURADA");
+
+            //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
+            stockMiel.registrarMovimientoStock(stockMiel);
 
         }
+        //y si existe un nuevo de miel para ser facturado le damos entrada al stock de miel facturado
+        if (saldoMielARestarStockImpago > 0.00){
 
-        //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
-        stockMiel.setEstado_compra("SIN FACTURAR");
+            stockMiel.setTipo_movimiento("FACTURACION");
+            stockMiel.setComprobante_asociado(tipoComprobante);
+            stockMiel.setId_comprobante_asociado(codigoComprobante);
 
-        //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
-        stockMiel.registrarMovimientoStock(stockMiel);
+            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
+            stockMiel.setCantidad_miel(totalMielAFacturar);
+            //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
+            //no se almacenara nada!
+            //debo obtener el codigo de la locacion a partir del nombre de la misma
+            //escogido en el combo de locaciones disponibles
 
+            stockMiel.setLocacion_miel(codigoLocacion);
+
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
+            
+            //chequeo si la miel a devolver se encuentra en la locacion de un productor
+            if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
+
+                //se trata de una facturacion en la cual la miel facturada se encuentra en la locacion
+                //de un productor
+                //cargo en el campo correspondiente el codigo del productor vendedor en esta compra
+                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+                //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
+                //viendola de manera global como "miel acopiada en locacion del productor"
+                //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
+                //comprada y depositada en cada uno de los productores correspondientes
+
+                //cuando realice un traslado desde la locacion "locacion del productor"
+                //voy a tener que descontar el stock global de dicha locacion
+                //y discriminar y descontar consecuentemente la miel depositada
+                //en la locacion del productor desde el cual se va a trasladar dicha miel
+
+            }
+
+            //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
+            stockMiel.setEstado_compra("SIN FACTURAR");
+
+            //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
+            stockMiel.registrarMovimientoStock(stockMiel);
+
+        }
+        
         JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","FACTURACION DE COMPRA A CONSIGNACION EN PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
@@ -1014,8 +1117,6 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 importeComprobante = importeFactura;
                 //voy guardando aca lo que se ingresa como cantidad a facturar
                 totalMielAFacturar = kilos;
-                //esto no habria que tocarlo???
-                //totalMielMantenidaEnConsignacion = totalMielFinanciadaCompra - totalMielFacturada;
 
             }
             

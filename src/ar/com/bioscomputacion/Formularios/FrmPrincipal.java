@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicMenuBarUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,14 +23,6 @@ import javax.swing.plaf.basic.BasicMenuBarUI;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
     
-    //en esta variable se llevara siempre el total de la miel consignada que se ha vendido
-    //para poder compensar el stock cuando se desea facturar una consignacion desde una cta. cte. con productor
-    //y esa miel consignada ya ha sido vendida, la cual al facturarse sumaria erroneamente el stock pago de miel
-    //CADA VEZ QUE SE REALIZA UNA VENTA QUE INVOLUCRA MIEL EN CONSIGNACION
-    //LA CANTIDAD CORRESPONDIENTE A LA MIEL EN CONSIGNACION EN DICHA VENTA, SE ALMACENARA EN LA VARIABLE
-    //mielConsignacionVendida para que dicho numero sirva luego para la compensacion del stock global de miel
-    Double mielConsignacionVendida = 0.00;
-
     /**
      * Creates new form FrmPrincipal
      */
@@ -47,6 +40,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         
         txtCod_usuario.setVisible(false);
+        //en este punto habria que correr el procedimiento que actualice en la bd los valores de:
+        //stock total de miel, miel paga, miel impaga y miel impaga vendida
+        //de hecho, esta ultima cuestion tambien podria ser una NOTIFICACION, la miel impaga que se vendio
+        //compensarStockMiel();
+        
+        
     }
 
     /**

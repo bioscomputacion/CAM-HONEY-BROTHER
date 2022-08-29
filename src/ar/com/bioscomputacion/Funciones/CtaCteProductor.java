@@ -237,12 +237,11 @@ public class CtaCteProductor {
         return false;
     }
     
-    public boolean cancelarCompraConsignacion(int codigoMovimiento, int codigoProductor){
+    public boolean cancelarCompraConsignacionCtaCte(int codigoMovimiento, int codigoProductor){
 
         try {
 
             PreparedStatement pst = cn.prepareStatement("UPDATE cta_cte_productor SET estado_movimiento = ? WHERE codigo_productor = '"+ codigoProductor +"' and codigo_movimiento = '"+ codigoMovimiento +"'");
-
             pst.setString(1, "CANCELADO");
 
             int N = pst.executeUpdate();

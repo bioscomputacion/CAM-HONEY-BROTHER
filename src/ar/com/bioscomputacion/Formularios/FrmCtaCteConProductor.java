@@ -759,7 +759,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
         fila2 = tMovimientos.rowAtPoint(evt.getPoint());
         //almacena el codigo interno del movimiento seleccionado, todo el tiempo
-        codigoComprobante = Integer.valueOf(tMovimientos.getValueAt(fila2, 1).toString());
+        codigoComprobante = Integer.valueOf(tMovimientos.getValueAt(fila2, 4).toString());
         
     }//GEN-LAST:event_tMovimientosMouseClicked
 
@@ -818,12 +818,12 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //asigno valores que debera mostrar el formulario de pago al productor
             //y recuerdo todos los datos del MOVIMIENTO CORRESPONDIENTE A LA COMPRA EN CONSIGNACION
             //para editar luego la misma sin perder la informacion original
-            FrmFacturacionCompraConsignacion.codigoProductor = Integer.valueOf(tMovimientos.getValueAt(fila2, 0).toString());
+            FrmFacturacionCompraConsignacion.codigoProductor = codigoProductor;
             FrmFacturacionCompraConsignacion.codigoMovimientoCtaCteCompra = Integer.valueOf(tMovimientos.getValueAt(fila2, 1).toString());
             FrmFacturacionCompraConsignacion.fechaMovimientoCompra = Date.valueOf(tMovimientos.getValueAt(fila2, 2).toString());
             //referencia no hace falta pasar porque ya sabemos que es una compra en consignacion
             //codigoCompra es el codigo de la compra en consignacion
-            FrmFacturacionCompraConsignacion.codigoCompra = Integer.valueOf(tMovimientos.getValueAt(fila2, 4).toString());
+            FrmFacturacionCompraConsignacion.codigoCompra = codigoComprobante;
             FrmFacturacionCompraConsignacion.numeroComprobanteCompra = tMovimientos.getValueAt(fila2, 5).toString();
             //recuerdo la cantidad de miel adquirida originalmente en la compra
             //y la cantidad de miel ya descontada de la misma, ya sea por facturacion o por devolucion de miel en ella
@@ -837,7 +837,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //estado de movimiento no hace falta pasar, se asentara CANCELADO o  PENDIENTE segun corresponda
             FrmFacturacionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 12).toString();
             
-            FrmFacturacionCompraConsignacion.nombreProductor = tfNombreProductor.getText();
+            FrmFacturacionCompraConsignacion.nombreProductor = nombreProductor;
             form.tfDatosCompraConsignacion.setText("COMPRA EN CONSIGNACION N° "+FrmFacturacionCompraConsignacion.numeroComprobanteCompra+" / Productor N° "+FrmFacturacionCompraConsignacion.codigoProductor+" - "+nombreProductor);
             
             //con esto obtengo todos los comprobantes que afectan a la compra en consignacion
