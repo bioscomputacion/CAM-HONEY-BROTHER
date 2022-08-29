@@ -69,8 +69,6 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
     public void inicializar() throws SQLException{
         
-        System.out.println(totalMielFacturada);
-        
         Calendar cal = new GregorianCalendar();
         dcFechaFactura.setCalendar(cal);
         dcFechaVencimiento.setCalendar(cal);
@@ -909,60 +907,9 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
             //ahora se guarda el movimiento correspondiente a la factura, en la cta. cte. del cliente con la empresa
             CtaCteCliente ctacteCliente = new CtaCteCliente(codigoCliente, codigoMovimientoCtaCte, new Date(a1, m1, d1), tipoFactura, codigoFactura, tfNumeroComprobante.getText(), totalMielFacturada, importeTotalFactura, 0.00, importeTotalFactura, "PENDIENTE", "");
             ctacteCliente.registrarMovimientoCtaCteCliente(ctacteCliente);
-
-            //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, RESTANDO LA CANTIDAD DE KGS. VENDIDA EN ESTA FACTURA
-            // A DICHO STOCK, APUNTANDO ADEMAS EL ESTADO DE ESTA CANTIDAD: KGS. PAGOS, KGS. IMPAGOS, ETC.
-
-
-            StockRealMiel stockMiel = new StockRealMiel();
-            stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
-            stockMiel.setTipo_movimiento("VENTA");
-            stockMiel.setComprobante_asociado(tipoFactura);
-            stockMiel.setId_comprobante_asociado(codigoFactura);
-            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-            
-            //crear metodo para realizar esto:
-            //en una variable deberia sumar todos los kilos de miel comprados, los cuales se pueden sacar
-            //de las descripciones y cantidades de los items facturados (en la lista esta esa informacion!)
-            //esa cantidad obtenida se almacenara en cantidad_miel
-            stockMiel.setCantidad_miel(totalMielFacturada);
-            //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
-            //no se almacenara nada!
-            //debo obtener el codigo de la locacion a partir del nombre de la misma
-            //escogido en el combo de locaciones disponibles
-
-            //stockMiel.setLocacion_miel(codigoLocacion);
-
-            //chequeo si la compra de miel quedara depositada en la locacion del productor
-            //Locacion locacion = new Locacion();
-/*            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
-
-            if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
-
-                //se trata de una compra en la cual la miel adquirida quedara acopiada en alguna locacion del productor
-                //que vende la miel
-                //cargo en el campo observacion el codigo del productor vendedor en esta compra
-                stockMiel.setMiel_deposito_productor(codigoCliente);
-
-                //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
-                //viendola de manera global como "miel acopiada en locacion del productor"
-                //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
-                //comprada y depositada en cada uno de los productores correspondientes
-
-                //cuando realice un traslado desde la locacion "locacion del productor"
-                //voy a tener que descontar el stock global de dicha locacion
-                //y discriminar y descontar consecuentemente la miel depositada
-                //en la locacion del productor desde el cual se va a trasladar dicha miel
-
-
-            }*/
-
-            //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
-            stockMiel.setEstado_compra("FACTURADA");
-
-            //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
-            stockMiel.registrarMovimientoStock(stockMiel);
-
+            //EN ESTE PUNTO: DEBERIA UBICAR LOS MOVIMIENTOS CORRESPONDIENTES A LA FACTURA EN LA TABLA STOCK REAL DE MIEL
+            //Y EDITARLOS, ASOCIANDO A ELLOS EL NUMERO DE FACTURA CONFECCIONADA PARA LA VENTA AL EXTERIOR
+            //(dato que va en el campo comprobante_asociado)
             JOptionPane.showMessageDialog(null, "La factura ha sido registrada exitosamente.","REGISTRO DE FACTURA DE CLIENTE EN EL EXTERIOR", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             
@@ -980,7 +927,7 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
         JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        //se deben elimiar los traslados recien cargados!
+        //SE DEBEN ELIMINAR LOS TRASLADOS REALIZADOS EN EL FORMULARIO ANTERIOR
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
