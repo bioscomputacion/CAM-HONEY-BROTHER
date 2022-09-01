@@ -50,19 +50,26 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     public FrmGestionStockMiel() throws SQLException {
         
         initComponents();
+
+        //DATOS DEL STOCK GLOBAL, STOCK GLOBAL PAGO Y STOCK GLOBAL IMPAGO
         mostrarDetalleStockLocaciones();
         calcularTotalStockGlobal();
         calcularTotalStockGlobalPago();
         calcularTotalStockGlobalCredito();
         ocultarColumnasDetalleLocaciones();
+        
         //calcularTotalStockEmbarque();
         //calcularTotalStockExportacion!!!
         //actualiza informacion en la pestaña 1
+        
+        //DATOS DEL STOCK TOTAL, STOCK PAGO Y STOCK IMPAGO EN PRODUCTORES
         mostrarDetalleStockProductores();
         calcularTotalStockEnProductores();
         calcularTotalStockPagoEnProductores();
         calcularTotalStockCreditoEnProductores();
         ocultarColumnasDetalleProductores();
+        
+        
         inicializar();
         
         
@@ -743,7 +750,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel30.setBackground(new java.awt.Color(255, 255, 255));
         jLabel30.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel30.setText("STOCK EN EMBARQUE:");
+        jLabel30.setText("STOCK VENDIDO / EMBARCADO:");
 
         lStockMielEmbarcado.setBackground(new java.awt.Color(255, 255, 255));
         lStockMielEmbarcado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -785,7 +792,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         jLabel35.setBackground(new java.awt.Color(255, 255, 255));
         jLabel35.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(0, 255, 0));
-        jLabel35.setText("STOCK EN EXPORTACION:");
+        jLabel35.setText("STOCK VENDIDO / EXPORTACION INTERNA:");
 
         lStockMielEmbarcado1.setBackground(new java.awt.Color(255, 255, 255));
         lStockMielEmbarcado1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -865,7 +872,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel35)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lStockMielEmbarcado1)))
-                        .addGap(0, 219, Short.MAX_VALUE))
+                        .addGap(0, 74, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1306,13 +1313,13 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
 
     private void tDetalleMovimientosStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDetalleMovimientosStockMouseClicked
 
-        fila2 = tDetalleStockProductor.rowAtPoint(evt.getPoint());
+        fila2 = tDetalleMovimientosStock.rowAtPoint(evt.getPoint());
         
     }//GEN-LAST:event_tDetalleMovimientosStockMouseClicked
 
     private void tDetalleStockLocacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDetalleStockLocacionMouseClicked
 
-        fila = tDetalleStock.rowAtPoint(evt.getPoint());
+        fila = tDetalleStockLocacion.rowAtPoint(evt.getPoint());
         
     }//GEN-LAST:event_tDetalleStockLocacionMouseClicked
 

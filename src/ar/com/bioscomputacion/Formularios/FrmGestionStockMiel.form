@@ -299,7 +299,7 @@
                                           <Component id="lStockMielEmbarcado1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="219" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -528,7 +528,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="STOCK EN EMBARQUE:"/>
+                    <Property name="text" type="java.lang.String" value="STOCK VENDIDO / EMBARCADO:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lStockMielEmbarcado">
@@ -642,7 +642,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="ff" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="STOCK EN EXPORTACION:"/>
+                    <Property name="text" type="java.lang.String" value="STOCK VENDIDO / EXPORTACION INTERNA:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lStockMielEmbarcado1">

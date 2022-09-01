@@ -192,6 +192,35 @@ public class StockRealMiel {
         
     }
     
+    public Double obtenerDetalleDescuentosEnConsignaciones(int codigoLocacion){
+        
+        //esto es para obtener el detalle de lo que se ha descontado de cada compra en consignacion, para
+        //que al levantar los datos de la tabla stock de miel la cantidad sea real!
+        
+        Double mielDescontadaConsignaciones = 0.00;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id_comprobante_asociado, cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='COMPRA' and comprobante_asociado='CONSIGNACION')");
+            
+            while (rs.next()) {
+
+                mielDescontadaConsignaciones = rs.getDouble("cantidad_miel");
+                
+            }
+            
+            return mielDescontadaConsignaciones;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return mielDescontadaConsignaciones;
+            
+        } 
+        
+    }
+
     //DESDE ACA: SIRVEN LOS METODOS QUE VOY INDICANDO
     
     //SIRVE!!!
@@ -224,35 +253,6 @@ public class StockRealMiel {
             
             JOptionPane.showMessageDialog(null, e);
             return ingresoMiel;
-            
-        } 
-        
-    }
-
-    public Double obtenerDetalleDescuentosEnConsignaciones(int codigoLocacion){
-        
-        //esto es para obtener el detalle de lo que se ha descontado de cada compra en consignacion, para
-        //que al levantar los datos de la tabla stock de miel la cantidad sea real!
-        
-        Double mielDescontadaConsignaciones = 0.00;
-        
-        try{
- 
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id_comprobante_asociado, cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='COMPRA' and comprobante_asociado='CONSIGNACION')");
-            
-            while (rs.next()) {
-
-                mielDescontadaConsignaciones = rs.getDouble("cantidad_miel");
-                
-            }
-            
-            return mielDescontadaConsignaciones;
-
-        }catch(Exception e){
-            
-            JOptionPane.showMessageDialog(null, e);
-            return mielDescontadaConsignaciones;
             
         } 
         
@@ -693,24 +693,30 @@ public class StockRealMiel {
                 //stock total de miel
                 ingresoMiel = stock.obtenerDetalleIngresoMielLocacionProductor(productor);
                 egresoMiel = stock.obtenerDetalleEgresoMielLocacionProductor(productor);
-                //stock total PAGO de miel
-                ingresoMielPaga = stock.obtenerDetalleIngresoMielPagaLocacionProductor(productor);
-                egresoMielPaga = stock.obtenerDetalleEgresoMielPagaLocacionProductor(productor);
-                //stock total IMPAGO (consignacion) de miel
-                ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpagaLocacionProductor(productor);
-                egresoMielImpaga = stock.obtenerDetalleEgresoMielImpagaLocacionProductor(productor);
-                //saldos!*/
-                saldoMiel = ingresoMiel - egresoMiel;
-                saldoMielPaga = ingresoMielPaga - egresoMielPaga;
-                saldoMielImpaga = ingresoMielImpaga - egresoMielImpaga;
-                registros[0] = rs.getString("cod_productor");
-                registros[1] = rs.getString("nombre");
-                registros[2] = rs.getString("estado_provincia");
-                registros[3] = String.valueOf(saldoMiel);
-                registros[4] = String.valueOf(saldoMielPaga);
-                registros[5] = String.valueOf(saldoMielImpaga);
-                
-                modelo.addRow(registros);
+                //en este punto veo: si existe miel en el productor lo cargo a la grilla, con todos los datos de dicha miel
+                //sino no va a mostrarse en la grilla de prodcutores con miel de la empresa acopiada
+                if (ingresoMiel - egresoMiel != 0){
+
+                    //stock total PAGO de miel
+                    ingresoMielPaga = stock.obtenerDetalleIngresoMielPagaLocacionProductor(productor);
+                    egresoMielPaga = stock.obtenerDetalleEgresoMielPagaLocacionProductor(productor);
+                    //stock total IMPAGO (consignacion) de miel
+                    ingresoMielImpaga = stock.obtenerDetalleIngresoMielImpagaLocacionProductor(productor);
+                    egresoMielImpaga = stock.obtenerDetalleEgresoMielImpagaLocacionProductor(productor);
+                    //saldos!
+                    saldoMiel = ingresoMiel - egresoMiel;
+                    saldoMielPaga = ingresoMielPaga - egresoMielPaga;
+                    saldoMielImpaga = ingresoMielImpaga - egresoMielImpaga;
+                    registros[0] = rs.getString("cod_productor");
+                    registros[1] = rs.getString("nombre");
+                    registros[2] = rs.getString("estado_provincia");
+                    registros[3] = String.valueOf(saldoMiel);
+                    registros[4] = String.valueOf(saldoMielPaga);
+                    registros[5] = String.valueOf(saldoMielImpaga);
+
+                    modelo.addRow(registros);
+
+                }
                 
             }
             
@@ -1253,6 +1259,7 @@ public class StockRealMiel {
             ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
             Locacion locacion = new Locacion();
             Productor productor = new Productor();
+            FacturaProductor factura = new FacturaProductor();
 
             while (rs.next()) {
                 

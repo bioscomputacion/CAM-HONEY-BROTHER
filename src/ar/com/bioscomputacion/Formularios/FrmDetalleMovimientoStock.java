@@ -31,6 +31,7 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
         
         initComponents();
         inicializar();
+        
     }
 
     
@@ -74,8 +75,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -89,7 +90,7 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lProductorImplicado.setVisible(true);
                         lProductorImplicado.setText("MIEL FACTURADA POR:");
                         lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
+                        
                         break;
                 
                     case "FACTURA C":
@@ -99,8 +100,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -124,8 +125,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = presupuesto.mostrarPrecioUnitarioPresupuesto(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         importeAbonado = presupuesto.mostrarImportePagoPresupuesto(codigoComprobanteConsultado);
                         lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                         saldoComprobante = importeComprobante - importeAbonado;
@@ -148,8 +149,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lImporteComprobante.setText("$ 0.00");
                         lPrecioUnitario.setText("$ 0.00");
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         lImporteAbonado.setText("$ 0.00");
                         lSaldoComprobante.setText("$ 0.00");
                         lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -175,8 +176,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 lImporteComprobante.setText("$ 0.00");
                 lPrecioUnitario.setText("$ 0.00");
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                 lImporteAbonado.setText("$ 0.00");
                 lSaldoComprobante.setText("$ 0.00");
                 lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -193,8 +194,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 lPrecioUnitario.setText("$ 0.00");
                 System.out.println(cantidadMielAfectada);
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                 lImporteAbonado.setText("$ 0.00");
                 lSaldoComprobante.setText("$ 0.00");
                 lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -217,8 +218,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 precioUnitarioFacturado = facturaCliente.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                 lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                 importeAbonado = facturaCliente.mostrarImportePagoFactura(codigoComprobanteConsultado);
                 lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                 saldoComprobante = importeComprobante - importeAbonado;
@@ -242,8 +243,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 lImporteComprobante.setText("$ 0.00");
                 lPrecioUnitario.setText("$ 0.00");
                 lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                 lImporteAbonado.setText("$ 0.00");
                 lSaldoComprobante.setText("$ 0.00");
                 lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -266,8 +267,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         lImporteAbonado.setText("$ 0.00");
                         lSaldoComprobante.setText("$ 0.00");
                         lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -286,8 +287,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         precioUnitarioFacturado = notaCredito.mostrarPrecioUnitarioNotaCredito(codigoComprobanteConsultado);
                         lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         lImporteAbonado.setText("$ 0.00");
                         lSaldoComprobante.setText("$ 0.00");
                         lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -304,8 +305,8 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                         lImporteComprobante.setText("$ 0.00");
                         lPrecioUnitario.setText("$ 0.00");
                         lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                        lTambores.setText(String.valueOf(cantidadMielAfectada / 300)+" KGS.");
-                        lLotes.setText(String.valueOf(cantidadMielAfectada / 21000+" KGS."));
+                        lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                        lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                         lImporteAbonado.setText("$ 0.00");
                         lSaldoComprobante.setText("$ 0.00");
                         lImporteKgs.setText("(EQUIVALENTE A 0.00 KGS.)");
@@ -440,49 +441,49 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 204));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel7.setForeground(new java.awt.Color(204, 255, 255));
         jLabel7.setText("IMPORTE TOTAL:");
 
         lImporteComprobante.setBackground(new java.awt.Color(255, 255, 204));
         lImporteComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteComprobante.setForeground(new java.awt.Color(255, 102, 102));
+        lImporteComprobante.setForeground(new java.awt.Color(204, 255, 255));
         lImporteComprobante.setText("-");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel9.setForeground(new java.awt.Color(204, 255, 255));
         jLabel9.setText("IMPORTE ABONADO:");
 
         lImporteAbonado.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteAbonado.setForeground(new java.awt.Color(255, 102, 102));
+        lImporteAbonado.setForeground(new java.awt.Color(204, 255, 255));
         lImporteAbonado.setText("-");
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel10.setForeground(new java.awt.Color(204, 255, 255));
         jLabel10.setText("SALDO DEL COMPROBANTE:");
 
         lSaldoComprobante.setBackground(new java.awt.Color(255, 255, 255));
         lSaldoComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lSaldoComprobante.setForeground(new java.awt.Color(255, 102, 102));
+        lSaldoComprobante.setForeground(new java.awt.Color(204, 255, 255));
         lSaldoComprobante.setText("-");
 
         lImporteKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteKgs.setForeground(new java.awt.Color(255, 102, 102));
+        lImporteKgs.setForeground(new java.awt.Color(204, 255, 255));
         lImporteKgs.setText("-");
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 204));
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel11.setForeground(new java.awt.Color(204, 255, 255));
         jLabel11.setText("PRECIO KG.:");
 
         lPrecioUnitario.setBackground(new java.awt.Color(255, 255, 204));
         lPrecioUnitario.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lPrecioUnitario.setForeground(new java.awt.Color(255, 102, 102));
+        lPrecioUnitario.setForeground(new java.awt.Color(204, 255, 255));
         lPrecioUnitario.setText("-");
 
         lSaldoKgs.setBackground(new java.awt.Color(255, 255, 255));
         lSaldoKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lSaldoKgs.setForeground(new java.awt.Color(255, 102, 102));
+        lSaldoKgs.setForeground(new java.awt.Color(204, 255, 255));
         lSaldoKgs.setText("-");
 
         lProductorImplicado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -567,7 +568,7 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                                 .addComponent(lNumeroComprobante))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(lProductorImplicado)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lProductor)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
@@ -634,7 +635,7 @@ public class FrmDetalleMovimientoStock extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lProductorImplicado)
                     .addComponent(lProductor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
