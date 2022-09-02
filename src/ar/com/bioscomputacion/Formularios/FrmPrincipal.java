@@ -73,6 +73,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuGestion = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         menuCompraMiel = new javax.swing.JMenu();
@@ -242,6 +243,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem4);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem7.setBackground(new java.awt.Color(51, 84, 111));
+        jMenuItem7.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jMenuItem7.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/MenuItemIcon/gestion_cta_cte.png"))); // NOI18N
+        jMenuItem7.setText("GESTION DE COMPROBANTES");
+        jMenuItem7.setOpaque(true);
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        menuGestion.add(jMenuItem7);
+
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItem11.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
@@ -256,7 +271,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuGestion.add(jMenuItem11);
 
-        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         jMenuItem12.setBackground(new java.awt.Color(51, 84, 111));
         jMenuItem12.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jMenuItem12.setForeground(new java.awt.Color(255, 255, 255));
@@ -685,6 +700,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+
+        FrmGestionComprobantes form = new FrmGestionComprobantes();
+        deskPrincipal.add(form);
+        Dimension desktopSize = deskPrincipal.getSize();
+        Dimension FrameSize = form.getSize();
+        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        form.setVisible(true);
+        form.setClosable(true);
+        form.setIconifiable(false);
+
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -737,6 +765,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JLabel lbNombre;
