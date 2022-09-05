@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -256,6 +257,49 @@ public class DevolucionProductor {
         }
 
         return false;
+    }
+    
+    public DefaultTableModel listarDevoluciones(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID DEVOLUCION", "FECHA"};
+
+        String[] registros = new String[2];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_devolucion, fecha_devolucion from devolucion_productor WHERE codigo_devolucion <> '1' and fecha_devolucion BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY codigo_devolucion");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_devolucion");
+                registros[1] = rs.getString("fecha_devolucion");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
     }
     
     public String mostrarNombreProductorDevolucion(int codigoDevolucion) {

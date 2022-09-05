@@ -195,6 +195,52 @@ public class PagoProductor {
 
     }
     
+    public DefaultTableModel listarPagos(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID PAGO", "FECHA", "COMPROBANTE_ASOCIADO", "N° COMPROBANTE ABONADO", "TIPO COMPROBANTE ABONADO", "ID PRODUCTOR","PRODUCTOR","IMPORTE", "KGS. MIEL"};
+
+        String[] registros = new String[9];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_pago, fecha_pago, codigo_comprobante_pagado monto_pago from pago_productor WHERE codigo_pago <> '5' and (fecha_pago BETWEEN '2022-09-01' AND '2022-09-30') ORDER BY codigo_pago");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_pago");
+                registros[1] = rs.getString("fecha_pago");
+                registros[2] = rs.getString("monto_pago");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            System.out.println("error");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
     public String mostrarNombreProductorPago(int codigoPago) {
         
         String nombreProductor = "";

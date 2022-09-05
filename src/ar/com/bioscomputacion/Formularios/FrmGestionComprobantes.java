@@ -5,6 +5,16 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.CreditoProductor;
+import ar.com.bioscomputacion.Funciones.DevolucionProductor;
+import ar.com.bioscomputacion.Funciones.FacturaCliente;
+import ar.com.bioscomputacion.Funciones.FacturaProductor;
+import ar.com.bioscomputacion.Funciones.NotaCreditoCliente;
+import ar.com.bioscomputacion.Funciones.NotaCreditoProductor;
+import ar.com.bioscomputacion.Funciones.PagoCliente;
+import ar.com.bioscomputacion.Funciones.PagoProductor;
+import ar.com.bioscomputacion.Funciones.PresupuestoCliente;
+import ar.com.bioscomputacion.Funciones.PresupuestoProductor;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -37,19 +47,145 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         
 }
 
-        public static void mostrarComprobantes(String tipoComprobante) {
+        public void mostrarComprobantes(String tipoComprobante) {
         
-        try {
+            /*
+            SELECCIONAR
+            FACTURAS A
+            FACTURAS C
+            FACTURAS E
+            PRESUPUESTOS DE PRODUCTORES
+            PRESUPUESTOS A CLIENTES
+            CONSIGNACIONES
+            PAGOS A PRODUCTORES
+            PAGOS DE CLIENTES
+            NOTAS DE CREDITO A
+            NOTAS DE CREDITO C
+            NOTAS DE CREDITO E
+            ANULACIONES
+            DEVOLUCIONES            
+            */
+            try {
             
-            //se crea un objeto Jtabla llamado "modelo"
             DefaultTableModel modelo;
-            //se crea un objeto Fcliente llamado "funcion"
-            //Productor productor = new Productor();
-            //en el onjeto jtabla "modelo" almaceno la tabla resultado de la funcion mostrarClientes del objeto "funcion" del tipo Fcliente
-            //modelo = productor.listarProductores(tipoComprobante);
-            //en el objeto tProveedores del tipo jTtable almaceno el objeto del mismo tipo llamado "modelo"
-            //tComprobantes.setModel(modelo);
-
+            
+            switch (tipoComprobante){
+                
+                case "SELECCIONAR":
+                    
+                    tComprobantes.removeAll();
+                    break;
+                
+                case "FACTURAS A":
+                    
+                    FacturaProductor facturaA = new FacturaProductor();
+                    modelo = facturaA.listarFacturasA("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "FACTURAS C":
+                    
+                    FacturaProductor facturaC = new FacturaProductor();
+                    modelo = facturaC.listarFacturasC("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "FACTURAS E":
+                    
+                    FacturaCliente facturaE = new FacturaCliente();
+                    modelo = facturaE.listarFacturasE("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "PRESUPUESTOS DE PRODUCTORES":
+                    
+                    PresupuestoProductor presupuestoProductor = new PresupuestoProductor();
+                    modelo = presupuestoProductor.listarPresupuestos("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "PRESUPUESTOS A CLIENTES":
+                    
+                    PresupuestoCliente presupuestoCliente = new PresupuestoCliente();
+                    modelo = presupuestoCliente.listarPresupuestos("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "CONSIGNACIONES":
+                    
+                    CreditoProductor credito = new CreditoProductor();
+                    modelo = credito.listarConsignaciones("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantesII();
+                    break;
+        
+                case "PAGOS A PRODUCTORES":
+                    
+                    PagoProductor pagoProductor = new PagoProductor();
+                    modelo = pagoProductor.listarPagos("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "PAGOS DE CLIENTES":
+                    
+                    PagoCliente pagoCliente = new PagoCliente();
+                    modelo = pagoCliente.listarPagos("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "NOTAS DE CREDITO A":
+                    
+                    NotaCreditoProductor notaCreditoA = new NotaCreditoProductor();
+                    modelo = notaCreditoA.listarNotasCreditoA("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "NOTAS DE CREDITO C":
+                    
+                    NotaCreditoProductor notaCreditoC = new NotaCreditoProductor();
+                    modelo = notaCreditoC.listarNotasCreditoC("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "NOTAS DE CREDITO E":
+                    
+                    NotaCreditoCliente notaCreditoE = new NotaCreditoCliente();
+                    modelo = notaCreditoE.listarNotasCreditoE("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                case "ANULACIONES":
+                    
+                    ///NotaCreditoProductor notaCreditoC = new NotaCreditoProductor();
+                    //modelo = notaCreditoC.listarNotasCreditoC("");
+                    //tComprobantes.setModel(modelo);
+                    //ocultarColumnasComprobantes();
+                    //break;
+        
+                case "DEVOLUCIONES":
+                    
+                    DevolucionProductor devolucion = new DevolucionProductor();
+                    modelo = devolucion.listarDevoluciones("");
+                    tComprobantes.setModel(modelo);
+                    ocultarColumnasComprobantes();
+                    break;
+        
+                default:
+                    
+                    break;
+        
+            }
+            
         } catch (Exception e) {
             
             JOptionPane.showMessageDialog(null, e);
@@ -58,96 +194,35 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         
     }
     
-    public static void ocultarColumnasComprobantes() {
+    public void ocultarColumnasComprobantes() {
 
-        /*tProductores.getColumnModel().getColumn(0).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(0).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(0).setPreferredWidth(0);*/
+        tComprobantes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setPreferredWidth(0);
 
-        /*tProductores.getColumnModel().getColumn(1).setMaxWidth(0);
-        tProductores.getColumnModel().getColumn(1).setMinWidth(0);
-        tProductores.getColumnModel().getColumn(1).setPreferredWidth(0);*/
+        /*tComprobantes.getColumnModel().getColumn(1).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setPreferredWidth(0);*/
 
-        tComprobantes.getColumnModel().getColumn(2).setMaxWidth(0);
+        /*tComprobantes.getColumnModel().getColumn(2).setMaxWidth(0);
         tComprobantes.getColumnModel().getColumn(2).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(2).setPreferredWidth(0);
+        tComprobantes.getColumnModel().getColumn(2).setPreferredWidth(0);*/
 
-        
         tComprobantes.getColumnModel().getColumn(3).setMaxWidth(0);
         tComprobantes.getColumnModel().getColumn(3).setMinWidth(0);
         tComprobantes.getColumnModel().getColumn(3).setPreferredWidth(0);
-        
+
         /*tComprobantes.getColumnModel().getColumn(4).setMaxWidth(0);
         tComprobantes.getColumnModel().getColumn(4).setMinWidth(0);
         tComprobantes.getColumnModel().getColumn(4).setPreferredWidth(0);*/
-        
+
         /*tComprobantes.getColumnModel().getColumn(5).setMaxWidth(0);
         tComprobantes.getColumnModel().getColumn(5).setMinWidth(0);
         tComprobantes.getColumnModel().getColumn(5).setPreferredWidth(0);*/
-        
+
         /*tComprobantes.getColumnModel().getColumn(6).setMaxWidth(0);
         tComprobantes.getColumnModel().getColumn(6).setMinWidth(0);
         tComprobantes.getColumnModel().getColumn(6).setPreferredWidth(0);*/
-        
-        tComprobantes.getColumnModel().getColumn(7).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(7).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(7).setPreferredWidth(0);
-        
-        tComprobantes.getColumnModel().getColumn(8).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(8).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(8).setPreferredWidth(0);
-        
-        tComprobantes.getColumnModel().getColumn(9).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(9).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(9).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(10).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(10).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(10).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(11).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(11).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(11).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(12).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(12).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(12).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(13).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(13).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(13).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(14).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(14).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(14).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(15).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(15).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(15).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(16).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(16).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(16).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(17).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(17).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(17).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(18).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(18).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(18).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(19).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(19).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(19).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(20).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(20).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(20).setPreferredWidth(0);
-
-        tComprobantes.getColumnModel().getColumn(21).setMaxWidth(0);
-        tComprobantes.getColumnModel().getColumn(21).setMinWidth(0);
-        tComprobantes.getColumnModel().getColumn(21).setPreferredWidth(0);
 
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
@@ -156,15 +231,60 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer cellRender5 = new DefaultTableCellRenderer();
         
         cellRender1.setHorizontalAlignment(SwingConstants.CENTER);
-        tComprobantes.getColumnModel().getColumn(0).setCellRenderer(cellRender1);   
-        cellRender2.setHorizontalAlignment(SwingConstants.LEFT);
-        tComprobantes.getColumnModel().getColumn(1).setCellRenderer(cellRender2);   
+        tComprobantes.getColumnModel().getColumn(1).setCellRenderer(cellRender1);   
+        cellRender2.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(2).setCellRenderer(cellRender2);   
         cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
         tComprobantes.getColumnModel().getColumn(4).setCellRenderer(cellRender3);   
-        cellRender4.setHorizontalAlignment(SwingConstants.LEFT);
+        cellRender4.setHorizontalAlignment(SwingConstants.RIGHT);
         tComprobantes.getColumnModel().getColumn(5).setCellRenderer(cellRender4);   
-        cellRender5.setHorizontalAlignment(SwingConstants.LEFT);
-        tComprobantes.getColumnModel().getColumn(6).setCellRenderer(cellRender5);
+        cellRender5.setHorizontalAlignment(SwingConstants.RIGHT);
+        tComprobantes.getColumnModel().getColumn(6).setCellRenderer(cellRender5);   
+        
+        ((DefaultTableCellRenderer) tComprobantes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        
+    }
+
+    public void ocultarColumnasComprobantesII() {
+
+        tComprobantes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setPreferredWidth(0);
+
+        /*tComprobantes.getColumnModel().getColumn(1).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setPreferredWidth(0);*/
+
+        /*tComprobantes.getColumnModel().getColumn(2).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(2).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(2).setPreferredWidth(0);*/
+
+        tComprobantes.getColumnModel().getColumn(3).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(3).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(3).setPreferredWidth(0);
+
+        /*tComprobantes.getColumnModel().getColumn(4).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(4).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(4).setPreferredWidth(0);*/
+
+        /*tComprobantes.getColumnModel().getColumn(5).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(5).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(5).setPreferredWidth(0);*/
+
+        DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender4 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender5 = new DefaultTableCellRenderer();
+        
+        cellRender1.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(1).setCellRenderer(cellRender1);   
+        cellRender2.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(2).setCellRenderer(cellRender2);   
+        cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
+        tComprobantes.getColumnModel().getColumn(4).setCellRenderer(cellRender3);   
+        cellRender4.setHorizontalAlignment(SwingConstants.RIGHT);
+        tComprobantes.getColumnModel().getColumn(5).setCellRenderer(cellRender4);   
         
         ((DefaultTableCellRenderer) tComprobantes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -234,7 +354,7 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
         cbTipoComprobante.setBackground(new java.awt.Color(255, 255, 0));
         cbTipoComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbTipoComprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "FACTURAS A", "FACTURAS C", "FACTURAS E", "PRESUPUESTOS", "PAGOS", "NOTAS DE CREDITO A", "NOTAS DE CREDITO C", "NOTAS DE CREDITO E", "ANULACIONES", "DEVOLUCIONES" }));
+        cbTipoComprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "FACTURAS A", "FACTURAS C", "FACTURAS E", "PRESUPUESTOS DE PRODUCTORES", "PRESUPUESTOS A CLIENTES", "CONSIGNACIONES", "INGRESOS", "FACTURACIONES DE CONSIGNACIONES", "PAGOS A PRODUCTORES", "PAGOS DE CLIENTES", "NOTAS DE CREDITO A", "NOTAS DE CREDITO C", "NOTAS DE CREDITO E", "ANULACIONES", "DEVOLUCIONES" }));
         cbTipoComprobante.setPreferredSize(new java.awt.Dimension(136, 19));
         cbTipoComprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,9 +406,6 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(40, 40, 40))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(cbTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tbOpciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -297,7 +414,10 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(cbTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         rSPanelShadow2Layout.setVerticalGroup(
             rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,6 +471,25 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tComprobantesMouseClicked
 
     private void cbTipoComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoComprobanteActionPerformed
+
+        /*
+        SELECCIONAR
+        FACTURAS A
+        FACTURAS C
+        FACTURAS E
+        PRESUPUESTOS
+        PAGOS
+        NOTAS DE CREDITO A
+        NOTAS DE CREDITO C
+        NOTAS DE CREDITO E
+        ANULACIONES
+        DEVOLUCIONES
+        */
+        
+        String tipoComprobante = cbTipoComprobante.getSelectedItem().toString();
+        mostrarComprobantes(tipoComprobante);
+        tComprobantes.requestFocus();
+        
     }//GEN-LAST:event_cbTipoComprobanteActionPerformed
 
     private void bConsultaMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsultaMovimientoActionPerformed

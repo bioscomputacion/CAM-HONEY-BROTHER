@@ -297,7 +297,107 @@ public class FacturaProductor {
 
         return false;
     }
+    
+    public DefaultTableModel listarFacturasA(String mesConsulta) {
 
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID FACTURA", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL"};
+
+        String[] registros = new String[7];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '41' and f.tipo_factura = 'FACTURA A' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_factura");
+                registros[1] = rs.getString("fecha_factura");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("codigo_productor");
+                registros[4] = rs.getString("nombre");
+                registros[5] = rs.getString("importe_total_factura");
+                registros[6] = rs.getString("cantidad_miel_facturada");
+                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
+                //registros[6] = rs.getString("");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+    
+    public DefaultTableModel listarFacturasC(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID FACTURA", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL"};
+
+        String[] registros = new String[7];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '41' and f.tipo_factura = 'FACTURA C' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_factura");
+                registros[1] = rs.getString("fecha_factura");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("codigo_productor");
+                registros[4] = rs.getString("nombre");
+                registros[5] = rs.getString("importe_total_factura");
+                registros[6] = rs.getString("cantidad_miel_facturada");
+                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
+                //registros[6] = rs.getString("");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+    
     //COPIAR DESDE ACA PARA ALGUNOS DE LOS DEMAS COMPROBANTES
     
     public Double mostrarImporteFactura(int codigoFactura) {

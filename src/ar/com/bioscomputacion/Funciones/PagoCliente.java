@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -219,6 +220,50 @@ public class PagoCliente {
         
         return nombreCliente;
     
+    }
+    
+    public DefaultTableModel listarPagos(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID PAGO", "FECHA", "IMPORTE"};
+
+        String[] registros = new String[3];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_pago, fecha_pago, monto_pago from pago_cliente WHERE codigo_pago <> '1' and fecha_pago BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY codigo_pago");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_pago");
+                registros[1] = rs.getString("fecha_pago");
+                registros[2] = rs.getString("monto_pago");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
     }
     
 }

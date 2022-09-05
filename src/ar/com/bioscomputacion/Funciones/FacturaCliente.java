@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -302,6 +303,56 @@ public class FacturaCliente {
         return false;
     }
 
+    public DefaultTableModel listarFacturasE(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID FACTURA", "FECHA", "N° COMPROBANTE", "ID CLIENTE", "CLIENTE","IMPORTE", "KGS. MIEL"};
+
+        String[] registros = new String[7];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_cliente, o.nombre, f.importe_total_factura, f.cantidad_miel from factura_cliente f join cliente p on f.codigo_cliente = p.cod_cliente join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '15' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_factura");
+                registros[1] = rs.getString("fecha_factura");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("codigo_cliente");
+                registros[4] = rs.getString("nombre");
+                registros[5] = rs.getString("importe_total_factura");
+                registros[6] = rs.getString("cantidad_miel");
+                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
+                //registros[6] = rs.getString("");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+    
     public Double mostrarImporteFactura(int codigoFactura) {
         
         Double importeFactura = 0.00;

@@ -272,6 +272,55 @@ public class CreditoProductor {
         return false;
     }
 
+    public DefaultTableModel listarConsignaciones(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID CONSIGNACION", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR", "KGS. MIEL"};
+
+        String[] registros = new String[6];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_credito, f.numero_comprobante, f.fecha_credito, f.codigo_productor, o.nombre, f.cantidad_miel from credito_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_credito <> '35' and f.fecha_credito BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_credito");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_credito");
+                registros[1] = rs.getString("fecha_credito");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("codigo_productor");
+                registros[4] = rs.getString("nombre");
+                registros[5] = rs.getString("cantidad_miel");
+                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
+                //registros[6] = rs.getString("");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+    
     public String mostrarNombreProductorCredito(int codigoCredito) {
         
         String nombreProductor = "";
