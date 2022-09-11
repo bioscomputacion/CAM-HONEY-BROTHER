@@ -195,16 +195,16 @@ public class PagoProductor {
 
     }
     
-    public DefaultTableModel listarPagos(String mesConsulta) {
+    public DefaultTableModel listarPagosAProductores(String mesConsulta) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID PAGO", "FECHA", "COMPROBANTE_ASOCIADO", "N° COMPROBANTE ABONADO", "TIPO COMPROBANTE ABONADO", "ID PRODUCTOR","PRODUCTOR","IMPORTE", "KGS. MIEL"};
+        String[] titulos = {"ID PAGO", "FECHA", "COMPROBANTE_ASOCIADO", "TIPO COMPROBANTE ABONADO", "ID PRODUCTOR", "PRODUCTOR", "IMPORTE"};
 
-        String[] registros = new String[9];
+        String[] registros = new String[7];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -215,13 +215,19 @@ public class PagoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_pago, fecha_pago, codigo_comprobante_pagado monto_pago from pago_productor WHERE codigo_pago <> '5' and (fecha_pago BETWEEN '2022-09-01' AND '2022-09-30') ORDER BY codigo_pago");
+            ResultSet rs = st.executeQuery("SELECT p.codigo_pago, p.fecha_pago, p.codigo_comprobante_pagado, p.tipo_comprobante_pagado, p.codigo_productor, s.nombre, p.monto_pago from pago_productor p join productor r on p.codigo_productor = r.cod_productor join persona s on r.cod_persona = s.cod_persona WHERE codigo_pago <> '5' and (fecha_pago BETWEEN '2022-09-01' AND '2022-09-30') ORDER BY codigo_pago");
 
             while (rs.next()) {
                 
                 registros[0] = rs.getString("codigo_pago");
                 registros[1] = rs.getString("fecha_pago");
-                registros[2] = rs.getString("monto_pago");
+                registros[2] = rs.getString("codigo_comprobante_pagado");
+                registros[3] = rs.getString("tipo_comprobante_pagado");
+                registros[4] = rs.getString("codigo_productor");
+                registros[5] = rs.getString("nombre");
+                registros[6] = rs.getString("monto_pago");
+                
+                //ver como puedo traer los datos del comprobante abonado por el pago en cuestion
 
                 modelo.addRow(registros);
                 

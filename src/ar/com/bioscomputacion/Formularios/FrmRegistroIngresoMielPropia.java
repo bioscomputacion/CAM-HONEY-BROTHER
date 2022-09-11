@@ -409,6 +409,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(29, 29, 29)))
+                .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16))
@@ -499,7 +500,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
         //se procede al registro del ingresode miel
         //que en realidad es un update del ingreso ya ingresado al inicializarse este formulario!
         totalMielIngresada = Double.parseDouble(tfCantidadKilos.getText());
-        IngresoMielPropia ingreso = new IngresoMielPropia(tfNumeroComprobante.getText(), new Date(a1, m1, d1), totalMielIngresada,tfObservacion.getText());
+        IngresoMielPropia ingreso = new IngresoMielPropia(tfNumeroComprobante.getText(), new Date(a1, m1, d1), totalMielIngresada, codigoLocacion, tfObservacion.getText());
 
         if (ingreso.registrarIngresoMielPropia(ingreso)){
 

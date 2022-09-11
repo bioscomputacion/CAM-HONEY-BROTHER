@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +23,7 @@ public class IngresoMielPropia {
     private String numeroComprobante; 
     private Date fechaIngreso;
     private Double cantidadMiel;
+    private int locacionMiel;
     private String observacion;
     
     public int getCodigoIngreso() {
@@ -64,11 +66,20 @@ public class IngresoMielPropia {
         this.observacion = observacion;
     }
     
-    public IngresoMielPropia(String numeroComprobante, Date fechaIngreso, Double cantidadMiel, String observacion) {
+    public int getLocacionMiel() {
+        return locacionMiel;
+    }
+
+    public void setLocacionMiel(int locacionMiel) {
+        this.locacionMiel = locacionMiel;
+    }
+    
+    public IngresoMielPropia(String numeroComprobante, Date fechaIngreso, Double cantidadMiel, int locacionMiel, String observacion) {
         
         this.numeroComprobante = numeroComprobante;
         this.fechaIngreso = fechaIngreso;
         this.cantidadMiel = cantidadMiel;
+        this.locacionMiel = locacionMiel;
         this.observacion = observacion;
         
     }
@@ -114,14 +125,15 @@ public class IngresoMielPropia {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO ingreso_miel_propia (numero_comprobante, fecha_ingreso, cantidad_miel, observacion) "
-                    + "VALUES (?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO ingreso_miel_propia (numero_comprobante, fecha_ingreso, cantidad_miel, locacion_miel, observacion) "
+                    + "VALUES (?,?,?,?,?)");
             
             
             pst.setString(1, ingresoMiel.getNumeroComprobante());
             pst.setDate(2, ingresoMiel.getFechaIngreso());
             pst.setDouble(3, ingresoMiel.getCantidadMiel());
-            pst.setString(4, ingresoMiel.getObservacion());
+            pst.setInt(4, ingresoMiel.getLocacionMiel());
+            pst.setString(5, ingresoMiel.getObservacion());
             
             
             int N = pst.executeUpdate();
@@ -156,12 +168,13 @@ public class IngresoMielPropia {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("UPDATE ingreso_miel_propia SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ?,observacion = ? WHERE codigo_ingreso = '"+ codigoIngreso +"'");
+            PreparedStatement pst = cn.prepareStatement("UPDATE ingreso_miel_propia SET numero_comprobante = ?,fecha_ingreso = ?,cantidad_miel = ?, locacion_miel = ?, observacion = ? WHERE codigo_ingreso = '"+ codigoIngreso +"'");
 
             pst.setString(1, ingresoMiel.getNumeroComprobante());
             pst.setDate(2, ingresoMiel.getFechaIngreso());
             pst.setDouble(3, ingresoMiel.getCantidadMiel());
-            pst.setString(3, ingresoMiel.getObservacion());
+            pst.setInt(4, ingresoMiel.getLocacionMiel());
+            pst.setString(5, ingresoMiel.getObservacion());
 
             int N = pst.executeUpdate();
 
@@ -219,4 +232,55 @@ public class IngresoMielPropia {
         return false;
     }
 
+    public DefaultTableModel listarIngresosMiel(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID INGRESO", "FECHA", "N° COMPROBANTE", "KGS. INGRESADOS", "ID LOCACION", "LOCACION"};
+
+        String[] registros = new String[6];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT i.codigo_ingreso, i.fecha_ingreso, i.numero_comprobante, i.cantidad_miel, i.locacion_miel, l.nombre_locacion from ingreso_miel_propia i join locacion l on i.locacion_miel = l.codigo_locacion where codigo_ingreso <> '4' and i.fecha_ingreso BETWEEN '2022-09-01' AND '2022-09-30' order by codigo_ingreso");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_ingreso");
+                registros[1] = rs.getString("fecha_ingreso");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("cantidad_miel");
+                registros[4] = rs.getString("locacion_miel");
+                registros[5] = rs.getString("nombre_locacion");
+                
+                //ver como puedo traer los datos del comprobante abonado por el pago en cuestion
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            System.out.println("error");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
 }

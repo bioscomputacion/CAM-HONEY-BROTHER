@@ -173,18 +173,18 @@ public class StockRealMiel {
 
             if (N != 0) {
                 
-                System.out.println("3");
                 return true;
                 
             } else {
                 
-                System.out.println("4");
                 return false;
                 
             }
             
             
         } catch (Exception e) {
+            
+            System.out.println("ERROR");
             
         }
         
@@ -788,9 +788,34 @@ public class StockRealMiel {
         
     }
 
+    //SIRVE!!!
+    //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
+    public int obtenerLocacionMielADevolverEnAnulacion(int codigoPresupuesto){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where (comprobante_asociado = 'PRESUPUESTO') and id_comprobante_asociado = "+codigoPresupuesto);
+            
+            while (rs.next()) {
 
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
 
-    
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return locacionMiel;
+            
+        } 
+        
+    }
+
     //CHEQUEAAAR BIEEEEN: VER DESDE ACA QUE HAY QUE ACOMODAR, NO BORRAR NADA!
     public Double obtenerDetalleMielComprada(int codigoLocacion){
         

@@ -272,7 +272,7 @@ public class CreditoProductor {
         return false;
     }
 
-    public DefaultTableModel listarConsignaciones(String mesConsulta) {
+    public DefaultTableModel listarConsignacionesDeProductores(String mesConsulta) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo

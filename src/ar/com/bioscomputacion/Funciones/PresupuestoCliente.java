@@ -251,7 +251,7 @@ public class PresupuestoCliente {
         return false;
     }
 
-    public DefaultTableModel listarPresupuestos(String mesConsulta) {
+    public DefaultTableModel listarPresupuestosAClientes(String mesConsulta) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo

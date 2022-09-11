@@ -259,7 +259,7 @@ public class DevolucionProductor {
         return false;
     }
     
-    public DefaultTableModel listarDevoluciones(String mesConsulta) {
+    public DefaultTableModel listarDevolucionesAProductores(String mesConsulta) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo

@@ -1039,72 +1039,60 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        /*
-        //1er chequeo: se debe seleccionar una fila de la grilla
-        if (fila2 == -1) {
-            
-            JOptionPane.showMessageDialog(null, "Seleccione la fila correspondiente al comprobante que desea anular.", "ANULACION DE COMPROBANTE", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //2do chequeo: se debe corroborar que se esta intentando anular una factura o un presupuesto y no otro tipo
-        //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
-            
-            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //3er chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no un credito (el cual debe facturarse)
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("CONSIGNACION")) {
-            
-            JOptionPane.showMessageDialog(null, "No se puede abonar una compra a consignacion. la misma debe ser antes facturada o presupuestada.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
-        if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
-            
-            System.out.println("Entra bien!");
-            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
-            tMovimientos.requestFocus();
-            return;
-            
-        }
-        
-        FrmRegistroPagoAProductor form = new FrmRegistroPagoAProductor();
-        //asigno valores que debera mostrar el formulario de pago al productor
-        form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
-        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
-        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
-        FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
-        FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
-        FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
-        FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
-        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
-        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
-        
-        deskPrincipal.add(form);
-        Dimension desktopSize = deskPrincipal.getSize();
-        Dimension FrameSize = form.getSize();
+        //Abre un formulario que muestra todos los presupuestos del productor seleccionado
+        //para poder asociar algun presupuesto NO CANCEADO a la anulacion que se esta por registrar
+        //en otra pestaña de la misma ventana se ingresaran los datos puntuales de la anulacion
 
-        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        form.setVisible(true);
-
-        form.setClosable(true);
-        form.setIconifiable(false);
+        //el unico chequeo a realizar es que se este trabajando en la cta. cte. de un productor (que se haya seleccionado el mismo)
+        //implementar el chequeo!
+        if (tfIDProductor.getText().length() == 0){
+            
+            //no se esta visualizando la cta. cte de ningun productor!
+            
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un productor para visualizar su cta. cte..", "REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
         
-        form.inicializar();
-        */
+        //se abre el formulario de asociacion de ANULACION (el mismo muestra todlos presupuestos del productor)
+        try {
+            
+            FrmRegistroAnulacionPresupuestoProductor form = new FrmRegistroAnulacionPresupuestoProductor();
+            //asigno valores que debera mostrar el formulario de anulacion
+            //form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+            
+            //recordar chequear si este campo no esta vacio, ya que si lo esta, es porque no se esta visualizando
+            //ninguna cta. cte.
+            form.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+            //asigno valores que debera mostrar el formulario de pago al productor
+            /*form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
+            form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+            form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+            form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
+            FrmRegistroPagoAProductor.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+            FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago = Integer.parseInt(tMovimientos.getValueAt(fila2, 4).toString());
+            FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
+            FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
+            FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
+            FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
+            FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());*/
+            deskPrincipal.add(form);
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
 
+            form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            form.setVisible(true);
+
+            form.setClosable(true);
+            form.setIconifiable(false);
+
+            form.inicializar();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCtaCteConProductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -323,7 +323,7 @@ public class FacturaCliente {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_cliente, o.nombre, f.importe_total_factura, f.cantidad_miel from factura_cliente f join cliente p on f.codigo_cliente = p.cod_cliente join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '15' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_cliente, o.nombre, f.importe_total_factura, f.cantidad_miel from factura_cliente f join cliente p on f.codigo_cliente = p.cod_cliente join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '18' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
 
             while (rs.next()) {
                 

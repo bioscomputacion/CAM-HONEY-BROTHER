@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -255,4 +256,59 @@ public class Traslado {
         return false;
     }
 
+    public DefaultTableModel listarTraslados(String mesConsulta) {
+
+        //el parametro mesConsulta es para filtrar comprobantes por mes!
+        //falta hacerlo
+        
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID TRASLADO", "FECHA", "N° COMPROBANTE", "MOTIVO", "KGS. TRASLADADOS", "LOCACION ORIGEN", "ORIGEN", "LOCACION DESTINO", "DESTINO"};
+
+        String[] registros = new String[9];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_traslado, numero_comprobante, cantidad_item_trasladado, observacion_traslado, origen_traslado, destino_traslado, fecha_traslado from traslado where codigo_traslado <> '67' order by codigo_traslado");
+            Locacion locacion = new Locacion();
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_traslado");
+                registros[1] = rs.getString("fecha_traslado");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("observacion_traslado");
+                registros[4] = rs.getString("cantidad_item_trasladado");
+                registros[5] = rs.getString("origen_traslado");
+                registros[7] = rs.getString("destino_traslado");
+                int codigo_locacion_origen = rs.getInt("origen_traslado");
+                int codigo_locacion_destino = rs.getInt("destino_traslado");
+                registros[6] = locacion.mostrarNombreLocacion(codigo_locacion_origen);
+                registros[8] = locacion.mostrarNombreLocacion(codigo_locacion_destino);
+                
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            System.out.println("error");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
 }

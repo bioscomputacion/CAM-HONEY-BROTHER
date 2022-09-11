@@ -453,6 +453,55 @@ public class Productor extends Persona {
         
     }
     
+    //ver como pasarle un periodo de fechas!
+    public DefaultTableModel listarPresupuestosProductor(int codigoProductor) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"ID", "N° COMPROBANTE", "ID MOVIMIENTO EN CTA CTE", "FECHA", "IMPORTE", "SALDO","KGS. MIEL PRESUPUESTADOS", "PRECIO KG.", "ESTADO"};
+
+        String[] registros = new String[9];
+
+        modelo = new DefaultTableModel(null, titulos) {
+            
+        };
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.codigo_presupuesto, f.numero_comprobante, f.codigo_movimiento_ctacte, f.fecha_presupuesto, f.importe_total_presupuesto, f.cantidad_miel, c.saldo, c.estado_movimiento FROM presupuesto_productor f JOIN cta_cte_productor c ON f.codigo_presupuesto = c.comprobante_asociado WHERE f.codigo_productor = '"+codigoProductor+"' ORDER BY f.fecha_presupuesto ASC");
+
+            while (rs.next()) {
+                
+                registros[0] = rs.getString("codigo_presupuesto");
+                registros[1] = rs.getString("numero_comprobante");
+                registros[2] = rs.getString("codigo_movimiento_ctacte");
+                registros[3] = rs.getString("fecha_presupuesto");
+                registros[4] = rs.getString("importe_total_presupuesto");
+                registros[5] = rs.getString("saldo");
+                registros[6] = rs.getString("cantidad_miel");
+                Double precioKilo = rs.getDouble("importe_total_presupuesto")/rs.getDouble("cantidad_miel");
+                registros[7] = String.valueOf(precioKilo);
+                registros[8] = rs.getString("estado_movimiento");
+
+                modelo.addRow(registros);
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return modelo;
+        
+    }
+    
     public String mostrarNombreProductor(int codigoProductor) {
         
         String nombreProductor = "";

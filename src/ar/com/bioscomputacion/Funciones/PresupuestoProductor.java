@@ -282,7 +282,7 @@ public class PresupuestoProductor {
         return false;
     }
 
-    public DefaultTableModel listarPresupuestos(String mesConsulta) {
+    public DefaultTableModel listarPresupuestosDeProductores(String mesConsulta) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo

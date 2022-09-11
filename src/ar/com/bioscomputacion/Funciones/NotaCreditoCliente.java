@@ -194,9 +194,9 @@ public class NotaCreditoCliente {
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID NOTA CREDITO", "FECHA", "IMPORTE"};
+        String[] titulos = {"ID NOTA CREDITO", "FECHA", "N° COMPROBANTE", "ID CLIENTE", "CLIENTE","IMPORTE", "KGS. MIEL"};
 
-        String[] registros = new String[3];
+        String[] registros = new String[7];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -207,13 +207,19 @@ public class NotaCreditoCliente {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_nota_credito, fecha_nota_credito, importe_total_nota_credito from nota_credito_cliente WHERE codigo_nota_credito <> '1' and tipo_nota_credito = 'NOTA DE CREDITO E' and fecha_nota_credito BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY codigo_nota_credito");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_nota_credito, f.numero_comprobante, f.fecha_nota_credito, f.codigo_cliente, o.cliente, f.importe_total_nota_credito, f.cantidad_miel_afectada from nota_credito_cliente f join cliente p on f.codigo_cliente = p.cod_cliente join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_nota_credito <> '1' and f.tipo_nota_credito = 'NOTA DE CREDITO E' and f.fecha_nota_credito BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_nota_credito");
 
             while (rs.next()) {
                 
                 registros[0] = rs.getString("codigo_nota_credito");
                 registros[1] = rs.getString("fecha_nota_credito");
-                registros[2] = rs.getString("importe_total_nota_credito");
+                registros[2] = rs.getString("numero_comprobante");
+                registros[3] = rs.getString("codigo_productor");
+                registros[4] = rs.getString("nombre");
+                registros[5] = rs.getString("importe_total_nota_credito");
+                registros[6] = rs.getString("cantidad_miel_afectada");
+                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
+                //registros[6] = rs.getString("");
 
                 modelo.addRow(registros);
                 
