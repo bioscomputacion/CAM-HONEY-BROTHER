@@ -58,10 +58,6 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         calcularTotalStockGlobalCredito();
         ocultarColumnasDetalleLocaciones();
         
-        //calcularTotalStockEmbarque();
-        //calcularTotalStockExportacion!!!
-        //actualiza informacion en la pestaña 1
-        
         //DATOS DEL STOCK TOTAL, STOCK PAGO Y STOCK IMPAGO EN PRODUCTORES
         mostrarDetalleStockProductores();
         calcularTotalStockEnProductores();
@@ -69,6 +65,9 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         calcularTotalStockCreditoEnProductores();
         ocultarColumnasDetalleProductores();
         
+        //calcularTotalStockEmbarque();
+        //calcularTotalStockExportacion!!!
+        //actualiza informacion en la pestaña 1
         
         inicializar();
         
@@ -110,7 +109,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         locaciones.add(loc0);
         
         Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
+        ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion where codigo_locacion <> '1' order by codigo_locacion asc");
         
         try{
             

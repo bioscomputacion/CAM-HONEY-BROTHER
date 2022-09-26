@@ -111,7 +111,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LA INFORMACION DEL PAGO A REALIZAR:");
+        jLabel1.setText("INGRESE LA INFORMACION CORRESPONDIENTE AL PAGO:");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +123,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("SE ESTA REALIZANDO UN PAGO CORRESPONDIENTE A:");
+        jLabel17.setText("SE ESTA REGISTRANDO UN PAGO CORRESPONDIENTE A:");
 
         tfInformacion.setEditable(false);
         tfInformacion.setBackground(new java.awt.Color(0, 0, 0));
@@ -155,7 +155,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         jLabel20.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("IMPORTE DEL COMPROBANTE:");
+        jLabel20.setText("IMPORTE:");
 
         tfImporteTotalComprobante.setEditable(false);
         tfImporteTotalComprobante.setBackground(new java.awt.Color(255, 255, 204));
@@ -188,14 +188,14 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("* MONTO DEL PAGO:");
+        jLabel21.setText("* IMPORTE TOTAL DEL PAGO:");
 
         jLabel22.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("SALDO IMPAGO:");
 
         tfSaldoImpagoComprobante.setEditable(false);
-        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(0, 0, 0));
+        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(255, 0, 0));
         tfSaldoImpagoComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfSaldoImpagoComprobante.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -259,12 +259,12 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
 
         jLabel27.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("* KGS. A PAGAR:");
+        jLabel27.setText("* INGRESE KGS. A PAGAR:");
 
         jLabel28.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel28.setText("LIMITE KGS.:");
+        jLabel28.setText("KGS. DISPONIBLES:");
 
         tfKilosImpagos.setEditable(false);
         tfKilosImpagos.setBackground(new java.awt.Color(255, 255, 204));
@@ -307,19 +307,12 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel23))
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel21)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -334,7 +327,15 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
                             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
@@ -383,30 +384,35 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfKilosAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfKilosAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfMontoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfMontoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,7 +519,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         }
         else{
             
-            if (tipoComprobanteAfectadoPago.equals("FACTURA B")){
+            if (tipoComprobanteAfectadoPago.equals("FACTURA C")){
                 
                 comprobanteAsociadoPago = "FACT. B N° "+numeroComprobanteAfectadoPago;
                 
@@ -526,7 +532,7 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         
         }
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, comprobanteAsociadoPago, 0.00, 0.00, importePago, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, "-", comprobanteAsociadoPago, 0.00, 0.00, importePago, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago

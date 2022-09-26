@@ -38,8 +38,9 @@ import javax.swing.table.DefaultTableModel;
 public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame {
         
     static int codigoProductor;
+    static String nombreProductor;
     int codigoNotaCredito, codigoMovimientoCtaCte, codigoFactura, codigoLocacion, codigoComprobanteAfectadoNotaCredito;
-    String tipoComprobanteAfectadoNotaCredito;
+    String tipoComprobanteAfectadoNotaCredito, nombreLocacion;
     Double totalMielFacturada, totalMielIngresadaDevolucion, importeFactura;
     Double importeNotaCredito, precioUnitario, saldoPendiente, saldoImpago, debeComprobanteAfectado, haberComprobanteAfectado, totalkilosFacturados, totalKilosImpagos, totalKilosIngresadosDevolucion;
     int fila = -1;
@@ -74,6 +75,8 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         totalMielIngresadaDevolucion = 0.00;
         importeFactura = 0.00;
         importeNotaCredito = 0.00;
+        
+        lLocacionMielFacturaI.setText("");
         
         tFacturasProductor.requestFocus();
         
@@ -241,6 +244,9 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfKilosImpagos = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
+        lLocacionMielFacturaI = new javax.swing.JLabel();
+        lLocacionMielFacturaII = new javax.swing.JLabel();
+        lLocacionMielFacturaIII = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -468,15 +474,15 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(tfTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfImporteFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfImporteFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel14))
                         .addGap(0, 187, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -493,24 +499,22 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addComponent(jLabel13)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel13)
-                            .addGap(29, 29, 29))
-                        .addComponent(tfImporteFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jLabel10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfImporteFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         tpFactura.addTab("Facturas del productor", jPanel6);
@@ -525,11 +529,11 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         jLabel3.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("INGRESE LA INFORMACION CORRESPONDIENTE A LA DEVOLUCION:");
+        jLabel3.setText("INGRESE LA INFORMACION CORRESPONDIENTE A LA N. DE CREDITO:");
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("SE ESTA REALIZANDO UN PAGO CORRESPONDIENTE A:");
+        jLabel17.setText("SE ESTA REGISTRANDO UNA NOTA DE CREDITO CORRESPONDIENTE A:");
 
         tfInformacion.setEditable(false);
         tfInformacion.setBackground(new java.awt.Color(0, 0, 0));
@@ -538,7 +542,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("INFORMACION DEL COMPROBANTE A ASOCIAR A LA NC:");
+        jLabel8.setText("DATOS DE LA FACTURA A ASOCIAR A LA NOTA DE CREDITO:");
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -594,7 +598,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         jLabel36.setText("SALDO IMPAGO:");
 
         tfSaldoImpagoComprobante.setEditable(false);
-        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(0, 0, 0));
+        tfSaldoImpagoComprobante.setBackground(new java.awt.Color(255, 0, 0));
         tfSaldoImpagoComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfSaldoImpagoComprobante.setForeground(new java.awt.Color(255, 255, 255));
         tfSaldoImpagoComprobante.setPreferredSize(new java.awt.Dimension(137, 23));
@@ -648,10 +652,10 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         jLabel32.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel32.setText("INGRESE KGS. A DEVOLVER:");
+        jLabel32.setText("* INGRESE KGS. A DEVOLVER:");
 
         tfKilosImpagos.setEditable(false);
-        tfKilosImpagos.setBackground(new java.awt.Color(51, 84, 111));
+        tfKilosImpagos.setBackground(new java.awt.Color(255, 255, 204));
         tfKilosImpagos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jLabel38.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
@@ -663,6 +667,21 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel39.setText("IMPORTE TOTAL DE LA NC:");
+
+        lLocacionMielFacturaI.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        lLocacionMielFacturaI.setForeground(new java.awt.Color(255, 255, 0));
+        lLocacionMielFacturaI.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lLocacionMielFacturaI.setText("Miel acopiada en la locacion: ...");
+
+        lLocacionMielFacturaII.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        lLocacionMielFacturaII.setForeground(new java.awt.Color(255, 255, 255));
+        lLocacionMielFacturaII.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lLocacionMielFacturaII.setText("La miel ingresada en la nota de credito sera descontada del stock en dicha locacion.");
+
+        lLocacionMielFacturaIII.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        lLocacionMielFacturaIII.setForeground(new java.awt.Color(255, 255, 255));
+        lLocacionMielFacturaIII.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lLocacionMielFacturaIII.setText("(Y tambien del stock global de la empresa.)");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -684,34 +703,23 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel38)
+                                        .addComponent(jLabel35)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel33)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jLabel35)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jLabel33)
-                                                .addGap(5, 5, 5)
-                                                .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                                    .addGap(13, 13, 13)
-                                                    .addComponent(jLabel36)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                                    .addComponent(jLabel34)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(jLabel23)
+                                            .addGap(13, 13, 13)
+                                            .addComponent(jLabel36)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabel34)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -721,8 +729,22 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel32)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfKilosADevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())))
+                                        .addComponent(tfKilosADevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel23)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel38)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lLocacionMielFacturaI)
+                            .addComponent(lLocacionMielFacturaII)
+                            .addComponent(lLocacionMielFacturaIII))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -740,15 +762,25 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel35)
-                            .addComponent(tfImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfKilosFacturados, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33)))
+                            .addComponent(jLabel33))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -756,24 +788,18 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfImporteNotaCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSaldoImpagoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel36))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfKilosImpagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(lLocacionMielFacturaI, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lLocacionMielFacturaII, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lLocacionMielFacturaIII, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tpFactura.addTab("Datos de la factura y de la devolucion de miel", jPanel3);
@@ -797,10 +823,11 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         dcFechaNotaCredito.setBackground(new java.awt.Color(36, 33, 33));
         dcFechaNotaCredito.setForeground(new java.awt.Color(207, 207, 207));
         dcFechaNotaCredito.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        dcFechaNotaCredito.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("* N°:");
+        jLabel20.setText("* N° COMPROBANTE:");
 
         jLabel24.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -813,11 +840,13 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfNumeroComprobante.setBackground(new java.awt.Color(51, 84, 111));
         tfNumeroComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNumeroComprobante.setForeground(new java.awt.Color(255, 255, 255));
+        tfNumeroComprobante.setPreferredSize(new java.awt.Dimension(0, 23));
 
         tfKilosFinalesNC.setEditable(false);
         tfKilosFinalesNC.setBackground(new java.awt.Color(51, 84, 111));
         tfKilosFinalesNC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfKilosFinalesNC.setForeground(new java.awt.Color(255, 255, 255));
+        tfKilosFinalesNC.setPreferredSize(new java.awt.Dimension(0, 23));
         tfKilosFinalesNC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfKilosFinalesNCActionPerformed(evt);
@@ -840,6 +869,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfPrecioUnitarioFinalNC.setBackground(new java.awt.Color(51, 84, 111));
         tfPrecioUnitarioFinalNC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfPrecioUnitarioFinalNC.setForeground(new java.awt.Color(255, 255, 255));
+        tfPrecioUnitarioFinalNC.setPreferredSize(new java.awt.Dimension(0, 23));
         tfPrecioUnitarioFinalNC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfPrecioUnitarioFinalNCKeyReleased(evt);
@@ -851,13 +881,13 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
 
         jLabel28.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("* N. DE CREDITO:");
+        jLabel28.setText("* TIPO DE NOTA DE CREDITO:");
 
         cbTipoNotaCredito.setBackground(new java.awt.Color(255, 255, 0));
         cbTipoNotaCredito.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         cbTipoNotaCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOTA DE CREDITO A", "NOTA DE CREDITO C" }));
         cbTipoNotaCredito.setEnabled(false);
-        cbTipoNotaCredito.setPreferredSize(new java.awt.Dimension(136, 19));
+        cbTipoNotaCredito.setPreferredSize(new java.awt.Dimension(0, 23));
 
         tfDescripcion1.setEditable(false);
         tfDescripcion1.setBackground(new java.awt.Color(0, 0, 0));
@@ -865,12 +895,19 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfDescripcion1.setForeground(new java.awt.Color(255, 255, 255));
         tfDescripcion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfDescripcion1.setText(" KGS. DE MIEL");
+        tfDescripcion1.setPreferredSize(new java.awt.Dimension(0, 23));
 
         tfTambores.setEditable(false);
         tfTambores.setBackground(new java.awt.Color(0, 0, 0));
         tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfTambores.setForeground(new java.awt.Color(255, 255, 255));
         tfTambores.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfTambores.setPreferredSize(new java.awt.Dimension(0, 23));
+        tfTambores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTamboresActionPerformed(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
@@ -884,6 +921,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfImporteTotalNC.setBackground(new java.awt.Color(255, 0, 0));
         tfImporteTotalNC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfImporteTotalNC.setForeground(new java.awt.Color(255, 255, 255));
+        tfImporteTotalNC.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
@@ -894,6 +932,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfLotes.setForeground(new java.awt.Color(255, 255, 255));
         tfLotes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfLotes.setPreferredSize(new java.awt.Dimension(0, 23));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -903,11 +942,11 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jSeparator4)
+                        .addContainerGap())
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(132, 132, 132))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -950,7 +989,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel31)
-                                    .addComponent(tfLotes))))
+                                    .addComponent(tfLotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -964,8 +1003,8 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTipoNotaCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
+                    .addComponent(cbTipoNotaCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
@@ -995,12 +1034,13 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel29)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(203, Short.MAX_VALUE))
         );
 
@@ -1021,7 +1061,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(tpFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1114,11 +1154,11 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         }
         else{
 
-            comprobanteAsociadoNotaCredito = "FACT. B N° "+tfNumeroFactura.getText();
+            comprobanteAsociadoNotaCredito = "FACT. C N° "+tfNumeroFactura.getText();
 
         }
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), tipoNotaCredito, codigoNotaCredito, comprobanteAsociadoNotaCredito, 0.00, 0.00, importeNotaCredito, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), tipoNotaCredito, codigoNotaCredito, numeroComprobante, comprobanteAsociadoNotaCredito,0.00, 0.00, importeNotaCredito, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago
@@ -1280,7 +1320,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
             
             if (tFacturasProductor.getValueAt(fila, 9).toString().equals("CANCELADO")){
                 
-                JOptionPane.showMessageDialog(null, "La factura seleccionada se encuentra cancelada. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La factura seleccionada se encuentra cancelada. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE NOTA DE CREEDITO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
                 //debo vaciar todos los campos de la segunda pestaña!
                 tfTipoFactura.setText("");
                 tfNumeroFactura.setText("");
@@ -1288,6 +1328,8 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 cbTipoNotaCredito.setEnabled(true);
                 cbTipoNotaCredito.setSelectedIndex(0);
                 cbTipoNotaCredito.setEnabled(false);
+
+                lLocacionMielFacturaI.setText("");
 
                 //kilos facturados
                 tfKilosFacturados.setText("");
@@ -1297,11 +1339,13 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 tfPrecioUnitario.setText("");
                 //saldo impago del comprobante
                 tfSaldoImpagoComprobante.setText("");
-                //saldo pendiente del comprobante, una vez efectuado el pago!
-                tfSaldoPendiente.setText("");
+                
                 tfKilosImpagos.setText("");
                 tfKilosADevolver.setText("");
                 tfImporteNotaCredito.setText("");
+                //saldo pendiente del comprobante, una vez efectuado el pago!
+                tfSaldoPendiente.setText("");
+
                 tfKilosFinalesNC.setText("");
                 tfPrecioUnitarioFinalNC.setText("");
                 tfImporteTotalNC.setText("");
@@ -1316,14 +1360,20 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 tfTipoFactura.setText(tFacturasProductor.getValueAt(fila, 1).toString());
                 tfNumeroFactura.setText(tFacturasProductor.getValueAt(fila, 2).toString());
                 //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
-                tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 4).toString());
+                tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 5).toString());
+
+                //asigno valores que debera mostrar el formulario de pago al productor
+                tfInformacion.setText(tFacturasProductor.getValueAt(fila, 1).toString()+" N° "+tFacturasProductor.getValueAt(fila, 2).toString()+" / Productor N° "+codigoProductor+": "+nombreProductor);
 
                 //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
                 //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
                 codigoFactura = Integer.parseInt(tFacturasProductor.getValueAt(fila, 0).toString());
                 StockRealMiel stock = new StockRealMiel();
+                Locacion locacion = new Locacion();
                 //locacion donde se almaceno la miel facturada en el comprobante
                 codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoFactura);
+                nombreLocacion = locacion.mostrarNombreLocacion(codigoLocacion);
+                lLocacionMielFacturaI.setText("Miel acopiada en la locacion: "+nombreLocacion);
                 //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene la factura en la cta. cte.
                 codigoComprobanteAfectadoNotaCredito = Integer.parseInt(tFacturasProductor.getValueAt(fila, 3).toString());
                 //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
@@ -1346,10 +1396,11 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                     cbTipoNotaCredito.setEnabled(false);
 
                 }
+                
                 //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
                 debeComprobanteAfectado = Double.parseDouble(tFacturasProductor.getValueAt(fila, 5).toString());
-                Double saldo = Double.parseDouble(tFacturasProductor.getValueAt(fila, 6).toString());
-                haberComprobanteAfectado = debeComprobanteAfectado - saldo;
+                saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
+                haberComprobanteAfectado = debeComprobanteAfectado - saldoImpago;
 
                 //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
                 //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
@@ -1364,11 +1415,12 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 tfPrecioUnitario.setText(String.valueOf(precioUnitario));
                 //saldo impago del comprobante
                 tfSaldoImpagoComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
-                saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
+                
+                //en SALDO PENDIENTE deberia guardarse: SALDO IMPAGO - IMPORET NOTA CREDITO (que se vaya ingresando)
                 //saldo pendiente del comprobante, una vez efectuado el pago!
-                tfSaldoPendiente.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
-                Double saldoPendienteDePago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
-                Double kilosImpagos = saldoPendienteDePago / precioUnitario;
+                Double saldoPendienteDePago = saldoImpago - importeNotaCredito;
+                tfSaldoPendiente.setText(String.valueOf(saldoPendienteDePago));
+                Double kilosImpagos = saldoImpago / precioUnitario;
                 totalKilosImpagos = kilosImpagos;
                 totalKilosIngresadosDevolucion = totalKilosImpagos;
                 tfKilosImpagos.setText(String.valueOf(kilosImpagos));
@@ -1643,6 +1695,10 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
 
     }//GEN-LAST:event_tfKilosADevolverKeyPressed
 
+    private void tfTamboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTamboresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTamboresActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOpcionesRegistro;
@@ -1690,6 +1746,9 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel lLocacionMielFacturaI;
+    private javax.swing.JLabel lLocacionMielFacturaII;
+    private javax.swing.JLabel lLocacionMielFacturaIII;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSButtonRiple rsbrAsociar;
     private rojeru_san.RSButtonRiple rsbrCancelar;
@@ -1716,7 +1775,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
     public javax.swing.JTextField tfSaldoImpagoComprobante;
     public javax.swing.JTextField tfSaldoPendiente;
     public javax.swing.JTextField tfTambores;
-    private javax.swing.JTextField tfTipoFactura;
+    public javax.swing.JTextField tfTipoFactura;
     private javax.swing.JTabbedPane tpFactura;
     // End of variables declaration//GEN-END:variables
 }

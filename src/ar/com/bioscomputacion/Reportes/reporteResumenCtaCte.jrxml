@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4599712b-b318-4b44-8513-dae95990fcae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="codigo_productor" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[WITH 
+saldoConProductor AS 
+(
+SELECT codigo_productor, SUM(saldo) as saldo
+FROM cta_cte_productor
+where codigo_productor = $P{codigo_productor}
+),
+
+mielFinanciadaProductor AS 
+(
+SELECT codigo_productor, SUM(cantidad_miel) as mielFinanciada
+FROM cta_cte_productor
+where codigo_productor = $P{codigo_productor} and descripcion_movimiento = "CONSIGNACION"
+),
+
+mielDescontadaProductor AS
+(
+SELECT codigo_productor, SUM(cantidad_miel_afectada) as mielDescontada
+FROM comprobantes_relacionados_compra_credito
+where codigo_productor = $P{codigo_productor}
+)
+
+select c.fecha_movimiento, c.descripcion_movimiento, c.numero_comprobante,
+c.comprobante_afectado, c.cantidad_miel, c.debe, c.haber, c.codigo_productor, r.nombre, 
+r.estado_provincia, r.localidad, r.domicilio, s.saldo, m.mielFinanciada - n.mielDescontada
+from cta_cte_productor c 
+join saldoConProductor s on c.codigo_productor = s.codigo_productor
+left join mielFinanciadaProductor m on c.codigo_productor = m.codigo_productor
+left join mielDescontadaProductor n on c.codigo_productor = n.codigo_productor
+join productor p on c.codigo_productor = p.cod_productor
+join persona r on p.cod_persona = r.cod_persona
+]]>
+	</queryString>
+	<field name="fecha_movimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion_movimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_comprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comprobante_afectado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_miel" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="haber" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigo_productor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado_provincia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="localidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="domicilio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="saldo" class="java.math.BigDecimal"/>
+	<field name="m.mielFinanciada - n.mielDescontada" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" mode="Opaque" x="0" y="0" width="555" height="39" backcolor="#CCCCCC" uuid="95dfd8c5-f14e-41e6-bbbe-0b2472c23f15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN DE CTA. CTE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="39" width="555" height="23" forecolor="#000000" uuid="3bf20093-6a53-4051-9e48-564d8b07c158"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="14" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO DE LA CTA. CTE. DE CAM CON EL PRODUCTOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="64" width="555" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="201c72bd-a879-4294-923c-221a46fe76ea"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" COD. "+$F{codigo_productor}+" - "+$F{nombre}+" - "+$F{localidad}+" ("+$F{estado_provincia}+"), "+$F{domicilio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="a2c9dd7f-c672-445f-90d9-a1d423576406"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="7" y="19" width="28" height="15" forecolor="#000000" uuid="0be5653f-d552-4117-800e-e97afe8c07b0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="38" y="19" width="81" height="15" forecolor="#000000" uuid="a61b771d-1fa8-4482-af72-16fdf74a52cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REFERENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="100" y="19" width="101" height="15" forecolor="#000000" uuid="704831d7-22fa-44d7-b403-b25a9e44011a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° COMPROB.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="19" width="100" height="15" forecolor="#000000" uuid="91b86fb4-0e14-45b5-bfc8-4afb3ec8d17d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROB. AFECTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="288" y="19" width="82" height="15" forecolor="#000000" uuid="9dff2ee4-6dca-4cd8-b0cd-cbd6c0d034b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KGS. COMPRADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="367" y="19" width="82" height="15" forecolor="#000000" uuid="9cedce7f-0cf4-4f8c-826a-cf3c0bc04999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KGS. IMPAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="449" y="19" width="48" height="15" forecolor="#000000" uuid="55bb6f4e-42e4-42cd-89cc-0e408d9746d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="507" y="19" width="48" height="15" forecolor="#000000" uuid="665df890-001b-4a80-9bc3-5406da0d451f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="eac160c1-e1f5-47ff-9ec6-707a1cfa00bc"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="0" y="1" width="75" height="15" uuid="7a76164f-b3e6-496c-9b60-f307631445cf"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_movimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="48" y="1" width="94" height="15" uuid="d2d7aa1f-2f7d-48df-9c1f-edf055ef78c3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_movimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="103" y="1" width="97" height="15" uuid="a9893760-bf56-477e-a71e-8c24d2d8c26b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_comprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="178" y="1" width="103" height="15" uuid="e7de68bf-ecc8-4090-a22b-178bed5701cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comprobante_afectado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="244" y="1" width="109" height="15" uuid="1c8bbb07-9100-44e9-9d68-51bb78223218"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_miel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="323" y="1" width="105" height="15" uuid="590ccfb5-6fe2-4696-a541-c97f4eaf276f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_miel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement style="Detail" x="431" y="1" width="59" height="15" uuid="e4257f0e-00fc-48af-b898-fd66b25ff6ef"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement style="Detail" x="486" y="1" width="67" height="15" uuid="498ba080-aae6-4be6-af5c-8cafa4bd578c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="75" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="20ce6f31-a960-44d9-b6de-957bcd2513e7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement style="Detail" mode="Opaque" x="0" y="4" width="555" height="19" forecolor="#FFFFFF" backcolor="#000000" uuid="895da9f3-b4b0-485a-b07a-c0152585974d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SALDO IMPAGO: $"+$F{saldo}+" "]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" mode="Opaque" x="0" y="23" width="555" height="22" forecolor="#FFFFFF" backcolor="#000000" uuid="a426f189-17e6-450a-b546-964c78357c05"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{(m.mielFinanciada - n.mielDescontada)}+" KGS. DE MIEL IMPAGOS"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="19e2ac20-63be-478d-998d-c75a8b6c2045"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="aac41eca-db88-4e60-946e-4aec8779e0e5"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="d1309bf1-e790-4638-bef9-9af1aa5261a3"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -5,20 +5,27 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import static ar.com.bioscomputacion.Formularios.FrmFacturacionCompraConsignacion.cn;
 import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
+import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.ItemFacturadoCreditoProductor;
 import ar.com.bioscomputacion.Funciones.Productor;
 import ar.com.bioscomputacion.Funciones.StockRealMiel;
+import ar.com.bioscomputacion.Reportes.VistaBoleta;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,6 +33,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -247,6 +260,10 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tMovimientos.getColumnModel().getColumn(12).setMinWidth(0);
         tMovimientos.getColumnModel().getColumn(12).setPreferredWidth(0);
 
+        tMovimientos.getColumnModel().getColumn(13).setMaxWidth(0);
+        tMovimientos.getColumnModel().getColumn(13).setMinWidth(0);
+        tMovimientos.getColumnModel().getColumn(13).setPreferredWidth(0);
+
         DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
         DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
@@ -364,6 +381,8 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        tbOpciones1 = new javax.swing.JToolBar();
+        jButton6 = new javax.swing.JButton();
         rsbrSalir = new rojeru_san.RSButtonRiple();
 
         jCheckBox1.setText("jCheckBox1");
@@ -419,6 +438,9 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         tProductores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tProductoresMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tProductoresMouseEntered(evt);
             }
         });
         jScrollPane4.setViewportView(tProductores);
@@ -650,6 +672,26 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         });
         tbOpciones.add(jButton5);
 
+        tbOpciones1.setBackground(new java.awt.Color(0, 0, 0));
+        tbOpciones1.setBorder(null);
+        tbOpciones1.setFloatable(false);
+        tbOpciones1.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+
+        jButton6.setBackground(new java.awt.Color(0, 0, 0));
+        jButton6.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("  IMPRIMIR RESUMEN DE CTA. CTE.");
+        jButton6.setBorderPainted(false);
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        tbOpciones1.add(jButton6);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -665,7 +707,10 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lSaldoMielImpago, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lSaldoDineroImpago, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(lSaldoDineroImpago, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(tbOpciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -676,9 +721,11 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbOpciones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lSaldoDineroImpago)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -803,7 +850,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             }
             
             //3er chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion ya facturada
-            if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
+            if (tMovimientos.getValueAt(fila2, 12).toString().equals("CANCELADO")) {
                 
                 JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra a consignacion ya facturada. Seleccione otro compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
@@ -827,15 +874,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             FrmFacturacionCompraConsignacion.numeroComprobanteCompra = tMovimientos.getValueAt(fila2, 5).toString();
             //recuerdo la cantidad de miel adquirida originalmente en la compra
             //y la cantidad de miel ya descontada de la misma, ya sea por facturacion o por devolucion de miel en ella
-            FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString());
-            FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
-            FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
+            FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
+            FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
+            FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
             //ademas muestro estos datos debajo de la grilla de items financiados disponibles para la facturacion
             String totales = String.valueOf("  TOTALES: Miel financiada: "+FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra+" kgs. / Miel descontada: "+FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra+"kgs. / Miel en consignacion: "+FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion+" kgs.");
             FrmFacturacionCompraConsignacion.tfTotalesMielCompra.setText(totales);
             //importe, pagado y saldo no hace falta pasar ya que no se manejan valores en este tipo de movimientos, va 0 en todos
             //estado de movimiento no hace falta pasar, se asentara CANCELADO o  PENDIENTE segun corresponda
-            FrmFacturacionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 12).toString();
+            FrmFacturacionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 13).toString();
             
             FrmFacturacionCompraConsignacion.nombreProductor = nombreProductor;
             form.tfDatosCompraConsignacion.setText("COMPRA EN CONSIGNACION N° "+FrmFacturacionCompraConsignacion.numeroComprobanteCompra+" / Productor N° "+FrmFacturacionCompraConsignacion.codigoProductor+" - "+nombreProductor);
@@ -887,7 +934,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             }
             
             //3er chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion ya facturada
-            if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
+            if (tMovimientos.getValueAt(fila2, 12).toString().equals("CANCELADO")) {
                 
                 JOptionPane.showMessageDialog(null, "Esta intentando afectar con una devolucion de miel una compra en consignacion ya cancelada. Seleccione otro comprobante para poder llevar a cabo dicha tarea por favor.", "DEVOLUCION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
@@ -911,15 +958,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             FrmDevolucionCompraConsignacion.numeroComprobanteCompra = tMovimientos.getValueAt(fila2, 5).toString();
             //recuerdo la cantidad de miel adquirida originalmente en la compra
             //y la cantidad de miel ya descontada de la misma, ya sea por facturacion o por devolucion de miel en ella
-            FrmDevolucionCompraConsignacion.totalMielFinanciadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString());
-            FrmDevolucionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
-            FrmDevolucionCompraConsignacion.totalMielMantenidaEnConsignacion = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
+            FrmDevolucionCompraConsignacion.totalMielFinanciadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
+            FrmDevolucionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
+            FrmDevolucionCompraConsignacion.totalMielMantenidaEnConsignacion = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
             //ademas muestro estos datos debajo de la grilla de items financiados disponibles para la facturacion
             String totales = String.valueOf("  TOTALES: Miel financiada: "+FrmDevolucionCompraConsignacion.totalMielFinanciadaCompra+" kgs. / Miel descontada: "+FrmDevolucionCompraConsignacion.totalMielYaDescontadaCompra+"kgs. / Miel en consignacion: "+FrmDevolucionCompraConsignacion.totalMielMantenidaEnConsignacion+" kgs.");
             FrmDevolucionCompraConsignacion.tfTotalesMielCompra.setText(totales);
             //importe, pagado y saldo no hace falta pasar ya que no se manejan valores en este tipo de movimientos, va 0 en todos
             //estado de movimiento no hace falta pasar, se asentara CANCELADO o  PENDIENTE segun corresponda
-            FrmDevolucionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 12).toString();
+            FrmDevolucionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 13).toString();
             
             FrmDevolucionCompraConsignacion.nombreProductor = tfNombreProductor.getText();
             form.tfDatosCompraConsignacion.setText("COMPRA EN CONSIGNACION N° "+FrmDevolucionCompraConsignacion.numeroComprobanteCompra+" / Productor N° "+FrmDevolucionCompraConsignacion.codigoProductor+" - "+nombreProductor);
@@ -978,7 +1025,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         }
         
         //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
-        if (tMovimientos.getValueAt(fila2, 11).toString().equals("CANCELADO")) {
+        if (tMovimientos.getValueAt(fila2, 12).toString().equals("CANCELADO")) {
             
             System.out.println("Entra bien!");
             JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
@@ -992,21 +1039,21 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
 
         //kilos facturados e importe del comprobante
-        form.tfKilosFacturados.setText(String.valueOf(tMovimientos.getValueAt(fila2, 6)));
+        form.tfKilosFacturados.setText(String.valueOf(tMovimientos.getValueAt(fila2, 7)));
         //importe del comprobante
-        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
+        form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 9)));
         //precio unitario del kilo facturado en el comprobante
-        Double kilosFacturados = Double.valueOf(tMovimientos.getValueAt(fila2, 6).toString());
-        Double importeComprobante = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
+        Double kilosFacturados = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
+        Double importeComprobante = Double.valueOf(tMovimientos.getValueAt(fila2, 9).toString());
         //precio unitario del kilo facturado en el comprobante
         form.precioUnitario = importeComprobante / kilosFacturados;
         form.tfPrecioUnitario.setText(String.valueOf(form.precioUnitario));
         //saldo impago del comprobante
-        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        form.saldoImpago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
+        form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 11)));
+        form.saldoImpago = Double.valueOf(tMovimientos.getValueAt(fila2, 11).toString());
         //saldo pendiente del comprobante, una vez efectuado el pago!
-        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 10)));
-        Double saldoPendienteDePago = Double.valueOf(tMovimientos.getValueAt(fila2, 10).toString());
+        form.tfSaldoPendiente.setText(String.valueOf(tMovimientos.getValueAt(fila2, 11)));
+        Double saldoPendienteDePago = Double.valueOf(tMovimientos.getValueAt(fila2, 11).toString());
         Double kilosImpagos = saldoPendienteDePago / form.precioUnitario;
         FrmRegistroPagoAProductor.totalKilosImpagos = kilosImpagos;
         form.tfKilosImpagos.setText(String.valueOf(kilosImpagos));
@@ -1020,8 +1067,8 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 3).toString();
         FrmRegistroPagoAProductor.numeroComprobanteAfectadoPago = tMovimientos.getValueAt(fila2, 5).toString();
         FrmRegistroPagoAProductor.codigoMovimientoCtaCteComprobanteAfectado = Integer.parseInt(tMovimientos.getValueAt(fila2, 1).toString());
-        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 8).toString());
-        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
+        FrmRegistroPagoAProductor.debeComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 9).toString());
+        FrmRegistroPagoAProductor.haberComprobante = Double.parseDouble(tMovimientos.getValueAt(fila2, 10).toString());
         
         deskPrincipal.add(form);
         Dimension desktopSize = deskPrincipal.getSize();
@@ -1123,6 +1170,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //recordar chequear si este campo no esta vacio, ya que si lo esta, es porque no se esta visualizando
             //ninguna cta. cte.
             form.codigoProductor = Integer.parseInt(tfIDProductor.getText());
+            form.nombreProductor = tfNombreProductor.getText();
             //asigno valores que debera mostrar el formulario de pago al productor
             /*form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
             form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 8)));
@@ -1153,6 +1201,55 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        if (tMovimientos.getRowCount() == 0) {
+            
+            JOptionPane.showMessageDialog(null, "No existen datos para la impresion.", "IMPRESION DE RESUMEN DE CTA. CTE.", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        else{
+
+            JOptionPane.showMessageDialog(null, "A continuacion podra imprimir el resumen de cta. cte. o guardarlo como un archivo .PDF.", "IMPRESION DE RESUMEN DE CTA. CTE.", JOptionPane.INFORMATION_MESSAGE);
+            
+            java.util.Locale locale = new Locale("es", "CL");
+            try {
+
+                ConexionBD mysql = new ConexionBD();
+                Connection cn = mysql.getConexionBD();
+
+                JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("reporteResumenCtaCte.jasper"));
+
+                Map parametro = new HashMap<String, Integer>();
+
+                parametro.put("codigo_productor", codigoProductor);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
+                parametro.put(JRParameter.REPORT_LOCALE, locale);
+                JasperViewer jv = new JasperViewer(jp, false);
+                jv.show();
+
+                // JasperPrintManager.printReport( jp, true);
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(rootPane, e);
+
+            } finally{
+
+                try {
+                    ConexionBD.close(cn);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrmCtaCteConProductor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tProductoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProductoresMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tProductoresMouseEntered
+
     public void actualizarImporteTotalPago() {
 
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
@@ -1175,6 +1272,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1197,6 +1295,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     public static javax.swing.JTable tMovimientos;
     public javax.swing.JTable tProductores;
     private javax.swing.JToolBar tbOpciones;
+    private javax.swing.JToolBar tbOpciones1;
     public javax.swing.JTextField tfBusquedaPorNombre;
     public javax.swing.JTextField tfDocumentoProductor;
     public javax.swing.JTextField tfIDProductor;

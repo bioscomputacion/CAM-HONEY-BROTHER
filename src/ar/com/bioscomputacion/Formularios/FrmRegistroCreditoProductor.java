@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CreditoProductor;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
@@ -546,7 +547,7 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LA INFORMACION DEL COMPROBANTE:");
+        jLabel1.setText("INGRESE LA INFORMACION DE LA COMPRA EN CONSIGNACION:");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -627,7 +628,7 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA:");
+        jLabel21.setText("* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA EN LA COMPRA A REGISTRAR:");
 
         cbLocacionesDisponibles.setBackground(new java.awt.Color(255, 255, 0));
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -646,32 +647,6 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                        .addGap(132, 132, 132))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dcFechaCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -688,7 +663,31 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel21)
                                 .addComponent(cbLocacionesDisponibles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator2)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dcFechaCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,7 +881,7 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
             
             //Se guarda el movimiento correspondiente al presupuesto, en la cta. cte. de la empresa con el productor
             codigoCredito = credito.mostrarIdCreditoProductor();
-            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "CONSIGNACION", codigoCredito, numeroComprobante, cantidadMielFinanciada, 0.00, 0.00, 0.00, "PENDIENTE", "");
+            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "CONSIGNACION", codigoCredito, numeroComprobante, "-",cantidadMielFinanciada, 0.00, 0.00, 0.00, "PENDIENTE", "");
             ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
 
             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, SUMANDO LA CANTIDAD DE KGS. COMPRADA EN ESTE CREDITO
@@ -936,6 +935,17 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);
+
+            //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+            //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+            AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+            Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion);
+            Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion) + cantidadMielFinanciada;
+            Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+            ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+            ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+            ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+            ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
 
             JOptionPane.showMessageDialog(null, "La compra a consignacion ha sido registrada exitosamente.","REGISTRO DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

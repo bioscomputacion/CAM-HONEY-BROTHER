@@ -6,7 +6,6 @@
 package ar.com.bioscomputacion.Formularios;
 
 import ar.com.bioscomputacion.Funciones.Cliente;
-import ar.com.bioscomputacion.Funciones.CompensacionStock;
 import ar.com.bioscomputacion.Funciones.ComprobantesRelacionadosCompraConsignacion;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
@@ -314,8 +313,9 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         jLabel14.setText("DESCRIPCION:");
 
         tfDescripcion.setEditable(false);
-        tfDescripcion.setBackground(new java.awt.Color(204, 255, 255));
+        tfDescripcion.setBackground(new java.awt.Color(0, 0, 0));
         tfDescripcion.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        tfDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         tfDescripcion.setText(" KGS. DE MIEL");
 
         jLabel26.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -360,24 +360,27 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         jLabel23.setText("SUB TOTAL:");
 
         tfSubTotal.setEditable(false);
-        tfSubTotal.setBackground(new java.awt.Color(255, 255, 255));
+        tfSubTotal.setBackground(new java.awt.Color(255, 0, 0));
         tfSubTotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfSubTotal.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("CONVERSION DE KGS. A TAMBORES:");
 
         tfTambores.setEditable(false);
-        tfTambores.setBackground(new java.awt.Color(204, 255, 255));
+        tfTambores.setBackground(new java.awt.Color(0, 0, 0));
         tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTambores.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel28.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("CONVERSION DE KGS. A LOTES:");
 
         tfLotes.setEditable(false);
-        tfLotes.setBackground(new java.awt.Color(204, 255, 255));
+        tfLotes.setBackground(new java.awt.Color(0, 0, 0));
         tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfLotes.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -473,7 +476,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                             .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel28))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         tpCompraConsignacion.addTab("Datos del credito a facturar", jPanel2);
@@ -509,7 +512,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("TOTAL DEL COMPROBANTE:");
+        jLabel15.setText("IMPORTE TOTAL:");
 
         tfImporteTotalFactura.setEditable(false);
         tfImporteTotalFactura.setBackground(new java.awt.Color(255, 0, 51));
@@ -614,7 +617,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cbTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfImporteTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
@@ -657,8 +660,8 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpCompraConsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(tpCompraConsignacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -698,7 +701,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //chequea informacion de la factura, la cual es obligatoria para poder registrar la misma
         if (informacionFactura) {
 
-            JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tpCompraConsignacion.requestFocus();
             return;
             
@@ -823,13 +826,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         if (totalMielMantenidaEnConsignacion != 0.00){
             
             //significa que no se facturo toda la miel comprada en consignacion
-            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         }
         else{
 
             //Significa que se facturo toda la miel comprada en consignacion, se debe CANCELAR la compra en consignacion
-            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. La compra en consignacion ha sido cancelada.", "FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se facturaron: "+totalMielAFacturar+" kgs. de miel. La compra en consignacion ha sido cancelada.", "REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             
             //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
             //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
@@ -844,11 +847,16 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //si existe MIEL IMPAGA YA VENDIDA se realizara dicha compensacion, descontando la cantidad de miel que se acaba de 
         //facturar de la cantidad de miel impaga vendida y ajustando los valores de miel impaga y miel impaga vendida
         //sino existe MIEL IMPAGA YA VENDIDA la miel facturada se descuenta del stock impago y ademas se suma al stock pago
+        //YA QUE SE TRATA DE LA FACTURACION (MIEL PAGA) DE MIEL QUE SE ENCUENTRA EN UNA CONSIGNACION (MIEL IMPAGA)
         
-        CompensacionStock compensacion = new CompensacionStock();
+        //VER DESDE ACAAAAAAAAAAAAAAAAA
+        
+        
+        //CompensacionStock compensacion = new CompensacionStock();
         //para controlar cuantos kgs. de miel impaga (credito o consignacion) se han vendido sin ser facturados
         //y con este dato compensar el stock a la hora de facturar la cantidad indicada de la consignacion
-        Double cantidadMielImpagaVendida = compensacion.consultarCantidadMielImpagaVendida();
+        Double cantidadMielImpagaVendida = 0.00; //compensacion.consultarCantidadMielImpagaVendida();
+        System.out.println(cantidadMielImpagaVendida);
         Double saldoMielASumarStockPago = 0.00;
         Double saldoMielARestarStockImpago = 0.00;
         Double nuevoSaldoMielImpagaVendida = 0.00;
@@ -862,6 +870,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             //Posibles casos a darse:
             
             //1) que la cantidad de miel impaga a facturarse sea mayor que la cantidad de miel impaga ya vendida
+            //1er caso: anda!
             if (totalMielAFacturar > cantidadMielImpagaVendida) {
                 
                 saldoMielASumarStockPago = totalMielAFacturar - cantidadMielImpagaVendida;
@@ -893,11 +902,9 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         
         }
         
-        //PARA VER SI TODA ESTA PARTE DE AJUSTE Y COMPENSACION DE LA MIEL FUNCIONA PRIMERO TENGO QUE IMPLEMENTAR
-        //LA PARTE DE LA VENTA AL EXTERIOR Y LA VENTA A UN EXPORTADOR DE MIEL INTERNO
-        
         //se actualiza la cantidad miel impaga vendida por la empresa, ya que los movimientos a continuacion ajustaran el stock real
-        compensacion.actualizarCantidadMielImpagaVendida(nuevoSaldoMielImpagaVendida);
+        //VER ESTOOOO        
+        //compensacion.actualizarCantidadMielImpagaVendida(nuevoSaldoMielImpagaVendida);
         
         //si existe saldo de miel para facturada para ser cargada en el stock de miel pago se hace en el siguiente paso
         //caso contrario no se sumara la miel que se esta facturando al stock de miel pago, ya que se estaria realizando
@@ -910,7 +917,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             stockMiel.setId_comprobante_asociado(codigoComprobante);
 
             stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-            stockMiel.setCantidad_miel(totalMielAFacturar);
+            stockMiel.setCantidad_miel(saldoMielASumarStockPago);
             //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
             //no se almacenara nada!
             //debo obtener el codigo de la locacion a partir del nombre de la misma
@@ -947,7 +954,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             stockMiel.registrarMovimientoStock(stockMiel);
 
         }
-        //y si existe un nuevo de miel para ser facturado le damos entrada al stock de miel facturado
+        //y si existe un nuevo saldo de miel impaga para ser restado le damos salida del stock de miel impago
         if (saldoMielARestarStockImpago > 0.00){
 
             stockMiel.setTipo_movimiento("FACTURACION");
@@ -955,7 +962,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             stockMiel.setId_comprobante_asociado(codigoComprobante);
 
             stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-            stockMiel.setCantidad_miel(totalMielAFacturar);
+            stockMiel.setCantidad_miel(saldoMielARestarStockImpago);
             //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
             //no se almacenara nada!
             //debo obtener el codigo de la locacion a partir del nombre de la misma
@@ -993,7 +1000,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         }
         
-        JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","FACTURACION DE COMPRA A CONSIGNACION EN PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
@@ -1003,19 +1010,13 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         //se limpian todos los arreglos
         compraOriginal.clear();
         itemsFinanciados.clear();
         itemsFacturados.clear();
         
-        //elimino presupuestos y facturas que no se hayan confirmado
-        PresupuestoProductor presupuesto = new PresupuestoProductor();
-        presupuesto.eliminarPresupuestoProductor(codigoPresupuesto);
-        //FacturaProductor factura = new FacturaProductor();
-        //factura.eliminarFacturaProductor(codigoFactura);
-
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
@@ -1072,11 +1073,16 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             kilosAFacturar = Double.parseDouble(tfCantidadKilos.getText().toString());
 
         }
-        
+        else{
+
+            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            
+        }
+
         //no se debe permitir facturar mas kilos de los financiados en la compra en consignacion
         if (kilosAFacturar > kilosDisponibles){
             
-            JOptionPane.showMessageDialog(null, "La cantidad de miel ingrersada para facturar es mayor a la cantidad de miel disponible.","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La cantidad de miel ingresada para facturar es mayor a la cantidad de miel disponible.","REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
             tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
             totalMielAFacturar = 0.00;
             
@@ -1086,7 +1092,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             //no se debe permitir facturar cero kilos
             if (kilosAFacturar == 0){
 
-                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
                 tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
                 Double kilos = Double.parseDouble(tfCantidadKilos.getText());
                 Double tambores = kilos / 300;

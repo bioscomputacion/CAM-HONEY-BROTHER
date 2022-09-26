@@ -6,6 +6,7 @@
 package ar.com.bioscomputacion.Formularios;
 
 import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.Locacion;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -147,7 +148,7 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
 
         cbCategoriaLocacion.setBackground(new java.awt.Color(255, 255, 0));
         cbCategoriaLocacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCategoriaLocacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "DEPOSITO DE PRODUCTOR", "DEPOSITO DE ACOPIO PROPIO", "HOMOGENEIZACION", "FISCALIZACION", "EMBARQUE" }));
+        cbCategoriaLocacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "DEPOSITO DE PRODUCTOR", "DEPOSITO DE ACOPIO PROPIO", "EMBARQUE", "EXPORTACION", "FISCALIZACION", "HOMOGENEIZACION" }));
         cbCategoriaLocacion.setPreferredSize(new java.awt.Dimension(136, 19));
         cbCategoriaLocacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,13 +184,12 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbCategoriaLocacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addContainerGap(545, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(tfObservacion)
-                            .addContainerGap()))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap(545, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(tfObservacion)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,6 +542,14 @@ public class FrmRegistroLocacion extends javax.swing.JInternalFrame {
             if (locacion.registrarLocacion(locacion)) {
 
                 JOptionPane.showMessageDialog(null, "La locacion ha sido registrada exitosamente.");
+                
+                //se crea en la base de datos la informacion correspondiente al stock de miel depositado en la locacion
+                //recien registrada, que por defecto sera todo 0, y se ira ajustando a medida que se aumente y descuente
+                //el stock depositado en la misma
+                int codigoLocacion = locacion.mostrarIdlocacion();
+                AjusteCompensacionStock ajuste = new AjusteCompensacionStock(codigoLocacion, 0.00, 0.00, 0.00);
+                ajuste.registrarValoresMielLocacion(ajuste);
+                
                 limpiarCampos();
                 //esto es para que en la otra pestaña ya se vea la nueva locacion cargada
                 mostrarLocaciones("");

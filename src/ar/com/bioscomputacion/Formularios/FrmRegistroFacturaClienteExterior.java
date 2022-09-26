@@ -895,7 +895,6 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
         
         //se procede al registro de la factura correspondiente a la VENTA de miel al cliente seleccionado
-        //que en realidad es un update de la factura ya ingresada al inicializarse este formulario!
         FacturaCliente factura = new FacturaCliente(tipoFactura, numeroComprobante, codigoMovimientoCtaCte, codigoCliente, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalFactura, totalMielFacturada);
         
         if (factura.registrarFacturaCliente(factura)){

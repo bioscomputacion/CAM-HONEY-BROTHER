@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.Cliente;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
@@ -17,6 +18,7 @@ import ar.com.bioscomputacion.Funciones.FacturaCliente;
 import ar.com.bioscomputacion.Funciones.ItemFacturadoFacturaCliente;
 import ar.com.bioscomputacion.Funciones.Locacion;
 import ar.com.bioscomputacion.Funciones.PresupuestoCliente;
+import ar.com.bioscomputacion.Funciones.PresupuestoProductor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -45,8 +47,9 @@ import javax.swing.table.TableModel;
  */
 public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFrame {
 
-    public int codigoCliente, codigoFactura, codigoItemFacturado, codigoMovimientoCtaCte;
+    public int codigoExportadorInterno, codigoFactura, codigoPresupuesto, codigoItemFacturado, codigoMovimientoCtaCte;
     public Double totalMielAFacturar, importeTotalComprobante;
+    public String numeroPresupuesto, tipoComprobante;
     public List<Locacion> listaLocacionesDisponibles = new ArrayList<>();
     
     //aca cargo todos los productores registrados en el sistema
@@ -55,10 +58,6 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
     
     Double saldoMielOrigen, saldoMielDepositoProductorSeleccionado, saldoMielPaga, saldoMielImpaga, totalMielVenta, saldoMielPagaIngresado, saldoMielImpagaIngresado;
  
-    //a medida que se seleccionan locaciones en los combos en estas variables se almacenan sus codigos
-    //para luego usarlos a la hora de registrar el traslado de la miel vendida
-    int codigoLocacionOrigen, codigoProductor, codigoComprobante;
-
     int fila = -1;
     int filaItemsFacturados = -1;
     
@@ -91,15 +90,17 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
 
-        //no hace falta cargar combo con locaciones, ya se selecciono todo en el form de traslados
-        //la cantidad de miel tambien ya ha sido ingresada
-        //esta inicializacion debe hacerse con datos que vendrian del formulario de traslados!
         tfCantidadKilos.setText(String.valueOf(totalMielAFacturar));
         tfPrecioUnitario.setText("0.00");
         tfImporteTotalFactura.setText("$ 0.00");
+        
+        //obtenemos el numero de comproabnte en caso de que se seleccione presupuesto
+        PresupuestoCliente presupuesto = new PresupuestoCliente();
+        numeroPresupuesto = String.valueOf(presupuesto.mostrarIdPresupuestoCliente()+1);
 
         //la venta a un exportador interno puede ser presupuestada o facturada con comprobantes a o c
         cbTipoComprobante.setSelectedIndex(0);
+        tfNumeroComprobante.setText("");
         
         tExportadoresInternos.requestFocus();
         
@@ -405,7 +406,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(true);
-        setTitle("REGISTRO DE FACTURA A EXPORTADOR INTERNO - CAM HONEY BROTHERS");
+        setTitle("REGISTRO DE VENTA A EXPORTADOR INTERNO - CAM HONEY BROTHERS");
         setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
@@ -579,11 +580,11 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("INGRESE LA INFORMACION DE LA FACTURA:");
+        jLabel1.setText("INGRESE LA INFORMACION DEL COMPROBANTE:");
 
         jLabel22.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("* FACTURA:");
+        jLabel22.setText("* COMPROBANTE:");
 
         cbTipoComprobante.setBackground(new java.awt.Color(255, 255, 0));
         cbTipoComprobante.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -708,9 +709,9 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
                         .addComponent(jSeparator2)
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbTipoComprobante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
@@ -814,7 +815,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
-        rdbrRegistrar.setText("REGISTRAR FACTURA");
+        rdbrRegistrar.setText("REGISTRAR COMPROBANTE");
         rdbrRegistrar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rdbrRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -838,7 +839,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
             .addComponent(tpFactura)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -874,11 +875,11 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         //Tambien son obligatorios todos los campos referidos a la factura: numero de factura, fecha
         //items facturados y monto total de la factura
         
-        Boolean informacionFactura = (tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0 || tfImporteTotalFactura.getText().equals("$ 0.00") || tfImporteTotalFactura.getText().equals("$ 0.0"));
+        Boolean informacionFactura = (cbTipoComprobante.getSelectedItem().equals("SELECCIONAR") || tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0 || tfImporteTotalFactura.getText().equals("$ 0.00") || tfImporteTotalFactura.getText().equals("$ 0.0"));
         
         if (tfIDCliente.getText().length() == 0){
             
-            JOptionPane.showMessageDialog(null, "Debe seleccionar el exportador interno al cual se le realizo la venta de miel.", "REGISTRO DE FACTURA A EXPORTADOR INTERNO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el exportador interno al cual se le realizo la venta de miel.", "REGISTRO DE VENTA A EXPORTADOR INTERNO", JOptionPane.ERROR_MESSAGE);
             tpFactura.setSelectedIndex(0);
             tExportadoresInternos.requestFocus();
             return;
@@ -888,14 +889,14 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         //chequea informacion de la factura, la cual es obligatoria para poder registrar la misma
         if (informacionFactura) {
 
-            JOptionPane.showMessageDialog(null, "La informacion correspondiente a la factura se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE FACTURA A EXPORTADOR INTERNO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE VENTA A EXPORTADOR INTERNO", JOptionPane.ERROR_MESSAGE);
             tpFactura.setSelectedIndex(1);
             tfNumeroComprobante.requestFocus();
             return;
             
         }
         
-        //se procede al registro de la factura correspondiente a la venta de miel al exportador seleccionado
+        //se procede al registro del comprobante correspondiente a la venta de miel al exportador seleccionado
         
         //obtengo las fechas de factura y de vencimiento del pago de la misma
         Calendar cal1, cal2;
@@ -914,17 +915,17 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         //OBTENGO: que tipo de comprobante se escogio para la facturacion de la venta al exportador interno
         //el numero de comprobante del mismo
         //el total de la factura se auto calcula al ingresar la cantidad de kgs. a facturar
-        String tipoComprobante = String.valueOf(cbTipoComprobante.getSelectedItem());
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
+        int codigoComprobante = 0;
         
         //1) 
-        //a) Se procede al registro del comprobante correspondiente a la facturacion de la compra a consignacion
+        //a) Se procede al registro del comprobante correspondiente a la venta
         //que puede ser: factura a, factura c o presupuesto
         //b) Se obtiene el numero de movimiento que tendra el comprobante de facturacion en la cuenta corriente con el productor
         //ademas en la variable codigoMovimientoCtaCteCompra ya tenemos almacenado el numero de movimiento correspndiente
         //a la compra en consignacion, ya que a la misma se le debe editar el estado en algunos casos (pasandolo a CANCELADO)   
         CtaCteCliente ctacteCliente = new CtaCteCliente();
-        codigoMovimientoCtaCte = ctacteCliente.mostrarIdMovimiento(codigoProductor)+1;
+        codigoMovimientoCtaCte = ctacteCliente.mostrarIdMovimiento(codigoExportadorInterno)+1;
         
         switch (tipoComprobante){
             
@@ -932,13 +933,14 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
                 //se escogio como tipo de comprobante la "FACTURA A"
                 //se registra la factura
-                FacturaCliente facturaA = new FacturaCliente(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
+                FacturaCliente facturaA = new FacturaCliente(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoExportadorInterno, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
                 if (facturaA.registrarFacturaCliente(facturaA)){
 
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = facturaA.mostrarIdFacturaCliente();
-
+                    codigoComprobante = codigoFactura;
+                    
                 }
+                System.out.println("factura a");
                 
                 break;
 
@@ -946,13 +948,15 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
                 //se escogio como tipo de comprobante la "FACTURA C"
                 //se registra la factura
-                FacturaCliente facturaC = new FacturaCliente(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
+                FacturaCliente facturaC = new FacturaCliente(tipoComprobante, numeroComprobante, codigoMovimientoCtaCte, codigoExportadorInterno, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
                 if (facturaC.registrarFacturaCliente(facturaC)){
                     
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = facturaC.mostrarIdFacturaCliente();
+                    codigoComprobante = codigoFactura;
 
                 }
+                System.out.println("factura c");
+                
                 
                 break;
 
@@ -960,13 +964,14 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
                 
                 //se escogio como tipo de comprobante el "PRESUPUESTO"
                 //se registra el presupuesto
-                PresupuestoCliente presupuesto = new PresupuestoCliente(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
+                PresupuestoCliente presupuesto = new PresupuestoCliente(numeroComprobante, codigoMovimientoCtaCte, codigoExportadorInterno, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalComprobante, totalMielAFacturar);
                 if (presupuesto.registrarPresupuestoCliente(presupuesto)){
                     
                     //obtengo codigo de presupuesto para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = presupuesto.mostrarIdPresupuestoCliente();
-
+                    codigoComprobante = codigoPresupuesto;
                 }
+                System.out.println("presupuesto");
+                
                 
                 break;
                 
@@ -978,7 +983,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
         //3)
         //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. del cliente con la empresa
-        ctacteCliente.setCodigoCliente(codigoProductor);
+        ctacteCliente.setCodigoCliente(codigoExportadorInterno);
         ctacteCliente.setCodigoMovimiento(codigoMovimientoCtaCte);
         ctacteCliente.setFechaMovimiento(new Date(a1, m1, d1));
         ctacteCliente.setDescripcionMovimiento(tipoComprobante);
@@ -1123,9 +1128,9 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
     private void tExportadoresInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tExportadoresInternosMouseClicked
 
         fila = tExportadoresInternos.rowAtPoint(evt.getPoint());
-        codigoCliente = Integer.parseInt(tExportadoresInternos.getValueAt(fila, 0).toString());
+        codigoExportadorInterno = Integer.parseInt(tExportadoresInternos.getValueAt(fila, 0).toString());
         CtaCteCliente ctacteCliente = new CtaCteCliente();
-        codigoMovimientoCtaCte = ctacteCliente.mostrarIdMovimiento(codigoCliente)+1;
+        codigoMovimientoCtaCte = ctacteCliente.mostrarIdMovimiento(codigoExportadorInterno)+1;
         
         //cada vez que se hace click sobre la grilla se muestran en los campos debajo
         //los datos del cliente exportador interno
@@ -1149,7 +1154,26 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
     }//GEN-LAST:event_tpFacturaComponentAdded
 
     private void cbTipoComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoComprobanteActionPerformed
-        // TODO add your handling code here:
+        
+        //en caso de seleccionarse presupeusto se utiliza el numero ya obtenido
+        //caso contrario se deja en blanco para completarse con el numer de factura confeccionada
+        tipoComprobante = cbTipoComprobante.getSelectedItem().toString();
+        
+        if (tipoComprobante.equals("FACTURA A") || tipoComprobante.equals("FACTURA C")){
+            
+            tfNumeroComprobante.setText("");
+            tfNumeroComprobante.setEditable(true);
+            
+        }
+        else{
+            
+            tfNumeroComprobante.setText(numeroPresupuesto);
+            tfNumeroComprobante.setEditable(false);
+            
+        }
+        
+        tfNumeroComprobante.requestFocus();
+        
     }//GEN-LAST:event_cbTipoComprobanteActionPerformed
 
     private void tfCantidadKilosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCantidadKilosActionPerformed

@@ -534,53 +534,47 @@
                                       <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
                                       <Component id="tfInformacion" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" alignment="0" pref="659" max="32767" attributes="0"/>
                                       <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="tfImporteTotalComprobante" min="-2" pref="137" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="tfKilosPresupuestados" min="-2" pref="137" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="tfKilosPresupuestados" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="tfImporteTotalComprobante" min="-2" pref="125" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="tfSaldoPendiente" min="-2" pref="137" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
                                                       <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="tfSaldoImpagoComprobante" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
                                                       <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="tfPrecioUnitario" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="tfKilosImpagos" min="-2" pref="137" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="tfSaldoImpagoComprobante" pref="125" max="32767" attributes="0"/>
+                                                      <Component id="tfPrecioUnitario" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="8" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel22" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel21" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel32" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel23" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="tfKilosAAnular" min="-2" pref="136" max="-2" attributes="0"/>
-                                              <Component id="tfImporteAnulacion" min="-2" pref="136" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="tfSaldoPendiente" pref="136" max="32767" attributes="0"/>
+                                              <Component id="tfKilosImpagos" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="tfKilosAAnular" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="tfImporteAnulacion" alignment="1" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -594,52 +588,54 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          <Component id="tfInformacion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator5" min="-2" pref="9" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfImporteTotalComprobante" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfKilosAAnular" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="tfInformacion" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jSeparator5" min="-2" pref="9" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfImporteTotalComprobante" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="tfKilosImpagos" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="jLabel32" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tfKilosPresupuestados" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfImporteAnulacion" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="tfKilosAAnular" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="tfPrecioUnitario" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfImporteAnulacion" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="tfSaldoImpagoComprobante" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Component id="tfSaldoPendiente" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="jLabel23" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfSaldoPendiente" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel23" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfKilosImpagos" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel32" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="104" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -654,7 +650,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="INGRESE LA INFORMACION CORRESPONDIENTE A LA DEVOLUCION:"/>
+                    <Property name="text" type="java.lang.String" value="INGRESE LA INFORMACION CORRESPONDIENTE A LA ANULACION:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -667,7 +663,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="SE ESTA REALIZANDO UNA ANULACION CORRESPONDIENTE A:"/>
+                    <Property name="text" type="java.lang.String" value="SE ESTA REGISTRANDO UNA ANULACION CORRESPONDIENTE A:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfInformacion">
@@ -695,7 +691,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="INFORMACION DEL COMPROBANTE A ASOCIAR A LA ANULACION:"/>
+                    <Property name="text" type="java.lang.String" value="DATOS DEL PRESUPUESTO A ASOCIAR A LA ANULACION:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator5">
@@ -810,7 +806,7 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="0" type="rgb"/>
+                      <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
@@ -856,7 +852,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="INGRESE KGS. A DEVOLVER:"/>
+                    <Property name="text" type="java.lang.String" value="* INGRESE KGS. A DEVOLVER:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfKilosAAnular">
@@ -912,6 +908,9 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -933,7 +932,7 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="6f" green="54" red="33" type="rgb"/>
+                      <Color blue="cc" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>

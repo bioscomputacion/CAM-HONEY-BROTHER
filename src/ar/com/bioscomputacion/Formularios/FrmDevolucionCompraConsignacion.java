@@ -146,8 +146,6 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         //detallada en el mismo
         StockRealMiel stock = new StockRealMiel();
         codigoLocacion = stock.obtenerLocacionMielADevolverOFacturar(codigoCompra);
-        System.out.println(codigoCompra);
-        System.out.println(codigoLocacion);
         
     }
 
@@ -224,7 +222,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(true);
-        setTitle("DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR - CAM HONEY BROTHERS");
+        setTitle("REGISTRO DE DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR - CAM HONEY BROTHERS");
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(700, 550));
 
@@ -266,7 +264,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("ITEM FINANCIADO - INGRESE IMPORTE Y CANTIDAD A DEVOLVER:");
+        jLabel8.setText("ITEM FINANCIADO - INGRESE CANTIDAD A DEVOLVER:");
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -282,9 +280,11 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         jLabel14.setText("DESCRIPCION:");
 
         tfDescripcion.setEditable(false);
-        tfDescripcion.setBackground(new java.awt.Color(204, 255, 255));
+        tfDescripcion.setBackground(new java.awt.Color(0, 0, 0));
         tfDescripcion.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        tfDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         tfDescripcion.setText(" KGS. DE MIEL");
+        tfDescripcion.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel26.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
@@ -293,6 +293,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         tfCantidadKilos.setBackground(new java.awt.Color(51, 84, 111));
         tfCantidadKilos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfCantidadKilos.setForeground(new java.awt.Color(255, 255, 255));
+        tfCantidadKilos.setPreferredSize(new java.awt.Dimension(0, 23));
         tfCantidadKilos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCantidadKilosActionPerformed(evt);
@@ -312,16 +313,20 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         jLabel27.setText("CONVERSION DE KGS. A TAMBORES:");
 
         tfTambores.setEditable(false);
-        tfTambores.setBackground(new java.awt.Color(204, 255, 255));
+        tfTambores.setBackground(new java.awt.Color(0, 0, 0));
         tfTambores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfTambores.setForeground(new java.awt.Color(255, 255, 255));
+        tfTambores.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel28.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("CONVERSION DE KGS. A LOTES:");
 
         tfLotes.setEditable(false);
-        tfLotes.setBackground(new java.awt.Color(204, 255, 255));
+        tfLotes.setBackground(new java.awt.Color(0, 0, 0));
         tfLotes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tfLotes.setForeground(new java.awt.Color(255, 255, 255));
+        tfLotes.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -331,6 +336,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         tfNumeroComprobante.setBackground(new java.awt.Color(51, 84, 111));
         tfNumeroComprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tfNumeroComprobante.setForeground(new java.awt.Color(255, 255, 255));
+        tfNumeroComprobante.setPreferredSize(new java.awt.Dimension(0, 23));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -339,6 +345,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         dcFechaDevolucion.setBackground(new java.awt.Color(36, 33, 33));
         dcFechaDevolucion.setForeground(new java.awt.Color(207, 207, 207));
         dcFechaDevolucion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        dcFechaDevolucion.setPreferredSize(new java.awt.Dimension(0, 23));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -367,30 +374,29 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfNumeroComprobante)
+                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dcFechaDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel14)
-                                        .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfCantidadKilos)
-                                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabel27)
                                 .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28)
                             .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,12 +420,12 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(6, 6, 6)
-                        .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(dcFechaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
@@ -438,7 +444,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
                             .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel28))
-                .addContainerGap())
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         tpCompraConsignacion.addTab("Datos del credito afectado por la devolucion", jPanel2);
@@ -477,8 +483,8 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpCompraConsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(tpCompraConsignacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbrRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rsbrCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -517,7 +523,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         //chequea informacion de la devolucion, la cual es obligatoria para poder registrar la misma
         if (informacionFactura) {
 
-            JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "DEVOLUCION DE DEVOLUCION A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tpCompraConsignacion.requestFocus();
             return;
             
@@ -539,6 +545,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         //y la cantidad total de devolucion del mismo
         String tipoComprobante = "DEVOLUCION";
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
+        String comprobanteAfectado = "CONSIG. N° "+codigoCompra;
 
         //Se procede al registro del comprobante correspondiente a la devolucion de miel de la compra a consignacion
         
@@ -573,6 +580,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
             ctacteProductor.setDescripcionMovimiento(tipoComprobante);
             ctacteProductor.setComprobanteAsociado(codigoDevolucion);
             ctacteProductor.setNumeroComprobante(numeroComprobante);
+            ctacteProductor.setComprobanteAfectado(comprobanteAfectado);
             ctacteProductor.setCantidadMiel(totalMielDevuelta);
             ctacteProductor.setDebe(0.00);
             ctacteProductor.setHaber(0.00);
@@ -687,13 +695,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        //elimino presupuestos y facturas que no se hayan confirmado
-        PresupuestoProductor presupuesto = new PresupuestoProductor();
-        presupuesto.eliminarPresupuestoProductor(codigoDevolucion);
-        //FacturaProductor factura = new FacturaProductor();
-        //factura.eliminarFacturaProductor(codigoFactura);
-
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE DEVOLUCION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed
@@ -737,11 +739,16 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
             kilosADevolver = Double.parseDouble(tfCantidadKilos.getText().toString());
 
         }
+        else{
+
+            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            
+        }
 
         //no se debe permitir devolver mas kilos de los financiados en la compra en consignacion
         if (kilosADevolver > kilosDisponibles){
 
-            JOptionPane.showMessageDialog(null, "LA CANTIDAD INGRESADA ES MAYOR A LA CANTIDAD DISPONIBLE","DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La cantidad de miel ingresada para devolver es mayor a la cantidad de miel disponible.","REGISTRO DE DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
             tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
             totalMielDevuelta = 0.00;
 
@@ -751,7 +758,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
             //no se debe permitir devolver cero kilos
             if (kilosADevolver == 0){
 
-                JOptionPane.showMessageDialog(null, "CANTIDAD INGRESADA INCORRECTA","DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
                 tfCantidadKilos.setText(String.valueOf(totalMielMantenidaEnConsignacion));
                 Double kilos = Double.parseDouble(tfCantidadKilos.getText());
                 Double tambores = kilos / 300;

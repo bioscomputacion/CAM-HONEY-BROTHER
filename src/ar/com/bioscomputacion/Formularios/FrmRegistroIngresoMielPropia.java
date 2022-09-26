@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.IngresoMielPropia;
@@ -230,7 +231,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("SELECCIONE EL DESTINO DE LA MIEL INGRESADA:");
+        jLabel21.setText("* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA EN LA COMPRA A REGISTRAR:");
 
         cbLocacionesDisponibles.setBackground(new java.awt.Color(255, 255, 0));
         cbLocacionesDisponibles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -529,6 +530,17 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
             stockMiel.setEstado_compra("FACTURADA");
 
             stockMiel.registrarMovimientoStock(stockMiel);
+
+            //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+            //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+            AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+            Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion) + totalMielIngresada;
+            Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion);
+            Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+            ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+            ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+            ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+            ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
 
             JOptionPane.showMessageDialog(null, "El ingreso ha sido registrado exitosamente.","REGISTRO DE INGRESO DE MIEL PROPIA", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

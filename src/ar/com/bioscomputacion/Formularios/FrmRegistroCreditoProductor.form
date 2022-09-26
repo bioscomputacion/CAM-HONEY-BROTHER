@@ -460,41 +460,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel1" pref="537" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                              <Component id="tfNumeroComprobante" min="-2" pref="310" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="dcFechaCredito" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel6" min="-2" pref="87" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="dcFechaVencimiento" alignment="0" pref="150" max="32767" attributes="0"/>
-                                              <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel14" min="-2" pref="178" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" min="-2" pref="122" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="tfDescripcion" min="-2" pref="170" max="-2" attributes="0"/>
@@ -517,7 +482,39 @@
                                           <Component id="cbLocacionesDisponibles" alignment="1" min="-2" pref="659" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel14" min="-2" pref="178" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" min="-2" pref="122" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                              <Component id="tfNumeroComprobante" min="-2" pref="310" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="dcFechaCredito" max="32767" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel6" min="-2" pref="87" max="-2" attributes="0"/>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="dcFechaVencimiento" alignment="0" pref="150" max="32767" attributes="0"/>
+                                              <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -555,7 +552,6 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -596,7 +592,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="INGRESE LA INFORMACION DEL COMPROBANTE:"/>
+                    <Property name="text" type="java.lang.String" value="INGRESE LA INFORMACION DE LA COMPRA EN CONSIGNACION:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -811,7 +807,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA:"/>
+                    <Property name="text" type="java.lang.String" value="* SELECCIONE EL DESTINO DE LA MIEL ADQUIRIDA EN LA COMPRA A REGISTRAR:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbLocacionesDisponibles">

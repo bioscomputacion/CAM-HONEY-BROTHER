@@ -504,7 +504,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN') and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION') and estado_compra='FACTURADA'");
             
             while (rs.next()) {
 
@@ -609,7 +609,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion, nombre_locacion from locacion where codigo_locacion <> '1' order by codigo_locacion asc");
 
             double ingresoMiel, egresoMiel, ingresoMielPaga, egresoMielPaga, ingresoMielImpaga, egresoMielImpaga, saldoMiel, saldoMielPaga, saldoMielImpaga = 0.00;
             int locacion = 0;
@@ -998,7 +998,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where (categoria <> 'EMBARQUE' and categoria <> 'DEPOSITO DE EXPORTADOR INTERNO') order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where (categoria <> 'EMBARQUE' and categoria <> 'DEPOSITO DE EXPORTADOR INTERNO' and categoria <> 'EXPORTACION') order by codigo_locacion asc");
 
             double ingresoMiel, egresoMiel, saldoMiel = 0.00;
             int locacion = 0;
@@ -1036,7 +1036,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> 'EMBARQUE' order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where (categoria <> 'EMBARQUE' and categoria <> 'EXPORTACION') order by codigo_locacion asc");
 
             double ingresoMielPaga, egresoMielPaga, saldoMiel = 0.00;
             int locacion = 0;
@@ -1074,7 +1074,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where categoria <> 'EMBARQUE' order by codigo_locacion asc");
+            ResultSet rs = st.executeQuery("select codigo_locacion from locacion where (categoria <> 'EMBARQUE' and categoria <> 'EXPORTACION') order by codigo_locacion asc");
 
             double ingresoMielImpaga, egresoMielImpaga, saldoMiel = 0.00;
             int locacion = 0;

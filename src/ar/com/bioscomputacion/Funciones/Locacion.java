@@ -82,6 +82,38 @@ public class Locacion {
         this.categoria = categoria;
     }
 
+    public int mostrarIdlocacion() {
+
+        int codigoLocacion = 0;
+        
+        try{
+ 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_locacion FROM locacion order by codigo_locacion asc");
+            
+            while (rs.next()) {
+
+                codigoLocacion = rs.getInt("codigo_locacion");
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+
+            return codigoLocacion;
+
+        }catch(Exception e){
+            
+            return codigoLocacion;
+            
+        } 
+
+    }
+
     public boolean registrarLocacion(Locacion locacion){
         
         try {

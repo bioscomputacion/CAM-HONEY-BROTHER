@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
@@ -923,7 +924,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
             
             //Se guarda el movimiento correspondiente al presupuesto, en la cta. cte. de la empresa con el productor
             codigoPresupuesto = presupuesto.mostrarIdPresupuestoProductor();
-            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "PRESUPUESTO", codigoPresupuesto, numeroComprobante, cantidadMielPresupuestada, importePresupuesto, 0.00, importePresupuesto, "PENDIENTE", "");
+            CtaCteProductor ctacteProductor = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a1, m1, d1), "PRESUPUESTO", codigoPresupuesto, numeroComprobante, "-", cantidadMielPresupuestada, importePresupuesto, 0.00, importePresupuesto, "PENDIENTE", "");
             ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
 
             //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, SUMANDO LA CANTIDAD DE KGS. COMPRADA EN ESTA FACTURA
@@ -975,6 +976,17 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);
+
+            //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+            //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+            AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+            Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion) + cantidadMielPresupuestada;
+            Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion);
+            Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+            ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+            ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+            ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+            ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
 
             JOptionPane.showMessageDialog(null, "El presupuesto ha sido registrado exitosamente.","REGISTRO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
