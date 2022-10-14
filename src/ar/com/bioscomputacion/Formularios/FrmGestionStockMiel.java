@@ -319,7 +319,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     
     public void calcularTotalStockEmbarque(){
         
-        try {
+        /*try {
             
             Double totalStockEmbarque = 0.00;
             
@@ -335,7 +335,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
             
             JOptionPane.showMessageDialog(null, e);
             
-        }
+        }*/
     
     }
 
@@ -562,18 +562,6 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         lStockMielGlobalPago = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         lStockMielGlobalCredito = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        lStockMielEmbarcado = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        lStockMielEmbarcadoPago = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        lStockMielEmbarcadoImpago = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        lStockMielEmbarcado1 = new javax.swing.JLabel();
-        lStockMielEmbarcadoPago1 = new javax.swing.JLabel();
-        lStockMielEmbarcadoImpago1 = new javax.swing.JLabel();
         rsbrActualizar = new rojeru_san.RSButtonRiple();
         jSeparator4 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
@@ -746,68 +734,6 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
         lStockMielGlobalCredito.setForeground(new java.awt.Color(255, 255, 255));
         lStockMielGlobalCredito.setText("0.00");
 
-        jLabel30.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel30.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel30.setText("STOCK VENDIDO / EMBARCADO:");
-
-        lStockMielEmbarcado.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lStockMielEmbarcado.setForeground(new java.awt.Color(255, 255, 0));
-        lStockMielEmbarcado.setText("0.00");
-
-        jLabel31.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel31.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel31.setText("PAGO:");
-        jLabel31.setToolTipText("");
-
-        lStockMielEmbarcadoPago.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcadoPago.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielEmbarcadoPago.setForeground(new java.awt.Color(255, 255, 0));
-        lStockMielEmbarcadoPago.setText("0.00");
-
-        jLabel32.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel32.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel32.setText("EN CONSIGNACION:");
-
-        lStockMielEmbarcadoImpago.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcadoImpago.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielEmbarcadoImpago.setForeground(new java.awt.Color(255, 255, 0));
-        lStockMielEmbarcadoImpago.setText("0.00");
-
-        jLabel33.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel33.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(0, 255, 0));
-        jLabel33.setText("EN CONSIGNACION:");
-
-        jLabel34.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel34.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(0, 255, 0));
-        jLabel34.setText("PAGO:");
-        jLabel34.setToolTipText("");
-
-        jLabel35.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel35.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 255, 0));
-        jLabel35.setText("STOCK VENDIDO / EXPORTACION INTERNA:");
-
-        lStockMielEmbarcado1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcado1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lStockMielEmbarcado1.setForeground(new java.awt.Color(0, 255, 0));
-        lStockMielEmbarcado1.setText("0.00");
-
-        lStockMielEmbarcadoPago1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcadoPago1.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielEmbarcadoPago1.setForeground(new java.awt.Color(0, 255, 0));
-        lStockMielEmbarcadoPago1.setText("0.00");
-
-        lStockMielEmbarcadoImpago1.setBackground(new java.awt.Color(255, 255, 255));
-        lStockMielEmbarcadoImpago1.setFont(new java.awt.Font("Arial", 3, 10)); // NOI18N
-        lStockMielEmbarcadoImpago1.setForeground(new java.awt.Color(0, 255, 0));
-        lStockMielEmbarcadoImpago1.setText("0.00");
-
         rsbrActualizar.setBackground(new java.awt.Color(0, 0, 0));
         rsbrActualizar.setText("ACTUALIZAR");
         rsbrActualizar.setToolTipText("");
@@ -825,7 +751,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -843,35 +769,7 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lStockMielGlobalPago)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel30)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcado))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel32)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcadoImpago))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel31)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcadoPago)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel33)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcadoImpago1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel34)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcadoPago1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel35)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lStockMielEmbarcado1)))
-                        .addGap(0, 74, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(rsbrActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -891,41 +789,17 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel30)
-                        .addComponent(lStockMielEmbarcado)
-                        .addComponent(jLabel24)
-                        .addComponent(lStockMielGlobal))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel35)
-                        .addComponent(lStockMielEmbarcado1)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(lStockMielGlobal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(lStockMielGlobalPago))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(lStockMielGlobalCredito)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel31)
-                            .addComponent(lStockMielEmbarcadoPago))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel32)
-                            .addComponent(lStockMielEmbarcadoImpago)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34)
-                            .addComponent(lStockMielEmbarcadoPago1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(lStockMielEmbarcadoImpago1))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(lStockMielGlobalPago))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(lStockMielGlobalCredito))
                 .addGap(23, 23, 23))
         );
 
@@ -1217,10 +1091,11 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Historial de movimientos de stock", jPanel3);
 
-        rsbrAceptar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrAceptar.setText("ACEPTAR");
+        rsbrAceptar.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
+        rsbrAceptar.setText("SALIR");
         rsbrAceptar.setToolTipText("");
-        rsbrAceptar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrAceptar.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrAceptarActionPerformed(evt);
@@ -1233,8 +1108,8 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(rsbrAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1414,12 +1289,6 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -1443,12 +1312,6 @@ public class FrmGestionStockMiel extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lStockImpagoLocacion;
     private javax.swing.JLabel lStockMielCreditoEnProductores;
-    private javax.swing.JLabel lStockMielEmbarcado;
-    private javax.swing.JLabel lStockMielEmbarcado1;
-    private javax.swing.JLabel lStockMielEmbarcadoImpago;
-    private javax.swing.JLabel lStockMielEmbarcadoImpago1;
-    private javax.swing.JLabel lStockMielEmbarcadoPago;
-    private javax.swing.JLabel lStockMielEmbarcadoPago1;
     private javax.swing.JLabel lStockMielEnProductores;
     private javax.swing.JLabel lStockMielGlobal;
     private javax.swing.JLabel lStockMielGlobalCredito;

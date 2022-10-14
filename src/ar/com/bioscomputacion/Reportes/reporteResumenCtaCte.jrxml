@@ -35,7 +35,7 @@ where codigo_productor = $P{codigo_productor}
 
 select c.fecha_movimiento, c.descripcion_movimiento, c.numero_comprobante,
 c.comprobante_afectado, c.cantidad_miel, c.debe, c.haber, c.codigo_productor, r.nombre, 
-r.estado_provincia, r.localidad, r.domicilio, s.saldo, m.mielFinanciada - n.mielDescontada
+r.estado_provincia, r.localidad, r.domicilio, s.saldo, CASE WHEN m.mielFinanciada IS NULL THEN 0 ELSE m.mielFinanciada END - CASE WHEN n.mielDescontada IS NULL THEN 0 ELSE n.mielDescontada END + 0.00
 from cta_cte_productor c 
 join saldoConProductor s on c.codigo_productor = s.codigo_productor
 left join mielFinanciadaProductor m on c.codigo_productor = m.codigo_productor
@@ -81,7 +81,7 @@ join persona r on p.cod_persona = r.cod_persona
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="saldo" class="java.math.BigDecimal"/>
-	<field name="m.mielFinanciada - n.mielDescontada" class="java.math.BigDecimal"/>
+	<field name="CASE WHEN m.mielFinanciada IS NULL THEN 0 ELSE m.mielFinanciada END - CASE WHEN n.mielDescontada IS NULL THEN 0 ELSE n.mielDescontada END + 0.00" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -265,7 +265,7 @@ join persona r on p.cod_persona = r.cod_persona
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{(m.mielFinanciada - n.mielDescontada)}+" KGS. DE MIEL IMPAGOS"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CASE WHEN m.mielFinanciada IS NULL THEN 0 ELSE m.mielFinanciada END - n.mielDescontada}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

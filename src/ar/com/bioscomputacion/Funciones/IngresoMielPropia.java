@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -232,7 +233,7 @@ public class IngresoMielPropia {
         return false;
     }
 
-    public DefaultTableModel listarIngresosMiel(String mesConsulta) {
+    public DefaultTableModel listarIngresosMiel(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -252,7 +253,7 @@ public class IngresoMielPropia {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT i.codigo_ingreso, i.fecha_ingreso, i.numero_comprobante, i.cantidad_miel, i.locacion_miel, l.nombre_locacion from ingreso_miel_propia i join locacion l on i.locacion_miel = l.codigo_locacion where codigo_ingreso <> '4' and i.fecha_ingreso BETWEEN '2022-09-01' AND '2022-09-30' order by codigo_ingreso");
+            ResultSet rs = st.executeQuery("SELECT i.codigo_ingreso, i.fecha_ingreso, i.numero_comprobante, i.cantidad_miel, i.locacion_miel, l.nombre_locacion from ingreso_miel_propia i join locacion l on i.locacion_miel = l.codigo_locacion where codigo_ingreso <> '4' and i.fecha_ingreso BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' order by codigo_ingreso");
 
             while (rs.next()) {
                 
@@ -281,6 +282,39 @@ public class IngresoMielPropia {
         
         return modelo;
         
+    }
+    
+    public String mostrarObservacionIngreso(int codigoIngreso) {
+        
+        String observacion = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select observacion from ingreso_miel_propia where codigo_ingreso = '" + codigoIngreso + "'");
+
+            while (rs.next()){
+            
+                observacion = rs.getString("observacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return observacion;
+            
+        }
+        
+        return observacion;
+    
     }
     
 }

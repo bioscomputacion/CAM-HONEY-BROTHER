@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -244,7 +245,7 @@ public class AnulacionPresupuestoProductor {
         return false;
     }
 
-    public DefaultTableModel listarAnulacionesPresupuestosProductores(String mesConsulta) {
+    public DefaultTableModel listarAnulacionesPresupuestosProductores(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -264,7 +265,7 @@ public class AnulacionPresupuestoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_anulacion, f.numero_comprobante, f.fecha_anulacion, f.codigo_productor, o.nombre, f.importe_total_anulacion, f.cantidad_miel_afectada from anulacion_presupuesto_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_anulacion <> '0' and f.fecha_anulacion BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_anulacion");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_anulacion, f.numero_comprobante, f.fecha_anulacion, f.codigo_productor, o.nombre, f.importe_total_anulacion, f.cantidad_miel_afectada from anulacion_presupuesto_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_anulacion <> '0' and f.fecha_anulacion BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_anulacion");
 
             while (rs.next()) {
                 

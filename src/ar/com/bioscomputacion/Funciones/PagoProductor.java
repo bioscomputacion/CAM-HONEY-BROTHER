@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -195,7 +196,7 @@ public class PagoProductor {
 
     }
     
-    public DefaultTableModel listarPagosAProductores(String mesConsulta) {
+    public DefaultTableModel listarPagosAProductores(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -215,7 +216,7 @@ public class PagoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT p.codigo_pago, p.fecha_pago, p.codigo_comprobante_pagado, p.tipo_comprobante_pagado, p.codigo_productor, s.nombre, p.monto_pago from pago_productor p join productor r on p.codigo_productor = r.cod_productor join persona s on r.cod_persona = s.cod_persona WHERE codigo_pago <> '5' and (fecha_pago BETWEEN '2022-09-01' AND '2022-09-30') ORDER BY codigo_pago");
+            ResultSet rs = st.executeQuery("SELECT p.codigo_pago, p.fecha_pago, p.codigo_comprobante_pagado, p.tipo_comprobante_pagado, p.codigo_productor, s.nombre, p.monto_pago from pago_productor p join productor r on p.codigo_productor = r.cod_productor join persona s on r.cod_persona = s.cod_persona WHERE codigo_pago <> '5' and fecha_pago BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY codigo_pago");
 
             while (rs.next()) {
                 
@@ -278,6 +279,170 @@ public class PagoProductor {
         }
         
         return nombreProductor;
+    
+    }
+    
+    public String mostrarNumeroFacturaAfectadoPago(int codigoPago) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.numero_comprobante from pago_productor p join factura_productor f on p.codigo_comprobante_pagado = f.codigo_factura where p.codigo_pago = '"+ codigoPago +"'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
+    public String mostrarNumeroPresupuestoAfectadoPago(int codigoPago) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT f.numero_comprobante from pago_productor p join presupuesto_productor f on p.codigo_comprobante_pagado = f.codigo_presupuesto where p.codigo_pago = '"+ codigoPago +"'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
+    public int mostrarCodigoComprobanteAfectadoPago(int codigoPago) {
+        
+        int codigoComprobante = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_comprobante_pagado from pago_productor where codigo_pago = '"+ codigoPago +"'");
+
+            while (rs.next()){
+            
+                codigoComprobante = rs.getInt("codigo_comprobante_pagado");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoComprobante;
+            
+        }
+        
+        return codigoComprobante;
+    
+    }
+    
+    public String mostrarTipoComprobanteAfectadoPago(int codigoPago) {
+        
+        String tipoComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT tipo_comprobante_pagado from pago_productor where codigo_pago = '"+ codigoPago +"'");
+
+            while (rs.next()){
+            
+                tipoComprobante = rs.getString("tipo_comprobante_pagado");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return tipoComprobante;
+            
+        }
+        
+        return tipoComprobante;
+    
+    }
+    
+    public Double mostrarImportePago(int codigoPago) {
+        
+        Double importePago = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT monto_pago from pago_productor WHERE codigo_pago = '" + codigoPago + "'");
+
+            while (rs.next()){
+            
+                importePago = rs.getDouble("monto_pago");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return importePago;
+            
+        }
+        
+        return importePago;
     
     }
     

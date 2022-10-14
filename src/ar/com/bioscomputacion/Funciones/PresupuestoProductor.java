@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -282,7 +283,7 @@ public class PresupuestoProductor {
         return false;
     }
 
-    public DefaultTableModel listarPresupuestosDeProductores(String mesConsulta) {
+    public DefaultTableModel listarPresupuestosDeProductores(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -302,7 +303,7 @@ public class PresupuestoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_presupuesto, f.numero_comprobante, f.fecha_presupuesto, f.codigo_productor, o.nombre, f.importe_total_presupuesto, f.cantidad_miel from presupuesto_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_presupuesto <> '17' and f.fecha_presupuesto BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_presupuesto");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_presupuesto, f.numero_comprobante, f.fecha_presupuesto, f.codigo_productor, o.nombre, f.importe_total_presupuesto, f.cantidad_miel from presupuesto_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_presupuesto <> '17' and f.fecha_presupuesto BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_presupuesto");
 
             while (rs.next()) {
                 

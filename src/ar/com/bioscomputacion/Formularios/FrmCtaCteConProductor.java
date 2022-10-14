@@ -383,6 +383,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jButton5 = new javax.swing.JButton();
         tbOpciones1 = new javax.swing.JToolBar();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         rsbrSalir = new rojeru_san.RSButtonRiple();
 
         jCheckBox1.setText("jCheckBox1");
@@ -680,7 +681,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jButton6.setBackground(new java.awt.Color(0, 0, 0));
         jButton6.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("  IMPRIMIR RESUMEN DE CTA. CTE.");
+        jButton6.setText("  IMPRIMIR RESUMEN DE CTA. CTE. ");
         jButton6.setBorderPainted(false);
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -691,6 +692,21 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             }
         });
         tbOpciones1.add(jButton6);
+
+        jButton7.setBackground(new java.awt.Color(0, 0, 0));
+        jButton7.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("  ACTUALIZAR DATOS ");
+        jButton7.setBorderPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        tbOpciones1.add(jButton7);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -709,7 +725,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                             .addComponent(lSaldoMielImpago, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lSaldoDineroImpago, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(tbOpciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tbOpciones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1250,6 +1266,14 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tProductoresMouseEntered
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        //para actualizar datos ingresados mientras este formulario esta abierto
+        mostrarCtaCteProductor(codigoProductor);
+        ocultarColumnasCtaCte();
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     public void actualizarImporteTotalPago() {
 
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
@@ -1273,6 +1297,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -259,7 +260,7 @@ public class DevolucionProductor {
         return false;
     }
     
-    public DefaultTableModel listarDevolucionesAProductores(String mesConsulta) {
+    public DefaultTableModel listarDevolucionesAProductores(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -279,7 +280,7 @@ public class DevolucionProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_devolucion, fecha_devolucion from devolucion_productor WHERE codigo_devolucion <> '1' and fecha_devolucion BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY codigo_devolucion");
+            ResultSet rs = st.executeQuery("SELECT codigo_devolucion, fecha_devolucion from devolucion_productor WHERE codigo_devolucion <> '1' and fecha_devolucion BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY codigo_devolucion");
 
             while (rs.next()) {
                 

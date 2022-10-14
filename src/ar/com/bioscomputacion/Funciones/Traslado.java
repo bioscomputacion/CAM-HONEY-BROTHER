@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -256,7 +257,7 @@ public class Traslado {
         return false;
     }
 
-    public DefaultTableModel listarTraslados(String mesConsulta) {
+    public DefaultTableModel listarTraslados(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -276,7 +277,7 @@ public class Traslado {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT codigo_traslado, numero_comprobante, cantidad_item_trasladado, observacion_traslado, origen_traslado, destino_traslado, fecha_traslado from traslado where codigo_traslado <> '67' order by codigo_traslado");
+            ResultSet rs = st.executeQuery("SELECT codigo_traslado, numero_comprobante, cantidad_item_trasladado, observacion_traslado, origen_traslado, destino_traslado, fecha_traslado from traslado where codigo_traslado <> '67' and fecha_traslado BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' order by codigo_traslado");
             Locacion locacion = new Locacion();
 
             while (rs.next()) {
@@ -309,6 +310,105 @@ public class Traslado {
         
         return modelo;
         
+    }
+    
+    public String mostrarNombreLocacionOrigenTraslado(int codigoTraslado) {
+        
+        String nombreLocacion = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select l.nombre_locacion from traslado t join locacion l on t.origen_traslado = l.codigo_locacion WHERE codigo_traslado = '"+ codigoTraslado +"'");
+
+            while (rs.next()){
+            
+                nombreLocacion = rs.getString("nombre_locacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreLocacion;
+            
+        }
+        
+        return nombreLocacion;
+    
+    }
+    
+    public String mostrarNombreLocacionDestinoTraslado(int codigoTraslado) {
+        
+        String nombreLocacion = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select l.nombre_locacion from traslado t join locacion l on t.destino_traslado = l.codigo_locacion WHERE codigo_traslado = '"+ codigoTraslado +"'");
+
+            while (rs.next()){
+            
+                nombreLocacion = rs.getString("nombre_locacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreLocacion;
+            
+        }
+        
+        return nombreLocacion;
+    
+    }
+    
+    public String mostrarObservacionTraslado(int codigoTraslado) {
+        
+        String observacionTraslado = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select observacion_traslado from traslado WHERE codigo_traslado = '"+ codigoTraslado +"'");
+
+            while (rs.next()){
+            
+                observacionTraslado = rs.getString("observacion_traslado");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return observacionTraslado;
+            
+        }
+        
+        return observacionTraslado;
+    
     }
     
 }

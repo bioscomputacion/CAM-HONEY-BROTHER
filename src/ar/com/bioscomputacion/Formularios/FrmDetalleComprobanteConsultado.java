@@ -5,6 +5,8 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AnulacionPresupuestoProductor;
+import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CreditoProductor;
 import ar.com.bioscomputacion.Funciones.DevolucionProductor;
 import ar.com.bioscomputacion.Funciones.FacturaCliente;
@@ -17,7 +19,10 @@ import ar.com.bioscomputacion.Funciones.PagoProductor;
 import ar.com.bioscomputacion.Funciones.PresupuestoCliente;
 import ar.com.bioscomputacion.Funciones.PresupuestoProductor;
 import ar.com.bioscomputacion.Funciones.Traslado;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -73,174 +78,141 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
         PagoCliente pagoCliente = new PagoCliente();
         NotaCreditoProductor notaCredito = new NotaCreditoProductor();
         NotaCreditoCliente notaCreditoCliente = new NotaCreditoCliente();
-        //falta crear las clases correspondientes a ka anulacion (de un presupuesto)
+        AnulacionPresupuestoProductor anulacionProductor = new AnulacionPresupuestoProductor();
+        //falta crear las clases correspondientes a ka anulacion (de un presupuesto a un exportador interno (cliente))
         DevolucionProductor devolucion = new DevolucionProductor();
         Traslado traslado = new Traslado();
         
         Double importeComprobante = 0.00;
         Double precioUnitarioFacturado = 0.00;
         Double importeAbonado = 0.00;
-        Double saldoComprobante = 0.00;
         Double importeAbonadoEnKgs = 0.00; 
+        Double saldoComprobante = 0.00;
         Double saldoComprobanteEnKgs = 0.00;
+        
+        int comprobanteAfectado = 0;
+        String tipoComprobanteAfectado = "";
+        String numeroComprobanteAfectadoPago = "";
+        
+        String productor = "";
+        String cliente = "";
+        String observacion = "";
+        String locacionAcopio = "";
+        String locacionOrigenTraslado = "";
+        String locacionDestinoTraslado = "";
+        
                                 
         if (!(tipoComprobante == null)){
 
             switch (tipoComprobante){
 
-                //facturas a, facturas c, presupuestos y consignaciones
-
                 case "FACTURA A":
 
                     importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
                     precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    locacionAcopio = mostrarNombreLocacionAcopioMiel("FACTURA A", codigoComprobanteConsultado);
+                    productor = factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado);
+
+                    lMielAfectada.setText("MIEL ADQUIRIDA EN LA COMPRA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("MIEL FACTURADA POR:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(productor);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("LOCACION DE ACOPIO DE LA MIEL:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(locacionAcopio);
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. FACTURADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DE LA FACTURA:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE PAGO DE LA FACTURA:");
+                    lImporteAbonado.setVisible(true);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(true);
+                    lSaldo.setText("SALDO IMPAGO DE LA FACTURA:");
+                    lSaldoComprobante.setVisible(true);
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    lSaldoKgs.setVisible(true);
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
 
                     break;
 
                 case "FACTURA C":
 
                     importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
                     precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA C",codigoComprobanteConsultado);
+                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    locacionAcopio = mostrarNombreLocacionAcopioMiel("FACTURA C", codigoComprobanteConsultado);
+                    productor = factura.mostrarNombreProductorFacturaC(codigoComprobanteConsultado);
+                    
+                    lMielAfectada.setText("MIEL ADQUIRIDA EN LA COMPRA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("MIEL FACTURADA POR:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(productor);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("LOCACION DE ACOPIO DE LA MIEL:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(locacionAcopio);
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. FACTURADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DE LA FACTURA:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE PAGO DE LA FACTURA:");
+                    lImporteAbonado.setVisible(true);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(true);
+                    lSaldo.setText("SALDO IMPAGO DE LA FACTURA:");
+                    lSaldoComprobante.setVisible(true);
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    lSaldoKgs.setVisible(true);
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
 
                     break;
 
                 case "FACTURA E":
-
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
-                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
-                    lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-                    lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
-                    break;
-
-                case "PRESUPUESTO":
-
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
-                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
-                    lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-                    lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
-                    break;
-
-                case "CONSIGNACION":
-
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
-                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
-                    lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-                    lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
-                    break;
-
-                case "INGRESO":
-
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
-                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
-                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
-                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
-                    lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-                    lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
-                    break;
-
-                case "FACTURACION DE CONSIGNACION":
 
                     /*importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
                     lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
@@ -249,7 +221,7 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA E",codigoComprobanteConsultado);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                     saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
@@ -257,97 +229,377 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                     lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));*/
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("MIEL FACTURADA A:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(facturaCliente.mostrarNombreClienteFactura(codigoComprobanteConsultado));
+                    lObjeto2.setVisible(false);
+                    //lObjeto2.setText("MIEL FACTURADA POR:");
+                    lObjeto5.setVisible(false);
+                    //lObjeto5.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);*/
 
                     break;
 
-                case "PAGO":
+                case "PRESUPUESTO":
 
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    importeComprobante = presupuesto.mostrarImportePresupuesto(codigoComprobanteConsultado);
+                    precioUnitarioFacturado = presupuesto.mostrarPrecioUnitarioPresupuesto(codigoComprobanteConsultado);
+                    importeAbonado = presupuesto.mostrarImportePagoPresupuesto(codigoComprobanteConsultado);
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    locacionAcopio = mostrarNombreLocacionAcopioMiel("PRESUPUESTO", codigoComprobanteConsultado);
+                    productor = presupuesto.mostrarNombreProductorPresupuesto(codigoComprobanteConsultado);
+                    
+                    lMielAfectada.setText("MIEL ADQUIRIDA EN LA COMPRA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("MIEL PRESUPUESTADA POR:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(productor);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("LOCACION DE ACOPIO DE LA MIEL:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(locacionAcopio);
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. PRESUPUESTADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DEL PRESUPUESTO:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE PAGO DEL PRESUPUESTO:");
+                    lImporteAbonado.setVisible(true);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(true);
+                    lSaldo.setText("SALDO IMPAGO DEL PRESUPUESTO:");
+                    lSaldoComprobante.setVisible(true);
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
+                    lSaldoKgs.setVisible(true);
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+
+                    break;
+
+                case "CONSIGNACION":
+
+                    locacionAcopio = mostrarNombreLocacionAcopioMiel("CONSIGNACION", codigoComprobanteConsultado);
+                    productor = credito.mostrarNombreProductorCredito(codigoComprobanteConsultado);
+                    
+                    lMielAfectada.setText("MIEL ADQUIRIDA EN LA COMPRA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
+                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
+
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("MIEL CONSIGNADA POR:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(productor);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("LOCACION DE ACOPIO DE LA MIEL:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(locacionAcopio);
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+
+                    lPrecioKG.setVisible(false);
+                    lPrecioUnitario.setVisible(false);
+                    lImporte.setVisible(false);
+                    lImporteComprobante.setVisible(false);
+                    lImporteDescontado.setVisible(false);
+                    lImporteAbonado.setVisible(false);
+                    lImporteAbonadoKgs.setVisible(false);
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
+
+                    //FALTARIA MOSTRAR LOS KILOS DESCONTADOS DE LA CONSIGNACION, YA SEA POR FACTURACION DE MIEL PARA ABONARLA
+                    //O POR DEVOLUCION DE MIEL DE LA CONSIGNACION
+
+                    break;
+
+                case "INGRESO":
+
+                    locacionAcopio = mostrarNombreLocacionAcopioMiel("INGRESO", codigoComprobanteConsultado);
+                    observacion = ingreso.mostrarObservacionIngreso(codigoComprobanteConsultado);
+                    
+                    lMielAfectada.setText("MIEL INGRESADA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
+                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
+
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE INGRESO Y ACOPIO DE LA MIEL:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(locacionAcopio);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("OBSERVACION:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(observacion);
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+                    
+                    lPrecioKG.setVisible(false);
+                    lPrecioUnitario.setVisible(false);
+                    lImporte.setVisible(false);
+                    lImporteComprobante.setVisible(false);
+                    lImporteDescontado.setVisible(false);
+                    lImporteAbonado.setVisible(false);
+                    lImporteAbonadoKgs.setVisible(false);
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
+
+                    break;
+
+                case "FACTURACION DE CONSIGNACION":
+
+                    //falta todo lo referido a facturaciones de consignaciones
+                    break;
+
+                case "PAGO":
+                    
+                    //ADEMAS DE LOS DATOS DEL PAGO TENEMOS QUE MOSTRAR LOS DEL COMPROBANTE AFECTADO POR EL PAGO
+                    productor = pagoProductor.mostrarNombreProductorPago(codigoComprobanteConsultado);
+                    comprobanteAfectado = pagoProductor.mostrarCodigoComprobanteAfectadoPago(codigoComprobanteConsultado);
+                    tipoComprobanteAfectado = pagoProductor.mostrarTipoComprobanteAfectadoPago(codigoComprobanteConsultado);
+                    numeroComprobanteAfectadoPago = "";
+                    //es solo el numero del pago a nivel interno en la bd
+                    lNumeroComprobante.setText(String.valueOf(codigoComprobanteConsultado));
+                    if (tipoComprobanteAfectado.equals("PRESUPUESTO")){
+                        
+                        //es un pago de un presupuesto
+                        numeroComprobanteAfectadoPago = pagoProductor.mostrarNumeroPresupuestoAfectadoPago(codigoComprobanteConsultado);
+                        precioUnitarioFacturado = presupuesto.mostrarPrecioUnitarioPresupuesto(comprobanteAfectado);
+                        importeComprobante = presupuesto.mostrarImportePresupuesto(comprobanteAfectado);
+                        
+                        
+                    }
+                    else{
+                        
+                        //es un pago de una factura
+                        numeroComprobanteAfectadoPago = pagoProductor.mostrarNumeroFacturaAfectadoPago(codigoComprobanteConsultado);
+                        precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(comprobanteAfectado);
+                        importeComprobante = factura.mostrarImporteFactura(comprobanteAfectado);
+                        
+                    }
+                    
+                    //obtengo importe del comprobante, precio unitario facturado, importe del pago y saldo del comprobante afectado
+                    importeAbonado = pagoProductor.mostrarImportePago(codigoComprobanteConsultado);
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    
+                    lMielAfectada.setText("MONTO ABONADO EQUIVALENTE A:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
+                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
+
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("PAGO REALIZADO A:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(productor);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("COMPROBANTE AFECTADO POR EL PAGO:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(tipoComprobanteAfectado+" N° "+numeroComprobanteAfectadoPago);
+                    //en estos dos objetos que siguen colocar datos de la factura! (o no)
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);
+
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. FACTURADO / PRESUPUESTADO EN EL COMPROBANTE ABONADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DEL COMPROBANTE ABONADO:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE ABONADO EN EL PAGO");
+                    lImporteAbonado.setVisible(true);
+                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
+                    //HAY QUE HACER PARA pagos de clienteS!
+                    
+                    break;
 
                 case "NOTA DE CREDITO A":
 
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    //ADEMAS DE LOS DATOS DELA NC TENEMOS QUE MOSTRAR LOS DEL COMPROBANTE AFECTADO POR LA MISMA
+                    //obtengo codigo, tipo y numero del comprobante afectado por la nc
+                    comprobanteAfectado = notaCredito.mostrarCodigoComprobanteAfectadoNC(codigoComprobanteConsultado);
+                    numeroComprobanteAfectadoPago = "FACTURA A N° "+notaCredito.mostrarNumeroFacturaAfectadaNC(codigoComprobanteConsultado);
+
+                    importeAbonado = notaCredito.mostrarImporteNotaCredito(codigoComprobanteConsultado);
+                    //es un pago de un presupuesto
+                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(comprobanteAfectado);
+                    importeComprobante = factura.mostrarImporteFactura(comprobanteAfectado);
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    
+                    lMielAfectada.setText("CANTIDAD DE MIEL DEVUELTA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lMielAfectada.setVisible(true);
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
+                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
                     importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
+                    
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE ACOPIO DE LA MIEL DEVUELTA:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(mostrarNombreLocacionAcopioMiel("NOTA DE CREDITO A", codigoComprobanteConsultado));
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("MIEL DEVUELTA A:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(notaCredito.mostrarNombreProductorNotaCredito(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(true);
+                    lObjeto3.setText("COMPROBANTE ASOCIADO A LA NOTA DE CREDITO A:");
+                    lObjeto6.setVisible(true);
+                    lObjeto6.setText(numeroComprobanteAfectadoPago);
+                    
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. ACREDITADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DEL COMPROBANTE AFECTADO POR LA NOTA DE CREDITO:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE ACREDITADO:");
+                    lImporteAbonado.setVisible(true);
+                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
+                    //HAY QUE HACER PARA NCA de clienteS!
+                    
                     break;
 
                 case "NOTA DE CREDITO C":
 
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    //ADEMAS DE LOS DATOS DELA NC TENEMOS QUE MOSTRAR LOS DEL COMPROBANTE AFECTADO POR LA MISMA
+                    //obtengo codigo, tipo y numero del comprobante afectado por la nc
+                    comprobanteAfectado = notaCredito.mostrarCodigoComprobanteAfectadoNC(codigoComprobanteConsultado);
+                    numeroComprobanteAfectadoPago = "FACTURA C N° "+notaCredito.mostrarNumeroFacturaAfectadaNC(codigoComprobanteConsultado);
+
+                    importeAbonado = notaCredito.mostrarImporteNotaCredito(codigoComprobanteConsultado);
+                    //es un pago de un presupuesto
+                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(comprobanteAfectado);
+                    importeComprobante = factura.mostrarImporteFactura(comprobanteAfectado);
+                    saldoComprobante = importeComprobante - importeAbonado;
+                    
+                    lMielAfectada.setText("CANTIDAD DE MIEL DEVUELTA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lMielAfectada.setVisible(true);
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
+                    lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
+                    lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
+                    lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
                     importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
-
+                    
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE ACOPIO DE LA MIEL DEVUELTA:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(mostrarNombreLocacionAcopioMiel("NOTA DE CREDITO C", codigoComprobanteConsultado));
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("MIEL DEVUELTA A:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(notaCredito.mostrarNombreProductorNotaCredito(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(true);
+                    lObjeto3.setText("COMPROBANTE ASOCIADO A LA NOTA DE CREDITO C:");
+                    lObjeto6.setVisible(true);
+                    lObjeto6.setText(numeroComprobanteAfectadoPago);
+                    
+                    lPrecioKG.setVisible(true);
+                    lPrecioKG.setText("PRECIO KG. ACREDITADO:");
+                    lPrecioUnitario.setVisible(true);
+                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    lImporte.setVisible(true);
+                    lImporte.setText("IMPORTE TOTAL DEL COMPROBANTE AFECTADO POR LA NOTA DE CREDITO:");
+                    lImporteComprobante.setVisible(true);
+                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
+                    lImporteDescontado.setVisible(true);
+                    lImporteDescontado.setText("IMPORTE ACREDITADO:");
+                    lImporteAbonado.setVisible(true);
+                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
+                    lImporteAbonadoKgs.setVisible(true);
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
+                    //HAY QUE HACER PARA NCA de clienteS!
+                    
                     break;
 
                 case "NOTA DE CREDITO E":
 
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
+                    /*importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
                     lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
                     precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
                     lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    importeAbonado = factura.mostrarImportePagoFactura("NOTA DE CREDITO E",codigoComprobanteConsultado);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                     saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
@@ -355,11 +607,16 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                     lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE ACOPIO DE LA MIEL DEVUELTA:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(mostrarNombreLocacionAcopioMiel("NOTA DE CREDITO A", codigoComprobanteConsultado));
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("MIEL DEVUELTA A:");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(notaCredito.mostrarNombreProductorNotaCredito(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(false);
+                    lObjeto6.setVisible(false);*/
 
                     break;
 
@@ -372,19 +629,19 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    importeAbonado = factura.mostrarImportePagoFactura("ANULACION",codigoComprobanteConsultado);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                     saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
                     importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE ACOPIO DE LA MIEL: "+mostrarNombreLocacionAcopioMiel("FACTURA A", codigoComprobanteConsultado));
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("MIEL FACTURADA POR: "+factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(false);
 
                     break;
 
@@ -397,42 +654,60 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
+                    importeAbonado = factura.mostrarImportePagoFactura("DEVOLUCION",codigoComprobanteConsultado);
                     lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
                     saldoComprobante = importeComprobante - importeAbonado;
                     lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
                     importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
+                    lImporteAbonadoKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
                     saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
                     lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION DE ACOPIO DE LA MIEL: "+mostrarNombreLocacionAcopioMiel("FACTURA A", codigoComprobanteConsultado));
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("MIEL FACTURADA POR: "+factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+                    lObjeto3.setVisible(false);
+                    
+                    break;
 
+                    
                 case "TRASLADO":
 
-                    importeComprobante = factura.mostrarImporteFactura(codigoComprobanteConsultado);
-                    lImporteComprobante.setText("$ "+String.valueOf(importeComprobante));
-                    precioUnitarioFacturado = factura.mostrarPrecioUnitarioFactura(codigoComprobanteConsultado);
-                    lPrecioUnitario.setText("$ "+String.valueOf(precioUnitarioFacturado));
+                    locacionOrigenTraslado = traslado.mostrarNombreLocacionOrigenTraslado(codigoComprobanteConsultado);
+                    locacionDestinoTraslado = traslado.mostrarNombreLocacionDestinoTraslado(codigoComprobanteConsultado);
+                    observacion = traslado.mostrarObservacionTraslado(codigoComprobanteConsultado);
+                    
+                    lMielAfectada.setText("MIEL TRASLADADA:");
+                    lKgsMiel.setVisible(true);
+                    lTambores.setVisible(true);
+                    lLotes.setVisible(true);
                     lKgsMiel.setText(String.valueOf(cantidadMielAfectada)+" KGS.");
                     lTambores.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 300)*100.00) / 100.00)+" TAMBORES)");
                     lLotes.setText(String.valueOf("("+Math.round((cantidadMielAfectada / 21000)*100.00) / 100.00)+" LOTES)");
-                    importeAbonado = factura.mostrarImportePagoFactura("FACTURA A",codigoComprobanteConsultado);
-                    lImporteAbonado.setText("$ "+String.valueOf(importeAbonado));
-                    saldoComprobante = importeComprobante - importeAbonado;
-                    lSaldoComprobante.setText("$ "+String.valueOf(saldoComprobante));
-                    importeAbonadoEnKgs = importeAbonado / precioUnitarioFacturado;
-                    lImporteKgs.setText("(EQUIVALENTE A "+String.valueOf(importeAbonadoEnKgs)+" KGS.)");
-                    saldoComprobanteEnKgs = saldoComprobante / precioUnitarioFacturado;
-                    lSaldoKgs.setText("(EQUIVALENTE A "+String.valueOf(saldoComprobanteEnKgs)+" KGS.)");
-                    //falta traer el nombre del productor implicado y la locacion donde se deposita o de donde se 
-                    //extrae la miel
-                    lProductorImplicado.setVisible(true);
-                    lProductorImplicado.setText("MIEL FACTURADA POR:");
-                    lProductor.setText(factura.mostrarNombreProductorFacturaA(codigoComprobanteConsultado));
+
+                    lObjeto1.setVisible(true);
+                    lObjeto1.setText("LOCACION ORIGEN DE LA MIEL TRASLADADA:");
+                    lObjeto4.setVisible(true);
+                    lObjeto4.setText(locacionOrigenTraslado);
+                    lObjeto2.setVisible(true);
+                    lObjeto2.setText("LOCACION DESTINO PARA LA MIEL TRASLADADA::");
+                    lObjeto5.setVisible(true);
+                    lObjeto5.setText(locacionDestinoTraslado);
+                    lObjeto3.setVisible(true);
+                    lObjeto3.setText("OBSERVACION:");
+                    lObjeto6.setVisible(true);
+                    lObjeto6.setText(observacion);
+                    
+                    lPrecioKG.setVisible(false);
+                    lPrecioUnitario.setVisible(false);
+                    lImporte.setVisible(false);
+                    lImporteComprobante.setVisible(false);
+                    lImporteDescontado.setVisible(false);
+                    lImporteAbonado.setVisible(false);
+                    lImporteAbonadoKgs.setVisible(false);
+                    lSaldo.setVisible(false);
+                    lSaldoComprobante.setVisible(false);
+                    lSaldoKgs.setVisible(false);
 
                     break;
 
@@ -440,12 +715,44 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
 
                     break;
 
-
             }
 
         }
+        
     }
 
+    public String mostrarNombreLocacionAcopioMiel(String referencia, int id_comprobante) {
+        
+        String nombreLocacion = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select l.nombre_locacion from stock_real_miel s join locacion l on s.locacion_miel = l.codigo_locacion where s.id_comprobante_asociado = '"+id_comprobante+"' and s.comprobante_asociado = '"+referencia+"'");
+
+            while (rs.next()){
+            
+                nombreLocacion = rs.getString("nombre_locacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return nombreLocacion;
+            
+        }
+        
+        return nombreLocacion;
+    
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -460,35 +767,34 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
         jPanel1 = new javax.swing.JPanel();
         rSPanelShadow2 = new rojeru_san.RSPanelShadow();
         jLabel2 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lMielAfectada = new javax.swing.JLabel();
         rsbrAceptar = new rojeru_san.RSButtonRiple();
         lTipoComprobante = new javax.swing.JLabel();
         lNumeroComprobante = new javax.swing.JLabel();
         lKgsMiel = new javax.swing.JLabel();
         ll = new javax.swing.JLabel();
         lFechaMovimiento = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lImporte = new javax.swing.JLabel();
         lImporteComprobante = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lImporteDescontado = new javax.swing.JLabel();
         lImporteAbonado = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lSaldo = new javax.swing.JLabel();
         lSaldoComprobante = new javax.swing.JLabel();
-        lImporteKgs = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lImporteAbonadoKgs = new javax.swing.JLabel();
+        lPrecioKG = new javax.swing.JLabel();
         lPrecioUnitario = new javax.swing.JLabel();
         lSaldoKgs = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
-        lProductorImplicado = new javax.swing.JLabel();
-        lProductor = new javax.swing.JLabel();
+        lObjeto3 = new javax.swing.JLabel();
         lTambores = new javax.swing.JLabel();
         lLotes = new javax.swing.JLabel();
-        lProductorImplicado1 = new javax.swing.JLabel();
-        lLocacion = new javax.swing.JLabel();
+        lObjeto1 = new javax.swing.JLabel();
+        lObjeto2 = new javax.swing.JLabel();
+        lObjeto4 = new javax.swing.JLabel();
+        lObjeto5 = new javax.swing.JLabel();
+        lObjeto6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(true);
@@ -506,15 +812,15 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("TIPO DE COMPROBANTE:");
+        jLabel4.setText("COMPROBANTE:");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("N° DE COMPROBANTE:");
+        jLabel6.setText("N°:");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 204));
-        jLabel8.setText("MIEL AFECTADA:");
+        lMielAfectada.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lMielAfectada.setForeground(new java.awt.Color(255, 255, 204));
+        lMielAfectada.setText("MIEL AFECTADA:");
 
         rsbrAceptar.setBackground(new java.awt.Color(47, 110, 164));
         rsbrAceptar.setText("ACEPTAR");
@@ -541,48 +847,48 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
 
         ll.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ll.setForeground(new java.awt.Color(255, 255, 255));
-        ll.setText("FECHA DEL MOVIMIENTO:");
+        ll.setText("FECHA:");
 
         lFechaMovimiento.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         lFechaMovimiento.setForeground(new java.awt.Color(255, 255, 255));
         lFechaMovimiento.setText("-");
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 204));
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel7.setText("IMPORTE TOTAL:");
+        lImporte.setBackground(new java.awt.Color(255, 255, 204));
+        lImporte.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lImporte.setForeground(new java.awt.Color(204, 255, 255));
+        lImporte.setText("IMPORTE TOTAL DEL COMPROBANTE:");
 
         lImporteComprobante.setBackground(new java.awt.Color(255, 255, 204));
         lImporteComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         lImporteComprobante.setForeground(new java.awt.Color(204, 255, 255));
         lImporteComprobante.setText("-");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel9.setText("IMPORTE ABONADO:");
+        lImporteDescontado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lImporteDescontado.setForeground(new java.awt.Color(204, 255, 255));
+        lImporteDescontado.setText("IMPORTE ABONADO:");
 
         lImporteAbonado.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         lImporteAbonado.setForeground(new java.awt.Color(204, 255, 255));
         lImporteAbonado.setText("-");
 
-        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel10.setText("SALDO DEL COMPROBANTE:");
+        lSaldo.setBackground(new java.awt.Color(255, 255, 255));
+        lSaldo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lSaldo.setForeground(new java.awt.Color(204, 255, 255));
+        lSaldo.setText("SALDO IMPAGO DEL COMPROBANTE:");
 
         lSaldoComprobante.setBackground(new java.awt.Color(255, 255, 255));
         lSaldoComprobante.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         lSaldoComprobante.setForeground(new java.awt.Color(204, 255, 255));
         lSaldoComprobante.setText("-");
 
-        lImporteKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lImporteKgs.setForeground(new java.awt.Color(204, 255, 255));
-        lImporteKgs.setText("-");
+        lImporteAbonadoKgs.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lImporteAbonadoKgs.setForeground(new java.awt.Color(204, 255, 255));
+        lImporteAbonadoKgs.setText("-");
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 204));
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel11.setText("PRECIO KG.:");
+        lPrecioKG.setBackground(new java.awt.Color(255, 255, 204));
+        lPrecioKG.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lPrecioKG.setForeground(new java.awt.Color(204, 255, 255));
+        lPrecioKG.setText("PRECIO KG.:");
 
         lPrecioUnitario.setBackground(new java.awt.Color(255, 255, 204));
         lPrecioUnitario.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
@@ -594,13 +900,9 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
         lSaldoKgs.setForeground(new java.awt.Color(204, 255, 255));
         lSaldoKgs.setText("-");
 
-        lProductorImplicado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lProductorImplicado.setForeground(new java.awt.Color(255, 255, 255));
-        lProductorImplicado.setText("productorImplicado");
-
-        lProductor.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lProductor.setForeground(new java.awt.Color(255, 255, 255));
-        lProductor.setText("-");
+        lObjeto3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lObjeto3.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto3.setText("objeto3");
 
         lTambores.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         lTambores.setForeground(new java.awt.Color(255, 255, 204));
@@ -612,14 +914,29 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
         lLotes.setText("-");
         lLotes.setToolTipText("");
 
-        lProductorImplicado1.setBackground(new java.awt.Color(255, 255, 204));
-        lProductorImplicado1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lProductorImplicado1.setForeground(new java.awt.Color(255, 255, 204));
-        lProductorImplicado1.setText("locacionImplicada");
+        lObjeto1.setBackground(new java.awt.Color(255, 255, 204));
+        lObjeto1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lObjeto1.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto1.setText("objeto1");
 
-        lLocacion.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        lLocacion.setForeground(new java.awt.Color(255, 255, 204));
-        lLocacion.setText("-");
+        lObjeto2.setBackground(new java.awt.Color(255, 255, 204));
+        lObjeto2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lObjeto2.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto2.setText("objeto2");
+
+        lObjeto4.setBackground(new java.awt.Color(255, 255, 204));
+        lObjeto4.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lObjeto4.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto4.setText("objeto4");
+
+        lObjeto5.setBackground(new java.awt.Color(255, 255, 204));
+        lObjeto5.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lObjeto5.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto5.setText("objeto5");
+
+        lObjeto6.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        lObjeto6.setForeground(new java.awt.Color(255, 255, 204));
+        lObjeto6.setText("objeto6");
 
         javax.swing.GroupLayout rSPanelShadow2Layout = new javax.swing.GroupLayout(rSPanelShadow2);
         rSPanelShadow2.setLayout(rSPanelShadow2Layout);
@@ -629,78 +946,73 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator5)
-                        .addContainerGap())
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                         .addGap(35, 35, 35))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lKgsMiel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lTambores)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lLotes)
-                                .addGap(18, 18, 18)
-                                .addComponent(lProductorImplicado1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lLocacion))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lImporteAbonado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lImporteKgs))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lPrecioUnitario)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lImporteComprobante))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lSaldoComprobante)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lSaldoKgs)))
-                        .addGap(362, 362, Short.MAX_VALUE))
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lTipoComprobante))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(ll)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lFechaMovimiento))
-                            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                                .addComponent(lProductorImplicado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lProductor)))
-                        .addGap(0, 475, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator4)
-                        .addContainerGap())
-                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addContainerGap())))
+                        .addComponent(ll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lFechaMovimiento)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addGap(227, 227, 227)
+                .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lTipoComprobante))
                     .addGroup(rSPanelShadow2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lNumeroComprobante)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lMielAfectada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lKgsMiel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lTambores)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lLotes))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lObjeto1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lObjeto4))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lObjeto2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lObjeto5))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lObjeto3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lObjeto6))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lImporteDescontado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lImporteAbonado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lImporteAbonadoKgs))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lSaldo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lSaldoComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lSaldoKgs))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lPrecioKG)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lPrecioUnitario))
+                    .addGroup(rSPanelShadow2Layout.createSequentialGroup()
+                        .addComponent(lImporte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lImporteComprobante)))
+                .addContainerGap(385, Short.MAX_VALUE))
             .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rSPanelShadow2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -716,51 +1028,51 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ll)
                     .addComponent(lFechaMovimiento))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lTipoComprobante))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lNumeroComprobante))
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lProductorImplicado1)
-                        .addComponent(lLocacion))
-                    .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lKgsMiel)
-                        .addComponent(jLabel8)
-                        .addComponent(lTambores)
-                        .addComponent(lLotes)))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lKgsMiel)
+                    .addComponent(lMielAfectada)
+                    .addComponent(lTambores)
+                    .addComponent(lLotes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lObjeto1)
+                    .addComponent(lObjeto4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lObjeto2)
+                    .addComponent(lObjeto5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lObjeto3)
+                    .addComponent(lObjeto6))
                 .addGap(18, 18, 18)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lPrecioUnitario)
-                    .addComponent(jLabel7)
+                    .addComponent(lPrecioKG)
+                    .addComponent(lPrecioUnitario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lImporte)
                     .addComponent(lImporteComprobante))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                    .addComponent(lImporteDescontado)
                     .addComponent(lImporteAbonado)
-                    .addComponent(lImporteKgs))
-                .addGap(18, 18, 18)
+                    .addComponent(lImporteAbonadoKgs))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lSaldoComprobante)
                     .addComponent(lSaldoKgs)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lProductorImplicado)
-                    .addComponent(lProductor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(lSaldo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addComponent(rsbrAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(rSPanelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,40 +1111,38 @@ public class FrmDetalleComprobanteConsultado extends javax.swing.JInternalFrame 
 
         // TODO add your handling code here:
         this.dispose();
-
     }//GEN-LAST:event_rsbrAceptarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    public javax.swing.JLabel lFechaMovimiento;
+    public static javax.swing.JLabel lFechaMovimiento;
+    private javax.swing.JLabel lImporte;
     public javax.swing.JLabel lImporteAbonado;
+    public javax.swing.JLabel lImporteAbonadoKgs;
     public javax.swing.JLabel lImporteComprobante;
-    public javax.swing.JLabel lImporteKgs;
-    public javax.swing.JLabel lKgsMiel;
-    public javax.swing.JLabel lLocacion;
-    public javax.swing.JLabel lLotes;
-    public javax.swing.JLabel lNumeroComprobante;
+    private javax.swing.JLabel lImporteDescontado;
+    public static javax.swing.JLabel lKgsMiel;
+    public static javax.swing.JLabel lLotes;
+    private javax.swing.JLabel lMielAfectada;
+    public static javax.swing.JLabel lNumeroComprobante;
+    private javax.swing.JLabel lObjeto1;
+    private javax.swing.JLabel lObjeto2;
+    private javax.swing.JLabel lObjeto3;
+    private javax.swing.JLabel lObjeto4;
+    private javax.swing.JLabel lObjeto5;
+    private javax.swing.JLabel lObjeto6;
+    private javax.swing.JLabel lPrecioKG;
     public javax.swing.JLabel lPrecioUnitario;
-    public javax.swing.JLabel lProductor;
-    private javax.swing.JLabel lProductorImplicado;
-    private javax.swing.JLabel lProductorImplicado1;
+    private javax.swing.JLabel lSaldo;
     public static javax.swing.JLabel lSaldoComprobante;
     public javax.swing.JLabel lSaldoKgs;
-    public javax.swing.JLabel lTambores;
-    public javax.swing.JLabel lTipoComprobante;
+    public static javax.swing.JLabel lTambores;
+    public static javax.swing.JLabel lTipoComprobante;
     private javax.swing.JLabel ll;
     private rojeru_san.RSPanelShadow rSPanelShadow1;
     private rojeru_san.RSPanelShadow rSPanelShadow2;

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -298,7 +299,7 @@ public class FacturaProductor {
         return false;
     }
     
-    public DefaultTableModel listarFacturasA(String mesConsulta) {
+    public DefaultTableModel listarFacturasA(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -318,7 +319,7 @@ public class FacturaProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '52' and f.tipo_factura = 'FACTURA A' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '52' and f.tipo_factura = 'FACTURA A' and f.fecha_factura BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_factura");
 
             while (rs.next()) {
                 
@@ -348,7 +349,7 @@ public class FacturaProductor {
         
     }
     
-    public DefaultTableModel listarFacturasC(String mesConsulta) {
+    public DefaultTableModel listarFacturasC(LocalDate fechaInicial, LocalDate fechaFinal) {
 
         //el parametro mesConsulta es para filtrar comprobantes por mes!
         //falta hacerlo
@@ -368,7 +369,7 @@ public class FacturaProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '41' and f.tipo_factura = 'FACTURA C' and f.fecha_factura BETWEEN '2022-09-01' AND '2022-09-30' ORDER BY f.codigo_factura");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_factura, f.numero_comprobante, f.fecha_factura, f.codigo_productor, o.nombre, f.importe_total_factura, f.cantidad_miel_facturada from factura_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_factura <> '41' and f.tipo_factura = 'FACTURA C' and f.fecha_factura BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_factura");
 
             while (rs.next()) {
                 

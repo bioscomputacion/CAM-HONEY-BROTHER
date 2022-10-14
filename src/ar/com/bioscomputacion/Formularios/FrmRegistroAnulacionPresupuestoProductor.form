@@ -627,12 +627,14 @@
                               <Component id="tfImporteAnulacion" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfSaldoImpagoComprobante" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="tfSaldoPendiente" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="jLabel23" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="tfSaldoImpagoComprobante" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="104" max="32767" attributes="0"/>

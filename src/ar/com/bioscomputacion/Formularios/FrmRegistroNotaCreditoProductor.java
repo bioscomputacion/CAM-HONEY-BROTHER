@@ -1136,7 +1136,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         //en las vartiables importeNotaCredito y totalMielIngresadaDevolucion tenemos los totales para todos los registros
         
         //1) se registra la nota de credito
-        NotaCreditoProductor nCredito = new NotaCreditoProductor(numeroComprobante, tipoNotaCredito, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), importeNotaCredito, totalKilosIngresadosDevolucion);
+        NotaCreditoProductor nCredito = new NotaCreditoProductor(numeroComprobante, tipoNotaCredito, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), importeNotaCredito, totalKilosIngresadosDevolucion, codigoFactura);
         nCredito.registrarNotaCreditoProductor(nCredito);
         
         //obtengo codigo de nota de credito y saldo del comprobante afectado por la nota de credito
@@ -1320,7 +1320,7 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
             
             if (tFacturasProductor.getValueAt(fila, 9).toString().equals("CANCELADO")){
                 
-                JOptionPane.showMessageDialog(null, "La factura seleccionada se encuentra cancelada. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE NOTA DE CREEDITO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La factura seleccionada se encuentra cancelada. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE NOTA DE CREDITO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
                 //debo vaciar todos los campos de la segunda pestaña!
                 tfTipoFactura.setText("");
                 tfNumeroFactura.setText("");

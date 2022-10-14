@@ -1314,6 +1314,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
         Date fechaTraslado = new Date(a1, m1, d1);
 
         Boolean informacionTraslado = (cbMotivoTraslado.getSelectedItem() == "SELECCIONAR" || cbLocacionOrigen.getSelectedItem() == "SELECCIONAR" || cbLocacionDestino.getSelectedItem() == "SELECCIONAR");
+        int codigoTraslado = 0;
         String numeroComprobante = tfNumeroComprobante.getText();
         String descripcionItemtraslado= "KGS. DE MIEL";
         Double cantidadTraslado = Double.valueOf(tfTotalKilosTraslado.getText().toString());
@@ -1789,7 +1790,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                         //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                         //en la tabla stock real de miel
-                        int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+                        codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
 
                         //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                         //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -1827,12 +1828,12 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                     if (saldoMielImpagaIngresado != 0){
 
                         //debe hacerse tambien el traslado de miel impaga
-                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        Traslado trasladoMielImpaga = new Traslado(String.valueOf(codigoTraslado+1), descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
                         trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga);
 
                         //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                         //en la tabla stock real de miel
-                        int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+                        codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
 
                         //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                         //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -1909,7 +1910,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                         //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                         //en la tabla stock real de miel
-                        int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+                        codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
 
                         //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                         //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -1945,12 +1946,12 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                     if (saldoMielImpagaIngresado != 0){
 
                         //debe hacerse tambien el traslado de miel impaga
-                        Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                        Traslado trasladoMielImpaga = new Traslado(String.valueOf(codigoTraslado+1), descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
                         trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga);
 
                         //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                         //en la tabla stock real de miel
-                        int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+                        codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
 
                         //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                         //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -2025,7 +2026,7 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
 
                     //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                     //en la tabla stock real de miel
-                    int codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
+                    codigoTraslado = trasladoMielPaga.mostrarIdTraslado();
 
                     //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                     //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
@@ -2079,12 +2080,12 @@ public class FrmRegistroTraslado extends javax.swing.JInternalFrame {
                 if (saldoMielImpagaIngresado != 0){
 
                     //debe hacerse tambien el traslado de miel impaga
-                    Traslado trasladoMielImpaga = new Traslado(numeroComprobante, descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
+                    Traslado trasladoMielImpaga = new Traslado(String.valueOf(codigoTraslado+1), descripcionItemtraslado, saldoMielImpagaIngresado, motivoTraslado, origenTraslado, destinoTraslado, fechaTraslado);
                     trasladoMielImpaga.registrarTrasladoMiel(trasladoMielImpaga);
 
                     //obtengo el codigo del traslado recien dado de alta para almacenarlo como comprobante asociado
                     //en la tabla stock real de miel
-                    int codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
+                    codigoTraslado = trasladoMielImpaga.mostrarIdTraslado();
 
                     //SE DEBE ADEMAS ALTERAR EL STOCK DE MIEL, PUDIENDO VARIAR O NO EL STOCK GLOBAL
                     //LO QUE SI DEBE VARIAR ES EL STOCK EN CADA UNA DE LAS LOCACIONES INVOLUCRADAS EN EL TRASLADO:
