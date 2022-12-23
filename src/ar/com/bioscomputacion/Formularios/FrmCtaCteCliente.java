@@ -306,7 +306,8 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
         tbOpciones = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         rsbrSalir = new rojeru_san.RSButtonRiple();
 
         setBackground(new java.awt.Color(51, 84, 111));
@@ -413,29 +414,26 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
                                 .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(547, Short.MAX_VALUE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNombreCliente)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNombreCliente)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                                .addComponent(tfDocumentoCliente)
+                                .addContainerGap())))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,7 +447,7 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
@@ -467,7 +465,7 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tpFactura.addTab("Informacion del cliente", jPanel2);
@@ -539,16 +537,35 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tbOpciones.add(jButton4);
 
-        jButton5.setBackground(new java.awt.Color(0, 0, 0));
-        jButton5.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("  ANULAR COMPROBANTE  ");
-        jButton5.setToolTipText("");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tbOpciones.add(jButton5);
+        jButton6.setBackground(new java.awt.Color(0, 0, 0));
+        jButton6.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("  IMPRIMIR RESUMEN DE CTA. CTE. ");
+        jButton6.setBorderPainted(false);
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton6);
+
+        jButton7.setBackground(new java.awt.Color(0, 0, 0));
+        jButton7.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("  ACTUALIZAR DATOS ");
+        jButton7.setBorderPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        tbOpciones.add(jButton7);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -574,7 +591,7 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
@@ -584,9 +601,10 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
 
         tpFactura.addTab("Cuenta corriente del cliente seleccionado", jPanel3);
 
-        rsbrSalir.setBackground(new java.awt.Color(47, 110, 164));
+        rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
@@ -599,15 +617,15 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tpFactura)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(rsbrSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tpFactura)
-                .addGap(18, 18, 18)
+                .addComponent(tpFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -668,12 +686,6 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
     private void tpFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpFacturaMouseClicked
     }//GEN-LAST:event_tpFacturaMouseClicked
 
-    private void rsbrSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrSalirActionPerformed
-
-        this.dispose();
-        
-    }//GEN-LAST:event_rsbrSalirActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         //1er chequeo: se debe seleccionar una fila de la grilla
@@ -687,14 +699,14 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
 
         //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
         //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
-
-            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
+        if (!(tMovimientos.getValueAt(fila2, 3).toString().equals("FACTURA A") || tMovimientos.getValueAt(fila2, 3).toString().equals("FACTURA C") || tMovimientos.getValueAt(fila2, 3).toString().equals("PRESUPUESTO") || tMovimientos.getValueAt(fila2, 3).toString().equals("FACTURA E"))) {
+            
+            JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
             tMovimientos.requestFocus();
             return;
-
+            
         }
-
+        
         //3ER chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto ya cancelado
         if (tMovimientos.getValueAt(fila2, 10).toString().equals("CANCELADO")) {
 
@@ -704,8 +716,17 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
 
         }
 
+        //4to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto anulado
+        if (tMovimientos.getValueAt(fila2, 12).toString().equals("ANULADO")) {
+            
+            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante anulado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO DE CLIENTE", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
         FrmRegistroPagoDeCliente form = new FrmRegistroPagoDeCliente();
-        //asigno valores que debera mostrar el formulario de pago al productor
+        //asigno valores que debera mostrar el formulario de pago del cliente
         form.tfCliente.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / CLIENTE N° "+tfIDCliente.getText()+": "+tfNombreCliente.getText());
         form.tfImporteTotalComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 7)));
         form.tfSaldoImpagoComprobante.setText(String.valueOf(tMovimientos.getValueAt(fila2, 9)));
@@ -732,6 +753,65 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void rsbrSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrSalirActionPerformed
+
+        this.dispose();
+
+    }//GEN-LAST:event_rsbrSalirActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        /*if (tMovimientos.getRowCount() == 0) {
+
+            JOptionPane.showMessageDialog(null, "No existen datos para la impresion.", "IMPRESION DE RESUMEN DE CTA. CTE.", JOptionPane.ERROR_MESSAGE);
+
+        }
+        else{
+
+            JOptionPane.showMessageDialog(null, "A continuacion podra imprimir el resumen de cta. cte. o guardarlo como un archivo .PDF.", "IMPRESION DE RESUMEN DE CTA. CTE.", JOptionPane.INFORMATION_MESSAGE);
+
+            java.util.Locale locale = new Locale("es", "CL");
+            try {
+
+                ConexionBD mysql = new ConexionBD();
+                Connection cn = mysql.getConexionBD();
+
+                JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("reporteResumenCtaCte.jasper"));
+
+                Map parametro = new HashMap<String, Integer>();
+
+                parametro.put("codigo_productor", codigoProductor);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
+                parametro.put(JRParameter.REPORT_LOCALE, locale);
+                JasperViewer jv = new JasperViewer(jp, false);
+                jv.show();
+
+                // JasperPrintManager.printReport( jp, true);
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(rootPane, e);
+
+            } finally{
+
+                try {
+                    ConexionBD.close(cn);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrmCtaCteConProductor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }*/
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        //para actualizar datos ingresados mientras este formulario esta abierto
+        mostrarCtaCteCliente(codigoCliente);
+        ocultarColumnasCtaCte();
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     public void actualizarImporteTotalPago() {
 
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
@@ -751,7 +831,8 @@ public class FrmCtaCteCliente extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;

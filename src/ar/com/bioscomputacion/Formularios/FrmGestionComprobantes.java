@@ -6,18 +6,24 @@
 package ar.com.bioscomputacion.Formularios;
 
 import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
-import ar.com.bioscomputacion.Funciones.AnulacionPresupuestoProductor;
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
+import ar.com.bioscomputacion.Funciones.AnulacionComprobanteProductor;
+import ar.com.bioscomputacion.Funciones.CreditoPresupuestoProductor;
 import ar.com.bioscomputacion.Funciones.CreditoProductor;
+import ar.com.bioscomputacion.Funciones.CtaCteCliente;
+import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.DevolucionProductor;
 import ar.com.bioscomputacion.Funciones.FacturaCliente;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
 import ar.com.bioscomputacion.Funciones.IngresoMielPropia;
+import ar.com.bioscomputacion.Funciones.Locacion;
 import ar.com.bioscomputacion.Funciones.NotaCreditoCliente;
 import ar.com.bioscomputacion.Funciones.NotaCreditoProductor;
 import ar.com.bioscomputacion.Funciones.PagoCliente;
 import ar.com.bioscomputacion.Funciones.PagoProductor;
 import ar.com.bioscomputacion.Funciones.PresupuestoCliente;
 import ar.com.bioscomputacion.Funciones.PresupuestoProductor;
+import ar.com.bioscomputacion.Funciones.StockRealMiel;
 import ar.com.bioscomputacion.Funciones.Traslado;
 import java.awt.Dimension;
 import java.sql.Date;
@@ -57,22 +63,6 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         cbTipoConsulta.setSelectedIndex(0);
         cbTipoComprobante.requestFocus();
         
-        /*LocalDate fecha = LocalDate.now();
-        LocalDate fecha2 = LocalDate.of(2022, 10, 01);
-        LocalDate fecha3 = LocalDate.parse("2022-10-01");
-        DayOfWeek d = fecha.getDayOfWeek();
-        System.out.println(fecha);
-        System.out.println(fecha2);
-        System.out.println(fecha3);
-        System.out.println(fecha.getDayOfWeek());
-        System.out.println(fecha.getDayOfMonth());
-        System.out.println(fecha.getDayOfYear());
-        System.out.println(fecha.getMonth());
-        System.out.println(fecha.getYear());
-        System.out.println(fecha.getEra());
-        System.out.println(fecha.getMonthValue());*/
-        
-        
     }
 
     public void cargarCombosFechas() {
@@ -110,25 +100,10 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
             NOTAS DE CREDITO A listo
             NOTAS DE CREDITO C listo
             NOTAS DE CREDITO E listo
-            ANULACIONES falta implmentar!
-            DEVOLUCIONES falta terminar de implementar!
-            TRASLADOS
+            ANULACIONES DE COMPROBANTES listo
+            DEVOLUCIONES DE CONSIGNACIONES falta terminar de implementar!
+            TRASLADOS listo
             */
-            
-            /*LocalDate fecha = LocalDate.now();
-            LocalDate fecha2 = LocalDate.of(2022, 10, 01);
-            LocalDate fecha3 = LocalDate.parse("2022-10-01");
-            DayOfWeek d = fecha.getDayOfWeek();
-            System.out.println(fecha);
-            System.out.println(fecha2);
-            System.out.println(fecha3);
-            System.out.println(fecha.getDayOfWeek());
-            System.out.println(fecha.getDayOfMonth());
-            System.out.println(fecha.getDayOfYear());
-            System.out.println(fecha.getMonth());
-            System.out.println(fecha.getYear());
-            System.out.println(fecha.getEra());
-            System.out.println(fecha.getMonthValue());*/
             
             //PRIMERO SE ARMA LA FECHA DE CONSULTA, UTILIZANDO EL AÑO Y EL MES, OBTENIENDO EL PRIMER
             //Y EL ULTIMO DIA DEL MES PASADO COMO ARGUMENTO
@@ -270,8 +245,8 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
                             case "CONSIGNACION":
 
-                                CreditoProductor credito = new CreditoProductor();
-                                modelo = credito.listarConsignacionesDeProductores(fechaInicialConsulta, fechaFinalConsulta);
+                                CreditoProductor consignacion = new CreditoProductor();
+                                modelo = consignacion.listarConsignacionesDeProductores(fechaInicialConsulta, fechaFinalConsulta);
                                 tComprobantes.setModel(modelo);
                                 ocultarColumnasComprobantesConsignaciones();
                                 break;
@@ -284,12 +259,9 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                                 ocultarColumnasComprobantesIngresos();
                                 break;
 
-                            case "FACTURACION":
+                            case "FACTURACION DE CONSIGNACION":
 
-                                //FALTA CREAR E IMPLEMENTAR TODO LO QUE RESPECTA A ESTE MOVIMIENTO
-
-                                //crear metodo que traiga todos los comprobantes que esten relacionados a compras en consignacion
-                                //ya sean facturas a, facturas c o presupuestos
+                                JOptionPane.showMessageDialog(rootPane, "EN DESARROLLO");
                                 break;
 
                             case "PAGO":
@@ -316,22 +288,17 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                                 ocultarColumnasComprobantesComprasYVentas();
                                 break;
 
-                            case "ANULACION":
+                            case "CREDITO DE PRESUPUESTO":
 
-                                AnulacionPresupuestoProductor anulacion = new AnulacionPresupuestoProductor();
-                                modelo = anulacion.listarAnulacionesPresupuestosProductores(fechaInicialConsulta, fechaFinalConsulta);
+                                CreditoPresupuestoProductor credito = new CreditoPresupuestoProductor();
+                                modelo = credito.listarCreditosPresupuestosProductores(fechaInicialConsulta, fechaFinalConsulta);
                                 tComprobantes.setModel(modelo);
                                 ocultarColumnasComprobantesComprasYVentas();
                                 break;
 
-                            case "DEVOLUCION":
+                            case "DEVOLUCION DE CONSIGNACION":
 
-                                //FALTA TERMINAR LA PARTE DE DEVOLUCION DE MIEL EN CONSIGNACIONES
-                                DevolucionProductor devolucion = new DevolucionProductor();
-                                modelo = devolucion.listarDevolucionesAProductores(fechaInicialConsulta, fechaFinalConsulta);
-                                tComprobantes.setModel(modelo);
-                                //VEEEEEEER!!!
-                                //ocultarColumnasComprobantesComprasYVentas();
+                                JOptionPane.showMessageDialog(rootPane, "EN DESARROLLO");
                                 break;
 
                             case "TRASLADO":
@@ -340,6 +307,14 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                                 modelo = traslado.listarTraslados(fechaInicialConsulta, fechaFinalConsulta);
                                 tComprobantes.setModel(modelo);
                                 ocultarColumnasComprobantesTraslados();
+                                break;
+
+                            case "ANULACION DE COMPROBANTE":
+
+                                AnulacionComprobanteProductor anulacion = new AnulacionComprobanteProductor();
+                                modelo = anulacion.listarAnulacionesDeComprobantes(fechaInicialConsulta, fechaFinalConsulta);
+                                tComprobantes.setModel(modelo);
+                                ocultarColumnasComprobantesAnulaciones();
                                 break;
 
                             default:
@@ -598,6 +573,57 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         
     }
 
+    public void ocultarColumnasComprobantesAnulaciones() {
+
+        tComprobantes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(0).setPreferredWidth(0);
+
+        /*tComprobantes.getColumnModel().getColumn(1).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(1).setPreferredWidth(0);*/
+
+        /*tComprobantes.getColumnModel().getColumn(2).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(2).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(2).setPreferredWidth(0);*/
+
+        /*tComprobantes.getColumnModel().getColumn(3).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(3).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(3).setPreferredWidth(0);*/
+
+        tComprobantes.getColumnModel().getColumn(4).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(4).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(4).setPreferredWidth(0);
+
+        /*tComprobantes.getColumnModel().getColumn(5).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(5).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(5).setPreferredWidth(0);*/
+
+        /*tComprobantes.getColumnModel().getColumn(6).setMaxWidth(0);
+        tComprobantes.getColumnModel().getColumn(6).setMinWidth(0);
+        tComprobantes.getColumnModel().getColumn(6).setPreferredWidth(0);*/
+
+        DefaultTableCellRenderer cellRender1 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender2 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender3 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender4 = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer cellRender5 = new DefaultTableCellRenderer();
+        
+        cellRender1.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(1).setCellRenderer(cellRender1);   
+        cellRender2.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(2).setCellRenderer(cellRender2);   
+        cellRender3.setHorizontalAlignment(SwingConstants.LEFT);
+        tComprobantes.getColumnModel().getColumn(3).setCellRenderer(cellRender3);   
+        cellRender4.setHorizontalAlignment(SwingConstants.CENTER);
+        tComprobantes.getColumnModel().getColumn(5).setCellRenderer(cellRender4);   
+        cellRender5.setHorizontalAlignment(SwingConstants.RIGHT);
+        tComprobantes.getColumnModel().getColumn(6).setCellRenderer(cellRender4);   
+        
+        ((DefaultTableCellRenderer) tComprobantes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        
+}
+    
 /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -674,7 +700,7 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
         cbTipoComprobante.setBackground(new java.awt.Color(255, 255, 0));
         cbTipoComprobante.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbTipoComprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "FACTURAS A", "FACTURAS C", "FACTURAS E", "PRESUPUESTOS", "CONSIGNACIONES", "INGRESOS", "FACTURACIONES DE CONSIGNACIONES", "PAGOS", "NOTAS DE CREDITO A", "NOTAS DE CREDITO C", "NOTAS DE CREDITO E", "ANULACIONES", "DEVOLUCIONES", "TRASLADOS" }));
+        cbTipoComprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "FACTURAS A", "FACTURAS C", "FACTURAS E", "PRESUPUESTOS", "CONSIGNACIONES", "INGRESOS", "FACTURACIONES DE CONSIGNACIONES", "PAGOS", "NOTAS DE CREDITO A", "NOTAS DE CREDITO C", "NOTAS DE CREDITO E", "CREDITOS DE PRESUPUESTOS", "DEVOLUCIONES", "TRASLADOS", "ANULACIONES DE COMPROBANTES" }));
         cbTipoComprobante.setPreferredSize(new java.awt.Dimension(136, 19));
         cbTipoComprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -765,7 +791,7 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
         bEliminarComprobante.setBackground(new java.awt.Color(0, 0, 0));
         bEliminarComprobante.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         bEliminarComprobante.setForeground(new java.awt.Color(255, 255, 255));
-        bEliminarComprobante.setText("  ELIMINAR COMPROBANTE  ");
+        bEliminarComprobante.setText("  ANULAR COMPROBANTE  ");
         bEliminarComprobante.setBorderPainted(false);
         bEliminarComprobante.setFocusable(false);
         bEliminarComprobante.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1004,7 +1030,7 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
             case "FACTURACIONES DE CONSIGNACIONES":
 
-                tipoComprobante = "FACTURACION";
+                tipoComprobante = "FACTURACION DE CONSIGNACION";
                 break;
 
             case "PAGOS":
@@ -1027,19 +1053,24 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                 tipoComprobante = "NOTA DE CREDITO E";
                 break;
 
-            case "ANULACIONES":
+            case "CREDITOS DE PRESUPUESTOS":
 
-                tipoComprobante = "ANULACION";
+                tipoComprobante = "CREDITO DE PRESUPUESTO";
                 break;
 
             case "DEVOLUCIONES":
 
-                tipoComprobante = "DEVOLUCION";
+                tipoComprobante = "DEVOLUCION DE CONSIGNACION";
                 break;
 
             case "TRASLADOS":
 
                 tipoComprobante = "TRASLADO";
+                break;
+
+            case "ANULACIONES DE COMPROBANTES":
+
+                tipoComprobante = "ANULACION DE COMPROBANTE";
                 break;
 
             default:
@@ -1128,7 +1159,7 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
             case "FACTURACION DE CONSIGNACION":
 
-                form.lTipoComprobante.setText("FACTURACION");
+                form.lTipoComprobante.setText("FACTURACION DE CONSIGNACION");
                 form.lKgsMiel.setText(tComprobantes.getValueAt(fila, 3).toString());
                 form.cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 3).toString());
                 break;
@@ -1161,16 +1192,16 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                 form.cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
                 break;
 
-            case "ANULACION":
+            case "CREDITO DE PRESUPUESTO":
 
-                form.lTipoComprobante.setText("ANULACION");
+                form.lTipoComprobante.setText("CREDITO DE PRESUPUESTO");
                 form.lKgsMiel.setText(tComprobantes.getValueAt(fila, 6).toString());
                 form.cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
                 break;
 
-            case "DEVOLUCION":
+            case "DEVOLUCION DE CONSIGNACION":
 
-                form.lTipoComprobante.setText("DEVOLUCION");
+                form.lTipoComprobante.setText("DEVOLUCION DE CONSIGNACION");
                 form.lKgsMiel.setText(tComprobantes.getValueAt(fila, 3).toString());
                 form.cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 3).toString());
                 break;
@@ -1182,11 +1213,19 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
                 form.cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 4).toString());
                 break;
 
+            case "ANULACION DE COMPROBANTE":
+
+                form.lTipoComprobante.setText("ANULACION DE COMPROBANTE");
+                form.lKgsMiel.setText("0.00");
+                form.cantidadMielAfectada = 0.00;
+                break;
+
             default:
 
                 break;
 
         }
+        
         //llevo tipo de comprobante consultado al formulario de detalle de comprobante
         form.lFechaMovimiento.setText(tComprobantes.getValueAt(fila, 1).toString());
         form.tipoComprobante = tipoComprobante;
@@ -1216,47 +1255,678 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
     private void bEliminarComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarComprobanteActionPerformed
 
-        // ELIMINACION DEL MOVIMIENTO SELECCIONADO
+        // anulacion del comprobante seleccionado
         
         if (fila == -1) {
             
-            JOptionPane.showMessageDialog(null, "Por favor seleccione el comprobante que desea dar de baja.", "BAJA DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor seleccione el comprobante que desea anular.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
             
         }
         else{
             
-            JOptionPane.showMessageDialog(null, "EN DESARROLLO.", "BAJA DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
-            //se deberian dejar editar aquellos comprobantes que no aun no han sido afectados por otros comprobantes
-            //en el caso de comprobantes que han sido ya afectados por otros comprobantes, se deberian dejar
-            //eliminar solamente
-            
-            //la eliminacion de un comprobante conlleva el analisis y posterior accion en cuanto
-            //a que dependiendo del comprobante eliminado quizas haya que modificar y ajustar saldos y demas
+            //la ANULACION de un comprobante conlleva el analisis y posterior accion en cuanto
+            //a que dependiendo del comprobante anulado quizas haya que modificar y ajustar saldos y demas
+            //tanto saldos de dinero como saldos de miel!
             
             /*
-            FACTURAS A
-            FACTURAS C
-            FACTURAS E
-            PRESUPUESTOS DE PRODUCTORES
-            PRESUPUESTOS A CLIENTES
-            (TODOS LOS COMPROBANTES ANTERIORES PUEDEN ESTAR AFECTADOS POR PAGOS, ENTONCES: 
-            DEBERIAN DEJARSE ELIMINAR??? O SE DEBERIAN DIRECTAMENTE ANULAR EN EL CASO DE LOS PRESUPUESTOS
-            Y ANULAR CON NOTAS DE CREDITO EN EL CASO DE LAS FACTURAS?)
+            FACTURAS A (DE PRODUCTORES / A CLIENTES)
+            FACTURAS C (DE PRODUCTORES / A CLIENTES)
+            FACTURAS E (A CLIENTES)
+            PRESUPUESTOS (DE PRODUCTORES / A CLIENTES)
+            (***TODOS LOS COMPROBANTES ANTERIORES PUEDEN ESTAR AFECTADOS POR PAGOS Y NOTAS DE CREDITO, ENTONCES: 
+            a la hora de intentar anular un comprobante de este tipo se chequea que no este afectado por pagos,
+            notas de credito y/o creditos de presupuestos; y que la cantidad de miel anulada no provoque una descompensacion
+            en el stock real de miel***)
+            
+            INGRESOS
+            (***solo se deberia dejar anular un ingreso de miel si al restablecer las cantidades de miel
+            en la locacion relacionada, los valores no quedan en negativo! o sea, no se provoca una descompensacion
+            del stock real de miel***)
+            
+            FACTURACIONES DE CONSIGNACIONES 
+            (***AFECTAN A CONSIGNACIONES Y A SU VEZ, SE VEN AFECTADAS POR PAGOS, VER BIEN***)
             
             CONSIGNACIONES
-            (LAS CONSIGNACIONES PUEDEN ESTAR AFECTADAS POR FACTURACIONES O DEVOLUCIONES
-            INGRESOS
-            FACTURACIONES DE CONSIGNACIONES
+            (***LAS CONSIGNACIONES PUEDEN ESTAR AFECTADAS POR FACTURACIONES O DEVOLUCIONES DE CONSIGNACIONES:
+            se chequea que la consignacion no este afectada por facturaciones de consignaciones y/o devoluciones
+            de consignaciones. Ademas tambien se chequea que al contra restar la miel, no se provoque una descompensacion
+            del stock real de miel***)
+            
+            DEVOLUCIONES DE CONSIGNACIONES
+            (***AFECTAN A CONSIGNACIONES PERO NO SE VEN AFECTADAS POR PAGOS U OTROS COMPROBANTES, VER BIEN***)
+
             PAGOS A PRODUCTORES
             PAGOS DE CLIENTES
             NOTAS DE CREDITO A
             NOTAS DE CREDITO C
             NOTAS DE CREDITO E
-            ANULACIONES
-            DEVOLUCIONES
+            CREDITOS DE PRESUPUESTOS DE PRODUCTORES
+            CREDITOS DE PRESUPUESTOS A CLIENTES
+            (***TODOS LOS PAGOS, NOTAS DE CREDITO Y CREDITOS AFECTAN A OTROS COMPROBANTES (LOS DE COMPRA), PERO NO ESTAN
+            AFECTADOS POR OTROS COMPROBANTES, POR LO CUAL SU ANULACION ES SENCILLA, Y LO UNICO QUE TIENEN QUE HACER
+            ES CONTRA RESTAR EL IMPORTE DE DINERO DEL MOVIMIENTO QUE ESTAN ANULANDO, LA CANTIDAD DE MIEL EN EL CASO
+            DE LAS NOTAS DE CREDITO Y LOS CREDITOS, Y ADEMAS TIENEN QUE RESTABLECER LOS IMPORTES
+            PAGADOS Y ACREDITADOS EN LOS COMPROBANTES QUE SE VIERON AFECTADOS POR TALES "COMPROBANTES DE ACREDITACION")
+            
             TRASLADOS
-            */
+            (***ANULAR UN TRASLADO SIGNIFICA TOCAR CANTIDADES DE MIEL PAGA Y MIEL IMPAGA QUE QUIZAS YA NO SE
+            ENCUENTRAN EN LAS LOCACIONES AFECTADAS POR EL TRASLADO, ENTONCES:
+            SE DEBE PEDIR UNA DOBLE CONFIRMACION EN EL CASO DEL REGISTRO DE UN TRASLADO, ANTICIPANDO AL USUARIO
+            QUE DICHO TRASLADO LUEGO NO PODRA SER ANULADO***)
         
+            ANULACIONES: 
+            (***SE APLICA LA MISMA REGLA QUE PARA LOS TRASLADOS***)*/
+            
+            boolean comprobanteAfectadoPagos = false;
+            boolean consignacionAfectadaComprobantes = false;
+            boolean descompensacionStock = false;
+            Double cantidadMielAfectada = 0.00;
+            Double stockLocacion = 0.00;
+            Double diferenciaStock = 0.00;
+            int locacionMiel = 0;
+            int productor = 0;
+            int movimiento = 0;
+            String estadoComprobante = "";
+            
+            /*formas de ingreso de la miel al sistema*/
+            FacturaProductor facturaProductor = new FacturaProductor();
+            FacturaCliente facturaCliente = new FacturaCliente();
+            PresupuestoProductor presupuestoProductor = new PresupuestoProductor();
+            PresupuestoCliente presupuestoCliente = new PresupuestoCliente();
+            CreditoProductor consignacion = new CreditoProductor();
+            IngresoMielPropia ingresoMielPropia = new IngresoMielPropia();
+            //***listas las anulaciones de todas las formas de ingreso al sistema!***
+            
+            /**pagos y comprobantes de acreditacion de dinero*/
+            PagoProductor pagoProductor = new PagoProductor();
+            PagoCliente pagoCliente = new PagoCliente();
+            NotaCreditoProductor notaCreditoProductor = new NotaCreditoProductor();
+            NotaCreditoCliente notaCreditoCliente = new NotaCreditoCliente();
+            CreditoPresupuestoProductor creditoPresupuestoProductor = new CreditoPresupuestoProductor();
+            
+            /*comprobantes que afectan a las consignaciones*/
+            DevolucionProductor devolucionProductor = new DevolucionProductor();
+            //facturaciones de consignaciones: falta hacer!
+            //las facturaciones de consignaciones son comprobantes de compra: factura a, factura c y presupuesto
+            //de los cuales, antes de ser anulados, debe chequearse sino poseen pagos asociados tambien
+            
+            /*traslados de miel*/
+            //Traslado traslado = new Traslado();
+            AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+            AnulacionComprobanteProductor anulacion = new AnulacionComprobanteProductor();
+            Locacion locacion = new Locacion();
+            StockRealMiel stock = new StockRealMiel();
+            CtaCteProductor ctacteProductor = new CtaCteProductor();
+            CtaCteCliente ctacteCliente = new CtaCteCliente();
+            //LocalDate fecha = LocalDate.now();
+            FrmRegistroAnulacionComprobanteProductor form = new FrmRegistroAnulacionComprobanteProductor();
+            form.bandera = tipoConsulta;
+            Dimension desktopSize = deskPrincipal.getSize();
+            Dimension FrameSize = form.getSize();
+            
+            /**/
+            
+            switch (tipoComprobante){
+
+                case "FACTURA A":
+                    
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    productor = facturaProductor.mostrarCodigoProductorFactura(codigoComprobante);
+                    movimiento = facturaProductor.mostrarCodigoMovimientoEnCtaCteFacturaProductor("FACTURA A", codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "La factura ha sido anulada anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+                        
+                        //2do chequeo: controlar que la factura a anularse no se encuentre afectada por acreditaciones
+                        comprobanteAfectadoPagos = facturaProductor.chequearAcreditacionesSobreFactura(codigoComprobante);
+                        
+                        if (comprobanteAfectadoPagos){
+
+                            JOptionPane.showMessageDialog(null, "La factura que desea anular se encuentra afectada por pagos y/o notas de credito. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                        else{
+
+                            //3er chequeo: se controla que el stock no se descompense
+                            //tambien se debe chequear que al contra restarse la cantidad de miel que ingreso al sistema
+                            //con el registro de la ANULACION en cuestion, el stock de la locacion involucrada no quede en negativo
+                            //(esto podria darse si se carga la factura "erronea", y se realiza un traslado sacando la miel ingresada
+                            //en la factura de la locacion involucrada
+                            //entonces: debo obtener el codigo de la locacion donde se deposito la miel comprada en la factura
+                            //consultar el stock DE MIEL PAGA de dicha locacion y realizar el chequeo pertinente
+                            locacionMiel = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoComprobante);
+                            stockLocacion = ajuste.consultarCantidadMielPagaLocacion(locacionMiel);
+                            cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                            diferenciaStock = stockLocacion - cantidadMielAfectada;
+
+                            if (diferenciaStock < 0.00){
+
+                                descompensacionStock = true;
+
+                            }
+
+                            if (descompensacionStock){
+
+                                JOptionPane.showMessageDialog(null, "La cantidad de miel facturada en el comprobante que desea anular ya no posee relacion con el stock de miel actual. La anulacion del comprobante descompensara el stock real de miel. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+                            else{
+
+                                //se llevan al formulacion de anulacion todos los datos necesarios
+                                form.tipoComprobanteAnulado = tipoComprobante;
+                                form.codigoComprobanteAnulado = codigoComprobante;
+                                form.numeroComprobanteAnulado = facturaProductor.mostrarNumeroComprobanteFactura(codigoComprobante);
+                                form.importeDineroAnulado = facturaProductor.mostrarImporteFactura(codigoComprobante);
+                                form.cantidadMielAnulada = cantidadMielAfectada;
+                                form.fechaComprobanteAnulado = facturaProductor.mostrarFechaFactura(codigoComprobante);
+                                form.codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoComprobante);
+                                form.codigoProductor = facturaProductor.mostrarCodigoProductorFactura(codigoComprobante);
+
+                                form.inicializar();
+
+                                deskPrincipal.add(form);
+
+                                form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                                form.setVisible(true);
+
+                                form.setClosable(true);
+                                form.setIconifiable(false);
+
+                            }
+
+                        }
+
+                    }
+                    
+                    break;
+
+                case "FACTURA C":
+                    
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    productor = facturaProductor.mostrarCodigoProductorFactura(codigoComprobante);
+                    movimiento = facturaProductor.mostrarCodigoMovimientoEnCtaCteFacturaProductor("FACTURA C", codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "La factura ha sido anulada anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+                        
+                        //2do chequeo: controlar que la factura a anularse no se encuentre afectada por acreditaciones
+                        comprobanteAfectadoPagos = facturaProductor.chequearAcreditacionesSobreFactura(codigoComprobante);
+                        
+                        if (comprobanteAfectadoPagos){
+
+                            JOptionPane.showMessageDialog(null, "La factura que desea anular se encuentra afectada por pagos y/o notas de credito. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                        else{
+
+                            //3er chequeo: se controla que el stock no se descompense
+                            //tambien se debe chequear que al contra restarse la cantidad de miel que ingreso al sistema
+                            //con el registro de la ANULACION en cuestion, el stock de la locacion involucrada no quede en negativo
+                            //(esto podria darse si se carga la factura "erronea", y se realiza un traslado sacando la miel ingresada
+                            //en la factura de la locacion involucrada
+                            //entonces: debo obtener el codigo de la locacion donde se deposito la miel comprada en la factura
+                            //consultar el stock DE MIEL PAGA de dicha locacion y realizar el chequeo pertinente
+                            locacionMiel = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoComprobante);
+                            stockLocacion = ajuste.consultarCantidadMielPagaLocacion(locacionMiel);
+                            cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                            diferenciaStock = stockLocacion - cantidadMielAfectada;
+
+                            if (diferenciaStock < 0.00){
+
+                                descompensacionStock = true;
+
+                            }
+
+                            if (descompensacionStock){
+
+                                JOptionPane.showMessageDialog(null, "La cantidad de miel facturada en el comprobante que desea anular ya no posee relacion con el stock de miel actual. La anulacion del comprobante descompensara el stock real de miel. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+                            else{
+
+                                //se llevan al formulacion de anulacion todos los datos necesarios
+                                form.tipoComprobanteAnulado = tipoComprobante;
+                                form.codigoComprobanteAnulado = codigoComprobante;
+                                form.numeroComprobanteAnulado = facturaProductor.mostrarNumeroComprobanteFactura(codigoComprobante);
+                                form.importeDineroAnulado = facturaProductor.mostrarImporteFactura(codigoComprobante);
+                                form.cantidadMielAnulada = cantidadMielAfectada;
+                                form.fechaComprobanteAnulado = facturaProductor.mostrarFechaFactura(codigoComprobante);
+                                form.codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoComprobante);
+                                form.codigoProductor = facturaProductor.mostrarCodigoProductorFactura(codigoComprobante);
+
+                                form.inicializar();
+
+                                deskPrincipal.add(form);
+
+                                form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                                form.setVisible(true);
+
+                                form.setClosable(true);
+                                form.setIconifiable(false);
+
+                            }
+
+                        }
+
+                    }
+                    
+                    break;
+
+                case "FACTURA E":
+
+                    JOptionPane.showMessageDialog(null, "EN DESARROLLO");
+                    break;
+
+                case "PRESUPUESTO":
+                    
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    productor = presupuestoProductor.mostrarCodigoProductorPresupuesto(codigoComprobante);
+                    movimiento = presupuestoProductor.mostrarCodigoMovimientoEnCtaCtePresupuestoProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "El presupuesto ha sido anulado anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+                        
+                        //2do chequeo: controlar que la factura a anularse no se encuentre afectada por acreditaciones
+                        comprobanteAfectadoPagos = presupuestoProductor.chequearAcreditacionesSobrePresupuesto(codigoComprobante);
+                        
+                        if (comprobanteAfectadoPagos){
+
+                            JOptionPane.showMessageDialog(null, "El presupuesto que desea anular se encuentra afectado por pagos y/o creditos de presupuestos. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                        else{
+
+                            //3er chequeo: se controla que el stock no se descompense
+                            //tambien se debe chequear que al contra restarse la cantidad de miel que ingreso al sistema
+                            //con el registro de la ANULACION en cuestion, el stock de la locacion involucrada no quede en negativo
+                            //(esto podria darse si se carga la factura "erronea", y se realiza un traslado sacando la miel ingresada
+                            //en la factura de la locacion involucrada
+                            //entonces: debo obtener el codigo de la locacion donde se deposito la miel comprada en la factura
+                            //consultar el stock DE MIEL PAGA de dicha locacion y realizar el chequeo pertinente
+                            //ESTO AHORA SE PODRIA CHEQUEAR DIRECTAMENTE DESDE LA TABLA DE AJUSTE Y COMPENSACION DE STOCK!
+                            locacionMiel = stock.obtenerLocacionMielADevolverEnCreditoPresupuesto(codigoComprobante);
+                            stockLocacion = ajuste.consultarCantidadMielPagaLocacion(locacionMiel);
+                            cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                            diferenciaStock = stockLocacion - cantidadMielAfectada;
+
+                            if (diferenciaStock < 0.00){
+
+                                descompensacionStock = true;
+
+                            }
+
+                            if (descompensacionStock){
+
+                                JOptionPane.showMessageDialog(null, "La cantidad de miel presupuestada en el comprobante que desea anular ya no posee relacion con el stock de miel actual. La anulacion del comprobante descompensara el stock real de miel. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+                            else{
+
+                                //se llevan al formulacion de anulacion todos los datos necesarios
+                                form.tipoComprobanteAnulado = tipoComprobante;
+                                form.codigoComprobanteAnulado = codigoComprobante;
+                                form.numeroComprobanteAnulado = presupuestoProductor.mostrarNumeroComprobantePresupuesto(codigoComprobante);
+                                form.importeDineroAnulado = presupuestoProductor.mostrarImportePresupuesto(codigoComprobante);
+                                form.cantidadMielAnulada = cantidadMielAfectada;
+                                form.fechaComprobanteAnulado = presupuestoProductor.mostrarFechaPresupuesto(codigoComprobante);
+                                form.codigoLocacion = stock.obtenerLocacionMielADevolverEnCreditoPresupuesto(codigoComprobante);
+                                form.codigoProductor = presupuestoProductor.mostrarCodigoProductorPresupuesto(codigoComprobante);
+
+                                form.inicializar();
+
+                                deskPrincipal.add(form);
+
+                                form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                                form.setVisible(true);
+
+                                form.setClosable(true);
+                                form.setIconifiable(false);
+
+                            }
+
+                        }
+
+                    }
+                    
+                    break;
+
+                case "CONSIGNACION":
+
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    productor = consignacion.mostrarCodigoProductorConsignacion(codigoComprobante);
+                    movimiento = consignacion.mostrarCodigoMovimientoEnCtaCteConsignacionProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "La compra en consignacion ha sido anulada anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+                        
+                        //2do chequeo: controlar que la consignacion a anularse no se encuentre afectada por facturaciones!
+                        consignacionAfectadaComprobantes = consignacion.chequearComprobantesSobreConsignacion(codigoComprobante);
+                        
+                        if (consignacionAfectadaComprobantes){
+
+                            JOptionPane.showMessageDialog(null, "La compra en consignacion que desea anular se encuentra afectada por facturaciones y/o devoluciones de consignaciones. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                        else{
+
+                            //3er chequeo: se controla que el stock no se descompense
+                            //tambien se debe chequear que al contra restarse la cantidad de miel que ingreso al sistema
+                            //con el registro de la consignacion, con el registro de la anulacion en cuestion, el stock de la locacion 
+                            //involucrada no quede en negativo
+                            //(esto podria darse si se carga la consignacion "erronea", y se realiza un traslado sacando la miel ingresada
+                            //en la consignacion de la locacion involucrada
+                            //entonces: debo obtener el codigo de la locacion donde se deposito la miel comprada en la consignacion
+                            //consultar el stock DE MIEL IMPAGA de dicha locacion y realizar el chequeo pertinente
+                            locacionMiel = stock.obtenerLocacionMielADevolverOFacturar(codigoComprobante);
+                            stockLocacion = ajuste.consultarCantidadMielImpagaLocacion(locacionMiel);
+                            cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 5).toString());
+                            diferenciaStock = stockLocacion - cantidadMielAfectada;
+
+                            if (diferenciaStock < 0.00){
+
+                                descompensacionStock = true;
+
+                            }
+
+                            if (descompensacionStock){
+
+                                JOptionPane.showMessageDialog(null, "La cantidad de miel consignada en el comprobante que desea anular ya no posee relacion con el stock de miel actual. La anulacion del comprobante descompensara el stock real de miel. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+                            else{
+
+                                //se llevan al formulacion de anulacion todos los datos necesarios
+                                form.tipoComprobanteAnulado = tipoComprobante;
+                                form.codigoComprobanteAnulado = codigoComprobante;
+                                form.numeroComprobanteAnulado = consignacion.mostrarNumeroComprobanteConsignacion(codigoComprobante);
+                                form.importeDineroAnulado = 0.00;
+                                form.cantidadMielAnulada = cantidadMielAfectada;
+                                form.fechaComprobanteAnulado = consignacion.mostrarFechaConsignacion(codigoComprobante);
+                                form.codigoLocacion = stock.obtenerLocacionMielADevolverOFacturar(codigoComprobante);
+                                form.codigoProductor = consignacion.mostrarCodigoProductorConsignacion(codigoComprobante);
+
+                                form.inicializar();
+
+                                deskPrincipal.add(form);
+
+                                form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                                form.setVisible(true);
+
+                                form.setClosable(true);
+                                form.setIconifiable(false);
+
+                            }
+
+                        }
+
+                    }
+                    
+                    break;
+
+                case "INGRESO":
+
+                    //Se debe chequear que al contra restarse la cantidad de miel que ingreso al sistema
+                    //con el registro de la ANULACION en cuestion, el stock de la locacion involucrada no quede en negativo
+                    descompensacionStock = false;
+                    locacionMiel = ingresoMielPropia.obtenerLocacionMielIngreso(codigoComprobante);
+                    stockLocacion = ajuste.consultarCantidadMielPagaLocacion(locacionMiel);
+                    cantidadMielAfectada = Double.valueOf(tComprobantes.getValueAt(fila, 3).toString());
+                    diferenciaStock = stockLocacion - cantidadMielAfectada;
+                    
+                    if (diferenciaStock < 0.00){
+                    
+                        descompensacionStock = true;
+                    
+                    }
+                    
+                    //SE REALIZAN LOS CHEQUEOS NECESARIOS PARA VER SI SE PUEDE ANULAR O NO LA FACTURA
+                    if (descompensacionStock){
+
+                        JOptionPane.showMessageDialog(null, "La cantidad de miel ingresada en el comprobante que desea anular ya no posee relacion con el stock de miel actual. La anulacion del comprobante descompensara el stock real de miel. No es posible llevar a cabo su anulacion. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+                    else{
+
+                        //se llevan al formulacion de anulacion todos los datos necesarios
+                        form.tipoComprobanteAnulado = tipoComprobante;
+                        form.codigoComprobanteAnulado = codigoComprobante;
+                        form.numeroComprobanteAnulado = ingresoMielPropia.mostrarNumeroComprobanteIngreso(codigoComprobante);
+                        form.importeDineroAnulado = 0.00;
+                        form.cantidadMielAnulada = cantidadMielAfectada;
+                        form.fechaComprobanteAnulado = ingresoMielPropia.mostrarFechaIngreso(codigoComprobante);
+                        form.codigoLocacion = stock.obtenerLocacionMielADevolverEnIngreso(codigoComprobante);
+
+                        form.inicializar();
+
+                        deskPrincipal.add(form);
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    }
+                    
+                    break;
+
+                case "FACTURACION DE CONSIGNACION":
+
+                    JOptionPane.showMessageDialog(null, "EN DESARROLLO");
+                    break;
+
+                case "PAGO":
+
+                    //solo se realiza el primer chequeo, que el comprobante no haya sido anulado previamente
+                    productor = pagoProductor.mostrarCodigoProductorPago(codigoComprobante);
+                    movimiento = pagoProductor.mostrarCodigoMovimientoEnCtaCtePagoProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "El pago ha sido anulado anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+
+                        //no se realiza ningun chequeo mas , ya que el pago no debe contra restar cantidades de miel
+                        //sino importes de dinero acreditados en las ctas. ctes.
+                        //se llevan al formulacion de anulacion todos los datos necesarios
+                        form.tipoComprobanteAnulado = tipoComprobante;
+                        form.codigoComprobanteAnulado = codigoComprobante;
+                        form.numeroComprobanteAnulado = String.valueOf(codigoComprobante);
+                        form.importeDineroAnulado = pagoProductor.mostrarImportePago(codigoComprobante);
+                        form.cantidadMielAnulada = 0.00;
+                        form.fechaComprobanteAnulado = pagoProductor.mostrarFechaPago(codigoComprobante);
+                        form.codigoProductor = pagoProductor.mostrarCodigoProductorPago(codigoComprobante);
+
+                        form.inicializar();
+
+                        deskPrincipal.add(form);
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    }
+                    
+                    break;
+
+                case "NOTA DE CREDITO A":
+
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    
+                    productor = notaCreditoProductor.mostrarCodigoProductorNotaCredito(codigoComprobante);
+                    movimiento = notaCreditoProductor.mostrarCodigoMovimientoEnCtaCteNotaCreditoProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "La nota de credito A ha sido anulada anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+
+                        //se llevan al formulacion de anulacion todos los datos necesarios
+                        form.tipoComprobanteAnulado = tipoComprobante;
+                        form.codigoComprobanteAnulado = codigoComprobante;
+                        form.numeroComprobanteAnulado = notaCreditoProductor.mostrarNumeroComprobanteNotaCredito(codigoComprobante);
+                        form.importeDineroAnulado = notaCreditoProductor.mostrarImporteNotaCredito(codigoComprobante);
+                        form.cantidadMielAnulada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                        form.fechaComprobanteAnulado = notaCreditoProductor.mostrarFechaNotaCredito(codigoComprobante);
+                        form.codigoProductor = notaCreditoProductor.mostrarCodigoProductorNotaCredito(codigoComprobante);
+                        form.codigoLocacion = stock.obtenerLocacionMielADevolverPorNotaCreditoAnulada(codigoComprobante);
+
+                        form.inicializar();
+
+                        deskPrincipal.add(form);
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    }
+                    
+                    break;
+
+                case "NOTA DE CREDITO C":
+
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    
+                    productor = notaCreditoProductor.mostrarCodigoProductorNotaCredito(codigoComprobante);
+                    movimiento = notaCreditoProductor.mostrarCodigoMovimientoEnCtaCteNotaCreditoProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "La nota de credito C ha sido anulada anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+
+                        //se llevan al formulacion de anulacion todos los datos necesarios
+                        form.tipoComprobanteAnulado = tipoComprobante;
+                        form.codigoComprobanteAnulado = codigoComprobante;
+                        form.numeroComprobanteAnulado = notaCreditoProductor.mostrarNumeroComprobanteNotaCredito(codigoComprobante);
+                        form.importeDineroAnulado = notaCreditoProductor.mostrarImporteNotaCredito(codigoComprobante);
+                        form.cantidadMielAnulada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                        form.fechaComprobanteAnulado = notaCreditoProductor.mostrarFechaNotaCredito(codigoComprobante);
+                        form.codigoProductor = notaCreditoProductor.mostrarCodigoProductorNotaCredito(codigoComprobante);
+                        form.codigoLocacion = stock.obtenerLocacionMielADevolverPorNotaCreditoAnulada(codigoComprobante);
+
+                        form.inicializar();
+
+                        deskPrincipal.add(form);
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    }
+                    
+                    break;
+
+                case "NOTA DE CREDITO E":
+
+                    JOptionPane.showMessageDialog(null, "EN DESARROLLO");
+                    break;
+
+                case "CREDITO DE PRESUPUESTO":
+
+                    //1er chequeo: controlar si ya no esta anulado el comprobante
+                    
+                    productor = creditoPresupuestoProductor.mostrarCodigoProductorCreditoPresupuesto(codigoComprobante);
+                    movimiento = creditoPresupuestoProductor.mostrarCodigoMovimientoEnCtaCteCreditoPresupuestoProductor(codigoComprobante);
+                    estadoComprobante = ctacteProductor.obtenerEstadoComprobanteCtaCteProductor(productor, movimiento);
+                    
+                    if (estadoComprobante.equals("ANULADO")){
+                        
+                        //si el comprobante ya se encuentra anulado se informa y se cancela su nueva anulacion, obvio
+                        JOptionPane.showMessageDialog(null, "El credito de presupuesto ha sido anulado anteriormente. Seleccione otro comprobante para realizar dicha tarea por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                    else{
+
+                        //se llevan al formulacion de anulacion todos los datos necesarios
+                        form.tipoComprobanteAnulado = tipoComprobante;
+                        form.codigoComprobanteAnulado = codigoComprobante;
+                        form.numeroComprobanteAnulado = creditoPresupuestoProductor.mostrarNumeroComprobanteCreditoPresupuesto(codigoComprobante);
+                        form.importeDineroAnulado = creditoPresupuestoProductor.mostrarImporteCreditoPresupuestoProductor(codigoComprobante);
+                        form.cantidadMielAnulada = Double.valueOf(tComprobantes.getValueAt(fila, 6).toString());
+                        form.fechaComprobanteAnulado = creditoPresupuestoProductor.mostrarFechaCreditoPresupuesto(codigoComprobante);
+                        form.codigoProductor = creditoPresupuestoProductor.mostrarCodigoProductorCreditoPresupuesto(codigoComprobante);
+                        form.codigoLocacion = stock.obtenerLocacionMielADevolverPorCreditoPresupuestoAnulado(codigoComprobante);
+                        System.out.println(form.codigoProductor);
+                        System.out.println(form.codigoLocacion);
+
+                        form.inicializar();
+
+                        deskPrincipal.add(form);
+
+                        form.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                        form.setVisible(true);
+
+                        form.setClosable(true);
+                        form.setIconifiable(false);
+
+                    }
+                    
+                    break;
+
+                case "DEVOLUCION DE CONSIGNACION":
+
+                    JOptionPane.showMessageDialog(null, "EN DESARROLLO");
+                    break;
+
+                case "TRASLADO":
+
+                    JOptionPane.showMessageDialog(null, "No es posible anular un tralado de miel. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+
+                case "ANULACION DE COMPROBANTE":
+
+                    JOptionPane.showMessageDialog(null, "No es posible anular una anulacion de comprobante. Seleccione otro comprobante para anular por favor.", "ANULACION DE COMPROBANTE", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+
+                default:
+
+                    break;
+
+            }
+
         }
 
     }//GEN-LAST:event_bEliminarComprobanteActionPerformed
@@ -1399,12 +2069,12 @@ public class FrmGestionComprobantes extends javax.swing.JInternalFrame {
 
             case "CLIENTES":
 
-                tipoConsulta = "cliente";
+                tipoConsulta = "CLIENTE";
                 break;
 
             case "PRODUCTORES":
 
-                tipoConsulta = "productor";
+                tipoConsulta = "PRODUCTOR";
                 break;
                 
             default:

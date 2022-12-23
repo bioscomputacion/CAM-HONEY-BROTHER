@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.Cliente;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.FacturaProductor;
@@ -49,6 +50,17 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
     public int codigoCliente, codigoFactura, codigoMovimientoCtaCte, codigoTrasladoMielPaga, codigoTrasladoMielImpaga;
     public Double totalMielFacturada, importeTotalFactura;
 
+    //para recordar los registros de la tabla stock de miel que se deben eliminar en caso de que
+    //no se confirme la venta de la miel
+    public int codigoTrasladoOrigenMielPaga, codigoTrasladoOrigenMielImpaga, codigoTrasladoDestinoMielPaga, codigoTrasladoDestinoMielImpaga;
+    //para recordar la cantidad de miel paga y la cantidad de miel impaga que se debe re ajustar en la tabla
+    //de ajuste y compensacion de stock, en caso de no confirmarse la venta de miel
+    public double mielPagaVendida, mielImpagaVendida;
+    //para recordar las locaciones origen y destino involucradas en el traslado y la venta
+    public int codigoLocacionOrigen, codigoLocacionDestino;
+
+    //Double saldoMielOrigen, saldoMielDepositoProductorSeleccionado, saldoMielPaga, saldoMielImpaga, totalMielVenta, saldoMielPagaIngresado, saldoMielImpagaIngresado;
+ 
     int fila = -1;
     
     ConexionBD mysql = new ConexionBD();
@@ -80,9 +92,6 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
 
-        //no hace falta cargar combo con locaciones, ya se selecciono todo en el form de traslados
-        //la cantidad de miel tambien ya ha sido ingresada
-        //esta inicializacion debe hacerse con datos que vendrian del formulario de traslados!
         tfCantidadKilos.setText(String.valueOf(totalMielFacturada));
         tfPrecioUnitario.setText("0.00");
         tfImporteTotalFactura.setText("$ 0.00");
@@ -202,7 +211,7 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         ((DefaultTableCellRenderer) tClientes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    public ArrayList<Locacion> cargarListaLocaciones() throws SQLException{
+    /*public ArrayList<Locacion> cargarListaLocaciones() throws SQLException{
         
         ArrayList<Locacion> locaciones = new ArrayList<Locacion>();
         Locacion loc0 = new Locacion();
@@ -269,7 +278,7 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         
         return locaciones;
         
-    }
+    }*/
         
     //LOS 3 METODOS A CONTINUACION DEVUELVEN:
     //1) STOCK TOTAL DE MIEL EN LA LOCACION
@@ -855,6 +864,8 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
         //b) datos de la factura: numero, fecha e importe total
         //todos los demas chequeos ya han sido llevados a cabo en el formulario traslados
 
+        Boolean informacionFactura = (tfNumeroComprobante.getText().length() == 0 || tfImporteTotalFactura.getText().length() == 0 || tfImporteTotalFactura.getText().equals("$ 0.00") || tfImporteTotalFactura.getText().equals("$ 0.0"));
+
         if (tfIDCliente.getText().length() == 0){
             
             JOptionPane.showMessageDialog(null, "Debe seleccionar el cliente al cual se le realizo la venta de miel.", "REGISTRO DE FACTURA A CLIENTE EN EL EXTERIOR", JOptionPane.ERROR_MESSAGE);
@@ -864,8 +875,8 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
             
         }
         
-        //chequeo de info obligatoria
-        if (tfNumeroComprobante.getText().length() == 0 || tfPrecioUnitario.getText().length() == 0) {
+        //chequea informacion de la factura, la cual es obligatoria para poder registrar la misma
+        if (informacionFactura) {
 
             JOptionPane.showMessageDialog(null, "La informacion correspondiente a la factura se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE FACTURA A CLIENTE EN EL EXTERIOR", JOptionPane.ERROR_MESSAGE);
             tpFactura.setSelectedIndex(1);
@@ -873,6 +884,8 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
             return;
             
         }
+        
+        //se procede al registro de la factura correspondiente a la venta de miel al cliente seleccionado
         
         //obtengo las fechas de factura y de vencimiento del pago de la misma
         Calendar cal1, cal2;
@@ -893,19 +906,47 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
         String tipoFactura = String.valueOf(cbTipoFactura.getSelectedItem());
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
+        //el codigo de comprobante, que dependera de la eleccion entre presupuesto y factura (a o c)
+        //y el comprobante asociado para cargar en la tabla de stock de miel
+        String comprobanteAsociadoMielPaga = "";
+        String comprobanteAsociadoMielImpaga = "";
+        
         
         //se procede al registro de la factura correspondiente a la VENTA de miel al cliente seleccionado
         FacturaCliente factura = new FacturaCliente(tipoFactura, numeroComprobante, codigoMovimientoCtaCte, codigoCliente, new Date(a1, m1, d1), new Date(a2, m2, d2), importeTotalFactura, totalMielFacturada);
         
         if (factura.registrarFacturaCliente(factura)){
             
+            System.out.println("entra al if");
+            //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
+            int codigoComprobante = factura.mostrarIdFacturaCliente();
+
+            comprobanteAsociadoMielPaga = "FACT. E / TRASLADO MIEL PAGA";
+            comprobanteAsociadoMielImpaga = "FACT. E / TRASLADO MIEL IMPAGA";
+
             //ahora se guarda el movimiento correspondiente a la factura, en la cta. cte. del cliente con la empresa
-            CtaCteCliente ctacteCliente = new CtaCteCliente(codigoCliente, codigoMovimientoCtaCte, new Date(a1, m1, d1), tipoFactura, codigoFactura, tfNumeroComprobante.getText(), totalMielFacturada, importeTotalFactura, 0.00, importeTotalFactura, "PENDIENTE", "");
+            CtaCteCliente ctacteCliente = new CtaCteCliente(codigoCliente, codigoMovimientoCtaCte, new Date(a1, m1, d1), tipoFactura, codigoComprobante, numeroComprobante, totalMielFacturada, importeTotalFactura, 0.00, importeTotalFactura, "PENDIENTE", "");
             ctacteCliente.registrarMovimientoCtaCteCliente(ctacteCliente);
-            //EN ESTE PUNTO: DEBERIA UBICAR LOS MOVIMIENTOS CORRESPONDIENTES A LA FACTURA EN LA TABLA STOCK REAL DE MIEL
-            //Y EDITARLOS, ASOCIANDO A ELLOS EL NUMERO DE FACTURA CONFECCIONADA PARA LA VENTA AL EXTERIOR
-            //(dato que va en el campo comprobante_asociado)
+
+            //se deben modificar (actualizar) los registros en la tabla stock de miel
+            //para dejar asentado el tipo y el numero de comprobante en los traslados ventas correspondientes
+            System.out.println(numeroComprobante);
+            System.out.println(comprobanteAsociadoMielPaga);
+            System.out.println(comprobanteAsociadoMielImpaga);
+            System.out.println(codigoTrasladoOrigenMielPaga);
+            System.out.println(codigoTrasladoDestinoMielPaga);
+            System.out.println(codigoTrasladoOrigenMielImpaga);
+            System.out.println(codigoTrasladoDestinoMielImpaga);
+            StockRealMiel stock = new StockRealMiel();
+            stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoOrigenMielPaga, comprobanteAsociadoMielPaga, codigoComprobante, numeroComprobante);
+            stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoDestinoMielPaga, comprobanteAsociadoMielPaga, codigoComprobante, numeroComprobante);
+            stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoOrigenMielImpaga, comprobanteAsociadoMielImpaga, codigoComprobante, numeroComprobante);
+            stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoDestinoMielImpaga, comprobanteAsociadoMielImpaga, codigoComprobante, numeroComprobante);
+
+            //falta el ajuste y compensacion?????
+
             JOptionPane.showMessageDialog(null, "La factura ha sido registrada exitosamente.","REGISTRO DE FACTURA DE CLIENTE EN EL EXTERIOR", JOptionPane.INFORMATION_MESSAGE);
+
             this.dispose();
             
         }
@@ -921,8 +962,36 @@ public class FrmRegistroFacturaClienteExterior extends javax.swing.JInternalFram
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        //SE DEBEN ELIMINAR LOS TRASLADOS REALIZADOS EN EL FORMULARIO ANTERIOR
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE CLIENTE EN EL EXTERIOR", JOptionPane.INFORMATION_MESSAGE);
+
+        //se deben eliminar los movimientos de stock generados en el formulario anterior
+        //y se deben re ajustar los valores de miel paga y miel impaga en las ajustados en el formulario anterior
+        StockRealMiel stock = new StockRealMiel();
+        stock.eliminarMovimientoStock(codigoTrasladoOrigenMielPaga);
+        stock.eliminarMovimientoStock(codigoTrasladoDestinoMielPaga);
+        stock.eliminarMovimientoStock(codigoTrasladoOrigenMielImpaga);
+        stock.eliminarMovimientoStock(codigoTrasladoDestinoMielImpaga);
+        
+        //ademas se deben re ajustar los valores ajustados en el formulario de traslados
+        //volviendo los mismos a sus valores originales
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+        //Locacion origen
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacionOrigen) + mielPagaVendida;
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacionOrigen) + mielImpagaVendida;
+        Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacionOrigen) - mielImpagaVendida;
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacionOrigen);
+        //Locacion destino
+        cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacionDestino) - mielPagaVendida;
+        cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacionDestino) - mielImpagaVendida;
+        cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacionDestino);
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacionDestino);
+
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed

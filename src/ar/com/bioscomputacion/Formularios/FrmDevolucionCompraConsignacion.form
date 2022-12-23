@@ -10,6 +10,11 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
@@ -116,8 +121,8 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Datos del credito afectado por la devolucion">
-                    <Property name="tabTitle" type="java.lang.String" value="Datos del credito afectado por la devolucion"/>
+                  <JTabbedPaneConstraints tabName="Datos de la compra en consignacion afectada por la devolucion">
+                    <Property name="tabTitle" type="java.lang.String" value="Datos de la compra en consignacion afectada por la devolucion"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -151,41 +156,44 @@
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="tfNumeroComprobante" max="32767" attributes="0"/>
-                                              <Component id="jLabel17" min="-2" pref="136" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel6" min="-2" pref="87" max="-2" attributes="0"/>
-                                              <Component id="dcFechaDevolucion" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfTambores" alignment="0" min="-2" pref="310" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="tfNumeroComprobante" max="32767" attributes="0"/>
+                                      <Component id="jLabel17" min="-2" pref="136" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfLotes" alignment="0" min="-2" pref="331" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" min="-2" pref="87" max="-2" attributes="0"/>
+                                      <Component id="dcFechaDevolucion" pref="156" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="359" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfDescripcion" min="-2" pref="136" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="tfTambores" alignment="0" min="-2" pref="310" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="tfLotes" alignment="0" min="-2" pref="331" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                              <Component id="tfDescripcion" min="-2" pref="136" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="tfCantidadKilos" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel26" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="349" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tfCantidadKilos" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel26" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -275,7 +283,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="SE ESTA DEVOLVIENDO MIEL FINANCIADA POR:"/>
+                    <Property name="text" type="java.lang.String" value="SE ESTA DEVOLVIENDO MIEL CONSIGNADA POR:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfDatosCompraConsignacion">

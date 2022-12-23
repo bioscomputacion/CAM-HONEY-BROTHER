@@ -634,7 +634,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="* NOMBRE/S Y APELLIDO:"/>
+                    <Property name="text" type="java.lang.String" value="* NOMBRE/S Y APELLIDO/S:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel18">
@@ -739,7 +739,7 @@
                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tfDomicilioFiscal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="119" max="32767" attributes="0"/>
+                          <EmptySpace pref="115" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

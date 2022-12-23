@@ -973,6 +973,7 @@ public class FrmRegistroPresupuestoProductor extends javax.swing.JInternalFrame 
 
             //se asigna a la compra el valor: FACTURADA, ya que es una compra con presupuesto.
             stockMiel.setEstado_compra("FACTURADA");
+            stockMiel.setEstado_movimiento("VALIDO");
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);

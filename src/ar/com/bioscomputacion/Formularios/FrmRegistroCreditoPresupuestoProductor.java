@@ -7,7 +7,10 @@ package ar.com.bioscomputacion.Formularios;
 
 import static ar.com.bioscomputacion.Formularios.FrmDevolucionCompraConsignacion.totalMielDevuelta;
 import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
-import ar.com.bioscomputacion.Funciones.AnulacionPresupuestoProductor;
+import static ar.com.bioscomputacion.Formularios.FrmRegistroNotaCreditoProductor.codigoProductor;
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
+import ar.com.bioscomputacion.Funciones.ComprobantesAcreditacionComprobantesAfectadosProductor;
+import ar.com.bioscomputacion.Funciones.CreditoPresupuestoProductor;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.DevolucionProductor;
@@ -36,13 +39,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Caco
  */
-public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInternalFrame {
+public class FrmRegistroCreditoPresupuestoProductor extends javax.swing.JInternalFrame {
         
     static int codigoProductor;
-    int codigoAnulacion, codigoMovimientoCtaCte, codigoPresupuesto, codigoLocacion, codigoComprobanteAfectadoAnulacion;
+    int codigoCredito, codigoMovimientoCtaCte, codigoPresupuesto, codigoLocacion, codigoComprobanteAfectadoAnulacion;
     String tipoComprobanteAfectadoAnulacion;
     Double totalMielPresupuestada, totalMielIngresadaAnulacion, importePresupuesto;
-    Double importeAnulacion, precioUnitario, saldoPendiente, saldoImpago, debeComprobanteAfectado, haberComprobanteAfectado, totalkilosPresupuetados, totalKilosImpagos, totalKilosIngresadosAnulacion;
+    Double importeCredito, precioUnitario, saldoPendiente, saldoImpago, debeComprobanteAfectado, haberComprobanteAfectado, totalkilosPresupuetados, totalKilosImpagos, totalKilosIngresadosAnulacion;
     int fila = -1;
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -50,7 +53,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
     /**
      * Creates new form FrmGenerico
      */
-    public FrmRegistroAnulacionPresupuestoProductor() throws SQLException {
+    public FrmRegistroCreditoPresupuestoProductor() throws SQLException {
         
         initComponents();
         inicializar();
@@ -70,16 +73,16 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
         
-        //para calcular el id de ANULACION
-        AnulacionPresupuestoProductor anulacion = new AnulacionPresupuestoProductor();
-        tfNumeroComprobante.setText(String.valueOf(anulacion.mostrarIdAnulacionPresupuestoProductor()+1));
-        codigoAnulacion = anulacion.mostrarIdAnulacionPresupuestoProductor()+1;
+        //para calcular el id de CREDITO DE PRESUPUESTO
+        CreditoPresupuestoProductor creditoPresupuesto = new CreditoPresupuestoProductor();
+        codigoCredito = creditoPresupuesto.mostrarIdCreditoPresupuestoProductor()+1;
+        tfNumeroComprobante.setText(String.valueOf(codigoCredito));
         
         //para ir controlando y comparando lo ingresado por el usuario con lo que esta registrado en el presupuesto
         totalMielPresupuestada = 0.00;
         totalMielIngresadaAnulacion = 0.00;
         importePresupuesto = 0.00;
-        importeAnulacion = 0.00;
+        importeCredito = 0.00;
         
         tPresupuestosProductor.requestFocus();
         
@@ -331,7 +334,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         setBackground(new java.awt.Color(51, 84, 111));
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR - CAM HONEY BROTHERS");
+        setTitle("REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR - CAM HONEY BROTHERS");
         setPreferredSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(51, 84, 111));
@@ -346,7 +349,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         });
 
         rsbrAsociar.setBackground(new java.awt.Color(47, 110, 164));
-        rsbrAsociar.setText("REGISTRAR ANULACION");
+        rsbrAsociar.setText("REGISTRAR CREDITO");
         rsbrAsociar.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
         rsbrAsociar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,7 +512,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("SE ESTA REGISTRANDO UNA ANULACION CORRESPONDIENTE A:");
+        jLabel17.setText("SE ESTA REGISTRANDO UN CREDITO CORRESPONDIENTE A:");
 
         tfInformacion.setEditable(false);
         tfInformacion.setBackground(new java.awt.Color(0, 0, 0));
@@ -518,7 +521,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("DATOS DEL PRESUPUESTO A ASOCIAR A LA ANULACION:");
+        jLabel8.setText("DATOS DEL PRESUPUESTO A ASOCIAR AL CREDITO:");
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -623,7 +626,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         jLabel22.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("IMPORTE DE LA ANULACION:");
+        jLabel22.setText("IMPORTE DEL CREDITO:");
 
         jLabel23.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
@@ -752,7 +755,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         jLabel4.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("INGRESE LA INFORMACION DE LA ANULACION:");
+        jLabel4.setText("INGRESE LA INFORMACION DEL CREDITO:");
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -764,7 +767,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("* ANULACION N°:");
+        jLabel20.setText("* CREDITO N°:");
 
         jLabel24.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -900,7 +903,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
                                             .addComponent(tfImporteTotalAnulacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel20)
-                                        .addGap(40, 40, 40)
+                                        .addGap(59, 59, 59)
                                         .addComponent(jLabel11)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
@@ -950,7 +953,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
                 .addContainerGap(191, Short.MAX_VALUE))
         );
 
-        tpPresupuestos.addTab("Datos para la anulacion", jPanel4);
+        tpPresupuestos.addTab("Datos para el credito", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1014,7 +1017,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         
         if (informacionIncompleta){
             
-            JOptionPane.showMessageDialog(null, "La informacion correspondiente a la anulacion se halla incompleta. Ingrese la misma correctamente por favor.", "REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La informacion correspondiente al credito se halla incompleta. Ingrese la misma correctamente por favor.", "REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tfNumeroComprobante.requestFocus();
             return;
             
@@ -1037,8 +1040,8 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         //en las vartiables importeAnulacion y totalMielIngresadaAnulacion tenemos los totales para todos los registros
         
         //1) se registra la anulacion
-        AnulacionPresupuestoProductor anulacion = new AnulacionPresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), importeAnulacion, totalKilosIngresadosAnulacion);
-        anulacion.registrarAnulacionPresupuestoProductor(anulacion);
+        CreditoPresupuestoProductor creditoPresupuesto = new CreditoPresupuestoProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), importeCredito, totalKilosIngresadosAnulacion, codigoPresupuesto);
+        creditoPresupuesto.registrarCreditoPresupuestoProductor(creditoPresupuesto);
         
         //el codigo de anulacion es auto incrementable y ya lo asine tamb como n° de comprobante
         //calcular el valor del presupuesto menos el valor de la anulacion
@@ -1047,7 +1050,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         //2) se registra el movimiento asociado a la nota de credito en la cta. cte. con el productor 
         String comprobanteAsociadoNotaCredito = "PRES. N° "+tfNumeroPresupuesto.getText();
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "ANULACION", codigoAnulacion, numeroComprobante, comprobanteAsociadoNotaCredito,0.00, 0.00, importeAnulacion, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "CREDITO DE PRESUPUESTO", codigoCredito, numeroComprobante, comprobanteAsociadoNotaCredito,0.00, importeCredito, 0.00, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago
@@ -1057,88 +1060,27 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         //el valor de debeComprobanteAfectado
         //el valor de haberComprobanteAfectado
         
-        ctacte.actualizarSaldoComprobanteProductor(codigoComprobanteAfectadoAnulacion, codigoProductor, debeComprobanteAfectado, importeAnulacion, haberComprobanteAfectado);
+        ctacte.actualizarSaldoComprobanteProductor(codigoComprobanteAfectadoAnulacion, codigoProductor, debeComprobanteAfectado, importeCredito, haberComprobanteAfectado);
         
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
         
-        //4) se registra la devolucion de miel ingresada en la nc
-
-        //Se obtiene el numero de movimiento que tendra el comprobante de devolucion en la cuenta corriente con el productor
-        //ademas en la variable codigoMovimientoCtaCteCompra ya tenemos almacenado el numero de movimiento correspndiente
-        //a la compra en consignacion, ya que a la misma se le debe editar el estado en algunos casos (pasandolo a CANCELADO)   
-        /*CtaCteProductor ctacteProductor = new CtaCteProductor();
-        codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-
-        DevolucionProductor devolucion = new DevolucionProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), totalMielIngresadaDevolucion);
-        if (devolucion.registrarDevolucionProductor(devolucion)){
-
-            //esto es para almacenar la relacion entre el comprobante de devolucion que se esta almacenando
-            //y la compra en consignacion a la que esta afectando dicho comprobante
-            ComprobantesRelacionadosCompraConsignacion comprobanteRelacionado = new ComprobantesRelacionadosCompraConsignacion();
-
-            //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION (para saber que cantidad de kgs.
-            //se abonaron con este comprobante: factura a, b o presupuesto)
-            comprobanteRelacionado.setCodigoProductor(codigoProductor);
-            comprobanteRelacionado.setCodigoCompra(codigoCompra);
-            comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoDevolucion);
-            comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
-            comprobanteRelacionado.setCantidadMielAfectada(totalMielDevuelta);
-            comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
-
-            //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. de la empresa con el productor
-            ctacteProductor.setCodigoProductor(codigoProductor);
-            ctacteProductor.setCodigoMovimiento(codigoMovimientoCtaCte);
-            ctacteProductor.setFechaMovimiento(new Date(a1, m1, d1));
-            ctacteProductor.setDescripcionMovimiento(tipoComprobante);
-            ctacteProductor.setComprobanteAsociado(codigoDevolucion);
-            ctacteProductor.setNumeroComprobante(numeroComprobante);
-            ctacteProductor.setCantidadMiel(totalMielDevuelta);
-            ctacteProductor.setDebe(0.00);
-            ctacteProductor.setHaber(0.00);
-            ctacteProductor.setSaldo(0.00);
-            //se guarda con estado de comprobante como "PENDIENTE", ya que obviamente se acaba de facturar y esta impago
-            ctacteProductor.setEstadoMovimiento("CANCELADO");
-            ctacteProductor.setObservacion("");
-            ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
-
-            //ADEMAS:
-            //Una vez cargado el comprobante de devolucion por la cantidad de miel que se haya decidido devolver
-            //es necesario realizar el siguiente analisis:
-            //1) Se devuelve la compra en consignacion completa
-            //2) Se devuelve una parte de la compra en consignacion y el restante se mantiene en consignacion
-            
-            if (totalMielMantenidaEnConsignacion != 0.00){
-
-                //significa que no se devolvio toda la miel comprada en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-
-            }
-            else{
-
-                //Significa que se devolvio toda la miel comprada en consignacion, se debe CANCELAR la compra en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. La compra en consignacion ha sido cancelada.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-
-                //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
-                //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
-                ctacteProductor.cancelarCompraConsignacion(codigoMovimientoCtaCteCompra, codigoProductor);
-
-            }
-
-        }*/
+        //4) se guarda la relacion entre la nc y el comprobante que se ha afectado con la misma
+        ComprobantesAcreditacionComprobantesAfectadosProductor relacion = new  ComprobantesAcreditacionComprobantesAfectadosProductor();
+        relacion.setCodigo_productor(codigoProductor);
+        relacion.setTipo_comprobante_acreditacion("CREDITO DE PRESUPUESTO");
+        relacion.setCodigo_comprobante_acreditacion(codigoCredito);
+        relacion.setTipo_comprobante_afectado_credito("PRESUPUESTO");
+        relacion.setCodigo_comprobante_afectado_credito(codigoPresupuesto);
+        relacion.setImporte_acreditado(importeCredito);
+        relacion.setEstado_acreditacion("VALIDO");
+        relacion.registrarRelacionCreditoComprobanteAfectado(relacion);
         
-        //ULTIMO PASO A REALIZAR:
-        //El stock global de la empresa debe alterarse y reflejar el cambio realizado
-        //ya que ahora se cuenta con menos miel "paga" debido a la anulacion de un presupuesto de compra de miel paga
-        //(las devoluciones restan el stock global de miel paga de la empresa, y el stock de miel paga
-        //de la locacion en la que se encuentre la miel devuelta)
-        //SE DEBE RESTAR LA MISMA CANTIDAD DEL STOCK DE MIEL "pago", YA QUE LA MIEL
-
         StockRealMiel stockMiel = new StockRealMiel();
         stockMiel.setFecha_movimiento(new Date(a, m, d));
         stockMiel.setTipo_movimiento("DEVOLUCION");
-        stockMiel.setComprobante_asociado("ANULACION");
-        stockMiel.setId_comprobante_asociado(codigoAnulacion);
+        stockMiel.setComprobante_asociado("CREDITO DE PRESUPUESTO");
+        stockMiel.setId_comprobante_asociado(codigoCredito);
         
         stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
         stockMiel.setCantidad_miel(totalKilosIngresadosAnulacion);
@@ -1176,11 +1118,23 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
         //se asigna a la devolucion el valor: FACTURADA, ya que es una compra con presupuesto.
         stockMiel.setEstado_compra("FACTURADA");
+        stockMiel.setEstado_movimiento("VALIDO");
 
         //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
         stockMiel.registrarMovimientoStock(stockMiel);
         
-        //NO SE ESTA REGISTRANDO LA DEVOLUCION DE MIEL CORRESPONDIENTE A LA NOTA DE CREDITO A NIVEL STOCK DE MIEL
+        //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+        //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion) - totalKilosIngresadosAnulacion;
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion);
+        Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
+
+        //JOptionPane.showMessageDialog(null, "La factura ha sido registrada exitosamente.","REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
@@ -1209,7 +1163,7 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
             
             if (tPresupuestosProductor.getValueAt(fila, 8).toString().equals("CANCELADO")){
                 
-                JOptionPane.showMessageDialog(null, "El presupuesto seleccionado se encuentra cancelado. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El presupuesto seleccionado se encuentra cancelado. Seleccione un comprobante pendiente de cancelar por favor.", "REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
                 //debo vaciar todos los campos de la segunda pestaña!
                 tfNumeroPresupuesto.setText("");
                 tfImportePresupuesto.setText("");
@@ -1235,82 +1189,112 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
                 
             }
             else{
+                
+                if (tPresupuestosProductor.getValueAt(fila, 8).toString().equals("ANULADO")){
 
-                //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos de la factura seleccionada
-                //correspondiente a la fila de la grilla cliqueada
-                tfNumeroPresupuesto.setText(tPresupuestosProductor.getValueAt(fila, 1).toString());
-                //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
-                tfImportePresupuesto.setText(tPresupuestosProductor.getValueAt(fila, 4).toString());
+                    JOptionPane.showMessageDialog(null, "El presupuesto seleccionado se encuentra anulado. Seleccione otro comprobante por favor.", "REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                    //debo vaciar todos los campos de la segunda pestaña!
+                    tfNumeroPresupuesto.setText("");
+                    tfImportePresupuesto.setText("");
 
-                //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
-                //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
-                codigoPresupuesto = Integer.parseInt(tPresupuestosProductor.getValueAt(fila, 0).toString());
-                StockRealMiel stock = new StockRealMiel();
-                //para ver si estoy pasando bien el codigo del presupuesto que se selecciona
-                codigoLocacion = stock.obtenerLocacionMielADevolverEnAnulacion(codigoPresupuesto);
-                //para ver si el valor de codigoLocacion esta bien devuelto por la funcion
-                //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene el presupuesto en la cta. cte.
-                //VER COMO SE OBTIENEEEEE, ese dato esta en la tabla presupuesto!!!   
-                codigoComprobanteAfectadoAnulacion = Integer.parseInt(tPresupuestosProductor.getValueAt(fila, 2).toString());
-                //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
-                //de nota de credito se habilita en el combo de notas de credito
-                tipoComprobanteAfectadoAnulacion = "PRESUPUESTO";
-                //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
-                debeComprobanteAfectado = Double.parseDouble(tPresupuestosProductor.getValueAt(fila, 4).toString());
-                Double saldo = Double.parseDouble(tPresupuestosProductor.getValueAt(fila, 5).toString());
-                haberComprobanteAfectado = debeComprobanteAfectado - saldo;
-
-                //Por defecto vamos a empezar asumiendo que se desean ANULAR todos los kilos impagos
-                //en el comprobante a pagarse, o sea, se desea ANULST todo el saldo impago del comprobante
-                importeAnulacion = saldoImpago;
-
-                //kilos presupuestados
-                tfKilosPresupuestados.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 6)));
-                //importe del comprobante
-                tfImporteTotalComprobante.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 4)));
-                //precio unitario del kilo facturado en el comprobante
-                precioUnitario = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 7).toString());
-                tfPrecioUnitario.setText(String.valueOf(precioUnitario));
-                //saldo impago del comprobante
-                tfSaldoImpagoComprobante.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 5)));
-                saldoImpago = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 5).toString());
-                //saldo pendiente del comprobante, una vez efectuado el pago!
-                tfSaldoPendiente.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 5)));
-                Double saldoPendienteDePago = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 5).toString());
-                Double kilosImpagos = saldoPendienteDePago / precioUnitario;
-                totalKilosImpagos = kilosImpagos;
-                totalKilosIngresadosAnulacion = totalKilosImpagos;
-                tfKilosImpagos.setText(String.valueOf(kilosImpagos));
-                //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
-                //mas de eso no se podria devolver
-                tfKilosAAnular.setText(String.valueOf(kilosImpagos));
-                tfImporteAnulacion.setText(String.valueOf(kilosImpagos * precioUnitario));
-
-                //esto es para inicializar los campos en la ultima pestaña!
-                tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosImpagos));
-                Double cantidadKilos = totalKilosImpagos;
-                tfPrecioUnitarioFinalAnulacion.setText(tfPrecioUnitario.getText());
-                Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
-                tfImporteTotalAnulacion.setText(String.valueOf(cantidadKilos * precioUnitario));
-
-                //para mostrar conversion de kilos a tambores y a lotes
-                //VER COMO PUEDO REDONDEAR!
-                if (tfKilosAAnular.getText().length() != 0){
-
-                    Double kilos = Double.parseDouble(tfKilosAAnular.getText());
-                    Double tambores = kilos / 300;
-                    tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
-                    Double lotes = kilos / 21000;
-                    tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+                    //kilos presupuestados
+                    tfKilosPresupuestados.setText("");
+                    //importe del comprobante
+                    tfImporteTotalComprobante.setText("");
+                    //precio unitario del kilo facturado en el comprobante
+                    tfPrecioUnitario.setText("");
+                    //saldo impago del comprobante
+                    tfSaldoImpagoComprobante.setText("");
+                    //saldo pendiente del comprobante, una vez efectuado el pago!
+                    tfSaldoPendiente.setText("");
+                    tfKilosImpagos.setText("");
+                    tfKilosAAnular.setText("");
+                    tfImporteAnulacion.setText("");
+                    tfKilosFinalesAnulacion.setText("");
+                    tfPrecioUnitarioFinalAnulacion.setText("");
+                    tfImporteTotalAnulacion.setText("");
+                    tfTambores.setText("");
+                    tfLotes.setText("");
 
                 }
                 else{
 
-                    tfTambores.setText("0 TAMBORES");
-                    tfLotes.setText("0 LOTES");
+                    //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos de la factura seleccionada
+                    //correspondiente a la fila de la grilla cliqueada
+                    tfNumeroPresupuesto.setText(tPresupuestosProductor.getValueAt(fila, 1).toString());
+                    //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
+                    tfImportePresupuesto.setText(tPresupuestosProductor.getValueAt(fila, 4).toString());
+
+                    //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
+                    //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
+                    codigoPresupuesto = Integer.parseInt(tPresupuestosProductor.getValueAt(fila, 0).toString());
+                    StockRealMiel stock = new StockRealMiel();
+                    //para ver si estoy pasando bien el codigo del presupuesto que se selecciona
+                    codigoLocacion = stock.obtenerLocacionMielADevolverEnCreditoPresupuesto(codigoPresupuesto);
+                    //para ver si el valor de codigoLocacion esta bien devuelto por la funcion
+                    //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene el presupuesto en la cta. cte.
+                    //VER COMO SE OBTIENEEEEE, ese dato esta en la tabla presupuesto!!!   
+                    codigoComprobanteAfectadoAnulacion = Integer.parseInt(tPresupuestosProductor.getValueAt(fila, 2).toString());
+                    //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
+                    //de nota de credito se habilita en el combo de notas de credito
+                    tipoComprobanteAfectadoAnulacion = "PRESUPUESTO";
+                    //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
+                    debeComprobanteAfectado = Double.parseDouble(tPresupuestosProductor.getValueAt(fila, 4).toString());
+                    Double saldo = Double.parseDouble(tPresupuestosProductor.getValueAt(fila, 5).toString());
+                    haberComprobanteAfectado = debeComprobanteAfectado - saldo;
+
+                    //Por defecto vamos a empezar asumiendo que se desean ANULAR todos los kilos impagos
+                    //en el comprobante a pagarse, o sea, se desea ANULST todo el saldo impago del comprobante
+                    importeCredito = saldoImpago;
+
+                    //kilos presupuestados
+                    tfKilosPresupuestados.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 6)));
+                    //importe del comprobante
+                    tfImporteTotalComprobante.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 4)));
+                    //precio unitario del kilo facturado en el comprobante
+                    precioUnitario = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 7).toString());
+                    tfPrecioUnitario.setText(String.valueOf(precioUnitario));
+                    //saldo impago del comprobante
+                    tfSaldoImpagoComprobante.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 5)));
+                    saldoImpago = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 5).toString());
+                    //saldo pendiente del comprobante, una vez efectuado el pago!
+                    tfSaldoPendiente.setText(String.valueOf(tPresupuestosProductor.getValueAt(fila, 5)));
+                    Double saldoPendienteDePago = Double.valueOf(tPresupuestosProductor.getValueAt(fila, 5).toString());
+                    Double kilosImpagos = saldoPendienteDePago / precioUnitario;
+                    totalKilosImpagos = kilosImpagos;
+                    totalKilosIngresadosAnulacion = totalKilosImpagos;
+                    tfKilosImpagos.setText(String.valueOf(kilosImpagos));
+                    //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
+                    //mas de eso no se podria devolver
+                    tfKilosAAnular.setText(String.valueOf(kilosImpagos));
+                    tfImporteAnulacion.setText(String.valueOf(kilosImpagos * precioUnitario));
+
+                    //esto es para inicializar los campos en la ultima pestaña!
+                    tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosImpagos));
+                    Double cantidadKilos = totalKilosImpagos;
+                    tfPrecioUnitarioFinalAnulacion.setText(tfPrecioUnitario.getText());
+                    Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
+                    tfImporteTotalAnulacion.setText(String.valueOf(cantidadKilos * precioUnitario));
+
+                    //para mostrar conversion de kilos a tambores y a lotes
+                    //VER COMO PUEDO REDONDEAR!
+                    if (tfKilosAAnular.getText().length() != 0){
+
+                        Double kilos = Double.parseDouble(tfKilosAAnular.getText());
+                        Double tambores = kilos / 300;
+                        tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
+                        Double lotes = kilos / 21000;
+                        tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+
+                    }
+                    else{
+
+                        tfTambores.setText("0 TAMBORES");
+                        tfLotes.setText("0 LOTES");
+
+                    }
 
                 }
-
             }
         
         }
@@ -1406,16 +1390,16 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
         
         if (tfKilosAAnular.getText().length() == 0){
             
-            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE NOTA DE CREDITO DE PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR",JOptionPane.ERROR_MESSAGE);
             tfKilosAAnular.setText(String.valueOf(totalKilosImpagos));
             //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
             totalKilosIngresadosAnulacion = totalKilosImpagos;
-            importeAnulacion = totalKilosIngresadosAnulacion * precioUnitario;
-            tfImporteAnulacion.setText(String.valueOf(importeAnulacion));
+            importeCredito = totalKilosIngresadosAnulacion * precioUnitario;
+            tfImporteAnulacion.setText(String.valueOf(importeCredito));
             //esto es para ir actualizando los datos en la ultima pestaña!
             tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosImpagos));
             //el precio unitario no lo toco ya que siempre es el mismo
-            tfImporteTotalAnulacion.setText(String.valueOf(importeAnulacion));
+            tfImporteTotalAnulacion.setText(String.valueOf(importeCredito));
             tfKilosAAnular.requestFocus();
             
         }
@@ -1425,16 +1409,16 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
             
             if (kilosIngresadosDevolucion <= 0.00){
 
-                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE NOTA DE CREDITO DE PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR",JOptionPane.ERROR_MESSAGE);
                 tfKilosAAnular.setText(String.valueOf(totalKilosImpagos));
                 //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
                 totalKilosIngresadosAnulacion = totalKilosImpagos;
-                importeAnulacion = totalKilosIngresadosAnulacion * precioUnitario;
-                tfImporteAnulacion.setText(String.valueOf(importeAnulacion));
+                importeCredito = totalKilosIngresadosAnulacion * precioUnitario;
+                tfImporteAnulacion.setText(String.valueOf(importeCredito));
                 //esto es para ir actualizando los datos en la ultima pestaña!
                 tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosImpagos));
                 //el precio unitario no lo toco ya que siempre es el mismo
-                tfImporteTotalAnulacion.setText(String.valueOf(importeAnulacion));
+                tfImporteTotalAnulacion.setText(String.valueOf(importeCredito));
                 tfKilosAAnular.requestFocus();
 
             }
@@ -1442,31 +1426,31 @@ public class FrmRegistroAnulacionPresupuestoProductor extends javax.swing.JInter
 
                 if (kilosIngresadosDevolucion > totalKilosImpagos){
 
-                    JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE PAGO A PRODUCTOR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cantidad ingresada incorrecta.","REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR",JOptionPane.ERROR_MESSAGE);
                     tfKilosAAnular.setText(String.valueOf(totalKilosImpagos));
                     //tengo que traer de alguna manera o calcular el precio unitario del kilo, deberia mostrar el tf???
                     totalKilosIngresadosAnulacion = totalKilosImpagos;
-                    importeAnulacion = totalKilosIngresadosAnulacion * precioUnitario;
-                    tfImporteAnulacion.setText(String.valueOf(importeAnulacion));
+                    importeCredito = totalKilosIngresadosAnulacion * precioUnitario;
+                    tfImporteAnulacion.setText(String.valueOf(importeCredito));
                     //esto es para ir actualizando los datos en la ultima pestaña!
                     tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosImpagos));
                     //el precio unitario no lo toco ya que siempre es el mismo
-                    tfImporteTotalAnulacion.setText(String.valueOf(importeAnulacion));
+                    tfImporteTotalAnulacion.setText(String.valueOf(importeCredito));
                     tfKilosAAnular.requestFocus();
 
                 }
                 else{
 
                     totalKilosIngresadosAnulacion = kilosIngresadosDevolucion;
-                    importeAnulacion = totalKilosIngresadosAnulacion * precioUnitario;
-                    tfImporteAnulacion.setText(String.valueOf(importeAnulacion));
+                    importeCredito = totalKilosIngresadosAnulacion * precioUnitario;
+                    tfImporteAnulacion.setText(String.valueOf(importeCredito));
                     //y tamb modifico el campo que muestra el saldo que va a quedar desp del pago
-                    saldoPendiente = saldoImpago - importeAnulacion;
+                    saldoPendiente = saldoImpago - importeCredito;
                     tfSaldoPendiente.setText(String.valueOf(saldoPendiente));
                     //esto es para ir actualizando los datos en la ultima pestaña!
                     tfKilosFinalesAnulacion.setText(String.valueOf(totalKilosIngresadosAnulacion));
                     //el precio unitario no lo toco ya que siempre es el mismo
-                    tfImporteTotalAnulacion.setText(String.valueOf(importeAnulacion));
+                    tfImporteTotalAnulacion.setText(String.valueOf(importeCredito));
                     tfKilosAAnular.requestFocus();
 
                 }

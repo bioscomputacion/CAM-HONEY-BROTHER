@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,11 +31,12 @@ public class StockRealMiel {
     private int locacion_miel;
     private int miel_deposito_productor;
     private String estado_compra;
+    private String estado_movimiento;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
 
-    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, String comprobante_asociado, int id_comprobante_asociado, String numero_comprobante_asociado, Double cantidad_miel, int locacion_miel, int miel_deposito_productor, String estado_compra) {
+    public StockRealMiel(int codigo_movimiento, Date fecha_movimiento, String tipo_movimiento, String comprobante_asociado, int id_comprobante_asociado, String numero_comprobante_asociado, Double cantidad_miel, int locacion_miel, int miel_deposito_productor, String estado_compra, String estado_movimiento) {
         
         this.codigo_movimiento = codigo_movimiento;
         this.fecha_movimiento = fecha_movimiento;
@@ -46,6 +48,7 @@ public class StockRealMiel {
         this.locacion_miel = locacion_miel;
         this.miel_deposito_productor = miel_deposito_productor;
         this.estado_compra = estado_compra;
+        this.estado_movimiento = estado_movimiento;
         
     }
 
@@ -124,29 +127,20 @@ public class StockRealMiel {
         this.miel_deposito_productor = miel_deposito_productor;
     }
 
-
-    public ConexionBD getMysql() {
-        return mysql;
-    }
-
-    public void setMysql(ConexionBD mysql) {
-        this.mysql = mysql;
-    }
-
-    public Connection getCn() {
-        return cn;
-    }
-
-    public void setCn(Connection cn) {
-        this.cn = cn;
-    }
-
     public String getEstado_compra() {
         return estado_compra;
     }
 
     public void setEstado_compra(String estado_compra) {
         this.estado_compra = estado_compra;
+    }
+
+    public String getEstado_movimiento() {
+        return estado_movimiento;
+    }
+
+    public void setEstado_movimiento(String estado_movimiento) {
+        this.estado_movimiento = estado_movimiento;
     }
     
     public boolean registrarMovimientoStock(StockRealMiel stockMiel){
@@ -156,8 +150,8 @@ public class StockRealMiel {
             //ConexionBD mysql = new ConexionBD();
             //Connection cn = mysql.getConexionBD();
             
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor, estado_compra) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO stock_real_miel (fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor, estado_compra, estado_movimiento) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?)");
             
             pst.setDate(1, stockMiel.getFecha_movimiento());
             pst.setString(2, stockMiel.getTipo_movimiento());
@@ -168,6 +162,7 @@ public class StockRealMiel {
             pst.setInt(7, stockMiel.getLocacion_miel());
             pst.setInt(8, stockMiel.getMiel_deposito_productor());
             pst.setString(9, stockMiel.getEstado_compra());
+            pst.setString(10, stockMiel.getEstado_movimiento());
             
             int N = pst.executeUpdate();
 
@@ -184,7 +179,7 @@ public class StockRealMiel {
             
         } catch (Exception e) {
             
-            System.out.println("ERROR");
+            e.printStackTrace();
             
         }
         
@@ -192,6 +187,105 @@ public class StockRealMiel {
         
     }
     
+    public boolean eliminarMovimientoStock(int codigoMovimientoStock) {
+
+        try {
+
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            PreparedStatement pst = cn.prepareStatement("DELETE FROM stock_real_miel WHERE codigo_movimiento = '"+ codigoMovimientoStock +"'");
+
+            int N = pst.executeUpdate();
+
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
+            if (N != 0) {
+                
+                return true;
+                
+            } else {
+                
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(System.out);
+            
+        }
+
+        return false;
+    }
+    
+    public boolean modificarTipoYNumeroComprobanteMovimientoStock(int codigoMovimientoStock, String comprobanteAsociado, int idComprobanteAsociado, String numeroComprobanteAsociado) {
+
+        try {
+
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            PreparedStatement pst = cn.prepareStatement("UPDATE stock_real_miel SET comprobante_asociado = ?, id_comprobante_asociado = ?, numero_comprobante_asociado = ? WHERE codigo_movimiento = '"+ codigoMovimientoStock +"'");
+
+            pst.setString(1, comprobanteAsociado);
+            pst.setInt(2, idComprobanteAsociado);
+            pst.setString(3, numeroComprobanteAsociado);
+            
+            int N = pst.executeUpdate();
+
+            ConexionBD.close(cn);
+            ConexionBD.close(pst);
+            
+            if (N != 0) {
+                
+                return true;
+                
+            } else {
+                
+                return false;
+                
+            }
+        } catch (SQLException ex) {
+            
+            
+        }
+
+        return false;
+    }
+
+    public int mostrarIdMovimientoStock() {
+
+        int codigoMovimiento = 0;
+        
+        try{
+ 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT codigo_movimiento FROM stock_real_miel order by codigo_movimiento asc");
+            
+            while (rs.next()) {
+
+                codigoMovimiento = rs.getInt("codigo_movimiento");
+                
+            }
+            
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+
+            return codigoMovimiento;
+
+        }catch(Exception e){
+            
+            return codigoMovimiento;
+        } 
+
+    }
+
     public Double obtenerDetalleDescuentosEnConsignaciones(int codigoLocacion){
         
         //esto es para obtener el detalle de lo que se ha descontado de cada compra en consignacion, para
@@ -238,8 +332,8 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO' or tipo_movimiento='VENTA - DESTINO')");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO' or tipo_movimiento='VENTA - DESTINO')");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO', 'VENTA - DESTINO', 'AUMENTO DE STOCK PAGO POR FACTURACION') and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -268,7 +362,8 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION' or tipo_movimiento='FACTURACION' or tipo_movimiento = 'VENTA - ORIGEN')");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION', 'FACTURACION', 'VENTA - ORIGEN', 'DESCUENTO DE STOCK IMPAGO POR FACTURACION') and estado_movimiento <> 'ANULADO'");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO') and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -298,8 +393,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO' or tipo_movimiento = 'VENTA - DESTINO') and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO', 'VENTA - DESTINO', 'AUMENTO DE STOCK PAGO POR FACTURACION') and estado_compra='FACTURADA' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -328,7 +422,8 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION' or tipo_movimiento = 'VENTA - ORIGEN') and estado_compra='FACTURADA'");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION' or tipo_movimiento = 'VENTA - ORIGEN' or tipo_movimiento = 'ANULACION') and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION', 'VENTA - ORIGEN') and estado_compra='FACTURADA' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -357,8 +452,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO' or tipo_movimiento = 'VENTA - DESTINO') and estado_compra='SIN FACTURAR'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento IN ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO', 'VENTA - DESTINO') and estado_compra='SIN FACTURAR' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -387,7 +481,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento = 'DEVOLUCION' or tipo_movimiento='FACTURACION' or tipo_movimiento = 'VENTA - ORIGEN') and estado_compra='SIN FACTURAR'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION', 'DESCUENTO DE STOCK IMPAGO POR FACTURACION', 'VENTA - ORIGEN') and estado_compra='SIN FACTURAR' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -416,7 +510,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO')");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO') and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -445,7 +539,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION' or tipo_movimiento='FACTURACION')");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento in ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION', 'FACTURACION') and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -474,8 +568,8 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO') and estado_compra='FACTURADA'");
+            //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO', 'VENTA - DESTINO') and estado_movimiento <> 'ANULADO'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento in ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO') and estado_compra='FACTURADA' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -504,7 +598,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento='DEVOLUCION') and estado_compra='FACTURADA'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento in ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION') and estado_compra='FACTURADA' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -534,7 +628,7 @@ public class StockRealMiel {
  
             Statement st = cn.createStatement();
             //ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where locacion_miel='"+ codigoLocacion +"' and tipo_movimiento='"+ tipoMovimiento +"' and estado_compra<>'"+ estadoCompra +"'");
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='COMPRA' or tipo_movimiento='INGRESO' or tipo_movimiento='TRASLADO - DESTINO') and estado_compra='SIN FACTURAR'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento IN ('COMPRA', 'INGRESO', 'TRASLADO - DESTINO') and estado_compra='SIN FACTURAR' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -563,7 +657,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and (tipo_movimiento='VENTA' or tipo_movimiento='TRASLADO - ORIGEN' or tipo_movimiento = 'DEVOLUCION' or tipo_movimiento='FACTURACION') and estado_compra='SIN FACTURAR'");
+            ResultSet rs = st.executeQuery("SELECT SUM(cantidad_miel) as cantidad_miel FROM stock_real_miel where miel_deposito_productor='"+ codigoProductor +"' and tipo_movimiento IN ('VENTA', 'TRASLADO - ORIGEN', 'DEVOLUCION', 'FACTURACION') and estado_compra='SIN FACTURAR' and estado_movimiento <> 'ANULADO'");
             
             while (rs.next()) {
 
@@ -741,7 +835,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado = 'CONSIGNACION' and id_comprobante_asociado = "+codigoConsignacion);
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado = 'CONSIGNACION' and id_comprobante_asociado = " + codigoConsignacion);
             
             while (rs.next()) {
 
@@ -769,7 +863,7 @@ public class StockRealMiel {
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where (comprobante_asociado = 'FACTURA A' or comprobante_asociado = 'FACTURA C') and id_comprobante_asociado = "+codigoFactura);
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado in ('FACTURA A', 'FACT. A / CONSIG.', 'FACTURA C', 'FACT. C / CONSIG.') and id_comprobante_asociado = " + codigoFactura);
             
             while (rs.next()) {
 
@@ -790,14 +884,94 @@ public class StockRealMiel {
 
     //SIRVE!!!
     //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
-    public int obtenerLocacionMielADevolverEnAnulacion(int codigoPresupuesto){
+    public int obtenerLocacionMielADevolverEnCreditoPresupuesto(int codigoPresupuesto){
         
         int locacionMiel = 0;
         
         try{
  
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where (comprobante_asociado = 'PRESUPUESTO') and id_comprobante_asociado = "+codigoPresupuesto);
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado in ('PRESUPUESTO', 'PRESUP. / CONSIG.') and id_comprobante_asociado = " + codigoPresupuesto);
+            
+            while (rs.next()) {
+
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return locacionMiel;
+            
+        } 
+        
+    }
+
+    //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
+    public int obtenerLocacionMielADevolverEnIngreso(int codigoIngreso){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado = 'INGRESO' and id_comprobante_asociado = " + codigoIngreso);
+            
+            while (rs.next()) {
+
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return locacionMiel;
+            
+        } 
+        
+    }
+
+    //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
+    public int obtenerLocacionMielADevolverPorNotaCreditoAnulada(int codigoNotaCredito){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where (comprobante_asociado = 'NOTA DE CREDITO A' or comprobante_asociado = 'NOTA DE CREDITO C') and id_comprobante_asociado = "+ codigoNotaCredito);
+            
+            while (rs.next()) {
+
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
+
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, e);
+            return locacionMiel;
+            
+        } 
+        
+    }
+
+    public int obtenerLocacionMielADevolverPorCreditoPresupuestoAnulado(int codigoCreditoPresupuesto){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado = 'CREDITO DE PRESUPUESTO' and id_comprobante_asociado = '"+ codigoCreditoPresupuesto + "'");
             
             while (rs.next()) {
 
@@ -820,8 +994,6 @@ public class StockRealMiel {
     public Double obtenerDetalleMielComprada(int codigoLocacion){
         
         Double mielComprada = 0.00;
-        String tipoMovimiento = "COMPRA";
-        String tipoMovimiento2 = "INGRESO";
         
         try{
  
@@ -851,9 +1023,6 @@ public class StockRealMiel {
     public Double obtenerDetalleMielCompradaPaga(int codigoLocacion){
         
         Double mielComprada = 0.00;
-        String tipoMovimiento = "COMPRA";
-        String tipoMovimiento2 = "INGRESO";
-        String estadoCompra = "FACTURADA";
         
         try{
  
@@ -1260,9 +1429,9 @@ public class StockRealMiel {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"FECHA", "REFERENCIA", "COMPROBANTE", "ID COMPROBANTE", "N° COMPROBANTE", "KGS. MIEL", "ID LOCACION", "LOCACION","ID PRODUCTOR", "PRODUCTOR"};
+        String[] titulos = {"FECHA", "REFERENCIA", "COMPROBANTE", "ID COMPROBANTE", "N° COMPROBANTE", "KGS. MIEL", "ID LOCACION", "LOCACION","ID PRODUCTOR", "PRODUCTOR", "ESTADO_MOVIMIENTO"};
 
-        String[] registros = new String[10];
+        String[] registros = new String[11];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -1281,7 +1450,7 @@ public class StockRealMiel {
         try {
             
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
+            ResultSet rs = st.executeQuery("select fecha_movimiento, tipo_movimiento, comprobante_asociado, id_comprobante_asociado, numero_comprobante_asociado, cantidad_miel, locacion_miel, miel_deposito_productor, estado_movimiento from stock_real_miel where locacion_miel='"+ codigoLocacion +"' order by codigo_movimiento asc");
             Locacion locacion = new Locacion();
             Productor productor = new Productor();
             FacturaProductor factura = new FacturaProductor();
@@ -1302,6 +1471,7 @@ public class StockRealMiel {
                     registros[9] = productor.mostrarNombreProductor(rs.getInt("miel_deposito_productor"));
                     
                 }
+                registros[10] = rs.getString("estado_movimiento");
                 
                 modelo.addRow(registros);
                 
@@ -1319,4 +1489,74 @@ public class StockRealMiel {
         
     }
 
+    public boolean actualizarEstadoMovimientoStock(String tipoMovimiento, String referencia, int idComprobante) {
+
+        try {
+
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE stock_real_miel SET estado_movimiento = ? WHERE tipo_movimiento = '"+ tipoMovimiento +"' and comprobante_asociado = '"+ referencia +"' and id_comprobante_asociado = '" + idComprobante + "'");
+
+            pst.setString(1, "ANULADO");
+            
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+
+        return false;
+        
+    }
+    
+    /*public boolean actualizarEstadoMovimientoStock(String tipoMovimiento, String referencia, int idComprobante) {
+
+        try {
+
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+
+            PreparedStatement pst = cn.prepareStatement("UPDATE stock_real_miel SET estado_movimiento = ? WHERE tipo_movimiento = '"+ tipoMovimiento +"' and comprobante_asociado = '"+ referencia +"' and id_comprobante_asociado = '" + idComprobante + "'");
+
+            pst.setString(1, "ANULADO");
+            
+            int N = pst.executeUpdate();
+
+            if (N != 0) {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return true;
+                
+            } else {
+                
+                ConexionBD.close(cn);
+                ConexionBD.close(pst);
+                return false;
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+
+        return false;
+        
+    }*/
+    
 }

@@ -335,6 +335,38 @@ public class PresupuestoProductor {
         
     }
     
+    public String mostrarNumeroComprobantePresupuesto(int codigoPresupuesto) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numero_comprobante from presupuesto_productor WHERE codigo_presupuesto = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
     public Double mostrarImportePresupuesto(int codigoPresupuesto) {
         
         Double importePresupuesto = 0.00;
@@ -469,6 +501,145 @@ public class PresupuestoProductor {
         }
         
         return nombreProductor;
+    
+    }
+    
+    public Date mostrarFechaPresupuesto(int codigoPresupuesto) {
+        
+        Date fecha = Date.valueOf(LocalDate.now());
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT fecha_presupuesto from presupuesto_productor WHERE codigo_presupuesto = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                fecha = rs.getDate("fecha_presupuesto");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return fecha;
+            
+        }
+        
+        return fecha;
+    
+    }
+    
+    public boolean chequearAcreditacionesSobrePresupuesto(int codigoPresupuesto){
+        
+        boolean presupuestoAfectado = false;
+        int cantidadComprobantes = 0;
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select tipo_comprobante_acreditacion \n" +
+            "from comprobantes_acreditacion_comprobantes_afectados_productor \n" +
+            "where codigo_comprobante_afectado_credito = '"+ codigoPresupuesto +"' \n" +
+            "and (tipo_comprobante_afectado_credito = 'PRESUPUESTO') and estado_acreditacion <> 'ANULADO'");
+
+            while (rs.next()){
+            
+                cantidadComprobantes = cantidadComprobantes + 1;
+                
+            }
+            
+            if (cantidadComprobantes > 0){
+                
+                presupuestoAfectado = true;
+            
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return presupuestoAfectado;
+            
+        }
+        
+        return presupuestoAfectado;
+    
+    }
+    
+    public int mostrarCodigoProductorPresupuesto(int codigoPresupuesto) {
+        
+        int codigoProductor = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_productor from presupuesto_productor where codigo_presupuesto = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                codigoProductor = rs.getInt("codigo_productor");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoProductor;
+            
+        }
+        
+        return codigoProductor;
+    
+    }
+    
+    public int mostrarCodigoMovimientoEnCtaCtePresupuestoProductor(int codigoPresupuesto) {
+        
+        int codigoMovimientoCtaCte = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_movimiento from cta_cte_productor where descripcion_movimiento = 'PRESUPUESTO' and comprobante_asociado = '" + codigoPresupuesto + "'");
+
+            while (rs.next()){
+            
+                codigoMovimientoCtaCte = rs.getInt("codigo_movimiento");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoMovimientoCtaCte;
+            
+        }
+        
+        return codigoMovimientoCtaCte;
     
     }
     

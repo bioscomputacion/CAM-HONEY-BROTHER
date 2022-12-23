@@ -7,6 +7,11 @@ package ar.com.bioscomputacion.Formularios;
 
 import static ar.com.bioscomputacion.Formularios.FrmDevolucionCompraConsignacion.totalMielDevuelta;
 import static ar.com.bioscomputacion.Formularios.FrmPrincipal.deskPrincipal;
+import static ar.com.bioscomputacion.Formularios.FrmRegistroPagoAProductor.codigoComprobanteAfectadoPago;
+import static ar.com.bioscomputacion.Formularios.FrmRegistroPagoAProductor.codigoProductor;
+import static ar.com.bioscomputacion.Formularios.FrmRegistroPagoAProductor.tipoComprobanteAfectadoPago;
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
+import ar.com.bioscomputacion.Funciones.ComprobantesAcreditacionComprobantesAfectadosProductor;
 import ar.com.bioscomputacion.Funciones.ConexionBD;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.DevolucionProductor;
@@ -1149,16 +1154,16 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         String comprobanteAsociadoNotaCredito = "";
         if (tipoNotaCredito.equals("NOTA DE CREDITO A")){
             
-            comprobanteAsociadoNotaCredito = "FACT. A N° "+tfNumeroFactura.getText();
+            comprobanteAsociadoNotaCredito = "F. A N° "+tfNumeroFactura.getText();
         
         }
         else{
 
-            comprobanteAsociadoNotaCredito = "FACT. C N° "+tfNumeroFactura.getText();
+            comprobanteAsociadoNotaCredito = "F. C N° "+tfNumeroFactura.getText();
 
         }
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), tipoNotaCredito, codigoNotaCredito, numeroComprobante, comprobanteAsociadoNotaCredito,0.00, 0.00, importeNotaCredito, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), tipoNotaCredito, codigoNotaCredito, numeroComprobante, comprobanteAsociadoNotaCredito,0.00, importeNotaCredito, 0.00, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago
@@ -1173,79 +1178,17 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
         
-        //4) se registra la devolucion de miel ingresada en la nc
-
-        //Se obtiene el numero de movimiento que tendra el comprobante de devolucion en la cuenta corriente con el productor
-        //ademas en la variable codigoMovimientoCtaCteCompra ya tenemos almacenado el numero de movimiento correspndiente
-        //a la compra en consignacion, ya que a la misma se le debe editar el estado en algunos casos (pasandolo a CANCELADO)   
-        /*CtaCteProductor ctacteProductor = new CtaCteProductor();
-        codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
-
-        DevolucionProductor devolucion = new DevolucionProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a, m, d), totalMielIngresadaDevolucion);
-        if (devolucion.registrarDevolucionProductor(devolucion)){
-
-            //esto es para almacenar la relacion entre el comprobante de devolucion que se esta almacenando
-            //y la compra en consignacion a la que esta afectando dicho comprobante
-            ComprobantesRelacionadosCompraConsignacion comprobanteRelacionado = new ComprobantesRelacionadosCompraConsignacion();
-
-            //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION (para saber que cantidad de kgs.
-            //se abonaron con este comprobante: factura a, b o presupuesto)
-            comprobanteRelacionado.setCodigoProductor(codigoProductor);
-            comprobanteRelacionado.setCodigoCompra(codigoCompra);
-            comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoDevolucion);
-            comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
-            comprobanteRelacionado.setCantidadMielAfectada(totalMielDevuelta);
-            comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
-
-            //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. de la empresa con el productor
-            ctacteProductor.setCodigoProductor(codigoProductor);
-            ctacteProductor.setCodigoMovimiento(codigoMovimientoCtaCte);
-            ctacteProductor.setFechaMovimiento(new Date(a1, m1, d1));
-            ctacteProductor.setDescripcionMovimiento(tipoComprobante);
-            ctacteProductor.setComprobanteAsociado(codigoDevolucion);
-            ctacteProductor.setNumeroComprobante(numeroComprobante);
-            ctacteProductor.setCantidadMiel(totalMielDevuelta);
-            ctacteProductor.setDebe(0.00);
-            ctacteProductor.setHaber(0.00);
-            ctacteProductor.setSaldo(0.00);
-            //se guarda con estado de comprobante como "PENDIENTE", ya que obviamente se acaba de facturar y esta impago
-            ctacteProductor.setEstadoMovimiento("CANCELADO");
-            ctacteProductor.setObservacion("");
-            ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
-
-            //ADEMAS:
-            //Una vez cargado el comprobante de devolucion por la cantidad de miel que se haya decidido devolver
-            //es necesario realizar el siguiente analisis:
-            //1) Se devuelve la compra en consignacion completa
-            //2) Se devuelve una parte de la compra en consignacion y el restante se mantiene en consignacion
-            
-            if (totalMielMantenidaEnConsignacion != 0.00){
-
-                //significa que no se devolvio toda la miel comprada en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-
-            }
-            else{
-
-                //Significa que se devolvio toda la miel comprada en consignacion, se debe CANCELAR la compra en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. La compra en consignacion ha sido cancelada.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-
-                //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
-                //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
-                ctacteProductor.cancelarCompraConsignacion(codigoMovimientoCtaCteCompra, codigoProductor);
-
-            }
-
-        }*/
+        //4) se guarda la relacion entre la nc y el comprobante que se ha afectado con la misma
+        ComprobantesAcreditacionComprobantesAfectadosProductor relacion = new  ComprobantesAcreditacionComprobantesAfectadosProductor();
+        relacion.setCodigo_productor(codigoProductor);
+        relacion.setTipo_comprobante_acreditacion(tipoNotaCredito);
+        relacion.setCodigo_comprobante_acreditacion(codigoNotaCredito);
+        relacion.setTipo_comprobante_afectado_credito(tipoComprobanteAfectadoNotaCredito);
+        relacion.setCodigo_comprobante_afectado_credito(codigoFactura);
+        relacion.setImporte_acreditado(importeNotaCredito);
+        relacion.setEstado_acreditacion("VALIDO");
+        relacion.registrarRelacionCreditoComprobanteAfectado(relacion);
         
-        //ULTIMO PASO A REALIZAR:
-        //El stock global de la empresa debe alterarse y reflejar el cambio realizado
-        //ya que ahora se cuenta con menos miel "impaga" debido a la devolucion de la misma
-        //(las devoluciones restan el stock globlal de miel impaga de la empresa, y el stock de miel impaga
-        //de la locacion en la que se encuentre la miel devuelta)
-        //SE DEBE RESTAR LA MISMA CANTIDAD DEL STOCK DE MIEL "IMPAGO", YA QUE LA MIEL
-        //EN CONSIGNACION DEVUELTA YA NO ES PARTE DEL STOCK DE MIEL "IMPAGO" DE LA EMPRESA
-
         StockRealMiel stockMiel = new StockRealMiel();
         stockMiel.setFecha_movimiento(new Date(a, m, d));
         stockMiel.setTipo_movimiento("DEVOLUCION");
@@ -1287,11 +1230,23 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
 
         //se asigna a la devolucion el valor: FACTURADA, ya que es una compra con factura.
         stockMiel.setEstado_compra("FACTURADA");
+        stockMiel.setEstado_movimiento("VALIDO");
 
         //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
         stockMiel.registrarMovimientoStock(stockMiel);
         
-        //NO SE ESTA REGISTRANDO LA DEVOLUCION DE MIEL CORRESPONDIENTE A LA NOTA DE CREDITO A NIVEL STOCK DE MIEL
+        //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+        //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion) - totalKilosIngresadosDevolucion;
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion);
+        Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
+
+        //JOptionPane.showMessageDialog(null, "La factura ha sido registrada exitosamente.","REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
@@ -1354,106 +1309,144 @@ public class FrmRegistroNotaCreditoProductor extends javax.swing.JInternalFrame 
                 
             }
             else{
+                
+                if (tFacturasProductor.getValueAt(fila, 9).toString().equals("ANULADO")){
 
-                //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos
-                //de la factura seleccionada correspondiente a la fila de la grilla cliqueada
-                tfTipoFactura.setText(tFacturasProductor.getValueAt(fila, 1).toString());
-                tfNumeroFactura.setText(tFacturasProductor.getValueAt(fila, 2).toString());
-                //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
-                tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 5).toString());
-
-                //asigno valores que debera mostrar el formulario de pago al productor
-                tfInformacion.setText(tFacturasProductor.getValueAt(fila, 1).toString()+" N° "+tFacturasProductor.getValueAt(fila, 2).toString()+" / Productor N° "+codigoProductor+": "+nombreProductor);
-
-                //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
-                //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
-                codigoFactura = Integer.parseInt(tFacturasProductor.getValueAt(fila, 0).toString());
-                StockRealMiel stock = new StockRealMiel();
-                Locacion locacion = new Locacion();
-                //locacion donde se almaceno la miel facturada en el comprobante
-                codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoFactura);
-                nombreLocacion = locacion.mostrarNombreLocacion(codigoLocacion);
-                lLocacionMielFacturaI.setText("Miel acopiada en la locacion: "+nombreLocacion);
-                //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene la factura en la cta. cte.
-                codigoComprobanteAfectadoNotaCredito = Integer.parseInt(tFacturasProductor.getValueAt(fila, 3).toString());
-                //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
-                //de nota de credito se habilita en el combo de notas de credito
-                tipoComprobanteAfectadoNotaCredito = tFacturasProductor.getValueAt(fila, 1).toString();
-                //habilito notas de credito A o notas de credito C
-                if (tipoComprobanteAfectadoNotaCredito.equals("FACTURA A")){
-
-                    //la nota de credito debe ser A
+                    JOptionPane.showMessageDialog(null, "La factura seleccionada se encuentra anulada. Seleccione otro comprobante por favor.", "REGISTRO DE NOTA DE CREDITO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+                    //debo vaciar todos los campos de la segunda pestaña!
+                    tfTipoFactura.setText("");
+                    tfNumeroFactura.setText("");
+                    tfImporteFactura.setText("");
                     cbTipoNotaCredito.setEnabled(true);
                     cbTipoNotaCredito.setSelectedIndex(0);
                     cbTipoNotaCredito.setEnabled(false);
 
-                }
-                else{
+                    lLocacionMielFacturaI.setText("");
 
-                    //la nota de credito debe ser C
-                    cbTipoNotaCredito.setEnabled(true);
-                    cbTipoNotaCredito.setSelectedIndex(1);
-                    cbTipoNotaCredito.setEnabled(false);
+                    //kilos facturados
+                    tfKilosFacturados.setText("");
+                    //importe del comprobante
+                    tfImporteTotalComprobante.setText("");
+                    //precio unitario del kilo facturado en el comprobante
+                    tfPrecioUnitario.setText("");
+                    //saldo impago del comprobante
+                    tfSaldoImpagoComprobante.setText("");
 
-                }
-                
-                //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
-                debeComprobanteAfectado = Double.parseDouble(tFacturasProductor.getValueAt(fila, 5).toString());
-                saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
-                haberComprobanteAfectado = debeComprobanteAfectado - saldoImpago;
+                    tfKilosImpagos.setText("");
+                    tfKilosADevolver.setText("");
+                    tfImporteNotaCredito.setText("");
+                    //saldo pendiente del comprobante, una vez efectuado el pago!
+                    tfSaldoPendiente.setText("");
 
-                //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
-                //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
-                importeNotaCredito = saldoImpago;
-
-                //kilos facturados
-                tfKilosFacturados.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 7)));
-                //importe del comprobante
-                tfImporteTotalComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 5)));
-                //precio unitario del kilo facturado en el comprobante
-                precioUnitario = Double.valueOf(tFacturasProductor.getValueAt(fila, 8).toString());
-                tfPrecioUnitario.setText(String.valueOf(precioUnitario));
-                //saldo impago del comprobante
-                tfSaldoImpagoComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
-                
-                //en SALDO PENDIENTE deberia guardarse: SALDO IMPAGO - IMPORET NOTA CREDITO (que se vaya ingresando)
-                //saldo pendiente del comprobante, una vez efectuado el pago!
-                Double saldoPendienteDePago = saldoImpago - importeNotaCredito;
-                tfSaldoPendiente.setText(String.valueOf(saldoPendienteDePago));
-                Double kilosImpagos = saldoImpago / precioUnitario;
-                totalKilosImpagos = kilosImpagos;
-                totalKilosIngresadosDevolucion = totalKilosImpagos;
-                tfKilosImpagos.setText(String.valueOf(kilosImpagos));
-                //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
-                //mas de eso no se podria devolver
-                tfKilosADevolver.setText(String.valueOf(kilosImpagos));
-                tfImporteNotaCredito.setText(String.valueOf(kilosImpagos * precioUnitario));
-
-                //esto es para inicializar los campos en la ultima pestaña!
-                tfKilosFinalesNC.setText(String.valueOf(totalKilosImpagos));
-                Double cantidadKilos = totalKilosImpagos;
-                tfPrecioUnitarioFinalNC.setText(tfPrecioUnitario.getText());
-                Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
-                tfImporteTotalNC.setText(String.valueOf(cantidadKilos * precioUnitario));
-
-                //para mostrar conversion de kilos a tambores y a lotes
-                //VER COMO PUEDO REDONDEAR!
-                if (tfKilosADevolver.getText().length() != 0){
-
-                    Double kilos = Double.parseDouble(tfKilosADevolver.getText());
-                    Double tambores = kilos / 300;
-                    tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
-                    Double lotes = kilos / 21000;
-                    tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+                    tfKilosFinalesNC.setText("");
+                    tfPrecioUnitarioFinalNC.setText("");
+                    tfImporteTotalNC.setText("");
+                    tfTambores.setText("");
+                    tfLotes.setText("");
 
                 }
                 else{
 
-                    tfTambores.setText("0 TAMBORES");
-                    tfLotes.setText("0 LOTES");
+                    //cada vez que se hace click sobre la grilla se muestran en los campos debajo los datos
+                    //de la factura seleccionada correspondiente a la fila de la grilla cliqueada
+                    tfTipoFactura.setText(tFacturasProductor.getValueAt(fila, 1).toString());
+                    tfNumeroFactura.setText(tFacturasProductor.getValueAt(fila, 2).toString());
+                    //IMPORTE FACTURADO EN EL COMPROBANTE, QUE NO ES LO MISMO QUE SALDO IMPAGO DE LA FACTURA
+                    tfImporteFactura.setText(tFacturasProductor.getValueAt(fila, 5).toString());
+
+                    //asigno valores que debera mostrar el formulario de pago al productor
+                    tfInformacion.setText(tFacturasProductor.getValueAt(fila, 1).toString()+" N° "+tFacturasProductor.getValueAt(fila, 2).toString()+" / Productor N° "+codigoProductor+": "+nombreProductor);
+
+                    //en esta variable siempre va a estar almacenado el codigo de la factura seleccionada en la grilla
+                    //el cual voy a necesitar a la hora de alterar el saldo de la misma restando el valor acreditado
+                    codigoFactura = Integer.parseInt(tFacturasProductor.getValueAt(fila, 0).toString());
+                    StockRealMiel stock = new StockRealMiel();
+                    Locacion locacion = new Locacion();
+                    //locacion donde se almaceno la miel facturada en el comprobante
+                    codigoLocacion = stock.obtenerLocacionMielADevolverEnNotaCredito(codigoFactura);
+                    nombreLocacion = locacion.mostrarNombreLocacion(codigoLocacion);
+                    lLocacionMielFacturaI.setText("Miel acopiada en la locacion: "+nombreLocacion);
+                    //en esta variable siempre va a estar almacenado el codigo de movimiento que tiene la factura en la cta. cte.
+                    codigoComprobanteAfectadoNotaCredito = Integer.parseInt(tFacturasProductor.getValueAt(fila, 3).toString());
+                    //en esta variable se almacena el tipo de factura, que sirve entre otras cuestiones para ver que tipo
+                    //de nota de credito se habilita en el combo de notas de credito
+                    tipoComprobanteAfectadoNotaCredito = tFacturasProductor.getValueAt(fila, 1).toString();
+                    //habilito notas de credito A o notas de credito C
+                    if (tipoComprobanteAfectadoNotaCredito.equals("FACTURA A")){
+
+                        //la nota de credito debe ser A
+                        cbTipoNotaCredito.setEnabled(true);
+                        cbTipoNotaCredito.setSelectedIndex(0);
+                        cbTipoNotaCredito.setEnabled(false);
+
+                    }
+                    else{
+
+                        //la nota de credito debe ser C
+                        cbTipoNotaCredito.setEnabled(true);
+                        cbTipoNotaCredito.setSelectedIndex(1);
+                        cbTipoNotaCredito.setEnabled(false);
+
+                    }
+
+                    //estas variables las uso para alterar el saldo de la factura asociada a la nota de credito nueva
+                    debeComprobanteAfectado = Double.parseDouble(tFacturasProductor.getValueAt(fila, 5).toString());
+                    saldoImpago = Double.valueOf(tFacturasProductor.getValueAt(fila, 6).toString());
+                    haberComprobanteAfectado = debeComprobanteAfectado - saldoImpago;
+
+                    //Por defecto vamos a empezar asumiendo que se desean abonar todos los kilos impagos
+                    //en el comprobante a pagarse, o sea, se desea abonar todo el saldo impago del comprobante
+                    importeNotaCredito = saldoImpago;
+
+                    //kilos facturados
+                    tfKilosFacturados.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 7)));
+                    //importe del comprobante
+                    tfImporteTotalComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 5)));
+                    //precio unitario del kilo facturado en el comprobante
+                    precioUnitario = Double.valueOf(tFacturasProductor.getValueAt(fila, 8).toString());
+                    tfPrecioUnitario.setText(String.valueOf(precioUnitario));
+                    //saldo impago del comprobante
+                    tfSaldoImpagoComprobante.setText(String.valueOf(tFacturasProductor.getValueAt(fila, 6)));
+
+                    //en SALDO PENDIENTE deberia guardarse: SALDO IMPAGO - IMPORET NOTA CREDITO (que se vaya ingresando)
+                    //saldo pendiente del comprobante, una vez efectuado el pago!
+                    Double saldoPendienteDePago = saldoImpago - importeNotaCredito;
+                    tfSaldoPendiente.setText(String.valueOf(saldoPendienteDePago));
+                    Double kilosImpagos = saldoImpago / precioUnitario;
+                    totalKilosImpagos = kilosImpagos;
+                    totalKilosIngresadosDevolucion = totalKilosImpagos;
+                    tfKilosImpagos.setText(String.valueOf(kilosImpagos));
+                    //por defecto asumimos que se devolveran todos los kilos que corresponden al saldo del comprobante
+                    //mas de eso no se podria devolver
+                    tfKilosADevolver.setText(String.valueOf(kilosImpagos));
+                    tfImporteNotaCredito.setText(String.valueOf(kilosImpagos * precioUnitario));
+
+                    //esto es para inicializar los campos en la ultima pestaña!
+                    tfKilosFinalesNC.setText(String.valueOf(totalKilosImpagos));
+                    Double cantidadKilos = totalKilosImpagos;
+                    tfPrecioUnitarioFinalNC.setText(tfPrecioUnitario.getText());
+                    Double precioUnitario = Double.valueOf(tfPrecioUnitario.getText());
+                    tfImporteTotalNC.setText(String.valueOf(cantidadKilos * precioUnitario));
+
+                    //para mostrar conversion de kilos a tambores y a lotes
+                    //VER COMO PUEDO REDONDEAR!
+                    if (tfKilosADevolver.getText().length() != 0){
+
+                        Double kilos = Double.parseDouble(tfKilosADevolver.getText());
+                        Double tambores = kilos / 300;
+                        tfTambores.setText(String.valueOf(Math.round(tambores*100.0)/100.0)+" TAMBORES");
+                        Double lotes = kilos / 21000;
+                        tfLotes.setText(String.valueOf(Math.round(lotes*100.0)/100.0)+" LOTES");
+
+                    }
+                    else{
+
+                        tfTambores.setText("0 TAMBORES");
+                        tfLotes.setText("0 LOTES");
+
+                    }
 
                 }
-
             }
         
         }

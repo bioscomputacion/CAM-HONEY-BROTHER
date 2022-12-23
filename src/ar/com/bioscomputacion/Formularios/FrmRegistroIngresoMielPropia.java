@@ -528,6 +528,7 @@ public class FrmRegistroIngresoMielPropia extends javax.swing.JInternalFrame {
 
             //se asigna a la compra el valor: FACTURADA, ya que es un ingreso de miel propia.
             stockMiel.setEstado_compra("FACTURADA");
+            stockMiel.setEstado_movimiento("VALIDO");
 
             stockMiel.registrarMovimientoStock(stockMiel);
 

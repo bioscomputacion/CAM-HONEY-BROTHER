@@ -293,9 +293,9 @@ public class NotaCreditoProductor {
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID NOTA CREDITO", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL", "COMPROBANTE ASOCIADO"};
+        String[] titulos = {"ID NOTA CREDITO", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL", "COMPROBANTE ASOCIADO", "COMPROBANTE AFECTADO"};
 
-        String[] registros = new String[8];
+        String[] registros = new String[9];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -306,7 +306,7 @@ public class NotaCreditoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_nota_credito, f.numero_comprobante, f.fecha_nota_credito, f.codigo_productor, o.nombre, f.importe_total_nota_credito, f.cantidad_miel_afectada, f.codigo_comprobante_pagado from nota_credito_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_nota_credito <> '1' and f.tipo_nota_credito = 'NOTA DE CREDITO A' and f.fecha_nota_credito BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_nota_credito");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_nota_credito, f.numero_comprobante, f.fecha_nota_credito, f.codigo_productor, o.nombre, f.importe_total_nota_credito, f.cantidad_miel_afectada, f.codigo_comprobante_pagado, g.numero_comprobante as factura from nota_credito_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona join factura_productor g on f.codigo_comprobante_pagado = g.codigo_factura WHERE f.codigo_nota_credito <> '1' and f.tipo_nota_credito = 'NOTA DE CREDITO A' and f.fecha_nota_credito BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_nota_credito");
 
             while (rs.next()) {
                 
@@ -318,8 +318,7 @@ public class NotaCreditoProductor {
                 registros[5] = rs.getString("importe_total_nota_credito");
                 registros[6] = rs.getString("cantidad_miel_afectada");
                 registros[7] = rs.getString("codigo_comprobante_pagado");
-                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
-                //registros[6] = rs.getString("");
+                registros[8] = rs.getString("factura");
 
                 modelo.addRow(registros);
                 
@@ -331,7 +330,6 @@ public class NotaCreditoProductor {
             
         } catch (Exception e) {
             
-            System.out.println("error");
             
         }
         
@@ -346,9 +344,9 @@ public class NotaCreditoProductor {
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID NOTA CREDITO", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL", "COMPROBANTE ASOCIADO"};
+        String[] titulos = {"ID NOTA CREDITO", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL", "COMPROBANTE ASOCIADO", "COMPROBANTE AFECTADO"};
 
-        String[] registros = new String[8];
+        String[] registros = new String[9];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -359,7 +357,7 @@ public class NotaCreditoProductor {
             ConexionBD mysql = new ConexionBD();
             Connection cn = mysql.getConexionBD();
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT f.codigo_nota_credito, f.numero_comprobante, f.fecha_nota_credito, f.codigo_productor, o.nombre, f.importe_total_nota_credito, f.cantidad_miel_afectada, f.codigo_comprobante_pagado from nota_credito_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona  WHERE f.codigo_nota_credito <> '1' and f.tipo_nota_credito = 'NOTA DE CREDITO C' and f.fecha_nota_credito BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_nota_credito");
+            ResultSet rs = st.executeQuery("SELECT f.codigo_nota_credito, f.numero_comprobante, f.fecha_nota_credito, f.codigo_productor, o.nombre, f.importe_total_nota_credito, f.cantidad_miel_afectada, f.codigo_comprobante_pagado, g.numero_comprobante as factura from nota_credito_productor f join productor p on f.codigo_productor = p.cod_productor join persona o on p.cod_persona = o.cod_persona join factura_productor g on f.codigo_comprobante_pagado = g.codigo_factura WHERE f.codigo_nota_credito <> '1' and f.tipo_nota_credito = 'NOTA DE CREDITO C' and f.fecha_nota_credito BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"' ORDER BY f.codigo_nota_credito");
 
             while (rs.next()) {
                 
@@ -371,8 +369,7 @@ public class NotaCreditoProductor {
                 registros[5] = rs.getString("importe_total_nota_credito");
                 registros[6] = rs.getString("cantidad_miel_afectada");
                 registros[7] = rs.getString("codigo_comprobante_pagado");
-                //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
-                //registros[6] = rs.getString("");
+                registros[8] = rs.getString("factura");
 
                 modelo.addRow(registros);
                 
@@ -384,7 +381,6 @@ public class NotaCreditoProductor {
             
         } catch (Exception e) {
             
-            System.out.println("error");
             
         }
         
@@ -462,6 +458,39 @@ public class NotaCreditoProductor {
     
     }
     
+    public int mostrarCodigoProductorNotaCredito(int codigoNotaCredito) {
+        
+        int codigoProductor = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select codigo_productor from nota_credito_productor where codigo_nota_credito = '" + codigoNotaCredito + "'");
+
+            while (rs.next()){
+            
+                codigoProductor = rs.getInt("codigo_productor");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoProductor;
+            
+        }
+        
+        return codigoProductor;
+    
+    }
+    
     public String mostrarNombreProductorNotaCredito(int codigoNotaCredito) {
         
         String nombreProductor = "";
@@ -474,7 +503,7 @@ public class NotaCreditoProductor {
             
             Statement st = cn.createStatement();
             //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
-            ResultSet rs = st.executeQuery("select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = '" + codigoNotaCredito + "' and descripcion_movimiento = 'NOTA DE CREDITO A' or 'NOTA DE CREDITO C'");
+            ResultSet rs = st.executeQuery("select r.nombre from nota_credito_productor n join productor p on n.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where n.codigo_nota_credito = '"+ codigoNotaCredito +"'");
 
             while (rs.next()){
             
@@ -559,6 +588,103 @@ public class NotaCreditoProductor {
         }
         
         return numeroFactura;
+    
+    }
+    
+    public String mostrarNumeroComprobanteNotaCredito(int codigoNotaCredito) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numero_comprobante from nota_credito_productor WHERE codigo_nota_credito = '" + codigoNotaCredito + "'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
+    public Date mostrarFechaNotaCredito(int codigoNotaCredito) {
+        
+        Date fecha = Date.valueOf(LocalDate.now());
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT fecha_nota_credito from nota_credito_productor WHERE codigo_nota_credito = '" + codigoNotaCredito + "'");
+
+            while (rs.next()){
+            
+                fecha = rs.getDate("fecha_nota_credito");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return fecha;
+            
+        }
+        
+        return fecha;
+    
+    }
+    
+    public int mostrarCodigoMovimientoEnCtaCteNotaCreditoProductor(int codigoNotaCredito) {
+        
+        int codigoMovimientoCtaCte = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_movimiento from cta_cte_productor where (descripcion_movimiento = 'NOTA DE CREDITO A' or descripcion_movimiento = 'NOTA DE CREDITO C') and comprobante_asociado = '" + codigoNotaCredito + "'");
+
+            while (rs.next()){
+            
+                codigoMovimientoCtaCte = rs.getInt("codigo_movimiento");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoMovimientoCtaCte;
+            
+        }
+        
+        return codigoMovimientoCtaCte;
     
     }
     

@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.Cliente;
 import ar.com.bioscomputacion.Funciones.ComprobantesRelacionadosCompraConsignacion;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
@@ -195,6 +196,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
         rSPanelShadow1 = new rojeru_san.RSPanelShadow();
         rSPanelShadow2 = new rojeru_san.RSPanelShadow();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tpCompraConsignacion = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -219,6 +221,8 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         dcFechaDevolucion = new com.toedter.calendar.JDateChooser();
         rdbrRegistrar = new rojeru_san.RSButtonRiple();
         rsbrCancelar = new rojeru_san.RSButtonRiple();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(true);
@@ -255,7 +259,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("SE ESTA DEVOLVIENDO MIEL FINANCIADA POR:");
+        jLabel18.setText("SE ESTA DEVOLVIENDO MIEL CONSIGNADA POR:");
 
         tfDatosCompraConsignacion.setEditable(false);
         tfDatosCompraConsignacion.setBackground(new java.awt.Color(0, 0, 0));
@@ -371,32 +375,34 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
                             .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dcFechaDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel27)
-                                .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfNumeroComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dcFechaDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                        .addGap(359, 359, 359))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfCantidadKilos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27)
+                                    .addComponent(tfTambores, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28)
+                                    .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfCantidadKilos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(349, 349, 349)))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,7 +453,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        tpCompraConsignacion.addTab("Datos del credito afectado por la devolucion", jPanel2);
+        tpCompraConsignacion.addTab("Datos de la compra en consignacion afectada por la devolucion", jPanel2);
 
         rdbrRegistrar.setBackground(new java.awt.Color(47, 110, 164));
         rdbrRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Iconos/editar.png"))); // NOI18N
@@ -547,33 +553,38 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
         String comprobanteAfectado = "CONSIG. N° "+codigoCompra;
 
+        //1)
         //Se procede al registro del comprobante correspondiente a la devolucion de miel de la compra a consignacion
-        
         //Se obtiene el numero de movimiento que tendra el comprobante de devolucion en la cuenta corriente con el productor
         //ademas en la variable codigoMovimientoCtaCteCompra ya tenemos almacenado el numero de movimiento correspndiente
         //a la compra en consignacion, ya que a la misma se le debe editar el estado en algunos casos (pasandolo a CANCELADO)   
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
 
-        
-        //el unico comprobante que se puede escoger es DEVOLUCION
+        //el unico comprobante que se puede escoger es DEVOLUCION (ya que no es una facturacion que puede ser con factura A,
+        //factura C o presupuesto
         DevolucionProductor devolucion = new DevolucionProductor(numeroComprobante, codigoMovimientoCtaCte, codigoProductor, new Date(a1, m1, d1), totalMielDevuelta);
         if (devolucion.registrarDevolucionProductor(devolucion)){
 
+            //obtengo codigo de la devolucion para almacenar la relacion entre la misma y la compra en consignacion
+            codigoDevolucion = devolucion.mostrarIdDevolucionProductor();
             //esto es para almacenar la relacion entre el comprobante de devolucion que se esta almacenando
             //y la compra en consignacion a la que esta afectando dicho comprobante
             ComprobantesRelacionadosCompraConsignacion comprobanteRelacionado = new ComprobantesRelacionadosCompraConsignacion();
 
+            //2)
             //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION (para saber que cantidad de kgs.
-            //se abonaron con este comprobante: factura a, b o presupuesto)
+            //se devolvieron con este comprobante de devolucion
             comprobanteRelacionado.setCodigoProductor(codigoProductor);
             comprobanteRelacionado.setCodigoCompra(codigoCompra);
             comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoDevolucion);
             comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
             comprobanteRelacionado.setCantidadMielAfectada(totalMielDevuelta);
+            comprobanteRelacionado.setEstado_comprobante_facturacion("VALIDO");
             comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
 
-            //Ahora se guarda el movimiento correspondiente a la factura o presupuesto, en la cta. cte. de la empresa con el productor
+            //3)
+            //Ahora se guarda el movimiento correspondiente a la DEVOLUCION, en la cta. cte. de la empresa con el productor
             ctacteProductor.setCodigoProductor(codigoProductor);
             ctacteProductor.setCodigoMovimiento(codigoMovimientoCtaCte);
             ctacteProductor.setFechaMovimiento(new Date(a1, m1, d1));
@@ -585,12 +596,12 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
             ctacteProductor.setDebe(0.00);
             ctacteProductor.setHaber(0.00);
             ctacteProductor.setSaldo(0.00);
-            //se guarda con estado de comprobante como "PENDIENTE", ya que obviamente se acaba de facturar y esta impago
+            //se guarda con estado de comprobante como "cancelado", ya que es una devolucion que no esta pendiente de facturacion
             ctacteProductor.setEstadoMovimiento("CANCELADO");
             ctacteProductor.setObservacion("");
             ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
 
-            //ADEMAS:
+            //4) ADEMAS:
             //Una vez cargado el comprobante de devolucion por la cantidad de miel que se haya decidido devolver
             //es necesario realizar el siguiente analisis:
             //1) Se devuelve la compra en consignacion completa
@@ -599,93 +610,155 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
             if (totalMielMantenidaEnConsignacion != 0.00){
 
                 //significa que no se devolvio toda la miel comprada en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. Se mantendran en consignacion: "+totalMielMantenidaEnConsignacion+" kgs. de miel.", "REGISTRO DE DEVOLUCION DE MIEL EN COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
             }
             else{
 
                 //Significa que se devolvio toda la miel comprada en consignacion, se debe CANCELAR la compra en consignacion
-                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. La compra en consignacion ha sido cancelada.", "DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Se devolvieron: "+totalMielDevuelta+" kgs. de miel. La compra en consignacion ha sido cancelada.", "REGISTRO DE DEVOLUCION DE MIEL EN COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
                 //El estado de la compra en consignacion pasa a ser "CANCELADO", se debe editar tal movimiento en cta. cte.
                 //tengo que obtener el codigoMovimientoCtaCteCompra pero de la compra en consignacion, para pder cancelarla!!!
-                //ctacteProductor.cancelarCompraConsignacion(codigoMovimientoCtaCteCompra, codigoProductor);
+                ctacteProductor.cancelarCompraConsignacionCtaCte(codigoMovimientoCtaCteCompra, codigoProductor);
 
             }
 
         }
         
-        //ULTIMO PASO A REALIZAR:
-        //El stock global de la empresa debe alterarse y reflejar el cambio realizado
-        //ya que ahora se cuenta con menos miel "impaga" debido a la devolucion de la misma
-        //(las devoluciones restan el stock globlal de miel impaga de la empresa, y el stock de miel impaga
-        //de la locacion en la que se encuentre la miel devuelta)
-        //SE DEBE RESTAR LA MISMA CANTIDAD DEL STOCK DE MIEL "IMPAGO", YA QUE LA MIEL
-        //EN CONSIGNACION DEVUELTA YA NO ES PARTE DEL STOCK DE MIEL "IMPAGO" DE LA EMPRESA
-
+        //ANTE ULTIMO PASO A REALIZAR! REGISTRO DE LA DEVOLUCION EN LA TABLA STOCK REAL DE MIEL
+        
+        //A) Se esta devolviendo miel de forma parcial o total desde una compra en consignacion
+        //B) Dicha devolucion disminuira el stock de miel IMPAGO de la locacion involucrada y de la empresa a nivel global
+        //C) El movimiento que se registra en la cta. cte. con el productor es el comprobante de devolucion
+        //y queda vinculado a la compra en consignacion de la que se esta devolviendo miel
+        //D) el movimiento que se registra a nivel stock es DEVOLUCION y queda asociado al tipo de comprobante DEVOLUCION
+        //(en este punto deberia ver como vincular la DEVOLUCION tamb a la consignacion desde la que se creo
+        //Dicha DEVOLUCION no restara el total devuelto, sino que antes pasara por un filtro de ajuste y compensacion de stock
+        //para no restar miel al stock de miel impago, la cual ya ha sido vendida como miel impaga y ya no se
+        //encuentra estoqueada como tal, evitando asi errores de consistencia: especificamente, no restar miel al stock impago
+        //si la misma ha sido vendida o trasladada a otra locacion
+        //El resultado de aplicar el filtro de ajuste y compensacion de stock sera la cantidad
+        //de miel impaga que se debe restar al stock de miel impaga de la empresa y ademas se actualizara la tabla
+        //que guarda los valores de miel paga, miel impaga y miel impaga vendida / trasladada de la locacion en cuestion
+        
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
         StockRealMiel stockMiel = new StockRealMiel();
-        stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
-        stockMiel.setTipo_movimiento("DEVOLUCION");
-        stockMiel.setComprobante_asociado(tipoComprobante);
-        stockMiel.setId_comprobante_asociado(codigoDevolucion);
-        
-        stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
-        stockMiel.setCantidad_miel(totalMielDevuelta);
-        //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
-        //no se almacenara nada!
-        //debo obtener el codigo de la locacion a partir del nombre de la misma
-        //escogido en el combo de locaciones disponibles
-
-        stockMiel.setLocacion_miel(codigoLocacion);
-
-        //chequeo si la miel a devolver se encuentra en la locacion de un productor
         Locacion locacion = new Locacion();
-        String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
 
-        if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
+        Double cantidadMielImpagaVendida = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+        //Double saldoMielASumarStockPago = 0.00;
+        Double saldoMielARestarStockImpago = 0.00;
+        Double nuevoSaldoMielImpagaVendida = 0.00;
 
-            //se trata de una devolucion en la cual la miel devuelta se encuentra en la locacion
-            //de un productor
-            //cargo en el campo correspondiente el codigo del productor vendedor en esta compra
-            stockMiel.setMiel_deposito_productor(codigoProductor);
-
-            //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
-            //viendola de manera global como "miel acopiada en locacion del productor"
-            //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
-            //comprada y depositada en cada uno de los productores correspondientes
-
-            //cuando realice un traslado desde la locacion "locacion del productor"
-            //voy a tener que descontar el stock global de dicha locacion
-            //y discriminar y descontar consecuentemente la miel depositada
-            //en la locacion del productor desde el cual se va a trasladar dicha miel
-
-        }
-
-        //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
-        stockMiel.setEstado_compra("SIN FACTURAR");
-
-        //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
-        stockMiel.registrarMovimientoStock(stockMiel);
-
-        JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","DEVOLUCION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
+        //si esta variable es mayor a cero significa que existen kilos de miel comprada en consignacion
+        //que han sido ya vendidos o trasladados a otra locacion, 
+        //entonces debe realizarse un ajuste y compensacion internxs del stock de miel.
         
-        java.util.Locale locale = new Locale("es", "CL");
-        try {
-            JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("reporteDevolucion.jasper"));
+        if (cantidadMielImpagaVendida > 0){
+        
+            //Posibles casos a darse:
+            
+            //1) que la cantidad de miel impaga a devolverse sea mayor que la cantidad de miel impaga ya vendida
+            if (totalMielDevuelta > cantidadMielImpagaVendida) {
+                
+                saldoMielARestarStockImpago = totalMielDevuelta - cantidadMielImpagaVendida;
+                //directamente queda en 0.00!
+                nuevoSaldoMielImpagaVendida = 0.00;
 
-            Map parametro = new HashMap<String, Integer>();
+            }
+            else{
+                
+                //2) que la cantidad de miel impaga a devolverse sea igual a la cantidad de miel impaga ya vendida
+                if (totalMielDevuelta.equals(cantidadMielImpagaVendida)){
+                    
+                    saldoMielARestarStockImpago = 0.00;
+                    //directamente queda en 0.00!
+                    nuevoSaldoMielImpagaVendida = 0.00;
+                
+                }
+                else{
+                    
+                    //3) que la cantidad de miel impaga a devolverse sea menor que la cantidad de miel impaga ya vendida
+                    saldoMielARestarStockImpago = 0.00;
+                    nuevoSaldoMielImpagaVendida = cantidadMielImpagaVendida - totalMielDevuelta;
 
-            parametro.put("codigo_devolucion", codigoDevolucion);
-            JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
-            parametro.put(JRParameter.REPORT_LOCALE, locale);
-            JasperViewer jv = new JasperViewer(jp, false);
-            jv.show();
-
-            // JasperPrintManager.printReport( jp, true);
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(rootPane, e);
+                }
+                
+            }
+        
         }
+        //si esta variable es 0 significa que no hay miel IMPAGA que haya sido vendida o trasladada desde la locacion
+        //entonces NO debe realizarse un ajuste y compensacion internxs del stock de miel.
+        //Por ende, debe restarse del stock de miel impago
+        //la cantidad de miel facturada y no debe tocarse el saldo de miel impaga vendida o trasladada desde la locacion
+        else{
+
+            saldoMielARestarStockImpago = totalMielDevuelta;
+            //directamente queda en 0.00!
+            nuevoSaldoMielImpagaVendida = 0.00;
+
+        }
+
+        //Si existe un nuevo saldo de miel impaga para ser restado le damos salida del stock de miel impago
+        if (saldoMielARestarStockImpago > 0.00){
+
+            stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
+            stockMiel.setTipo_movimiento("DEVOLUCION");
+                stockMiel.setComprobante_asociado("DEVOL. / CONSIG.");
+            stockMiel.setId_comprobante_asociado(codigoDevolucion);
+
+            stockMiel.setNumero_comprobante_asociado(String.valueOf(codigoDevolucion)+" / "+String.valueOf(codigoCompra));
+            stockMiel.setCantidad_miel(saldoMielARestarStockImpago);
+            //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
+            //no se almacenara nada!
+            //debo obtener el codigo de la locacion a partir del nombre de la misma
+            //escogido en el combo de locaciones disponibles
+
+            stockMiel.setLocacion_miel(codigoLocacion);
+
+            String categoriaLocacion = locacion.mostrarCategoriaLocacion(codigoLocacion);
+            
+            //chequeo si la miel a devolver se encuentra en la locacion de un productor
+            if (categoriaLocacion.equals("DEPOSITO DE PRODUCTOR")){
+
+                //se trata de una facturacion en la cual la miel facturada se encuentra en la locacion
+                //de un productor
+                //cargo en el campo correspondiente el codigo del productor vendedor en esta compra
+                stockMiel.setMiel_deposito_productor(codigoProductor);
+
+                //teniendo este dato voy a poder llevar la cantidad de miel que hay en cada productor vendedor
+                //viendola de manera global como "miel acopiada en locacion del productor"
+                //pero pudiendo calcular y descontar o aumentar cuando sea necesario, la miel
+                //comprada y depositada en cada uno de los productores correspondientes
+
+                //cuando realice un traslado desde la locacion "locacion del productor"
+                //voy a tener que descontar el stock global de dicha locacion
+                //y discriminar y descontar consecuentemente la miel depositada
+                //en la locacion del productor desde el cual se va a trasladar dicha miel
+
+            }
+
+            //se asigna a la devolucion el valor: FACTURADA, ya que es una devolucion de miel de una consignacion
+            stockMiel.setEstado_compra("SIN FACTURAR");
+            stockMiel.setEstado_movimiento("VALIDO");
+
+            //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
+            stockMiel.registrarMovimientoStock(stockMiel);
+
+        }
+        
+        //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+        //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion);
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion) - saldoMielARestarStockImpago;
+        Double cantidadMielImpagaVendidadLocacion = nuevoSaldoMielImpagaVendida;
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
+
+        JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","REGISTRO DE DEVOLUCION DE MIEL DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
@@ -857,6 +930,7 @@ public class FrmDevolucionCompraConsignacion extends javax.swing.JInternalFrame 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static com.toedter.calendar.JDateChooser dcFechaDevolucion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

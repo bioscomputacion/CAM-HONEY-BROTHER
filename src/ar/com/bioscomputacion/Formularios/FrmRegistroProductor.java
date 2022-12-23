@@ -131,7 +131,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("NOMBRE/S Y APELLIDO/S:");
+        jLabel4.setText("* NOMBRE/S Y APELLIDO/S:");
 
         tfNombre.setBackground(new java.awt.Color(51, 84, 111));
         tfNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -801,7 +801,6 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfUbicacionColmenas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -812,7 +811,7 @@ public class FrmRegistroProductor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(cbCuraMiel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         tpProductor.addTab("Caracteristicas de la miel ofrecida", jPanel5);

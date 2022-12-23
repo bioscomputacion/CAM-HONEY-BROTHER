@@ -529,7 +529,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfBusquedaPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
@@ -661,7 +661,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         jButton5.setBackground(new java.awt.Color(0, 0, 0));
         jButton5.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("  ANULAR PRESUPUESTO  ");
+        jButton5.setText("  REGISTRAR CREDITO  ");
         jButton5.setBorderPainted(false);
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -750,9 +750,10 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
 
         tpFactura.addTab("Cuenta corriente con el productor seleccionado", jPanel3);
 
-        rsbrSalir.setBackground(new java.awt.Color(47, 110, 164));
+        rsbrSalir.setBackground(new java.awt.Color(0, 0, 0));
+        rsbrSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/bioscomputacion/Imagenes/btn-cerrar.png"))); // NOI18N
         rsbrSalir.setText("SALIR");
-        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 14)); // NOI18N
+        rsbrSalir.setFont(new java.awt.Font("Roboto Bold", 3, 16)); // NOI18N
         rsbrSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rsbrSalirActionPerformed(evt);
@@ -765,15 +766,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tpFactura)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(rsbrSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(tpFactura)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rsbrSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -868,14 +869,22 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //3er chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion ya facturada
             if (tMovimientos.getValueAt(fila2, 12).toString().equals("CANCELADO")) {
                 
-                JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra a consignacion ya facturada. Seleccione otro compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra en consignacion ya facturada. Seleccione otro compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
                 return;
                 
             }
             
-            // "ID PRODUCTOR", "ID MOVIMIENTO", "FECHA", "REFERENCIA", "COMPROBANTE ASOCIADO", "N° COMPROB.", "KGS. MIEL COMPRADOS", "KGS. MIEL IMPAGOS", "IMPORTE", "PAGADO", "SALDO", "ESTADO MOVIMIENTO", "OBSERVACION"};
+            //4to chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion anulada
+            if (tMovimientos.getValueAt(fila2, 12).toString().equals("ANULADO")) {
+                
+                JOptionPane.showMessageDialog(null, "Esta intentando facturar una compra en consignacion anulada. Seleccione otro compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
+                tMovimientos.requestFocus();
+                return;
+                
+            }
             
+            //SE DESPLIEGA EL FORMULARIO DE FACTURACION DE LA COMPRA EN CONSIGNACION
             FrmFacturacionCompraConsignacion form = new FrmFacturacionCompraConsignacion();
             
             //asigno valores que debera mostrar el formulario de pago al productor
@@ -891,12 +900,12 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             //recuerdo la cantidad de miel adquirida originalmente en la compra
             //y la cantidad de miel ya descontada de la misma, ya sea por facturacion o por devolucion de miel en ella
             FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString());
-            FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
             FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion = Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
+            FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra = Double.valueOf(tMovimientos.getValueAt(fila2, 7).toString()) - Double.valueOf(tMovimientos.getValueAt(fila2, 8).toString());
             //ademas muestro estos datos debajo de la grilla de items financiados disponibles para la facturacion
-            String totales = String.valueOf("  TOTALES: Miel financiada: "+FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra+" kgs. / Miel descontada: "+FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra+"kgs. / Miel en consignacion: "+FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion+" kgs.");
+            String totales = String.valueOf("  TOTALES: Miel financiada: "+FrmFacturacionCompraConsignacion.totalMielFinanciadaCompra+" kgs. / Miel descontada: "+FrmFacturacionCompraConsignacion.totalMielYaDescontadaCompra+"kgs. / Miel mantenida en consignacion: "+FrmFacturacionCompraConsignacion.totalMielMantenidaEnConsignacion+" kgs.");
             FrmFacturacionCompraConsignacion.tfTotalesMielCompra.setText(totales);
-            //importe, pagado y saldo no hace falta pasar ya que no se manejan valores en este tipo de movimientos, va 0 en todos
+            //importe, pagado y saldo no hace falta pasar ya que no se manejan valores de dinero en este tipo de movimientos, va 0 en todos
             //estado de movimiento no hace falta pasar, se asentara CANCELADO o  PENDIENTE segun corresponda
             FrmFacturacionCompraConsignacion.observacionCompra = tMovimientos.getValueAt(fila2, 13).toString();
             
@@ -953,6 +962,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             if (tMovimientos.getValueAt(fila2, 12).toString().equals("CANCELADO")) {
                 
                 JOptionPane.showMessageDialog(null, "Esta intentando afectar con una devolucion de miel una compra en consignacion ya cancelada. Seleccione otro comprobante para poder llevar a cabo dicha tarea por favor.", "DEVOLUCION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
+                tMovimientos.requestFocus();
+                return;
+                
+            }
+            
+            //4to chequeo: se debe corroborar que no se esta intentando facturar una compra a consignacion anulada
+            if (tMovimientos.getValueAt(fila2, 12).toString().equals("ANULADO")) {
+                
+                JOptionPane.showMessageDialog(null, "Esta intentando afectar con una devolucion de miel una compra en consignacion anulada. Seleccione otra compra en consignacion para facturar la misma por favor.", "FACTURACION DE COMPRA EN CONSIGNACION", JOptionPane.ERROR_MESSAGE);
                 tMovimientos.requestFocus();
                 return;
                 
@@ -1023,7 +1041,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         
         //2do chequeo: se debe corroborar que se esta intentando pagar una factura o un presupuesto y no otro tipo
         //de movimiento, como por ejemplo: un pago anterior, un saldo a favor, etc.
-        if (tMovimientos.getValueAt(fila2, 3).toString().equals("PAGO") || tMovimientos.getValueAt(fila2, 3).toString().equals("SALDO A FAVOR")) {
+        if (!(tMovimientos.getValueAt(fila2, 3).toString().equals("FACTURA A") || tMovimientos.getValueAt(fila2, 3).toString().equals("FACTURA C") || tMovimientos.getValueAt(fila2, 3).toString().equals("PRESUPUESTO"))) {
             
             JOptionPane.showMessageDialog(null, "No se puede vincular un pago al movimiento seleccionado. Seleccione una factura o un presupuesto para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tMovimientos.requestFocus();
@@ -1045,6 +1063,15 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             
             System.out.println("Entra bien!");
             JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante ya cancelado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            tMovimientos.requestFocus();
+            return;
+            
+        }
+        
+        //5to chequeo: se debe corroborar que no se esta intentando abonar una factura o un presupuesto anulado
+        if (tMovimientos.getValueAt(fila2, 12).toString().equals("ANULADO")) {
+            
+            JOptionPane.showMessageDialog(null, "Esta intentando abonar un comprobante anulado. Seleccione otro comprobante para realizar el pago correspondiente por favor.", "REGISTRO DE PAGO A PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tMovimientos.requestFocus();
             return;
             
@@ -1112,7 +1139,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
             
             //no se esta visualizando la cta. cte de ningun productor!
             
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un productor para visualizar su cta. cte..", "REGISTRO DE ANULACION DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un productor para visualizar su cta. cte..", "REGISTRO DE CREDITO DE PRESUPUESTO DE PRODUCTOR", JOptionPane.ERROR_MESSAGE);
             tMovimientos.requestFocus();
             return;
             
@@ -1121,7 +1148,7 @@ public class FrmCtaCteConProductor extends javax.swing.JInternalFrame {
         //se abre el formulario de asociacion de ANULACION (el mismo muestra todlos presupuestos del productor)
         try {
             
-            FrmRegistroAnulacionPresupuestoProductor form = new FrmRegistroAnulacionPresupuestoProductor();
+            FrmRegistroCreditoPresupuestoProductor form = new FrmRegistroCreditoPresupuestoProductor();
             //asigno valores que debera mostrar el formulario de anulacion
             //form.tfInformacion.setText(tMovimientos.getValueAt(fila2, 3).toString()+" N° "+tMovimientos.getValueAt(fila2, 5).toString()+" / Productor N° "+tfIDProductor.getText()+": "+tfNombreProductor.getText());
             

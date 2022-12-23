@@ -67,6 +67,7 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
         //Ver la forma de averiguar cual es el realmente el numero de presupuesto que se cargara
         //sin tener que insertar un presupuesto de antemano!
         codigoCredito = credito.mostrarIdCreditoProductor()+1;
+        System.out.println(codigoCredito);
 
         //preparo las fechas de carga y de vencimiento del presupuesto
         Calendar cal = new GregorianCalendar();
@@ -932,6 +933,7 @@ public class FrmRegistroCreditoProductor extends javax.swing.JInternalFrame {
             //se asigna a la compra el valor: SIN FACTURAR, ya que es un credito. Dicho movimiento cambiara su estado
             //a: FACTURADA, cuando la compra a credito sea facturada o presupuestada.
             stockMiel.setEstado_compra("SIN FACTURAR");
+            stockMiel.setEstado_movimiento("VALIDO");
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);

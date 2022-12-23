@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.AjusteCompensacionStock;
 import ar.com.bioscomputacion.Funciones.Cliente;
 import ar.com.bioscomputacion.Funciones.ComprobantesRelacionadosCompraConsignacion;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
@@ -162,10 +163,9 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         
         tfCantidadKilos.requestFocus();
         
-        //System.out.println(codigoProductor);
-        //System.out.println(totalMielFinanciadaCompra);
-        //System.out.println(totalMielYaDescontadaCompra);
-        //System.out.println(totalMielMantenidaEnConsignacion);
+        System.out.println(totalMielFinanciadaCompra);
+        System.out.println(totalMielYaDescontadaCompra);
+        System.out.println(totalMielMantenidaEnConsignacion);
         
     }
 
@@ -288,7 +288,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("SE ESTA FACTURANDO UNA COMPRA A CONSIGNACION CORRESPONDIENTE A:");
+        jLabel18.setText("SE ESTA FACTURANDO UNA COMPRA EN CONSIGNACION CORRESPONDIENTE A:");
 
         tfDatosCompraConsignacion.setEditable(false);
         tfDatosCompraConsignacion.setBackground(new java.awt.Color(0, 0, 0));
@@ -394,7 +394,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)))
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -479,7 +479,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 .addContainerGap(111, Short.MAX_VALUE))
         );
 
-        tpCompraConsignacion.addTab("Datos del credito a facturar", jPanel2);
+        tpCompraConsignacion.addTab("Datos de LA compra en consignacion a facturar", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(51, 84, 111));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -692,10 +692,6 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //c) fechas de la factura y vencimiento de pago de la misma
         //d) importe total del comprobante
         
-        totalMielMantenidaEnConsignacion = totalMielMantenidaEnConsignacion - totalMielAFacturar;
-        System.out.println(totalMielAFacturar);
-        System.out.println(totalMielMantenidaEnConsignacion);
-        
         Boolean informacionFactura = (cbTipoComprobante.getSelectedItem() == "SELECCIONAR" || tfNumeroComprobante.getText().length() == 0 || importeComprobante == 0.00);
 
         //chequea informacion de la factura, la cual es obligatoria para poder registrar la misma
@@ -706,6 +702,8 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             return;
             
         }
+        
+        totalMielMantenidaEnConsignacion = totalMielMantenidaEnConsignacion - totalMielAFacturar;
         
         //obtengo las fechas de factura y de vencimiento del pago de la misma
         Calendar cal1, cal2;
@@ -725,7 +723,28 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //el numero de comprobante del mismo
         //y el importe de facturacion total del mismo
         //el total de la factura se auto calcula al ingresar la cantidad de kgs. a facturar
-        String tipoComprobante = String.valueOf(cbTipoComprobante.getSelectedItem());
+        String tipoComprobante = cbTipoComprobante.getSelectedItem().toString();
+        String tipoComprobanteStockMiel = "";
+        
+        switch (tipoComprobante){
+            
+            case "FACTURA A":
+                
+                tipoComprobanteStockMiel = "FACT. A / CONSIG.";
+                break;
+                
+            case "FACTURA C":
+                
+                tipoComprobanteStockMiel = "FACT. C / CONSIG.";
+                break;
+                
+            case "PRESUPUESTO":
+                
+                tipoComprobanteStockMiel = "PRESUP. / CONSIG.";
+                break;
+        
+        }
+        
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
 
         //1) 
@@ -737,10 +756,6 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         CtaCteProductor ctacteProductor = new CtaCteProductor();
         codigoMovimientoCtaCte = ctacteProductor.mostrarIdMovimiento(codigoProductor)+1;
 
-        //esto es para almacenar la relacion entre el comprobante de facturacion que se esta almacenando
-        //y la compra en consignacion a la que esta afectando dicho comprobante
-        ComprobantesRelacionadosCompraConsignacion comprobanteRelacionado = new ComprobantesRelacionadosCompraConsignacion();
-        
         switch (tipoComprobante){
             
             case "FACTURA A":
@@ -792,6 +807,10 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         }
 
         //2)
+        //esto es para almacenar la relacion entre el comprobante de facturacion que se esta almacenando
+        //y la compra en consignacion a la que esta afectando dicho comprobante
+        ComprobantesRelacionadosCompraConsignacion comprobanteRelacionado = new ComprobantesRelacionadosCompraConsignacion();
+        
         //SE REGISTRA LA RELACION ENTRE EL COMPROBANTE Y LA COMPRA EN CONSIGNACION
         //(para saber que cantidad de kgs. se abonaron con este comprobante, ya sea: factura a, b o presupuesto
         comprobanteRelacionado.setCodigoProductor(codigoProductor);
@@ -799,6 +818,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         comprobanteRelacionado.setCodigo_comprobante_relacionado(codigoComprobante);
         comprobanteRelacionado.setTipo_comprobante_relacionado(tipoComprobante);
         comprobanteRelacionado.setCantidadMielAfectada(totalMielAFacturar);
+        comprobanteRelacionado.setEstado_comprobante_facturacion("VALIDO");
         comprobanteRelacionado.relacionarComprobanteACompraConsignacion(comprobanteRelacionado);
 
         //3)
@@ -809,6 +829,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         ctacteProductor.setDescripcionMovimiento(tipoComprobante);
         ctacteProductor.setComprobanteAsociado(codigoComprobante);
         ctacteProductor.setNumeroComprobante(numeroComprobante);
+        ctacteProductor.setComprobanteAfectado("CONSIG. N° "+codigoCompra);
         ctacteProductor.setCantidadMiel(totalMielAFacturar);
         ctacteProductor.setDebe(importeComprobante);
         ctacteProductor.setHaber(0.00);
@@ -818,7 +839,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         ctacteProductor.setObservacion("");
         ctacteProductor.registrarMovimientoCtaCteProductor(ctacteProductor);
         
-        //ADEMAS:
+        //4) ADEMAS:
         //Una vez cargado el comprobante de facturacion por la cantidad de miel que se haya decidido facturar
         //es necesario realizar el siguiente analisis:
         //1) Se factura la compra en consignacion completa
@@ -840,31 +861,36 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
         }
         
-        //ULTIMO PASO A REALIZAR:
+        //ANTE ULTIMO PASO A REALIZAR! REGISTRO DE LA FACTURACION EN LA TABLA STOCK REAL DE MIEL
         
-        //A) se guarda el movimiento de stock correspondiente a la nueva miel que ingresa como paga
-        //dicho ingreso de MIEL PAGA AL STOCK DE LA EMPRESA dependera de la compensacion aplicada
-        //si existe MIEL IMPAGA YA VENDIDA se realizara dicha compensacion, descontando la cantidad de miel que se acaba de 
-        //facturar de la cantidad de miel impaga vendida y ajustando los valores de miel impaga y miel impaga vendida
-        //sino existe MIEL IMPAGA YA VENDIDA la miel facturada se descuenta del stock impago y ademas se suma al stock pago
-        //YA QUE SE TRATA DE LA FACTURACION (MIEL PAGA) DE MIEL QUE SE ENCUENTRA EN UNA CONSIGNACION (MIEL IMPAGA)
+        //A) Se esta facturando mendiante factura a, factura c o presupuesto parcial o totalmente una compra en consignacion
+        //B) Dicha facturacion disminuira el stock de miel IMPAGO e incrementara el stock de miel PAGO
+        //C) El movimiento que se registra en la cta. cte. con el productor es el comprobante de facturacion: ya sea
+        //factura a, factura c o presupuesto y queda vinculado a la compra en consignacion que se esta facturacion
+        //D) el movimiento que se registra a nivel stock es FACTURACION y queda asociado al tipo de comprobante de
+        //facturacion seleccionado (fact a o c, presupuesto)
+        //(en este punto deberia ver como vincular la facturacion tamb a la consignacion desde la que se creo
+        //Dicha facturacion no sumara el total facturado, sino que antes pasara por un filtro de ajuste y compensacion de stock
+        //para no sumar miel nueva al stock de miel pago, la cual ya ha sido vendida como miel impaga y no ya no se
+        //encuentra estoqueada como tal, evitando asi errores de consistencia: especificamente, no sumar miel al stock pago
+        //que ha sido vendida desde el stock impago y ahora se esta facturando para ser abonada al productor
+        //El resultado de aplicar el filtro de ajuste y compensacion de stock sera la cantidad
+        //de miel paga que se debe sumar al stock de miel paga de la empresa y ademas se actualizara la tabla
+        //que guarda los valores de miel paga, miel impaga y miel impaga vendida / trasladada de la locacion en cuestion
         
-        //VER DESDE ACAAAAAAAAAAAAAAAAA
-        
-        
-        //CompensacionStock compensacion = new CompensacionStock();
-        //para controlar cuantos kgs. de miel impaga (credito o consignacion) se han vendido sin ser facturados
-        //y con este dato compensar el stock a la hora de facturar la cantidad indicada de la consignacion
-        Double cantidadMielImpagaVendida = 0.00; //compensacion.consultarCantidadMielImpagaVendida();
-        System.out.println(cantidadMielImpagaVendida);
-        Double saldoMielASumarStockPago = 0.00;
-        Double saldoMielARestarStockImpago = 0.00;
-        Double nuevoSaldoMielImpagaVendida = 0.00;
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
         StockRealMiel stockMiel = new StockRealMiel();
         Locacion locacion = new Locacion();
 
+        Double cantidadMielImpagaVendida = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacion);
+        Double saldoMielASumarStockPago = 0.00;
+        Double saldoMielARestarStockImpago = 0.00;
+        Double nuevoSaldoMielImpagaVendida = 0.00;
+
         //si esta variable es mayor a cero significa que existen kilos de miel comprada en consignacion
-        //que han sido ya vendidos, entonces debe realizarse una compensacion interna del stock de miel.
+        //que han sido ya vendidos o trasladados a otra locacion, 
+        //entonces debe realizarse un ajuste y compensacion internxs del stock de miel.
+        
         if (cantidadMielImpagaVendida > 0){
         
             //Posibles casos a darse:
@@ -875,18 +901,19 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
                 
                 saldoMielASumarStockPago = totalMielAFacturar - cantidadMielImpagaVendida;
                 saldoMielARestarStockImpago = saldoMielASumarStockPago;
+                //directamente queda en 0.00!
                 nuevoSaldoMielImpagaVendida = 0.00;
 
             }
             else{
                 
                 //2) que la cantidad de miel impaga a facturarse sea igual a la cantidad de miel impaga ya vendida
-                if (totalMielAFacturar == cantidadMielImpagaVendida){
+                if (totalMielAFacturar.equals(cantidadMielImpagaVendida)){
                     
-                    saldoMielASumarStockPago = totalMielAFacturar;
-                    saldoMielARestarStockImpago = totalMielAFacturar;
+                    saldoMielASumarStockPago = 0.00;
+                    saldoMielARestarStockImpago = 0.00;
+                    //directamente queda en 0.00!
                     nuevoSaldoMielImpagaVendida = 0.00;
-                            
                 
                 }
                 else{
@@ -901,22 +928,30 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
             }
         
         }
-        
-        //se actualiza la cantidad miel impaga vendida por la empresa, ya que los movimientos a continuacion ajustaran el stock real
-        //VER ESTOOOO        
-        //compensacion.actualizarCantidadMielImpagaVendida(nuevoSaldoMielImpagaVendida);
-        
-        //si existe saldo de miel para facturada para ser cargada en el stock de miel pago se hace en el siguiente paso
-        //caso contrario no se sumara la miel que se esta facturando al stock de miel pago, ya que se estaria realizando
-        //el ajuste y compensacion de stock
+        //si esta variable es 0 significa que no hay miel IMPAGA que haya sido vendida o trasladada desde la locacion
+        //entonces NO debe realizarse un ajuste y compensacion internxs del stock de miel.
+        //Por ende, debe sumarse al stock pago la cantidad de miel facturada, debe restarse del stock de miel impago
+        //la cantidad de miel facturada y no debe tocarse el saldo de miel impaga vendida o trasladada desde la locacion
+        else{
+
+                saldoMielASumarStockPago = totalMielAFacturar;
+                saldoMielARestarStockImpago = totalMielAFacturar;
+                //directamente queda en 0.00!
+                nuevoSaldoMielImpagaVendida = 0.00;
+
+        }
+
+        //Si esta variable es mayor a 0, entonces hay que sumar miel al stock de miel PAGA
+        //el tipo de movimiento sera FACTURACION, el comprobante asociado sera el escogido para facturar la miel
+        //fact a, fact b o presupuesto
         if (saldoMielASumarStockPago > 0.00){
         
             stockMiel.setFecha_movimiento(new Date(a1, m1, d1));
-            stockMiel.setTipo_movimiento("COMPRA");
-            stockMiel.setComprobante_asociado(tipoComprobante);
+            stockMiel.setTipo_movimiento("AUMENTO DE STOCK PAGO POR FACTURACION");
+            stockMiel.setComprobante_asociado(tipoComprobanteStockMiel);
             stockMiel.setId_comprobante_asociado(codigoComprobante);
 
-            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
+            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText()+" / "+String.valueOf(codigoCompra));
             stockMiel.setCantidad_miel(saldoMielASumarStockPago);
             //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
             //no se almacenara nada!
@@ -949,6 +984,7 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
             //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
             stockMiel.setEstado_compra("FACTURADA");
+            stockMiel.setEstado_movimiento("VALIDO");
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);
@@ -957,11 +993,11 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
         //y si existe un nuevo saldo de miel impaga para ser restado le damos salida del stock de miel impago
         if (saldoMielARestarStockImpago > 0.00){
 
-            stockMiel.setTipo_movimiento("FACTURACION");
-            stockMiel.setComprobante_asociado(tipoComprobante);
+            stockMiel.setTipo_movimiento("DESCUENTO DE STOCK IMPAGO POR FACTURACION");
+            stockMiel.setComprobante_asociado(tipoComprobanteStockMiel);
             stockMiel.setId_comprobante_asociado(codigoComprobante);
 
-            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText());
+            stockMiel.setNumero_comprobante_asociado(tfNumeroComprobante.getText()+" / "+String.valueOf(codigoCompra));
             stockMiel.setCantidad_miel(saldoMielARestarStockImpago);
             //el codigo de la locacion donde se almacenara la miel comprada es un foreign key, si no existe
             //no se almacenara nada!
@@ -994,12 +1030,25 @@ public class FrmFacturacionCompraConsignacion extends javax.swing.JInternalFrame
 
             //se asigna a la compra el valor: FACTURADA, ya que es una compra con factura.
             stockMiel.setEstado_compra("SIN FACTURAR");
+            stockMiel.setEstado_movimiento("VALIDO");
 
             //caso contrario no cargo ningun codigo de productor ya que la miel no se dejo en su locacion
             stockMiel.registrarMovimientoStock(stockMiel);
 
         }
         
+        //ANTES DE CERRAR EL FORMULARIO ACTUALIZO LOS VALORES DE MIEL EN LA LOCACION CORRESPONDIENTE
+        //ESTA TABLE SERVIRA SIEMPRE QUE HAYA QUE AJUSTAR Y COMPENSAR EL STOCK DE MIEL PAGO E IMPAGO!
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacion) + saldoMielASumarStockPago;
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacion) - saldoMielARestarStockImpago;
+        
+        //chequear si esto funciona!!!
+        Double cantidadMielImpagaVendidadLocacion = nuevoSaldoMielImpagaVendida;
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacion);
+
         JOptionPane.showMessageDialog(null, "El comprobante ha sido registrado exitosamente.","REGISTRO DE FACTURACION DE COMPRA EN CONSIGNACION A PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
 
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);

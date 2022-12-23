@@ -354,4 +354,237 @@ public class CreditoProductor {
     
     }
     
+    public String mostrarNumeroComprobanteConsignacion(int codigoConsignacion) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numero_comprobante from credito_productor WHERE codigo_credito = '" + codigoConsignacion + "'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
+    public Double mostrarCantidadMielConsignacion(int codigoConsignacion) {
+        
+        Double cantidadMiel = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT cantidad_miel from credito_productor WHERE codigo_credito = '" + codigoConsignacion + "'");
+
+            while (rs.next()){
+            
+                cantidadMiel = rs.getDouble("cantidad_miel");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return cantidadMiel;
+            
+        }
+        
+        return cantidadMiel;
+    
+    }
+    
+    public Date mostrarFechaConsignacion(int codigoConsignacion) {
+        
+        Date fecha = Date.valueOf(LocalDate.now());
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT fecha_credito from credito_productor WHERE codigo_credito = '" + codigoConsignacion + "'");
+
+            while (rs.next()){
+            
+                fecha = rs.getDate("fecha_credito");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return fecha;
+            
+        }
+        
+        return fecha;
+    
+    }
+    
+    public int mostrarCodigoProductorConsignacion(int codigoConsignacion) {
+        
+        int codigoProductor = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_productor from credito_productor where codigo_credito = '" + codigoConsignacion + "'");
+
+            while (rs.next()){
+            
+                codigoProductor = rs.getInt("codigo_productor");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoProductor;
+            
+        }
+        
+        return codigoProductor;
+    
+    }
+    
+    public int mostrarCodigoMovimientoEnCtaCteConsignacionProductor(int codigoConsignacion) {
+        
+        int codigoMovimientoCtaCte = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_movimiento from cta_cte_productor where descripcion_movimiento = 'CONSIGNACION' and comprobante_asociado = '" + codigoConsignacion + "'");
+
+            while (rs.next()){
+            
+                codigoMovimientoCtaCte = rs.getInt("codigo_movimiento");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoMovimientoCtaCte;
+            
+        }
+        
+        return codigoMovimientoCtaCte;
+    
+    }
+    
+    public boolean chequearComprobantesSobreConsignacion(int codigoConsignacion){
+        
+        boolean consignacionAfectada = false;
+        int cantidadComprobantes = 0;
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select tipo_comprobante_relacionado from comprobantes_relacionados_compra_credito where codigo_compra_consignacion = '"+ codigoConsignacion +"' and estado_comprobante_facturacion <> 'ANULADO'");
+
+            while (rs.next()){
+            
+                cantidadComprobantes = cantidadComprobantes + 1;
+                
+            }
+            
+            if (cantidadComprobantes > 0){
+                
+                consignacionAfectada = true;
+            
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return consignacionAfectada;
+            
+        }
+        
+        return consignacionAfectada;
+    
+    }
+    
+    public int mostrarCodigoConsignacionFacturadaEnComprobante(int codigoComprobante, String tipoComprobante) {
+        
+        int codigoConsignacion = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_compra_consignacion from comprobantes_relacionados_compra_credito where codigo_comprobante_relacionado = '" + codigoComprobante + "' and tipo_comprobante_relacionado = '" + tipoComprobante +"'");
+
+            while (rs.next()){
+            
+                codigoConsignacion = rs.getInt("codigo_compra_consignacion");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoConsignacion;
+            
+        }
+        
+        return codigoConsignacion;
+    
+    }
+    
 }

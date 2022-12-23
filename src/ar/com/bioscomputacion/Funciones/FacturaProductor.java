@@ -306,9 +306,9 @@ public class FacturaProductor {
         
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID FACTURA", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL"};
+        String[] titulos = {"ID FACTURA", "FECHA", "N° COMPROBANTE", "ID PRODUCTOR", "PRODUCTOR","IMPORTE", "KGS. MIEL", "ESTADO"};
 
-        String[] registros = new String[7];
+        String[] registros = new String[8];
 
         modelo = new DefaultTableModel(null, titulos) {
             
@@ -330,6 +330,7 @@ public class FacturaProductor {
                 registros[4] = rs.getString("nombre");
                 registros[5] = rs.getString("importe_total_factura");
                 registros[6] = rs.getString("cantidad_miel_facturada");
+                registros[7] = rs.getString("cantidad_miel_facturada");
                 //ver como cargo la locacion donde se acopio la miel facturada en el comprobante
                 //registros[6] = rs.getString("");
 
@@ -400,6 +401,38 @@ public class FacturaProductor {
     }
     
     //COPIAR DESDE ACA PARA ALGUNOS DE LOS DEMAS COMPROBANTES
+    
+    public String mostrarNumeroComprobanteFactura(int codigoFactura) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numero_comprobante from factura_productor WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
     
     public Double mostrarImporteFactura(int codigoFactura) {
         
@@ -564,6 +597,145 @@ public class FacturaProductor {
         }
         
         return nombreProductor;
+    
+    }
+    
+    public Date mostrarFechaFactura(int codigoFactura) {
+        
+        Date fecha = Date.valueOf(LocalDate.now());
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT fecha_factura from factura_productor WHERE codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                fecha = rs.getDate("fecha_factura");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return fecha;
+            
+        }
+        
+        return fecha;
+    
+    }
+    
+    public boolean chequearAcreditacionesSobreFactura(int codigoFactura){
+        
+        boolean facturaAfectada = false;
+        int cantidadComprobantes = 0;
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select tipo_comprobante_acreditacion \n" +
+            "from comprobantes_acreditacion_comprobantes_afectados_productor \n" +
+            "where codigo_comprobante_afectado_credito = '"+ codigoFactura +"' \n" +
+            "and (tipo_comprobante_afectado_credito = 'FACTURA A' OR tipo_comprobante_afectado_credito = 'FACTURA C') and estado_acreditacion <> 'ANULADO'");
+
+            while (rs.next()){
+            
+                cantidadComprobantes = cantidadComprobantes + 1;
+                
+            }
+            
+            if (cantidadComprobantes > 0){
+                
+                facturaAfectada = true;
+            
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return facturaAfectada;
+            
+        }
+        
+        return facturaAfectada;
+    
+    }
+    
+    public int mostrarCodigoProductorFactura(int codigoFactura) {
+        
+        int codigoProductor = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_productor from factura_productor where codigo_factura = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                codigoProductor = rs.getInt("codigo_productor");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoProductor;
+            
+        }
+        
+        return codigoProductor;
+    
+    }
+    
+    public int mostrarCodigoMovimientoEnCtaCteFacturaProductor(String tipoFactura, int codigoFactura) {
+        
+        int codigoMovimientoCtaCte = 0;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            //select r.nombre from cta_cte_productor c join productor p on c.codigo_productor = p.cod_productor JOIN persona r on p.cod_persona = r.cod_persona where comprobante_asociado = 28 and descripcion_movimiento = "FACTURA A"
+            ResultSet rs = st.executeQuery("select codigo_movimiento from cta_cte_productor where descripcion_movimiento = '" + tipoFactura + "' and comprobante_asociado = '" + codigoFactura + "'");
+
+            while (rs.next()){
+            
+                codigoMovimientoCtaCte = rs.getInt("codigo_movimiento");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return codigoMovimientoCtaCte;
+            
+        }
+        
+        return codigoMovimientoCtaCte;
     
     }
     

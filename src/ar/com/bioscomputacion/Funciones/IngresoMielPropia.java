@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -314,6 +315,131 @@ public class IngresoMielPropia {
         }
         
         return observacion;
+    
+    }
+    
+    //Devuelve: devuelve locacion donde se encuentra depositada la miel comprada en el comprobante consultado
+    public int obtenerLocacionMielIngreso(int codigoIngreso){
+        
+        int locacionMiel = 0;
+        
+        try{
+ 
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select locacion_miel from stock_real_miel where comprobante_asociado = 'INGRESO' and id_comprobante_asociado = " + codigoIngreso);
+            
+            while (rs.next()) {
+
+                locacionMiel = rs.getInt("locacion_miel");
+                
+            }
+            
+            return locacionMiel;
+
+        }catch(Exception e){
+            
+            return locacionMiel;
+            
+        } 
+        
+    }
+
+    public String mostrarNumeroComprobanteIngreso(int codigoIngreso) {
+        
+        String numeroComprobante = "";
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numero_comprobante from ingreso_miel_propia WHERE codigo_ingreso = '" + codigoIngreso + "'");
+
+            while (rs.next()){
+            
+                numeroComprobante = rs.getString("numero_comprobante");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return numeroComprobante;
+            
+        }
+        
+        return numeroComprobante;
+    
+    }
+    
+    public Double mostrarCantidadMielIngreso(int codigoIngreso) {
+        
+        Double cantidadMielIngresada = 0.00;
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT cantidad_miel from ingreso_miel_propia WHERE codigo_ingreso = '" + codigoIngreso + "'");
+
+            while (rs.next()){
+            
+                cantidadMielIngresada = rs.getDouble("cantidad_miel");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return cantidadMielIngresada;
+            
+        }
+        
+        return cantidadMielIngresada;
+    
+    }
+    
+    public Date mostrarFechaIngreso(int codigoIngreso) {
+        
+        Date fecha = Date.valueOf(LocalDate.now());
+
+        
+        try {
+            
+            ConexionBD mysql = new ConexionBD();
+            Connection cn = mysql.getConexionBD();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT fecha_ingreso from ingreso_miel_propia WHERE codigo_ingreso = '" + codigoIngreso + "'");
+
+            while (rs.next()){
+            
+                fecha = rs.getDate("fecha_ingreso");
+                
+            }
+
+            ConexionBD.close(cn);
+            ConexionBD.close(st);
+            ConexionBD.close(rs);
+            
+        } catch (Exception e) {
+            
+            return fecha;
+            
+        }
+        
+        return fecha;
     
     }
     

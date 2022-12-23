@@ -195,7 +195,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("* NOMBRE/S Y APELLIDO:");
+        jLabel11.setText("* NOMBRE/S Y APELLIDO/S:");
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -436,7 +436,7 @@ public class FrmRegistroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDomicilioFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         tpCliente.addTab("Datos para la facturacion", jPanel3);

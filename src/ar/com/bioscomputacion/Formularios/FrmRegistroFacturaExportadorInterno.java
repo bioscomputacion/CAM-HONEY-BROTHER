@@ -47,11 +47,20 @@ import javax.swing.table.TableModel;
  */
 public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFrame {
 
-    public int codigoExportadorInterno, codigoFactura, codigoPresupuesto, codigoItemFacturado, codigoMovimientoCtaCte;
+    public int codigoExportadorInterno, codigoFactura, codigoPresupuesto, codigoMovimientoCtaCte;
     public Double totalMielAFacturar, importeTotalComprobante;
     public String numeroPresupuesto, tipoComprobante;
     public List<Locacion> listaLocacionesDisponibles = new ArrayList<>();
     
+    //para recordar los registros de la tabla stock de miel que se deben eliminar en caso de que
+    //no se confirme la venta de la miel
+    public int codigoTrasladoOrigenMielPaga, codigoTrasladoOrigenMielImpaga, codigoTrasladoDestinoMielPaga, codigoTrasladoDestinoMielImpaga;
+    //para recordar la cantidad de miel paga y la cantidad de miel impaga que se debe re ajustar en la tabla
+    //de ajuste y compensacion de stock, en caso de no confirmarse la venta de miel
+    public double mielPagaVendida, mielImpagaVendida;
+    //para recordar las locaciones origen y destino involucradas en el traslado y la venta
+    public int codigoLocacionOrigen, codigoLocacionDestino;
+
     //aca cargo todos los productores registrados en el sistema
     //de ahi voy a cargar en el combo el nombre de los mismos
     public List<Productor> listaProductores = new ArrayList<>();
@@ -59,7 +68,6 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
     Double saldoMielOrigen, saldoMielDepositoProductorSeleccionado, saldoMielPaga, saldoMielImpaga, totalMielVenta, saldoMielPagaIngresado, saldoMielImpagaIngresado;
  
     int fila = -1;
-    int filaItemsFacturados = -1;
     
     ConexionBD mysql = new ConexionBD();
     Connection cn = mysql.getConexionBD();
@@ -94,7 +102,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         tfPrecioUnitario.setText("0.00");
         tfImporteTotalFactura.setText("$ 0.00");
         
-        //obtenemos el numero de comproabnte en caso de que se seleccione presupuesto
+        //obtenemos el numero de comprobante en caso de que se seleccione presupuesto
         PresupuestoCliente presupuesto = new PresupuestoCliente();
         numeroPresupuesto = String.valueOf(presupuesto.mostrarIdPresupuestoCliente()+1);
 
@@ -234,7 +242,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         ((DefaultTableCellRenderer) tExportadoresInternos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    public ArrayList<Locacion> cargarListaLocaciones() throws SQLException{
+    /*public ArrayList<Locacion> cargarListaLocaciones() throws SQLException{
         
         ArrayList<Locacion> locaciones = new ArrayList<Locacion>();
         Locacion loc0 = new Locacion();
@@ -342,8 +350,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         
         return locaciones;
         
-    }
-        
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -886,7 +893,7 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
             
         }
         
-        //chequea informacion de la factura, la cual es obligatoria para poder registrar la misma
+        //chequea informacion del comprobante, la cual es obligatoria para poder registrar la misma
         if (informacionFactura) {
 
             JOptionPane.showMessageDialog(null, "La informacion correspondiente al comprobante se halla incompleta. Por favor ingresela correctamente.", "REGISTRO DE VENTA A EXPORTADOR INTERNO", JOptionPane.ERROR_MESSAGE);
@@ -914,9 +921,12 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
         //OBTENGO: que tipo de comprobante se escogio para la facturacion de la venta al exportador interno
         //el numero de comprobante del mismo
-        //el total de la factura se auto calcula al ingresar la cantidad de kgs. a facturar
         String numeroComprobante = String.valueOf(tfNumeroComprobante.getText());
+        //el codigo de comprobante, que dependera de la eleccion entre presupuesto y factura (a o c)
         int codigoComprobante = 0;
+        //y el comprobante asociado para cargar en la tabla de stock de miel
+        String comprobanteAsociadoMielPaga = "";
+        String comprobanteAsociadoMielImpaga = "";
         
         //1) 
         //a) Se procede al registro del comprobante correspondiente a la venta
@@ -937,10 +947,12 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
                 if (facturaA.registrarFacturaCliente(facturaA)){
 
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = codigoFactura;
+                    codigoComprobante = facturaA.mostrarIdFacturaCliente();
                     
                 }
-                System.out.println("factura a");
+                
+                comprobanteAsociadoMielPaga = "FACT. A / TRASLADO MIEL PAGA";
+                comprobanteAsociadoMielImpaga = "FACT. A / TRASLADO MIEL IMPAGA";
                 
                 break;
 
@@ -952,11 +964,12 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
                 if (facturaC.registrarFacturaCliente(facturaC)){
                     
                     //obtengo codigo de factura para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = codigoFactura;
+                    codigoComprobante = facturaC.mostrarIdFacturaCliente();
 
                 }
-                System.out.println("factura c");
                 
+                comprobanteAsociadoMielPaga = "FACT. C / TRASLADO MIEL PAGA";
+                comprobanteAsociadoMielImpaga = "FACT. C / TRASLADO MIEL IMPAGA";
                 
                 break;
 
@@ -968,10 +981,12 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
                 if (presupuesto.registrarPresupuestoCliente(presupuesto)){
                     
                     //obtengo codigo de presupuesto para utilizarlo en el almacenamiento de las relaciones
-                    codigoComprobante = codigoPresupuesto;
+                    codigoComprobante = presupuesto.mostrarIdPresupuestoCliente();
+                    
                 }
-                System.out.println("presupuesto");
                 
+                comprobanteAsociadoMielPaga = "PRESUPUESTO / TRASLADO MIEL PAGA";
+                comprobanteAsociadoMielImpaga = "PRESUPUESTO / TRASLADO MIEL IMPAGA";
                 
                 break;
                 
@@ -997,6 +1012,18 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
         ctacteCliente.setEstadoMovimiento("PENDIENTE");
         ctacteCliente.setObservacion("");
         ctacteCliente.registrarMovimientoCtaCteCliente(ctacteCliente);
+        
+        //se deben modificar (actualizar) los registros en la tabla stock de miel
+        //para dejar asentado el tipo y el numero de comprobante en los traslados ventas correspondientes
+        StockRealMiel stock = new StockRealMiel();
+        stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoOrigenMielPaga, comprobanteAsociadoMielPaga, codigoComprobante, numeroComprobante);
+        stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoDestinoMielPaga, comprobanteAsociadoMielPaga, codigoComprobante, numeroComprobante);
+        stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoOrigenMielImpaga, comprobanteAsociadoMielImpaga, codigoComprobante, numeroComprobante);
+        stock.modificarTipoYNumeroComprobanteMovimientoStock(codigoTrasladoDestinoMielImpaga, comprobanteAsociadoMielImpaga, codigoComprobante, numeroComprobante);
+
+        //falta el ajuste y compensacion?????
+
+        JOptionPane.showMessageDialog(null, "La factura ha sido registrada exitosamente.","REGISTRO DE VENTA A EXPORTADOR INTERNO", JOptionPane.INFORMATION_MESSAGE);
 
         this.dispose();
             
@@ -1004,9 +1031,36 @@ public class FrmRegistroFacturaExportadorInterno extends javax.swing.JInternalFr
 
     private void rsbrCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsbrCancelarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE FACTURA DE PRODUCTOR", JOptionPane.INFORMATION_MESSAGE);
-        FacturaProductor factura = new FacturaProductor();
-        factura.eliminarFacturaProductor(codigoFactura);
+        JOptionPane.showMessageDialog(null, "Esta a punto de cerrar el formulario. Se perderan los cambios no guardados.", "REGISTRO DE VENTA A EXPORTADOR INTERNO", JOptionPane.INFORMATION_MESSAGE);
+        
+        //se deben eliminar los movimientos de stock generados en el formulario anterior
+        //y se deben re ajustar los valores de miel paga y miel impaga en las ajustados en el formulario anterior
+        StockRealMiel stock = new StockRealMiel();
+        stock.eliminarMovimientoStock(codigoTrasladoOrigenMielPaga);
+        stock.eliminarMovimientoStock(codigoTrasladoDestinoMielPaga);
+        stock.eliminarMovimientoStock(codigoTrasladoOrigenMielImpaga);
+        stock.eliminarMovimientoStock(codigoTrasladoDestinoMielImpaga);
+        
+        //ademas se deben re ajustar los valores ajustados en el formulario de traslados
+        //volviendo los mismos a sus valores originales
+        AjusteCompensacionStock ajuste = new AjusteCompensacionStock();
+        //Locacion origen
+        Double cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacionOrigen) + mielPagaVendida;
+        Double cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacionOrigen) + mielImpagaVendida;
+        Double cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacionOrigen) - mielImpagaVendida;
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacionOrigen);
+        //Locacion destino
+        cantidadMielPagaLocacion = ajuste.consultarCantidadMielPagaLocacion(codigoLocacionDestino) - mielPagaVendida;
+        cantidadMielImpagaLocacion = ajuste.consultarCantidadMielImpagaLocacion(codigoLocacionDestino) - mielImpagaVendida;
+        cantidadMielImpagaVendidadLocacion = ajuste.consultarCantidadMielImpagaVendidaLocacion(codigoLocacionDestino);
+        ajuste.setStock_miel_pago(cantidadMielPagaLocacion);
+        ajuste.setStock_miel_impago(cantidadMielImpagaLocacion);
+        ajuste.setStock_miel_impago_vendido(cantidadMielImpagaVendidadLocacion);
+        ajuste.modificarValoresMielLocacion(ajuste, codigoLocacionDestino);
+
         this.dispose();
 
     }//GEN-LAST:event_rsbrCancelarActionPerformed

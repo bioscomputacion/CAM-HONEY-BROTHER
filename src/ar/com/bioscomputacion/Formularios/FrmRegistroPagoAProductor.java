@@ -5,6 +5,7 @@
  */
 package ar.com.bioscomputacion.Formularios;
 
+import ar.com.bioscomputacion.Funciones.ComprobantesAcreditacionComprobantesAfectadosProductor;
 import ar.com.bioscomputacion.Funciones.CtaCteProductor;
 import ar.com.bioscomputacion.Funciones.PagoProductor;
 import java.sql.Date;
@@ -514,14 +515,14 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         String comprobanteAsociadoPago = "";
         if (tipoComprobanteAfectadoPago.equals("FACTURA A")){
             
-            comprobanteAsociadoPago = "FACT. A N° "+numeroComprobanteAfectadoPago;
+            comprobanteAsociadoPago = "F. A N° "+numeroComprobanteAfectadoPago;
         
         }
         else{
             
             if (tipoComprobanteAfectadoPago.equals("FACTURA C")){
                 
-                comprobanteAsociadoPago = "FACT. B N° "+numeroComprobanteAfectadoPago;
+                comprobanteAsociadoPago = "F. C N° "+numeroComprobanteAfectadoPago;
                 
             }
             else{
@@ -532,11 +533,22 @@ public class FrmRegistroPagoAProductor extends javax.swing.JInternalFrame {
         
         }
         
-        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, "-", comprobanteAsociadoPago, 0.00, 0.00, importePago, 0.00, "CANCELADO", "");
+        CtaCteProductor ctacte = new CtaCteProductor(codigoProductor, codigoMovimientoCtaCte, new Date(a, m, d), "PAGO", codigoPago, String.valueOf(codigoPago), comprobanteAsociadoPago, 0.00, importePago, 0.00, 0.00, "CANCELADO", "");
         ctacte.registrarMovimientoCtaCteProductor(ctacte);
         
         //3) se modifica el saldo del comprobante afectado por el pago
         ctacte.actualizarSaldoComprobanteProductor(codigoMovimientoCtaCteComprobanteAfectado, codigoProductor, debeComprobante, importePago, haberComprobante);
+        
+        //4) se guarda la relacion entre el pago y el comprobante que se ha pagado
+        ComprobantesAcreditacionComprobantesAfectadosProductor relacion = new  ComprobantesAcreditacionComprobantesAfectadosProductor();
+        relacion.setCodigo_productor(codigoProductor);
+        relacion.setTipo_comprobante_acreditacion("PAGO");
+        relacion.setCodigo_comprobante_acreditacion(codigoPago);
+        relacion.setTipo_comprobante_afectado_credito(tipoComprobanteAfectadoPago);
+        relacion.setCodigo_comprobante_afectado_credito(codigoComprobanteAfectadoPago);
+        relacion.setImporte_acreditado(importePago);
+        relacion.setEstado_acreditacion("VALIDO");
+        relacion.registrarRelacionCreditoComprobanteAfectado(relacion);
         
         FrmCtaCteConProductor.mostrarCtaCteProductor(codigoProductor);
         FrmCtaCteConProductor.ocultarColumnasCtaCte();
